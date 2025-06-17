@@ -1,0 +1,124 @@
+{
+    "menu_chin_string_fixes" : "官方中文修复优化",
+	"menu_chin_string_fixes_desc" : "本模组可以修复原版那些错误的文本，\n也用于即时更新恢复Mod的汉化。",
+	"menu_chin_string_fixes_Enable_String" : "启用模组",
+	"menu_chin_string_fixes_Enable_String_desc" : "勾选以启用模组，\n取消勾选以禁用模组。",
+	"menu_chin_string_fixes_perk_deck_tip" : "天赋名小贴士",
+	"menu_chin_string_fixes_others_tip" : "其它改动",
+	"menu_chin_string_fixes_others_tip_desc" : "该选项包含的内容通常是文本存在错漏许久，但后来官方\"修复\"的部分。\n勾选该选项以启用本模组原先的修复文本。",
+	"menu_chin_string_fixes_Achievement_Guide" : "成就攻略",
+	"menu_chin_string_fixes_Achievement_Guide_desc" : "在少数成就的描述中增加一些帮助你完成成就的提示。\n但还未完成，敬请期待。",
+
+	"chinsf_res_disable" : "禁用",
+	"chinsf_res_main" : "正式版 V12.3.1",
+	"chinsf_res_dev" : "私人平衡补丁V5.1",
+	"chinsf_res_dev_new" : "私人平衡补丁V9.02",
+
+	"CSF_ResModUpdater_title" : "啊哦！",
+	"CSF_DontShowAgain" : "不再提醒",
+	"CSF_UpdateNow" : "现在更新",
+	"CSF_WarnMeLater" : "稍后提醒",
+	"CSF_ResModUpdater_message_r1" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这很可能是因为你没有将恢复私人补丁与汉化都更新到最新版本。",
+	"CSF_ResModUpdater_message_r2" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这可能是你没有安装配置文件或配置文件已丢失。请手动在模组选项中调整“官方中文修复优化”使用的恢复Mod汉化版本。",
+	"CSF_ResModUpdater_message_come" : "检测到你没有使用最新的恢复Mod私人更新补丁哦。\n如果你已经在用了，请尽快更新；\n如果你不知道这是什么，在ModWorkshop上搜索“官方中文修复与优化”进入本模组的主页了解更多信息。\n安装补丁即刻获取更加平衡、更加多样性和更加人性化的体验吧！",
+
+
+
+	"CSF_Quit" : "好的",
+	"CSF_BLT_Text_Title" : "错误",
+	"CSF_BLT_Text_Message" : "你输入的格式有误！",
+	"CSF_QKI_Text_Title" : "请输入你的自定义屏蔽词",
+	"CSF_QKI_Text_Message" : "使用说明：直接输入屏蔽词即可，屏蔽词之间用英文分号;隔开，不可为了好看在分号两边加空格，至少得存在两个屏蔽词。\n格式示例：示例;example;你好;hello\n\n按下大键盘[回车键]确认，按下[ESC]取消，[鼠标]可点击任意文本部分输入。\n可以用鼠标在文本框中使用[Ctrl+C]复制，[Ctrl+V]粘贴，[Ctrl+X]剪切等操作。\n\n\n下面请输入你的内容：",
+	"CSF_QKI_Text_depend_title" : "错误",
+	"CSF_QKI_Text_depend_message" : "未安装或启用前置模组——QuickKeyboardInput",
+	"CSF_Miss_QKI" : "现在下载前置模组",
+	"CSF_Manully_Edit" : "手动编辑配置文件",
+	"CSF_Miss_QKI_title" : "你确定吗？",
+	"CSF_Miss_QKI_message" : "这样打开配置文件可能会出现游戏卡死和无法移动鼠标的情况，但你依然可以使用键盘编辑文件。\n如果出现上述情况，你可以通过按下[Win+Tab]键来切换窗口，按下[Alt+F4]来关闭窗口。\n关闭编辑窗口后，游戏就会恢复正常。",
+	"CSF_Miss_QKI_no" : "取消",
+	"CSF_Miss_QKI_yes" : "确定",
+
+	"CSF_ERROR_CODE_56" : "\n\n错误原因：\n——至少得存在两个屏蔽词\n——你使用的分隔符号是中文分号",
+	"CSF_ERROR_CODE_23" : "\n\n错误原因：\n——隔开用的分号不得存在于头尾",
+	"CSF_ERROR_CODE_0" : "\n错误代码：0——未知错误，请向作者反馈",
+
+	"CSF_ResMod_missing" : "你似乎没有安装恢复Mod！",
+
+
+	"AF_Title" : "注意",
+	"AF_Fool" : "你被骗啦",
+	"AF_Fun" : "愚人节快乐！",
+	"AF_Haha" : "哈哈",
+	"AF_Message" : "未成年人账号仅在周五、周六、周日和法定节假日可以登录游戏，且游戏时间不超过2小时，超过将限制奖励或强制下线。\n您已进行游戏1小时，还有1小时游戏时间，请注意休息。\n若您已成年，请在实名认证后再试。",
+	"AF_Messages" : "未成年人账号仅在周五、周六、周日和法定节假日可以登录游戏，且游戏时间不超过2小时，超过将限制奖励或强制下线。\n您已进行游戏2小时，已用尽游戏时间，游戏奖励已被限制，请注意休息。\n半小时后游戏将会强制关闭。\n若您已成年，请在实名认证后再试。",
+
+
+
+
+	"menu_chin_string_fixes_Stream_Mode" : "直播模式",
+	"menu_chin_string_fixes_Stream_Mode_desc" : "将一些直播违禁词汇和谐掉，近期有出现直播间出现可卡因而被封禁的情况。\n勾选以启用对应文字的和谐。",
+	"menu_chin_string_fixes_CSF_Cocaine" : "可卡因",
+	"menu_chin_string_fixes_CSF_Cocaine_desc" : "“可卡因”改为“可乐”",
+	"menu_chin_string_fixes_CSF_Meth" : "冰毒",
+	"menu_chin_string_fixes_CSF_Meth_desc" : "“冰毒”改为“食盐”",
+	"menu_chin_string_fixes_CSF_Euphadrine" : "麻黄素",
+	"menu_chin_string_fixes_CSF_Euphadrine_desc" : "“麻黄素”改为“黄连素”",
+
+	"menu_chin_string_fixes_CSF_Name" : "昵称屏蔽",
+	"menu_chin_string_fixes_CSF_Name_desc" : "联机时，其它玩家的游戏名中若含有违禁词(如国家主席名)，就会显示为其它字符，例如<昵称已屏蔽>。\n仅对你自己有效。该功能还在开发中，有基本效果，但并未完善。",
+	"menu_chin_string_fixes_CSF_Name_Enable" : "启用",
+	"menu_chin_string_fixes_CSF_Name_Enable_desc" : "勾选以启用昵称屏蔽功能。",
+	"menu_chin_string_fixes_CSF_Name_Display" : "屏蔽显示方式",
+	"menu_chin_string_fixes_CSF_Name_Display_desc" : "选择检测到屏蔽词后将该玩家的名字显示为什么字符。\n默认为<昵称已屏蔽>。",
+
+	"chinsf_name_block" : "默认",
+	"chinsf_name_accid" : "Steam64位ID",
+
+	"menu_chin_string_fixes_CSF_Text" : "聊天屏蔽",
+	"menu_chin_string_fixes_CSF_Text_desc" : "将联机时其它玩家在聊天框发的违禁词也作屏蔽处理。\n仅对你自己有效。",
+
+	"menu_chin_string_fixes_CSF_Text_Chat" : "聊天内容",
+	"menu_chin_string_fixes_CSF_Text_Chat_desc" : "勾选以屏蔽聊天内容中的违禁词。",
+	"menu_chin_string_fixes_CSF_Text_Name" : "未完成",
+	"menu_chin_string_fixes_CSF_Text_Name_desc" : "未完成",
+	"menu_chin_string_fixes_CSF_Text_Custom" : "自定义屏蔽词",
+	"menu_chin_string_fixes_CSF_Text_Custom_desc" : "在此输入你自定义的屏蔽违禁词，重启劫案生效。\n该项需要Hoplib和QKI共同支持，请注意格式！",
+
+
+	"menu_chin_string_fixes_Mod_Support" : "其它模组支持",
+	"menu_chin_string_fixes_Mod_Support_desc" : "该项包含本模组对其它模组的支持开关，包含但不限于修改、汉化等。\n如汉化因原模组更新或其它原因出现问题请及时反馈。",
+	"menu_chin_string_fixes_NoMA" : "改数据给爷爬",
+	"menu_chin_string_fixes_NoMA_desc" : "即No Mutants Allowed。\n简称NoMA。",
+	"menu_chin_string_fixes_NoMA_Enable" : "聊天框文本汉化",
+	"menu_chin_string_fixes_NoMA_Enable_desc" : "勾选以汉化聊天框中检测到数据异常的文本。\n没做完，因个人很久没有使用了，有些少见的忘记了是什么意思，以后再补充吧。",
+
+	"menu_chin_string_fixes_Storyline_Continued" : "故事线续篇",
+	"menu_chin_string_fixes_Storyline_Continued_desc" : "即Storyline_Continued。\n给生涯模式添加了第4章的模组。",
+	"menu_chin_string_fixes_SlC_Enable" : "文本汉化",
+	"menu_chin_string_fixes_SlC_Enable_desc" : "由贴吧用户HUMANSº制作的汉化。",
+
+	"menu_chin_string_fixes_OVKNMSL" : "OVK没马",
+	"menu_chin_string_fixes_OVKNMSL_desc" : "OVK你全家寺观了是不是？",
+	"menu_chin_string_fixes_OVKNMSL_Enable" : "启用接收",
+	"menu_chin_string_fixes_OVKNMSL_Enable_desc" : "勾选以接收来自其它玩家对OVK家人的问候。",
+	"menu_chin_string_fixes_OVKNMSL_Volume" : "音量",
+	"menu_chin_string_fixes_OVKNMSL_Volume_desc" : "在此调整音频的音量大小。",
+
+
+	"menu_chin_string_fixes_Resmod" : "恢复MOD",
+	"menu_chin_string_fixes_Resmod_desc" : "即Restoration Mod。它的汉化更新会优先发布在本模组上。\n当汉化更新量小的时候，为免麻烦他们，我就会把更新放到这里。",
+	"menu_chin_string_fixes_Resmod_Compat" : "模组版本号",
+	"menu_chin_string_fixes_Resmod_Compat_desc" : "在此根据你使用的恢复Mod版本号选择对应版本的汉化。",
+	"menu_chin_string_fixes_Resmod_Updater" : "检查恢复补丁的更新",
+	"menu_chin_string_fixes_Resmod_Updater_desc" : "按下此按钮会调用一个程序检查你是否有私人平衡补丁的更新。\n如果有，会自动访问手动更新的下载页面。私人补丁V8及以上版本才可用。",
+	"menu_chin_string_fixes_res_perk" : "恢复MOD原天赋总结描述还原",
+	"menu_chin_string_fixes_res_perk_desc" : "显示原先恢复MOD自带的天赋总效果描述，但内容无法添加蓝字。\n因个人认为官方的那个总描述效果不是很好，所以想还原一下这个。",
+	
+
+	"chinsf_dialog_ovk" : "官方中文",
+	"chinsf_dialog_sig" : "联合汉化",
+	"chinsf_dialog_ovkplussig" : "官方中文/联合汉化",
+	"chinsf_dialog_origin" : "原PDLG汉化",
+	"chinsf_dialog_LtyR" : "作者的偏好",
+	"menu_chin_string_fixes_perk_deck_tip_desc" : "调整如何显示像安那其这样存在新人误区的天赋名。\n以霸王天赋为例，\"官方中文/联合汉化\"选项的显示方法就是\"首脑/霸王\"。"
+}

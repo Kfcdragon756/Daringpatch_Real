@@ -1,0 +1,15 @@
+{
+  "ene_security" : "白衣GenSec保安",
+  "ene_security_gensec" : "红衣GenSec保安",
+  "ene_nypd_medic" : "医疗兵",
+  "ene_nypd_swat" : "纽约特警",
+  "ene_nypd_heavy" : "纽约重型特警",  
+  "ene_nypd_veteran_cop" : "反恐老兵",
+  "ene_nypd_shield"  : "纽约反恐盾兵",
+  "ene_shield_1" : "纽约FBI盾兵",
+  "ene_sniper_1" : "纽约反恐狙击手",
+  "ene_sniper_2_sc" : "纽约FBI狙击手",
+  "ene_fbi_swat" : "FBI反恐精英",  
+  "ene_fbi_heavy" : "重型FBI反恐精英",
+  "ene_fbi_heavy_r870_sc" : "重型FBI反恐精英"
+}

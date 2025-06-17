@@ -1,0 +1,110 @@
+{
+    "menu_chin_string_fixes" : "Chinese Localization Fixes",
+	"menu_chin_string_fixes_desc" : "Fix wrong texts in vanilla\n and keep Chinese language of ResMod updated.",
+	"menu_chin_string_fixes_Enable_String" : "Enable",
+	"menu_chin_string_fixes_Enable_String_desc" : "Enable or disable the mod.",
+	"menu_chin_string_fixes_perk_deck_tip" : "How to show perk deck?",
+	"menu_chin_string_fixes_others_tip" : "Other String",
+	"menu_chin_string_fixes_others_tip_desc" : "This contains most of wrong string fixed by official.\nCheck this to display how this mod fixed those string before.",
+	"menu_chin_string_fixes_Achievement_Guide" : "Achievement Guide",
+	"menu_chin_string_fixes_Achievement_Guide_desc" : "Check to add some tips on the description of achievements.\nRestart to apply.",
+
+	"chinsf_res_disable" : "Disable",
+	"chinsf_res_main" : "gold",
+	"chinsf_res_dev" : "dev",
+	"chinsf_res_dev" : "dev2",
+
+	"CSF_ResModUpdater_title" : "Ooooops!",
+	"CSF_DontShowAgain" : "Don't show me again",
+	"CSF_UpdateNow" : "Update now",
+	"CSF_WarnMeLater" : "Warn me later",
+	"CSF_ResModUpdater_message_r1" : "It seems that your ResMod Chinese Localization version does not match the ResMod version you are using.\nThis probably because at least one of them are using old versions.",
+	"CSF_ResModUpdater_message_r2" : "It seems that your ResMod Chinese Localization version does not match the ResMod version you are using.\nThis probably due to save config missing. Please set the version on your own.",
+	"CSF_ResModUpdater_message_come" : "It seems that you are not using our latest private resmod patch, please update asap.\nIf you don't know what it is, check out by searching \"Chinese Localization Fixes\" on ModWorkShop.\nYou'll get a more balanced and better gameplay there.",
+
+
+	"menu_chin_string_fixes_Mod_Support" : "Support for Other Mods",
+	"menu_chin_string_fixes_Mod_Support_desc" : "Enable or disable the support for other mods.\nDoes not work when language is not Chinese.",
+	"menu_chin_string_fixes_NoMA" : "No Mutants Allowed",
+	"menu_chin_string_fixes_NoMA_desc" : "NoMA",
+	"menu_chin_string_fixes_NoMA_Enable" : "Enable",
+	"menu_chin_string_fixes_NoMA_Enable_desc" : "Check to enable.",
+
+	"menu_chin_string_fixes_OVKNMSL" : "Press to Kill OVK\'s mama",
+	"menu_chin_string_fixes_OVKNMSL_desc" : "",
+	"menu_chin_string_fixes_OVKNMSL_Enable" : "Receive Audio",
+	"menu_chin_string_fixes_OVKNMSL_Enable_desc" : "Check to receive audio played by other players.",
+	"menu_chin_string_fixes_OVKNMSL_Volume" : "Volume",
+	"menu_chin_string_fixes_OVKNMSL_Volume_desc" : "Adjust the volume of audio.",
+
+
+	"CSF_Quit" : "OK",
+	"CSF_BLT_Text_Title" : "ERROR",
+	"CSF_BLT_Text_Message" : "Malformed Pattern.",
+	"CSF_QKI_Text_Title" : "Please enter your custom banned words.",
+	"CSF_QKI_Text_Message" : "A specific pattern is needed to edit:words are seperated by ;\nExample:damn;gosh\n\nPress [Enter] to confirm, Press [ESC] to cancel, Use your [mouse] to click on or select any part of texts.\nYou can also use [Ctrl+C] to copy,[Ctrl+X] to cut and [Ctrl+V] to paste.\n\nNow, type your own content: ",
+	"CSF_QKI_Text_depend_title" : "ERROR",
+	"CSF_QKI_Text_depend_message" : "An essential dependency is not found:QuickKeyboardInput",
+	"CSF_Miss_QKI" : "Download Now",
+	"CSF_Miss_QKI_title" : "Are You Sure?",
+	"CSF_Miss_QKI_message" : "This may result game freeze and mouse unmovable, but you can still edit the file with keyboard.\nIf the issue occurs, you can press [Win+Tab] to switch between windows, and press [Alt+F4] to shutdown a window.\nAfter shutdown the edit window, the game will work again",
+	"CSF_Miss_QKI_no" : "Cancel",
+	"CSF_Miss_QKI_yes" : "YES",
+
+
+	"CSF_ERROR_CODE_56" : "\nERROR CODE : 56",
+	"CSF_ERROR_CODE_23" : "\nERROR CODE : 23",
+	"CSF_ERROR_CODE_0" : "\nERROR CODE : 0",
+
+	"CSF_ResMod_missing" : "You don't have Restoration Mod installed!",
+
+
+	"menu_chin_string_fixes_Stream_Mode" : "Streaming Mode",
+	"menu_chin_string_fixes_Stream_Mode_desc" : "Make banned words harmonious when streaming.",
+	"menu_chin_string_fixes_CSF_Cocaine" : "Cocaine",
+	"menu_chin_string_fixes_CSF_Cocaine_desc" : "\"Cocaine\" to \"Cola\"",
+	"menu_chin_string_fixes_CSF_Meth" : "Meth",
+	"menu_chin_string_fixes_CSF_Meth_desc" : "\"Meth\" to \"Salt\"",
+	"menu_chin_string_fixes_CSF_Euphadrine" : "Euphadrine",
+	"menu_chin_string_fixes_CSF_Euphadrine_desc" : "\"Euphadrine\" to \"Berberine\"",
+	"menu_chin_string_fixes_CSF_Name" : "Sensitive Name Blocker",
+	"menu_chin_string_fixes_CSF_Name_desc" : "Show something like \"<Name Muted>\" if someone is using an sensitive game name.\nOnly work for yourself. Already functional, but WIP.",
+	"menu_chin_string_fixes_CSF_Name_Enable" : "Enable",
+	"menu_chin_string_fixes_CSF_Name_Enable_desc" : "Check to Enable.",
+	"menu_chin_string_fixes_CSF_Name_Display" : "How to Display Muted Name?",
+	"menu_chin_string_fixes_CSF_Name_Display_desc" : "<Name Muted> for Default.",
+
+	"chinsf_name_block" : "Default",
+	"chinsf_name_accid" : "Steam 64-bit ID",
+	
+	"menu_chin_string_fixes_CSF_Text" : "Sensitive Chat Blocker",
+	"menu_chin_string_fixes_CSF_Text_desc" : "Ban banned words in Chat Box.\nOnly work for yourself.",
+
+	"menu_chin_string_fixes_CSF_Text_Chat" : "Chat Content",
+	"menu_chin_string_fixes_CSF_Text_Chat_desc" : "Check to ban words in content of chatting.",
+	"menu_chin_string_fixes_CSF_Text_Name" : "WIP",
+	"menu_chin_string_fixes_CSF_Text_Name_desc" : "Working In Progress",
+	"menu_chin_string_fixes_CSF_Text_Custom" : "Custom Banned Word",
+	"menu_chin_string_fixes_CSF_Text_Custom_desc" : "Customize your banned words here, restart to apply.\nHoplib and QKI are needed!",
+
+	"menu_chin_string_fixes_Storyline_Continued" : "Storyline Continued",
+	"menu_chin_string_fixes_Storyline_Continued_desc" : "The Mod that adds 4th chapter for Storyline.",
+	"menu_chin_string_fixes_SlC_Enable" : "Enable",
+	"menu_chin_string_fixes_SlC_Enable_desc" : "Check to enable.",
+
+	"menu_chin_string_fixes_Resmod" : "Restoration Mod",
+	"menu_chin_string_fixes_Resmod_Compat" : "Version(Branch)",
+	"menu_chin_string_fixes_Resmod_Compat_desc" : "Choose the branch of Restoration MOD.\nThis setting makes no effect when your game language is not Chinese.",
+	"menu_chin_string_fixes_Resmod_Updater" : "Resmod Patch Updater",
+	"menu_chin_string_fixes_Resmod_Updater_desc" : "Press the button will check if you are using the newest ResMod made by myself.\nIf so, it will auto start your browser and download.Patch V8 or higher version is requested.",
+	"menu_chin_string_fixes_res_perk" : "Origin ResMod Perk Desc",
+	"menu_chin_string_fixes_res_perk_desc" : "Show the original texts of perk description on Restoration Mod.",
+	
+
+	"chinsf_dialog_ovk" : "Official",
+	"chinsf_dialog_sig" : "Unite",
+	"chinsf_dialog_ovkplussig" : "Official/Unite",
+	"chinsf_dialog_origin" : "Original PDLG",
+	"chinsf_dialog_LtyR" : "Author's Preference",
+	"menu_chin_string_fixes_perk_deck_tip_desc" : "Official: 官方中文\nUnite: 联合汉化"
+}

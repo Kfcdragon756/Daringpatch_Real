@@ -1,0 +1,73 @@
+{
+	"name" : "Chinese Locale String Fixes",
+	"description" : "Fix wrong texts and update restoration mod localization",
+	"author" : "LR_Daring",
+	"priority" : -999,
+	"contact" : "",
+	"version" : "8.0-(V9.02)-0",
+	"image" : "mod.png",
+	"hooks" : [
+		{   
+			"hook_id" : "lib/managers/menumanager",
+			"script_path" : "Core.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "Core.lua"
+		},
+		{   
+			"hook_id" : "lib/tweak_data/upgradestweakdata",
+			"script_path" : "Core.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/gameplaycentralmanager",
+			"script_path" : "Core.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/menu/stageendscreengui",
+			"script_path" : "Core.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "resloc/resmod_compat.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "lua/string.lua"
+		},
+		{   
+			"hook_id" : "lib/tweak_data/upgradestweakdata",
+			"script_path" : "lua/string.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "lua/achievement_guide.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/localizationmanager",
+			"script_path" : "lua/streaming_mode.lua"
+		},
+		{   
+			"hook_id" : "lib/managers/chatmanager",
+			"script_path" : "lua/Stream_Mode/Chat/chatmanager.lua"
+		},
+		{   
+			"hook_id" : "lib/network/base/networkpeer",
+			"script_path" : "lua/Stream_Mode/Chat/networkpeer.lua"
+		},
+		{
+			"hook_id" : "lib/tweak_data/weaponfactorytweakdata",
+			"script_path" : "lua/weaponfactorytweakdata.lua"
+		}
+	],
+
+	"updates" : [
+       {
+        "identifier" : "pd2_chinese_locale_string_fixes",
+        "host": {
+            "meta": "https://gitlab.com/LeftOwlRight/Chinese-Locale-String-Fixes-and-Optimization/-/raw/main/meta.json"
+                }
+        }
+    ]
+}
+
