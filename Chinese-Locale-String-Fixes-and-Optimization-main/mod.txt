@@ -4,7 +4,7 @@
 	"author" : "LR_Daring",
 	"priority" : -999,
 	"contact" : "",
-	"version" : "8.0-(V9.02)-0",
+	"version" : "8.0-(V9.03)-0",
 	"image" : "mod.png",
 	"hooks" : [
 		{   

@@ -18946,7 +18946,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.ashot.timers = deep_clone(self.new_raging_bull.timers)
 		end	
 
-		if self.ar2 then --OSIPR AR2 
+		if self.ar2 then --OSIPR AR2 -kfc756
 			self.ar2.recategorize = { "heavy_ar" }	
 			self.ar2.damage_type = "assault_rifle"
 			self.ar2.AMMO_MAX = 120
@@ -18980,9 +18980,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.ar2.panic_suppression_chance = 0.05
 			self.ar2.stats_modifiers = nil
 		end
-
-
-
 
 	--[[     CAP/WEAPONLIB REQUIRING THINGS     ]]	
 		-- Currently low priority. If it REQUIRES Weaponlib (some Weaponlib weapons just need CAP's functionality, those are fine) then it's a no-go for now

@@ -73,6 +73,8 @@ local content = read_txt_file(loc_path)
 local version_path = "mods/restoration-mod/update/version.json"
 if ChinStringFixes.Res_Path then
 	version_path = ChinStringFixes.Res_Path .. "update/version.json"
+elseif SC and SC._path then
+    version_path = SC._path .. "update/version.json"
 end
 local local_version = read_json_file(version_path)  --res版本号路径
 

@@ -12,7 +12,7 @@
 	"chinsf_res_disable" : "禁用",
 	"chinsf_res_main" : "正式版 V12.3.1",
 	"chinsf_res_dev" : "私人平衡补丁V5.1",
-	"chinsf_res_dev_new" : "私人平衡补丁V9.02",
+	"chinsf_res_dev_new" : "私人平衡补丁V9.03",
 
 	"CSF_ResModUpdater_title" : "啊哦！",
 	"CSF_DontShowAgain" : "不再提醒",

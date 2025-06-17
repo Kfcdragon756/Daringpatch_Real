@@ -1931,9 +1931,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_w_x_akmsu"] = "双持Krinkov步枪",
         ["bm_x_akmsu_sc_desc"] = "专门撂倒大个的小不点。无论什么方案都固执己见使这把枪不可被低估。",
         -- CUSTOM 60 DAMAGE ARs
-		--OSIPR
-		["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
-		["bm_w_ar2_desc"] = "装甲核心标准脉冲来复枪，又称脉冲步枪或AR2，是一种由联合帝国制造的暗能突击步枪。",
+            --OSIPR
+            ["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
+            ["bm_w_ar2_desc"] = "装甲核心标准脉冲来复枪，又称脉冲步枪或AR2，是一种由联合帝国制造的暗能突击步枪。",
         -- SCAR-L
         ["bm_w_scarl"] = "Eagle步枪",
         -- Valmet Rk.62
