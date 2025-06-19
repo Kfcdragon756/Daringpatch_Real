@@ -314,11 +314,69 @@ function BlackMarketManager:get_real_mask_id(mask_id, peer_id, char)
 
 		return "dallas"
 	end
+	
+	local high_noon = char and not peer_id and (Global.mutators.mutator_values.MutatorHighNoon and Global.mutators.mutator_values.MutatorHighNoon.enabled)
+	if high_noon then
+		local yippiekiyay = {
+			"bandit",
+			"saloonstar",
+			"saloonshade",
+			"saloonlightlea",
+			"saloondarklea",
+			"bossflagmask"
+		}
+		return table.random(yippiekiyay)
+	end
 
-	local i_just_drank_my_toilet_water = not peer_id and math.rand(1) or 10
-	if char and char == "wild" and i_just_drank_my_toilet_water <= 0.01 then
-		local how_does_that_make_you_feel_lil_donnie = math.rand(1)
-		return how_does_that_make_you_feel_lil_donnie <= 0.01 and "win_donald_mega" or "win_donald"
+	local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSACText")
+	if not easterless then
+		local i_just_drank_my_toilet_water = not peer_id and math.rand(1) or 10
+		if char and char == "wild" and i_just_drank_my_toilet_water <= 0.01 then
+			local how_does_that_make_you_feel_lil_donnie = math.rand(1)
+			return how_does_that_make_you_feel_lil_donnie <= 0.01 and "win_donald_mega" or "win_donald"
+		end
+
+		local uoh = {
+				russian = "dallas_glow",
+				american = "hoxton_glow",
+				german = "wolf_glow",
+				spanish = "chains_glow",
+				old_hoxton = "hoxton_glow",
+				female_1 = "pdc16_clover",
+				jimmy = "jimmy",
+				wild = "mrm",
+				max = "mega_max",
+				sydney = "swm_sydney",
+				myh = "mmh",
+		}
+
+		local megalovania = not peer_id and math.rand(1) or 10
+		if megalovania <= 0.05 then
+			if uoh[char] then
+				return uoh[char]
+			end
+		end
+
+		local hag = {
+				bodhi = "ami_02",
+				jowi = "mdm",
+				bonnie = "ami_05",
+				dragan = "cop_mega_gage_blade",
+				ecp_male = "smo_10",
+				ecp_female = "skm_06",
+				chico = "ami_06",
+				dragon = "megacthulhu",
+				jacket = "smo_07",
+				sokol = "ami_03",
+				joy = "cop_kawaii",
+		}
+
+		local tableslam = not peer_id and math.rand(1) or 10
+		if tableslam <= 0.025 then
+			if hag[char] then
+				return hag[char]
+			end
+		end
 	end
 
 	if tweak_data.blackmarket.masks[mask_id].characters then
@@ -343,4 +401,67 @@ function BlackMarketManager:get_real_mask_id(mask_id, peer_id, char)
 	local character = self:get_real_character(char, peer_id)
 
 	return tweak_data.blackmarket.masks[mask_id][character] or "dallas"
+end
+
+function BlackMarketManager:equipped_melee_weapon_damage_info(lerp_value)
+	lerp_value = lerp_value or 0
+	local melee_entry = self:equipped_melee_weapon()
+	local stats = tweak_data.blackmarket.melee_weapons[melee_entry].stats
+	local primary = self:equipped_primary()
+	local secondary = self:equipped_secondary()
+	local primary_bayonet_id = self:equipped_bayonet_res(primary.weapon_id)
+	local secondary_bayonet_id = self:equipped_bayonet_res(secondary.weapon_id)
+	local player = managers.player:player_unit()
+
+	if primary_bayonet_id and player:movement():current_state()._equipped_unit:base():selection_index() == 2 and melee_entry == "weapon" then
+		stats = tweak_data.weapon.factory.parts[primary_bayonet_id].stats
+	end
+
+	if secondary_bayonet_id and player:movement():current_state()._equipped_unit:base():selection_index() == 1 and melee_entry == "weapon" then
+		stats = tweak_data.weapon.factory.parts[secondary_bayonet_id].stats
+	end
+
+	local dmg = math.lerp(stats.min_damage, stats.max_damage, lerp_value)
+	local dmg_effect = dmg * math.lerp(stats.min_damage_effect, stats.max_damage_effect, lerp_value)
+	
+	return dmg, dmg_effect
+end
+
+function BlackMarketManager:equipped_bayonet_res(weapon_id)
+	local available_weapon_mods = managers.weapon_factory:get_parts_from_weapon_id(weapon_id)
+	local has_bayonet = available_weapon_mods and (available_weapon_mods.bayonet or available_weapon_mods.knife_addon)
+	local equipped_weapon_mods_p = managers.blackmarket:equipped_item("primaries").blueprint
+	local equipped_weapon_mods_s = managers.blackmarket:equipped_item("secondaries").blueprint
+
+	if available_weapon_mods and has_bayonet then
+		for _, mod in ipairs(equipped_weapon_mods_p) do
+			for _, bayonet in ipairs(has_bayonet) do
+				if mod == bayonet then
+					return bayonet
+				end
+			end
+		end
+	end
+	if available_weapon_mods and has_bayonet then
+		for _, mod in ipairs(equipped_weapon_mods_s) do
+			for _, bayonet in ipairs(has_bayonet) do
+				if mod == bayonet then
+					return bayonet
+				end
+			end
+		end
+	end
+
+	return nil
+end
+
+function BlackMarketManager:_calculate_suspicion_offset(index, lerp)
+	local con_val = tweak_data.weapon.stats.concealment[math.floor(index)]
+	local min_val = tweak_data.weapon.stats.concealment[1]
+	local max_val = tweak_data.weapon.stats.concealment[#tweak_data.weapon.stats.concealment]
+	local max_ratio = max_val / min_val
+	local mul_ratio = math.max(1, con_val / min_val)
+	local susp_lerp = math.clamp(1 - (con_val - min_val) / (max_val - min_val), 0, 1)
+
+	return math.lerp(0, lerp, susp_lerp)
 end

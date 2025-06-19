@@ -353,6 +353,7 @@ function PlayerManager:on_killshot(killed_unit, variant, headshot, weapon_id)
 
 	if variant == "melee" then
 		regen_health_bonus = regen_health_bonus + self:upgrade_value("player", "melee_kill_life_leech", 0)
+		player_unit:movement():add_stamina(player_unit:movement():_max_stamina() * self:upgrade_value("player", "melee_kill_stamina", 0))
 	end
 
 	if damage_ext and regen_health_bonus > 0 then
@@ -778,9 +779,9 @@ function PlayerManager:check_skills()
 	end
 
 	if self:has_category_upgrade("player", "special_double_drop") then
-		self._message_system:register(Message.OnEnemyKilled, "special_double_ammo_drop", callback(self, self, "_on_spawn_special_ammo_event"))
+		self._message_system:register(Message.OnLethalHeadShot, "special_double_ammo_drop", callback(self, self, "_on_spawn_special_ammo_event"))
 	else
-		self._message_system:unregister(Message.OnEnemyKilled, "special_double_ammo_drop")
+		self._message_system:unregister(Message.OnLethalHeadShot, "special_double_ammo_drop")
 	end
 
 	if self:has_category_upgrade("temporary", "headshot_fire_rate_mult") then
@@ -1053,6 +1054,11 @@ function PlayerManager:_internal_load()
 		power = 0,
 		start_time = 0
 	}
+	
+	--Remove sticky buff trackers
+	if not self._unseen_strike then
+		managers.hud:remove_skill("unseen_strike")
+	end
 
 	--Precache detection risk, so that the value does not need to be recalculated every frame (very slow).
 	self._detection_risk = math.round(managers.blackmarket:get_suspicion_offset_of_local(tweak_data.player.SUSPICION_OFFSET_LERP or 0.75) * 100)
@@ -1126,12 +1132,12 @@ end
 --Move hostage taker to flat # regen from % regen. Add max hostage regen bonus.
 function PlayerManager:fixed_health_regen()
 	local health_regen = 0
-	health_regen = health_regen + self:upgrade_value("team", "crew_health_regen", 0)
 	health_regen = health_regen + self:get_hostage_bonus_addend("health_regen")
 	local groupai = managers.groupai and managers.groupai:state()
-	if (groupai and groupai:hostage_count() + (groupai._num_converted_police or self:num_local_minions()) or self:num_local_minions() or 0) >= tweak_data:get_raw_value("upgrades", "hostage_max_num", "health_regen") then
-		health_regen = health_regen + self:get_hostage_bonus_addend("health_regen") * self:upgrade_value("player", "hostage_health_regen_max_mult", 0)
+	if self:has_category_upgrade("player", "hostage_health_regen_max_mult") and ((groupai and groupai:hostage_count() + (groupai._num_converted_police or self:num_local_minions()) or self:num_local_minions() or 0) >= tweak_data:get_raw_value("upgrades", "hostage_max_num", "health_regen")) then
+		health_regen = health_regen * self:upgrade_value("player", "hostage_health_regen_max_mult", 0)
 	end
+	health_regen = health_regen + self:upgrade_value("team", "crew_health_regen", 0)
 	
 	return health_regen
 end
@@ -1150,7 +1156,8 @@ function PlayerManager:apply_slow_debuff(duration, power, was_from_enemy, ignore
 			start_time = Application:time()
 		}
 		if not ignore_hud then
-			managers.hud:activate_effect_screen(duration, {0.0, 0.2, power})
+			local effect_alpha = (restoration.Options:GetValue("HUD/Extra/ScreenEffectAlpha") or 1)
+			managers.hud:activate_effect_screen(duration, Vector3(0.0, 0.2, power) * effect_alpha)
 		end
 	end
 end
@@ -1194,8 +1201,10 @@ function PlayerManager:check_selected_equipment_placement_valid(player)
 	end
 end
 
---Professional aced extra ammo when killing specials and elites.
-function PlayerManager:_on_spawn_special_ammo_event(equipped_unit, variant, killed_unit)
+--Professional aced extra ammo when killing specials and elites with headshots.
+function PlayerManager:_on_spawn_special_ammo_event(attack_data)
+	local variant = attack_data.variant
+	local killed_unit = attack_data.col_ray and attack_data.col_ray.unit
 	if killed_unit.base and tweak_data.character[killed_unit:base()._tweak_table].priority_shout and variant and variant == "bullet" then
 		local tracker = killed_unit.movement and killed_unit:movement():nav_tracker()
 	    local position = tracker and tracker:lost() and tracker:field_position() or tracker:position()
@@ -1279,6 +1288,10 @@ end
 function PlayerManager:check_enduring()
 	if not self._assaults_to_extra_revive then
 		self._assaults_to_extra_revive = Global.game_settings.single_player and 1 or 2
+		
+		if restoration.Options:GetValue("OTHER/DisableSoloBoons") then
+			self._assaults_to_extra_revive = 2
+		end
 	end
 
 	if self._assaults_to_extra_revive and alive(self:player_unit()) then
@@ -1745,5 +1758,24 @@ function PlayerManager:wpn_is_138_max()
 		if v == 3 then
 			return true
 		end
+	end
+end
+
+-- Tag Team: tagged player will hear activation sound
+Hooks:PostHook(PlayerManager, "sync_tag_team", "sync_tag_team_sound_effect", function(self, tagged, owner, end_time)
+	if tagged == self:local_player() then
+		self:local_player():sound():play(tweak_data.blackmarket.projectiles.tag_team.sounds.activate)
+	end
+end)
+
+-- Make cooldown for picking up bags consistent instead of random
+local drop_carry_original = PlayerManager.drop_carry
+function PlayerManager:drop_carry(...)
+	local carry_data = self:get_my_carry_data()
+
+	drop_carry_original(self, ...)
+
+	if carry_data then
+		self._carry_blocked_cooldown_t = Application:time() + 0.5
 	end
 end

@@ -20,7 +20,7 @@ local math_ceil = math.ceil
 local table_insert = table.insert
 local world_g = World
 
--- Debug draw options.
+--Debug draw options.
 local draw_explosion_sphere = nil
 local draw_sync_explosion_sphere = nil
 local draw_splinters = nil
@@ -29,7 +29,7 @@ local draw_splinter_hits = nil
 local draw_shield_obstructions = nil
 local draw_duration = 3
 
--- Allow for explosives to carry DoT data since FireManager based explosions seem to really hate Dozers and also support for curve_pow
+--Allow for explosives to carry DoT data since FireManager based explosions seem to really hate Dozers and also support for curve_pow
 function ExplosionManager:_damage_characters(detect_results, params, variant, damage_func_name)
     local user_unit = params.user
     local owner = params.owner
@@ -322,25 +322,25 @@ function ExplosionManager:_damage_characters(detect_results, params, variant, da
         count_criminal_kills = counts.criminals.kills
     }
 
-    return results
+	return results
 end
 
 function ExplosionManager:give_local_player_dmg(pos, range, damage)
-    local player = managers.player:player_unit()
-    local los = managers.environment_controller:test_line_of_sight(pos + Vector3(0, 0, 150), 200, range / 3, range) or 0
+	local player = managers.player:player_unit()
+	local los = managers.environment_controller:test_line_of_sight(pos + Vector3(0, 0, 150), 200, range / 3, range) or 0
 
-    if player and los > 0 then
-        player:character_damage():damage_explosion({
-            attacker_unit = player,
-            variant = "explosion",
-            position = pos,
-            range = range,
-            damage = damage
-        })
-    end
+	if player and los > 0 then
+		player:character_damage():damage_explosion({
+			attacker_unit = player,
+			variant = "explosion",
+			position = pos,
+			range = range,
+			damage = damage
+		})
+	end
 end
 
--- Old ExplosionManager stuff; keeping as a means of reference in case anything resmod needs is missing from updated code to support U240.3
+--Old ExplosionManager stuff; keeping as a means of reference in case anything resmod needs is missing from updated code to support U240.3
 --[[
 --Alt version of vanilla _detect_hits. Kept as is to avoid crashing if Overkill adds in a new grenade type.
 --Generates splinters and returns objects that might potentially be hit.
