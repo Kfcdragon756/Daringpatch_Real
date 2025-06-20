@@ -95,8 +95,8 @@ function SkillTreeTweakData:init(tweak_data)
 		"sentry_gun_silent",
 		"player_tape_loop_duration_1",
 		"player_civ_calming_alerts",
-		"player_detection_risk_stamina_regen"
-	}
+		"player_detection_risk_stamina_regen",
+		"player_detection_risk_dash_count"	}
 
 --[[   SKILLTREES   ]]--
 	--{
@@ -1643,7 +1643,8 @@ function SkillTreeTweakData:init(tweak_data)
 				},
 				[2] = {
 					upgrades = {
-						"pistol_swap_speed_multiplier_1"
+						"pistol_swap_speed_multiplier_1",
+						"akimbo_swap_speed_multiplier_1"
 					},
 					cost = self.costs.pro
 				}
@@ -1656,14 +1657,16 @@ function SkillTreeTweakData:init(tweak_data)
 				["icon_xy"] = {11, 0},
 				[1] = {
 					upgrades = {
-						"pistol_hip_fire_spread_multiplier"
+						"pistol_hip_fire_spread_multiplier",
+						"akimbo_hip_fire_spread_multiplier"
 					},
 					cost = self.costs.hightier
 				},
 				[2] = {
 					upgrades = {
 						"pistol_fire_rate_multiplier",
-						"pistol_ap_bullets_1"
+						"pistol_ap_bullets_1",
+						"akimbo_ap_bullets_1"
 					},
 					cost = self.costs.hightierpro
 				}
@@ -1908,6 +1911,7 @@ function SkillTreeTweakData:init(tweak_data)
 				},
 				[2] = {
 					upgrades = {
+						"player_counter_strike_spooc_sprint",
 						"player_deflect_ranged",
 						"player_spooc_damage_resist_2"
 					},
@@ -2021,6 +2025,7 @@ function SkillTreeTweakData:init(tweak_data)
 			"passive_player_xp_multiplier_1",
 			"player_passive_suspicion_bonus",
 			"player_passive_armor_movement_penalty_multiplier",
+			"weapon_passive_reload_speed_multiplier",
 			"weapon_passive_damage_multiplier_2",
 			"player_non_special_melee_multiplier_2",
 			"player_melee_damage_multiplier_2"			
@@ -2033,6 +2038,7 @@ function SkillTreeTweakData:init(tweak_data)
 	local deck6 = {
 		upgrades = {
 			"armor_kit",
+			"weapon_passive_pick_up_multiplier",
 			"weapon_passive_damage_multiplier_3",
 			"player_non_special_melee_multiplier_3",
 			"player_melee_damage_multiplier_3"			
@@ -2163,6 +2169,7 @@ function SkillTreeTweakData:init(tweak_data)
 			{
 				upgrades = {
 					"player_panic_suppression",
+					"player_panic_suppression_mult_1",
 					"player_passive_dodge_chance_2"
 				},
 				cost = 2400,
@@ -2189,6 +2196,7 @@ function SkillTreeTweakData:init(tweak_data)
 	local sc_armorer = {
 			name_id = "menu_st_spec_3",
 			desc_id = "menu_st_spec_3_desc",
+			force_icon = 5,
 			category = "defensive",
 			{
 				upgrades = {
@@ -2442,6 +2450,7 @@ function SkillTreeTweakData:init(tweak_data)
 	local sc_burglar = {
 			name_id = "menu_st_spec_7",
 			desc_id = "menu_st_spec_7_desc",
+			force_icon = 5,
 			dlc = "character_pack_clover",
 			category = "defensive",
 			{
@@ -2593,6 +2602,7 @@ function SkillTreeTweakData:init(tweak_data)
 			{
 				upgrades = {
 					"player_melee_kill_life_leech",
+					"player_melee_kill_stamina",
 					"player_corpse_dispose_amount_2"
 				},
 				cost = 1000,
@@ -2716,7 +2726,8 @@ function SkillTreeTweakData:init(tweak_data)
 			deck4,
 			{
 				upgrades = {
-					"player_damage_to_hot_extra_ticks"
+					"player_damage_to_hot_extra_ticks",
+					"bodybags_bag_quantity"
 				},
 				cost = 1000,
 				icon_xy = {2, 6},
@@ -2726,8 +2737,7 @@ function SkillTreeTweakData:init(tweak_data)
 			deck6,
 			{
 				upgrades = {
-					"player_damage_to_hot_3",
-					"bodybags_bag_quantity"
+					"player_damage_to_hot_3"
 				},
 				cost = 2400,
 				icon_xy = {4, 0},
@@ -3074,15 +3084,17 @@ function SkillTreeTweakData:init(tweak_data)
 				}
 			},
 			name_id = "menu_st_spec_16",
-			dlc = "wild",
 			desc_id = "menu_st_spec_16_desc",
-			category = "defensive"
+			force_icon = 1,
+			category = "defensive",
+			dlc = "wild"
 		}
 
 	--YOU AND I--
 	local sc_scarface = {
 			name_id = "menu_st_spec_17",
 			desc_id = "menu_st_spec_17_desc",
+			force_icon = 1,
 			category = {
 				"offensive",
 				"activated"
@@ -3151,6 +3163,7 @@ function SkillTreeTweakData:init(tweak_data)
 	local sc_wall = {
 			name_id = "menu_st_spec_18",
 			desc_id = "menu_st_spec_18_desc",
+			force_icon = 1,
 			category = {
 				"supportive",
 				"activated"
@@ -3370,12 +3383,13 @@ function SkillTreeTweakData:init(tweak_data)
 				}
 			},
 			name_id = "menu_st_spec_20",
-			dlc = "ecp",
 			desc_id = "menu_st_spec_20_desc",
+			force_icon = 1,
 			category = {
 				"supportive",
 				"activated"
-			}
+			},
+			dlc = "ecp"
 		}
 		
 	--You need a science skill of 100 to understand the fuck's the point of this perk deck--
@@ -3453,6 +3467,7 @@ function SkillTreeTweakData:init(tweak_data)
 			},
 			desc_id = "menu_st_spec_21_desc",
 			name_id = "menu_st_spec_21",
+			force_icon = 1,
 			category = {
 				"supportive",
 				"activated"
@@ -3542,6 +3557,7 @@ function SkillTreeTweakData:init(tweak_data)
 			},
 			desc_id = "menu_st_spec_22_desc",
 			name_id = "menu_st_spec_22",
+			force_icon = 1,
 			category = {
 				"offensive",
 				"activated"
