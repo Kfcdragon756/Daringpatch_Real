@@ -155,6 +155,11 @@ function WeaponDescription._get_skill_stats(name, category, slot, base_stats, mo
 						mult = mult + (1 - managers.player:upgrade_value(category, "reload_speed_multiplier", 1))
 						skill_in_effect = true
 					end
+				end	
+				local is_pro = Global.game_settings and Global.game_settings.one_down
+				if not is_pro then
+					mult = mult / managers.player:upgrade_value("weapon", "passive_reload_speed_multiplier", 1)
+					skill_in_effect = true
 				end
 				mult = 1 / managers.blackmarket:_convert_add_to_mul(mult)
 				local diff = base_stats[stat.name].value * mult - base_stats[stat.name].value
@@ -710,7 +715,8 @@ end
 function WeaponDescription._get_base_pickup(weapon, name)
 	local weapon_tweak = tweak_data.weapon[name]
 	local average_pickup = (weapon_tweak.AMMO_PICKUP[1] + weapon_tweak.AMMO_PICKUP[2]) * 0.5
-	return average_pickup
+	local is_controller = ((managers.menu:get_controller():get_default_controller_id() ~= "keyboard" and not _G.IS_VR) and 1.15) or 1
+	return average_pickup * is_controller
 end
 
 function WeaponDescription._get_mods_pickup(weapon, name, base_stats)
@@ -727,12 +733,19 @@ function WeaponDescription._get_mods_pickup(weapon, name, base_stats)
 			max_pickup = max_pickup * stats.alt_ammo_pickup_max_mul
 		end
 	end
-	local average_pickup = (min_pickup + max_pickup) * 0.5
+	local is_controller = ((managers.menu:get_controller():get_default_controller_id() ~= "keyboard" and not _G.IS_VR) and 1.15) or 1
+	local average_pickup = (min_pickup + max_pickup) * 0.5 * is_controller
 	return average_pickup - base_stats.pickup.value
 end
 
 function WeaponDescription._get_skill_pickup(weapon, name, base_stats, mods_stats)
 	local pickup_multiplier = managers.player:upgrade_value("player", "fully_loaded_pick_up_multiplier", 1)
+
+	local is_pro = Global.game_settings and Global.game_settings.one_down
+	local is_solo = (Global.game_settings and Global.game_settings.single_player and 2) or 1
+	if not is_pro then
+		pickup_multiplier = pickup_multiplier * ( ((managers.player:upgrade_value("player", "passive_pick_up_multiplier", 1) - 1) * is_solo) + 1 )
+	end
 
 	local weapon_tweak = tweak_data.weapon[name]
 	for _, category in ipairs(weapon_tweak.categories) do
@@ -752,7 +765,8 @@ function WeaponDescription._get_skill_pickup(weapon, name, base_stats, mods_stat
 				max_pickup = max_pickup * stats.alt_ammo_pickup_max_mul
 			end
 		end
-		local average_pickup = (min_pickup + max_pickup) * 0.5
+		local is_controller = ((managers.menu:get_controller():get_default_controller_id() ~= "keyboard" and not _G.IS_VR) and 1.15) or 1
+		local average_pickup = (min_pickup + max_pickup) * 0.5 * is_controller
 		return true, average_pickup - mods_stats.pickup.value - base_stats.pickup.value
 	else
 		return false, 0

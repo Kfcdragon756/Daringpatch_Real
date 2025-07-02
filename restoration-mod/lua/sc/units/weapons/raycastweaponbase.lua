@@ -14,6 +14,10 @@ local math_lerp = math.lerp
 local tmp_vec1 = Vector3()
 local tmp_vec2 = Vector3()
 local tmp_rot1 = Rotation()
+local mvec_to = Vector3()
+local mvec_right_ax = Vector3()
+local mvec_up_ay = Vector3()
+local mvec_spread_direction = Vector3()
 local is_pro = Global.game_settings and Global.game_settings.one_down
 local heal_attach = {"dr_wei_MR", "dr_wei_MR_saw"}
 local un_fire_weapon = {'saw', 'saw_secondary'}
@@ -40,9 +44,16 @@ function RaycastWeaponBase:init(...)
 end
 
 local setup_original = RaycastWeaponBase.setup
-function RaycastWeaponBase:setup(...)
-	setup_original(self, ...)
-	
+function RaycastWeaponBase:setup(setup_data, damage_multiplier)
+	setup_original(self, setup_data, damage_multiplier)
+
+	local panic_mult = (managers.player:has_category_upgrade("player", "panic_suppression_mult") and managers.player:upgrade_value("player", "panic_suppression_mult")) or 0
+
+	self._panic_suppression_chance = managers.player:has_category_upgrade("player", "panic_suppression") and panic_mult
+	if self._panic_suppression_chance == 0 then
+		self._panic_suppression_chance = false
+	end
+
 	--self._bullet_slotmask = self._bullet_slotmask - World:make_slot_mask(16)
 
 	--Use stability stat to get the moving accuracy penalty.
@@ -72,6 +83,8 @@ function RaycastWeaponBase:setup(...)
 	self._no_cheevo_kills_without_releasing_trigger = 0
 	self._kills_to_head_shot_stacks = self._automatic_kills_to_head_shot_min_stacks
 	self._fire_to_head_shot_stacks = self._automatic_fire_to_head_shot_min_stacks
+	self._shot_recoil_pattern_count = 0
+	self._shot_recoil_magnitude_count = 0
 end
 
 function RaycastWeaponBase:get_damage_type()
@@ -108,7 +121,7 @@ function RaycastWeaponBase:_collect_hits(from, to)
 		ignore_units = self._setup.ignore_units
 	}
 
-	return RaycastWeaponBase.collect_hits(from, to, setup_data)
+	return RaycastWeaponBase.collect_hits(from, to, setup_data, self._unit)
 end
 
 local armour = {
@@ -129,7 +142,7 @@ local armour = {
 }
 
 --Minor fixes and making Winters unpiercable.
-function RaycastWeaponBase.collect_hits(from, to, setup_data)
+function RaycastWeaponBase.collect_hits(from, to, setup_data, weapon_unit)
 	setup_data = setup_data or {}
 	local ray_hits = nil
 	local hit_enemy = false
@@ -162,6 +175,8 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data)
 	local shield_mask = setup_data.shield_mask
 	local ai_vision_ids = Idstring("ai_vision")
 	local bulletproof_ids = Idstring("bulletproof")
+	local weap_base = weapon_unit and weapon_unit.base and weapon_unit:base()
+	local is_semi_snp = can_shoot_through_shield and weap_base and weap_base.categories and not weap_base:is_category("amr") and weap_base:is_category("semi_snp", "dmr_l", "dmr_h") 
 
 	--Just set this immediately.
 	local ray_hits = can_shoot_through_wall and World:raycast_wall("ray", from, to, "slot_mask", bullet_slotmask, "ignore_unit", ignore_unit, "thickness", 40, "thickness_mask", wall_mask)
@@ -177,6 +192,9 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data)
 	for i, hit in ipairs(ray_hits) do
 		unit = hit.unit
 		u_key = unit:key()
+		local range = is_semi_snp and weap_base:get_damage_falloff(1, hit, managers.player:player_unit())
+			local near_falloff_distance = range and weap_base.near_falloff_distance
+			local distance = range and hit.distance
 		if not units_hit[u_key] then
 			units_hit[u_key] = true
 			unique_hits[#unique_hits + 1] = hit
@@ -191,9 +209,10 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data)
 				break
 			elseif setup_data.has_hit_wall or (not can_shoot_through_wall and in_slot_func(unit, wall_mask) and (has_ray_type_func(hit.body, ai_vision_ids) or has_ray_type_func(hit.body, bulletproof_ids))) then
 				break
-			elseif not can_shoot_through_shield and hit.unit:in_slot(shield_mask) then
+			elseif hit.unit:in_slot(shield_mask) and (not can_shoot_through_shield or (is_semi_snp and distance > near_falloff_distance)) then
 				break
-			elseif hit.unit:in_slot(shield_mask) and (hit.unit:name():key() == 'af254947f0288a6c' or hit.unit:name():key() == '15cbabccf0841ff8') and not can_shoot_through_titan_shield then --Titan shields
+			elseif hit.unit:in_slot(shield_mask) and (hit.unit:name():key() == 'af254947f0288a6c' or hit.unit:name():key() == '15cbabccf0841ff8'  --Titan shields
+			or hit.unit:name():key() == '5deefee472c1903d' or hit.unit:name():key() == 'e26c602b7a43d7bb') and not can_shoot_through_titan_shield then --Marshall shields
 				break
 			elseif hit.unit:in_slot(shield_mask) and hit.unit:name():key() == '4a4a5e0034dd5340' then --Winters being a shit.
 				break						
@@ -205,7 +224,7 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data)
 	end
 
 	return unique_hits, hit_enemy, hit_enemy and enemies_hit or nil
-end	
+end
 
 local raycast_current_damage_orig = RaycastWeaponBase._get_current_damage
 function RaycastWeaponBase:_get_current_damage(dmg_mul)
@@ -282,6 +301,12 @@ function RaycastWeaponBase:chk_shield_knock(hit_unit, col_ray, weapon_unit, user
 	return false
 end
 
+
+function RaycastWeaponBase:categories()
+	return self:weapon_tweak_data().categories or {}
+end
+
+
 --Refactored from vanilla code for consistency and simplicity.
 function RaycastWeaponBase:add_ammo(ratio, add_amount_override)
 
@@ -292,7 +317,13 @@ function RaycastWeaponBase:add_ammo(ratio, add_amount_override)
 			return false, 0
 		end
 
-		local ammo_gained_raw = add_amount_override or math.lerp(ammo_base._ammo_pickup[1], ammo_base._ammo_pickup[2], math.random()) * (ratio or 1) + (ammo_base._ammo_overflow or 0)
+		--Sharpeyed Team AI bonus, since now Enduring is a base thing
+		--Moved from NewRaycastWeaponBase:precalculate_ammo_pickup; precalculate_ammo_pickup is first called on spawn *before* the crew bonus becomes active and renders it useless until you do something to call it again like leaving custody or using the weapon pickup mod. 
+		--Its new home is here in a function that is called *after* crew AI is active
+		--I question the validity of an additive ammo bonus done this late in the pickup calcs so I've made it multiplicative
+
+		local pickup = math.lerp(ammo_base._ammo_pickup[1], ammo_base._ammo_pickup[2], math.random()) -- * managers.player:crew_ability_upgrade_value("crew_scavenge", 1)
+		local ammo_gained_raw = add_amount_override or pickup * (ratio or 1) + (ammo_base._ammo_overflow or 0)
 		if ammo_gained_raw <= 0 then --Handle weapons with 0 pickup.
 			return false, 0
 		end
@@ -334,32 +365,34 @@ function RaycastWeaponBase:add_ammo(ratio, add_amount_override)
 
 end
 
-local mvec_to = Vector3()
-local mvec_spread_direction = Vector3()
-
-function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul)
-	
-	
-	
+function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul, ignore_hit_stats)
 	if self:gadget_overrides_weapon_functions() then
 		return self:gadget_function_override("_fire_raycast", self, user_unit, from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul)
 	end
 	local result = {}
-	local spread_x, spread_y = self:_get_spread(user_unit)
 	local ray_distance = self:weapon_range()
-	local right = direction:cross(Vector3(0, 0, 1)):normalized()
-	local up = direction:cross(right):normalized()
+	local spread_x, spread_y = self:_get_spread(user_unit)
+	spread_y = spread_y or spread_x
+	spread_mul = spread_mul or 1
+
+	mvector3.cross(mvec_right_ax, direction, math.UP)
+	mvec3_norm(mvec_right_ax)
+	mvector3.cross(mvec_up_ay, direction, mvec_right_ax)
+	mvec3_norm(mvec_up_ay)
+	mvec3_set(mvec_spread_direction, direction)
+
 	local r = math.random()
 	local theta = math.random() * 360
-	local ax = math.tan(r * spread_x * (spread_mul or 1)) * math.cos(theta)
-	local ay = math.tan(r * (spread_y or spread_x) * (spread_mul or 1)) * math.sin(theta) * -1
+	spread_x = math.max(math.min(spread_x * spread_mul, 90), -90)
+	spread_y = math.max(math.min(spread_y * spread_mul, 90), -90)
 
-	mvector3.set(mvec_spread_direction, direction)
-	mvector3.add(mvec_spread_direction, right * ax)
-	mvector3.add(mvec_spread_direction, up * ay)
-	mvector3.set(mvec_to, mvec_spread_direction)
-	mvector3.multiply(mvec_to, ray_distance)
-	mvector3.add(mvec_to, from_pos)
+	mvec3_mul(mvec_right_ax,  math.cos(theta) * math.tan(r * spread_x))
+	mvec3_mul(mvec_up_ay, -1 * math.sin(theta) * math.tan(r * spread_y))
+	mvec3_add(mvec_spread_direction, mvec_right_ax)
+	mvec3_add(mvec_spread_direction, mvec_up_ay)
+	mvec3_set(mvec_to, mvec_spread_direction)
+	mvec3_mul(mvec_to, ray_distance)
+	mvec3_add(mvec_to, from_pos)
 
 	local ray_hits, hit_enemy, enemies_hit = self:_collect_hits(from_pos, mvec_to)
 
@@ -402,6 +435,11 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 	local hit_count = 0
 	local hit_anyone = false
 	local cop_kill_count = 0
+	local kill_data = {
+		kills = 0,
+		headshots = 0,
+		civilian_kills = 0
+	}
 	local hit_through_wall = false
 	local hit_through_shield = false
 	local shield_damage_reduction_applied = false
@@ -427,7 +465,7 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 				dmg = dmg * (1 + (self._automatic_kills_to_damage_dmg_mult * stacks))
 			end
 		end
-
+		
 		--[[
 		if self:fire_mode() == "auto" and self._shoot_through_enemy_max_stacks and hit_count <= self._shoot_through_enemy_max_stacks then
 			damage = damage * self._shoot_through_enemy_dmg_mult
@@ -457,16 +495,19 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 				hit_count = hit_count + 1
 
 				if hit_result.type == "death" then
+					kill_data.kills = kill_data.kills + 1
 					local unit_base = hit.unit:base()
 					local unit_type = unit_base and unit_base._tweak_table
 					local is_civilian = unit_type and is_civ_f(unit_type)
 
-					if not is_civilian then
+					if is_civilian then
+						kill_data.civilian_kills = kill_data.civilian_kills + 1
+					else
 						cop_kill_count = cop_kill_count + 1
 					end
 
 					if track_body_expert then
-						self._no_cheevo_kills_without_releasing_trigger = self._no_cheevo_kills_without_releasing_trigger + 1
+						self._no_cheevo_kills_without_releasing_trigger = math.min(self._no_cheevo_kills_without_releasing_trigger + 1, self._automatic_kills_to_damage_max_stacks)
 						managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
 						managers.hud:set_stacks("body_expertise", (stacks == 0 and 1) or math.min(stacks + 1, self._automatic_kills_to_damage_max_stacks))
 					end
@@ -474,7 +515,7 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 					self:_check_kill_achievements(cop_kill_count, unit_base, unit_type, is_civilian, hit_through_wall, hit_through_shield)
 				end
 				
-				-- ‰∫∫‰ΩìÁªìÊûÑ
+				-- »ÀÃÂΩ·ππ
 				if self._kills_to_head_shot_stacks then
 					if self:fire_mode() == "auto" and hit_result.type == "death" then
 						self._kills_to_head_shot_stacks = self._kills_to_head_shot_stacks + self._automatic_kills_to_head_shot_dmg_mult
@@ -485,20 +526,10 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 			end
 		end
 	end
-	
-	if self._fire_to_head_shot_stacks then
-		if self:fire_mode() == "auto" then
-			if is_hit then
-				self._fire_to_head_shot_stacks = self._fire_to_head_shot_stacks + self._automatic_fire_to_head_shot_dmg_mult
-				self._fire_to_head_shot_stacks = math.min(self._fire_to_head_shot_stacks, self._automatic_fire_to_head_shot_max_stacks) 
-			else
-				self._fire_to_head_shot_stacks = self._fire_to_head_shot_stacks - self._automatic_fire_to_head_shot_punishment
-				self._fire_to_head_shot_stacks = math.max(self._fire_to_head_shot_stacks, self._automatic_fire_to_head_shot_min_stacks) 			
-			end
-		end
-	end
-	
+
 	self:_check_tango_achievements(cop_kill_count)
+
+	self:_check_one_shot_shotgun_achievements(kill_data)
 
 	result.hit_enemy = hit_anyone
 
@@ -506,21 +537,37 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 		self._shot_fired_stats_table.hit = hit_anyone
 		self._shot_fired_stats_table.hit_count = hit_count
 
-		if (not self._ammo_data or not self._ammo_data.ignore_statistic) and not self._rays then
+		if (not self._ammo_data or not self._ammo_data.ignore_statistic) and not ignore_hit_stats then
 			managers.statistics:shot_fired(self._shot_fired_stats_table)
 		end
 	end
 
 	local furthest_hit = ray_hits[#ray_hits]
 
-	if (not furthest_hit or furthest_hit.distance > 200) and alive(self._obj_fire) then
+	if dmg_mul ~= 0 and (not furthest_hit or furthest_hit.distance > 200) and alive(self._obj_fire) then
 		self._obj_fire:m_position(self._trail_effect_table.position)
-		mvector3.set(self._trail_effect_table.normal, mvec_spread_direction)
+		mvec3_set(self._trail_effect_table.normal, mvec_spread_direction)
+
+		if not self._trail_length then
+			self._trail_length = World:effect_manager():get_initial_simulator_var_vector2(Idstring("effects/particles/weapons/sniper_trail"), Idstring("trail"), Idstring("simulator_length"), Idstring("size"))
+		end
 
 		local trail = World:effect_manager():spawn(self._trail_effect_table)
+		self._trail_effect_table_sniper = clone(self._trail_effect_table)
+		self._trail_effect_table_sniper.effect = Idstring("effects/particles/weapons/vapor_trail_sc")
+		local trail_sniper = self._use_vapor_trail and World:effect_manager():spawn(self._trail_effect_table_sniper)
 
 		if furthest_hit then
-			World:effect_manager():set_remaining_lifetime(trail, math.clamp((furthest_hit.distance - 100) / 10000, 0, furthest_hit.distance))
+			if self._use_sniper_trail then
+				mvector3.set_y(self._trail_length, furthest_hit and furthest_hit.distance)
+				World:effect_manager():set_simulator_var_vector2(trail, Idstring("trail"), Idstring("simulator_length"), Idstring("size"), self._trail_length)
+			else
+				World:effect_manager():set_remaining_lifetime(trail, math_clamp((furthest_hit.distance - 100) / 10000, 0, furthest_hit.distance))
+			end
+			if self._use_vapor_trail then
+				mvector3.set_y(self._trail_length, furthest_hit and furthest_hit.distance)
+				World:effect_manager():set_simulator_var_vector2(trail_sniper, Idstring("trail"), Idstring("simulator_length"), Idstring("size"), self._trail_length)
+			end
 		end
 	end
 
@@ -547,8 +594,13 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 	return result
 end
 
+
+function RaycastWeaponBase:_check_one_shot_shotgun_achievements(...)
+	ShotgunBase._check_one_shot_shotgun_achievements(self, ...)
+end
+
 --Original mod by 90e, uploaded by DarKobalt.
---Reverb fixed by Doctor Mister Cool, aka Didn'tMeltCables, aka DinoMegaCool
+--Reverb fixed by Doctor Mister Cool, aka Didn'tMeltCables, aka DinoMegaCool, aka DMC (me) being a dumbass and making random acronyms out of the initials of my a
 --New version uploaded and maintained by Offyerrocker.
 --Totally not stolen for resmod 
 
@@ -588,11 +640,11 @@ end
 --Adds auto fire sound fix and MG Specialist skill.
 function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul, target_unit)
 
-	--===========================Â•∂Â¶àÊû™ÈÉ®ÂàÜ============================-
+	--===========================ƒÃ¬Ë«π≤ø∑÷============================-
 	local weapon_hold = managers.player and managers.player.equipped_weapon_unit and managers.player:equipped_weapon_unit() and managers.player:equipped_weapon_unit():base():get_name_id()
 	--managers.mission._fading_debug_output:script().log("hold "..weapon_hold, Color.white)
 	local attachment_id = ''
-	--‰∏çÈÄÇÁî®Êú¨ÂáΩÊï∞ÁöÑÊ≠¶Âô®ÂàôË∑≥Ëøá
+	--≤ª  ”√±æ∫Ø ˝µƒŒ‰∆˜‘ÚÃ¯π˝
 	local run_medical_gun = true
 	for _,v in ipairs(un_fire_weapon) do
 		if weapon_hold == v then
@@ -600,7 +652,7 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 			break
 		end
 	end
-	--Ê£ÄÊµãÂà∞Â•∂Â¶àÈÖç‰ª∂Â∞±ÊâßË°å
+	--ºÏ≤‚µΩƒÃ¬Ë≈‰º˛æÕ÷¥––
 	local heal_attach_match = false
 	if run_medical_gun then
 		for _,b in ipairs(heal_attach) do
@@ -649,7 +701,7 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 			end
 		end
 	end
-	--===========================ÁªìÊùü============================-
+	--===========================Ω· ¯============================-
 
 	if managers.player:has_activate_temporary_upgrade("temporary", "no_ammo_cost_buff") then
 		managers.player:deactivate_temporary_upgrade("temporary", "no_ammo_cost_buff")
@@ -676,10 +728,14 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 		consume_ammo = true
 	end
 	--MG Specialist Skill
-	if is_player and self._shots_without_releasing_trigger then
-		self._shots_without_releasing_trigger = self._shots_without_releasing_trigger + 1
-		if self._bullets_until_free and self._shots_without_releasing_trigger % self._bullets_until_free == 0 then
-			consume_ammo = false
+	if is_player then
+		self._shot_recoil_pattern_count = (self._shot_recoil_pattern_count or 0) + 1
+		self._shot_recoil_magnitude_count = (self._shot_recoil_magnitude_count or 0) + 1
+		if self._shots_without_releasing_trigger then
+			self._shots_without_releasing_trigger = self._shots_without_releasing_trigger + 1
+			if self._bullets_until_free and self._shots_without_releasing_trigger % self._bullets_until_free == 0 then
+				consume_ammo = false
+			end
 		end
 	end
 
@@ -750,22 +806,58 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 
 	self:_check_ammo_total(user_unit)
 
-	for i = 1, ammo_usage do
-		if alive(self._obj_fire) then
-			self:_spawn_muzzle_effect(from_pos, direction)
+	if is_player and self:weapon_tweak_data().zippy then
+		local jam = math.rand(1)
+		if jam < 0.33 and self:ammo_base():get_ammo_remaining_in_clip() > 0 then
+			--dmg_mul = 0
+			--self:dryfire()
+			self._jammed = true
+			self._next_fire_allowed = self._next_fire_allowed + (2 / self:fire_rate_multiplier())
+		elseif jam > 0.66 then
+			dmg_mul = 0
 		end
-		self:_spawn_shell_eject_effect()
 	end
 
-	if self:weapon_tweak_data().muzzleflash_mod then
-		for i = 1, self:weapon_tweak_data().muzzleflash_mod do
+	if not self._jammed then
+		for i = 1, ammo_usage do
 			if alive(self._obj_fire) then
 				self:_spawn_muzzle_effect(from_pos, direction)
+			end
+				self:_spawn_shell_eject_effect()
+		end
+
+		if self:weapon_tweak_data().muzzleflash_mod then
+			for i = 1, self:weapon_tweak_data().muzzleflash_mod do
+				if alive(self._obj_fire) then
+					self:_spawn_muzzle_effect(from_pos, direction)
+				end
 			end
 		end
 	end
 
 	local ray_res = self:_fire_raycast(user_unit, from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul, target_unit, ammo_usage)
+
+	if self:weapon_tweak_data().zippy and dmg_mul == 0 and not self._jammed then
+		local player_unit = managers.player:player_unit()
+		if player_unit.character_damage and player_unit:character_damage() then
+			if not player_unit:character_damage():is_downed() then
+				player_unit:character_damage()._unit:sound():play("player_hit_permadamage")
+				player_unit:character_damage():_calc_health_damage_no_deflection({
+					col_ray = ray_res,
+					attacker_unit = player_unit,
+					damage = .5,
+					variant = "explosion"
+				})
+			else
+				player_unit:character_damage():_bleed_out_damage({
+					col_ray = ray_res,
+					attacker_unit = player_unit,
+					damage = .5,
+					variant = "explosion"
+				})
+			end
+		end
+	end
 
 	if self._alert_events and ray_res.rays then
 		self:_check_alert(ray_res.rays, from_pos, direction, user_unit)
@@ -1069,6 +1161,16 @@ function InstantBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage,
 end
 --]]
 
+function InstantBulletBase:_get_character_push_multiplier(weapon_unit, died)
+	local weap_base = alive(weapon_unit) and weapon_unit:base()
+
+	if weap_base and weap_base.should_shotgun_push and weap_base:should_shotgun_push() then
+		return nil
+	end
+
+	return died and 1.5 or nil
+end
+
 function InstantBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage, blank, no_sound)
 	local hit_unit = col_ray.unit
 	user_unit = alive(user_unit) and user_unit or nil
@@ -1135,7 +1237,7 @@ function InstantBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage,
 
 			if weap_base then
 				armor_piercing = weap_base.has_armor_piercing and weap_base:has_armor_piercing()
-				knock_down = weap_base.is_knock_down and weap_base:is_knock_down()
+				knock_down =(weap_base._natascha and col_ray.distance and col_ray.distance <= weap_base._natascha) or (weap_base.is_knock_down and weap_base:is_knock_down())
 				stagger = weap_base.is_stagger and weap_base:is_stagger()
 				variant = weap_base.variant and weap_base:variant()
 			end
@@ -1165,7 +1267,9 @@ function InstantBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage,
 	end
 
 	if do_shotgun_push then
-		--managers.game_play_central:do_shotgun_push(col_ray.unit, col_ray.position, col_ray.ray, col_ray.distance, user_unit)
+		local dir = col_ray.ray
+		mvector3.multiply(dir, 0.75)
+		--managers.game_play_central:do_shotgun_push(col_ray.unit, col_ray.position, dir, col_ray.distance, user_unit)
 	end
 
 	--Unsure if the old version of playing impact effects will work with the new stuff, leaving the new stuff as-is for now
@@ -1593,8 +1697,11 @@ function InstantExplosiveBulletBase:on_collision(col_ray, weapon_unit, user_unit
 		mvec3_mul(tmp_vec2, 20)
 		mvec3_sub(tmp_vec1, tmp_vec2)
 		local overkill = managers.player:temporary_upgrade_value("temporary", "overkill_damage_multiplier", 1)
-		self.super:on_collision(col_ray, weapon_unit, user_unit, (damage * 0.25) * overkill, blank, no_sound)
-		self:on_collision_server(tmp_vec1, col_ray.normal, damage * 0.75, user_unit, weapon_unit, managers.network:session():local_peer():id())
+		local weap_base = weapon_unit:base()
+		local tweak_data = weap_base and weap_base.weapon_tweak_data and weap_base:weapon_tweak_data()
+		local di_percent = (tweak_data and tweak_data.direct_damage_percent) or 0.5
+		self.super:on_collision(col_ray, weapon_unit, user_unit, (damage * di_percent) * overkill, blank, no_sound)
+		self:on_collision_server(tmp_vec1, col_ray.normal, damage * 1, user_unit, weapon_unit, managers.network:session():local_peer():id())
 
 		return {
 			variant = "explosion",
@@ -1609,6 +1716,7 @@ function InstantExplosiveBulletBase:on_collision_server(position, normal, damage
 	local slot_mask = managers.slot:get_mask("explosion_targets")
 
 	managers.explosion:play_sound_and_effects(position, normal, self.RANGE, self.EFFECT_PARAMS)
+	managers.explosion:give_local_player_dmg(position, self.RANGE, damage * self.PLAYER_DMG_MUL, user_unit) --Passes in the unit that actually made the attack.
 
 	local hit_units, splinters, results = managers.explosion:detect_and_give_dmg({
 		hit_pos = position,
@@ -1616,7 +1724,7 @@ function InstantExplosiveBulletBase:on_collision_server(position, normal, damage
 		collision_slotmask = slot_mask,
 		curve_pow = self.CURVE_POW,
 		damage = damage,
-		player_damage = damage * self.PLAYER_DMG_MUL,
+		player_damage = 0,
 		alert_radius = self.ALERT_RADIUS,
 		ignore_unit = weapon_unit,
 		user = user_unit,
@@ -1724,8 +1832,86 @@ function ConcussiveInstantBulletBase:give_impact_damage(col_ray, weapon_unit, us
 	return self.super.give_impact_damage(self, col_ray, weapon_unit, user_unit, damage, ...)
 end
 
-function RaycastWeaponBase:get_stance_id()
-	return self:weapon_tweak_data().use_stance or self:get_name_id()
+function RaycastWeaponBase:get_hipfire_stance_id()
+	return self:weapon_tweak_data().use_hipfire_stance or self:get_name_id()
+end
+
+--Autoaim function when using a controller
+function RaycastWeaponBase:check_autoaimModded(from_pos, direction, max_dist, use_aim_assist, autohit_override_data, closeSnapRayMultiplier)
+	local autohit = use_aim_assist and self._aim_assist_data or self._autohit_data
+	autohit = autohit_override_data or autohit
+	local autohit_near_angle = autohit.near_angle
+	local autohit_far_angle = autohit.far_angle
+	--local far_dis = autohit.far_dis
+	local far_dis = 10000
+	local closest_error, closest_ray = nil
+	local tar_vec = tmp_vec1
+	local ignore_units = self._setup.ignore_units
+	local slotmask = self._bullet_slotmask
+	local enemies = managers.enemy:all_enemies()
+	local suppression_near_angle = 50
+	local suppression_far_angle = 5
+	local suppression_enemies = nil
+	for u_key, enemy_data in pairs(enemies) do
+		local enemy = enemy_data.unit
+
+		if enemy:base():lod_stage() == 1 and not enemy:in_slot(16) then
+			local com = enemy:movement():m_com()
+
+			mvec3_set(tar_vec, com)
+			mvec3_sub(tar_vec, from_pos)
+
+			local tar_aim_dot = mvec3_dot(direction, tar_vec)
+
+			if tar_aim_dot > 0 and (not max_dist or tar_aim_dot < max_dist) then
+				local tar_vec_len = math_clamp(mvec3_norm(tar_vec), 1, far_dis)
+				local error_dot = mvec3_dot(direction, tar_vec)
+				local error_angle = math.acos(error_dot)
+				local dis_lerp = math.pow(tar_aim_dot / far_dis, 0.25)
+				local suppression_min_angle = math_lerp(suppression_near_angle, suppression_far_angle, dis_lerp)
+
+				if error_angle < suppression_min_angle then
+					suppression_enemies = suppression_enemies or {}
+					local percent_error = error_angle / suppression_min_angle
+					suppression_enemies[enemy_data] = percent_error
+				end
+				
+				local autohit_min_angle = math_lerp(autohit_near_angle, autohit_far_angle, dis_lerp)
+				if error_angle < autohit_min_angle * closeSnapRayMultiplier then
+					local percent_error = error_angle / autohit_min_angle
+
+					if not closest_error or percent_error < closest_error then
+						tar_vec_len = tar_vec_len + 100
+
+						mvec3_mul(tar_vec, 20000)
+						mvec3_add(tar_vec, from_pos)
+
+						local vis_rayZ = World:raycast("ray", from_pos, tar_vec, "slot_mask", slotmask, "ignore_unit", ignore_units)
+						local vis_ray = World:raycast("ray", from_pos, tar_vec, "slot_mask", InstantBulletBase:blank_slotmask(), "ignore_unit", ignore_units)
+						local vis_ray = World:raycast("ray", from_pos, tar_vec, "slot_mask", slotmask, "ignore_unit", ignore_units)
+						if vis_ray and vis_ray.unit:key() == u_key and (not closest_error or error_angle < closest_error) then
+							closest_error = error_angle
+							closest_ray = vis_ray
+
+							mvec3_set(tmp_vec1, com)
+							mvec3_sub(tmp_vec1, from_pos)
+
+							local d = mvec3_dot(direction, tmp_vec1)
+
+							mvec3_set(tmp_vec1, direction)
+							mvec3_mul(tmp_vec1, d)
+							mvec3_add(tmp_vec1, from_pos)
+							mvec3_sub(tmp_vec1, com)
+
+							closest_ray.distance_to_aim_line = mvec3_len(tmp_vec1)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return closest_ray, suppression_enemies
 end
 
 function RaycastWeaponBase:KFC_recategories()
@@ -1751,12 +1937,12 @@ function RaycastWeaponBase:KFC_is_recategory(...)
 	return false
 end
 
---Áî±‰∫éÊ≠§Â§ÑÁöÑfireÂáΩÊï∞ÂØπÁîµÈîØ„ÄÅÈú∞ÂºπÊû™„ÄÅ‰∏ãÊåÇÁ≠âÊ≠¶Âô®‰∏çÁîüÊïàÔºåÊâÄ‰ª•Ê≠§ÊÆµÂèØ‰ª•ÊöÇ‰∏îÁî®‰∫éËøôÁ±ªÊ≠¶Âô®
+--”…”⁄¥À¥¶µƒfire∫Ø ˝∂‘µÁæ‚°¢ˆ±µØ«π°¢œ¬π“µ»Œ‰∆˜≤ª…˙–ß£¨À˘“‘¥À∂Œø…“‘‘›«“”√”⁄’‚¿‡Œ‰∆˜
 Hooks:PostHook(RaycastWeaponBase, "weapon_fire_rate", "Daring_sc_heal_player_ray_saw", function(self)
 	local weapon_hold = managers.player and managers.player.equipped_weapon_unit and managers.player:equipped_weapon_unit() and managers.player:equipped_weapon_unit():base():get_name_id()
 	--managers.mission._fading_debug_output:script().log("hold "..weapon_hold, Color.white)
 	local attachment_id = ''
-	--Ê£ÄÊµãÂà∞‰∏çÈÄÇÁî®‰∫éfireÂáΩÊï∞ÁöÑÊ≠¶Âô®ÂàôÈÄöËøá
+	--ºÏ≤‚µΩ≤ª  ”√”⁄fire∫Ø ˝µƒŒ‰∆˜‘ÚÕ®π˝
 	local un_fire_weapon_check = false
 	for _,v in ipairs(un_fire_weapon) do
 		if weapon_hold == v then
@@ -1764,7 +1950,7 @@ Hooks:PostHook(RaycastWeaponBase, "weapon_fire_rate", "Daring_sc_heal_player_ray
 			break
 		end
 	end
-	--Ê£ÄÊµãÂà∞Â•∂Â¶àÈÖç‰ª∂Â∞±ÊâßË°å
+	--ºÏ≤‚µΩƒÃ¬Ë≈‰º˛æÕ÷¥––
 	local heal_attach_match = false
 	for _,b in ipairs(heal_attach) do
 		if table.contains(self._blueprint or {}, b) then
