@@ -547,9 +547,9 @@ function CharacterTweakData:_init_fbi(presets)
 	self.meme_man.steal_loot = false
 	self.meme_man.modify_health_on_tweak_change = true
 	self.meme_man.tmp_invulnerable_on_tweak_change = 6.5
-	self.meme_man.priority_shout = "f30"
-	self.meme_man.bot_priority_shout = "f30x_any"	
-	self.meme_man.custom_shout = false	
+	self.meme_man.priority_shout = "f30" --已改动
+	self.meme_man.bot_priority_shout = "f30x_any"	--已改动
+	self.meme_man.custom_shout = false --已改动
 	table.insert(self._enemy_list, "meme_man")	
 	self.meme_man_shield = deep_clone(self.meme_man)		
 	self.meme_man_shield.tags = {"medic", "special", "shield"}		
@@ -576,7 +576,7 @@ function CharacterTweakData:_init_fbi(presets)
 	self.meme_man_shield.ignore_medic_revive_animation = true
 	self.meme_man_shield.damage.hurt_severity = presets.hurt_severities.only_explosion_hurts
 	self.meme_man_shield.damage.shield_knocked = true	
-	self.meme_man_shield.custom_shout = false		
+	self.meme_man_shield.custom_shout = false	--已改动	
 	table.insert(self._enemy_list, "meme_man_shield")	
 
 	--April Fools Vet Cop
@@ -642,7 +642,7 @@ function CharacterTweakData:_init_medic(presets)
 	
 	self.medic_summers = deep_clone(self.medic)
 	--Base health
-	self.medic_summers.HEALTH_INIT = 60 * 1.2
+	self.medic_summers.HEALTH_INIT = 60 * 1.2 --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.medic_summers.player_health_scaling_mul = 1.25		
 	self.medic_summers.headshot_dmg_mul = 1.5
@@ -3193,7 +3193,7 @@ function CharacterTweakData:_init_phalanx_vip(presets)
 	self.phalanx_vip.damage.immune_to_knockback = true
 	self.phalanx_vip.immune_to_knock_down = true
 	--Base health
-	self.phalanx_vip.HEALTH_INIT = 65 * 1.25
+	self.phalanx_vip.HEALTH_INIT = 65 * 1.25 --已改动
 	--Gains extra health per player, totaling to 1.3k~ at a full party of 4
 	self.phalanx_vip.player_health_scaling_mul = 1.25			
 	self.phalanx_vip.headshot_dmg_mul = 2.0
@@ -3309,7 +3309,7 @@ function CharacterTweakData:_init_spring(presets)
 	self.spring.no_damage_mission = true
 	self.spring.immune_to_knock_down = true
 	--Base health
-	self.spring.HEALTH_INIT = 500 *1.25
+	self.spring.HEALTH_INIT = 500 *1.25 --已改动
 	--Gains extra health per player, totaling to 10k~ at a full party of 4
 	self.spring.player_health_scaling_mul = 1.25
 	self.spring.damage_resistance = presets.damage_resistance.none
@@ -3396,7 +3396,7 @@ function CharacterTweakData:_init_summers(presets)
 	self.summers.melee_weapon_dmg_multiplier = 1
 	self.summers.detection = presets.detection.normal
 	--Base health
-	self.summers.HEALTH_INIT = 72 * 1.05
+	self.summers.HEALTH_INIT = 72 * 1.05 --已改动
 	--Gains extra health per player, totaling to 1.4k~ at a full party of 4
 	self.summers.player_health_scaling_mul = 1.25		
 	self.summers.flammable = false
@@ -3631,7 +3631,7 @@ function CharacterTweakData:_init_taser(presets)
 	table.insert(self._enemy_list, "taser")
 	
 	self.taser_summers = deep_clone(self.taser)
-	self.taser_summers.HEALTH_INIT = 60 * 1.2
+	self.taser_summers.HEALTH_INIT = 60 * 1.2 --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.taser_summers.player_health_scaling_mul = 1.25	
 	self.taser_summers.headshot_dmg_mul = 1.5
@@ -3810,7 +3810,7 @@ function CharacterTweakData:_init_boom(presets)
 	self.boom_summers.speech_prefix_count = 1
 	self.boom_summers.custom_voicework = nil
 	self.boom_summers.use_radio = "dsp_radio_russian"
-	self.boom_summers.HEALTH_INIT = 60 * 1.2
+	self.boom_summers.HEALTH_INIT = 60 * 1.2 --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.boom_summers.player_health_scaling_mul = 1.25	
 	self.boom_summers.headshot_dmg_mul = 1.5
@@ -6038,7 +6038,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 100,
 			acc = {0.7, 0.9},
 			dmg_mul = 1,
-			recoil = {0.2, 0.35},
+			recoil = {0.2, 0.35},--已改动
 			mode = {
 				0,
 				3,
@@ -6050,7 +6050,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 500,
 			acc = {0.5, 0.9},
 			dmg_mul = 1,
-			recoil = {0.25, 0.4},
+			recoil = {0.25, 0.4}, --已改动
 			mode = {
 				0,
 				3,
@@ -7404,7 +7404,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.weapon.good.is_pistol.FALLOFF = {
 		{
 			r = 100,
-			acc = {0.6, 0.85},
+			acc = {0.6, 0.85}, --已改动
 			dmg_mul = 1.5,
 			recoil = {0.15, 0.25},
 			mode = {
@@ -7416,7 +7416,7 @@ function CharacterTweakData:_presets(tweak_data)
 		},
 		{
 			r = 500,
-			acc = {0.5, 0.8},
+			acc = {0.5, 0.8}, --已改动
 			dmg_mul = 1.5,
 			recoil = {0.15, 0.25},
 			mode = {
@@ -8458,7 +8458,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.weapon.good.is_smg.melee_retry_delay = presets.weapon.normal.is_smg.melee_retry_delay
 	presets.weapon.good.is_smg.range = presets.weapon.normal.is_smg.range
 	presets.weapon.good.is_smg.autofire_rounds = presets.weapon.normal.is_smg.autofire_rounds
-	presets.weapon.good.is_smg.FALLOFF = {
+	presets.weapon.good.is_smg.FALLOFF = { --大范围改动
 		{
 			r = 100,
 			acc = {0.6, 0.95},
@@ -9582,7 +9582,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.weapon.expert.is_pistol.FALLOFF = {
 		{
 			r = 100,
-			acc = {0.6, 0.8},
+			acc = {0.6, 0.8}, --已改动
 			dmg_mul = 2,
 			recoil = {0.15, 0.25},
 			mode = {
@@ -9594,7 +9594,7 @@ function CharacterTweakData:_presets(tweak_data)
 		},
 		{
 			r = 500,
-			acc = {0.5, 0.775},
+			acc = {0.5, 0.775}, --已改动
 			dmg_mul = 2,
 			recoil = {0.15, 0.3},
 			mode = {
@@ -9620,7 +9620,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1500,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.9,
-			recoil = {0.16, 0.4},
+			recoil = {0.16, 0.4}, --已改动
 			mode = {
 				1,
 				0,
@@ -9632,7 +9632,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1600,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.8,
-			recoil = {0.17, 0.425},
+			recoil = {0.17, 0.425}, --已改动
 			mode = {
 				1,
 				0,
@@ -9644,7 +9644,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1700,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.7,
-			recoil = {0.18, 0.45},
+			recoil = {0.18, 0.45}, --已改动
 			mode = {
 				1,
 				0,
@@ -9656,7 +9656,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1800,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.6,
-			recoil = {0.19, 0.475},
+			recoil = {0.19, 0.475}, --已改动
 			mode = {
 				1,
 				0,
@@ -9668,7 +9668,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1900,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.5,
-			recoil = {0.2, 0.5},
+			recoil = {0.2, 0.5}, --已改动
 			mode = {
 				1,
 				0,
@@ -10632,7 +10632,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.weapon.expert.is_smg.melee_retry_delay = presets.weapon.normal.is_smg.melee_retry_delay
 	presets.weapon.expert.is_smg.range = presets.weapon.normal.is_smg.range
 	presets.weapon.expert.is_smg.autofire_rounds = presets.weapon.normal.is_smg.autofire_rounds
-	presets.weapon.expert.is_smg.FALLOFF = {
+	presets.weapon.expert.is_smg.FALLOFF = { --大范围改动
 		{
 			r = 100,
 			acc = {0.6, 0.95},
@@ -10871,7 +10871,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 100,
 			acc = {0.7, 0.75},
 			dmg_mul = 1,
-			recoil = {0.45, 0.65},
+			recoil = {0.45, 0.65}, --已改动
 			mode = {
 				0,
 				3,
@@ -10883,7 +10883,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 500,
 			acc = {0.5, 0.55},
 			dmg_mul = 1,
-			recoil = {0.45, 0.65},
+			recoil = {0.45, 0.65}, --已改动
 			mode = {
 				0,
 				3,
@@ -12164,7 +12164,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.weapon.deathwish.is_pistol.FALLOFF = {
 		{
 			r = 100,
-			acc = {0.6, 0.8},
+			acc = {0.6, 0.8}, --已改动
 			dmg_mul = 2.5,
 			recoil = {0.15, 0.25},
 			mode = {
@@ -12176,7 +12176,7 @@ function CharacterTweakData:_presets(tweak_data)
 		},
 		{
 			r = 500,
-			acc = {0.5, 0.775},
+			acc = {0.5, 0.775}, --已改动
 			dmg_mul = 2.5,
 			recoil = {0.15, 0.3},
 			mode = {
@@ -12202,7 +12202,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1500,
 			acc = {0.4, 0.65},
 			dmg_mul = 2.375,
-			recoil = {0.16, 0.4},
+			recoil = {0.16, 0.4}, --已改动
 			mode = {
 				1,
 				0,
@@ -12214,7 +12214,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1600,
 			acc = {0.4, 0.65},
 			dmg_mul = 2.25,
-			recoil = {0.17, 0.425},
+			recoil = {0.17, 0.425}, --已改动
 			mode = {
 				1,
 				0,
@@ -12226,7 +12226,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1700,
 			acc = {0.4, 0.65},
 			dmg_mul = 2.125,
-			recoil = {0.18, 0.45},
+			recoil = {0.18, 0.45}, --已改动
 			mode = {
 				1,
 				0,
@@ -12238,7 +12238,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1800,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.84,
-			recoil = {0.19, 0.475},
+			recoil = {0.19, 0.475}, --已改动
 			mode = {
 				1,
 				0,
@@ -12250,7 +12250,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 1900,
 			acc = {0.4, 0.65},
 			dmg_mul = 1.725,
-			recoil = {0.2, 0.5},
+			recoil = {0.2, 0.5}, --已改动
 			mode = {
 				1,
 				0,
@@ -12984,7 +12984,7 @@ function CharacterTweakData:_presets(tweak_data)
 	
 	presets.weapon.deathwish.is_bullpup = presets.weapon.deathwish.is_rifle
 	presets.weapon.deathwish.is_smg.melee_dmg = enemy_melee_damage_deathwish
-	presets.weapon.deathwish.is_smg.FALLOFF = {
+	presets.weapon.deathwish.is_smg.FALLOFF = { --大面积改动
 		{
 			r = 100,
 			acc = {0.6, 0.95},
@@ -13211,7 +13211,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 100,
 			acc = {0.7, 0.75},
 			dmg_mul = 1,
-			recoil = {0.45, 0.65},
+			recoil = {0.45, 0.65}, --已改动
 			mode = {
 				0,
 				3,
@@ -13223,7 +13223,7 @@ function CharacterTweakData:_presets(tweak_data)
 			r = 500,
 			acc = {0.5, 0.55},
 			dmg_mul = 1,
-			recoil = {0.45, 0.65},
+			recoil = {0.45, 0.65}, --已改动
 			mode = {
 				0,
 				3,
@@ -18336,6 +18336,7 @@ function CharacterTweakData:_set_easy()
 	--Weekend LMG Variants
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.normal)
 	
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.8, 0.95}, dmg_mul = 1.083333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.7, 0.9}, dmg_mul = 1, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
@@ -18430,6 +18431,7 @@ function CharacterTweakData:_set_normal()
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.normal)
 	self.weekend_lmg.melee_weapon_dmg_multiplier = 1
 		
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.8, 0.95}, dmg_mul = 1.083333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.7, 0.9}, dmg_mul = 1, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
@@ -18517,7 +18519,8 @@ function CharacterTweakData:_set_hard()
 	--Weekend LMG Variants
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.normal)
 	
-self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
+	--已改动 泰坦狙削弱
+	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.8, 0.95}, dmg_mul = 1.083333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.7, 0.9}, dmg_mul = 1, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 1000, acc = {0.6, 0.9}, dmg_mul = 1, recoil = {1.2, 1.5}, mode = { 1, 0, 0, 0 } },
@@ -18610,7 +18613,8 @@ function CharacterTweakData:_set_overkill()
 	--Weekend LMG Variants
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.good)
 	
-self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
+	--已改动 泰坦狙削弱
+	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.8, 0.95}, dmg_mul = 1.083333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.7, 0.9}, dmg_mul = 1, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 1000, acc = {0.6, 0.9}, dmg_mul = 1, recoil = {1.2, 1.5}, mode = { 1, 0, 0, 0 } },
@@ -18696,7 +18700,7 @@ function CharacterTweakData:_set_overkill_145()
 	--Weekend LMG Variants
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.good)
 	
-	
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.8, 0.95}, dmg_mul = 1.66667, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.7, 0.9}, dmg_mul = 1.5, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
@@ -18790,6 +18794,7 @@ function CharacterTweakData:_set_easy_wish()
 	--Weekend LMG Variants
 	self.weekend_lmg.weapon = deep_clone(self.presets.weapon.good)
 	
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.85, 0.95}, dmg_mul = 1.66667, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.75, 0.9}, dmg_mul = 1.5, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
@@ -18874,6 +18879,7 @@ function CharacterTweakData:_set_overkill_290()
 	self.swat.can_shoot_while_dodging = true	
 	self.hrt.can_shoot_while_dodging = true		
 
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.85, 0.95}, dmg_mul = 2.08333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.75, 0.9}, dmg_mul = 2, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
@@ -19064,6 +19070,7 @@ function CharacterTweakData:_set_sm_wish()
 	self.phalanx_minion.overheal_mult = 2
 	self.phalanx_minion_assault.overheal_mult = 2
 
+	--已改动 泰坦狙削弱
 	self.heavy_swat_sniper.weapon.is_dmr.FALLOFF = {
 		{ r = 200, acc = {0.9, 0.95}, dmg_mul = 2.08333, recoil = {0.75, 1}, mode = {1, 0, 0, 0 } },
 		{ r = 500, acc = {0.8, 0.95}, dmg_mul = 2, recoil = {1, 1}, mode = {1, 0, 0, 0 } },
