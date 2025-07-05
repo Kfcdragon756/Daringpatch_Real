@@ -2817,7 +2817,7 @@ local crew_wep_preset = {
 			self.komodo_crew.FIRE_MODE = "auto"
 		end		
 	
-	--SHOTGUNS ÒÑ¸Ä¶¯ ½«Åç×ÓµÄµ¯µÀÊýÄ¿»Ö¸´ÖÁ9
+	--SHOTGUNS ï¿½Ñ¸Ä¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ÓµÄµï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ö¸ï¿½ï¿½ï¿½9
 		function WeaponTweakData:_init_data_ben_crew()
 			self.ben_crew.categories = {"shotgun"}
 			self.ben_crew.sounds.prefix = "benelli_m4_npc"
@@ -7862,9 +7862,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_m1911.timers.reload_exit_empty = 0.55
 						self.x_m1911.timers.reload_exit_not_empty = 0.65
 
-					--Kahn .357 ÒÑÐÞ¸Ä
+					--Kahn .357 ï¿½ï¿½ï¿½Þ¸ï¿½
 						self.korth.has_description = true
-						self.korth.desc_id = "bm_ap_armor_80_weapon_sc_desc"	
+						self.korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"	
 						self.korth.fire_mode_data.fire_rate = 0.18181818
 						self.korth.CLIP_AMMO_MAX = 8
 						self.korth.AMMO_MAX = 30
@@ -7916,7 +7916,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.korth.hide_reload_obj_exit = 1.1
 					--Akimbo
 						self.x_korth.has_description = true
-						self.x_korth.desc_id = "bm_ap_armor_80_weapon_sc_desc"	
+						self.x_korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"	
 						self.x_korth.fire_mode_data.fire_rate = 0.18181818
 						self.x_korth.CLIP_AMMO_MAX = 16
 						self.x_korth.AMMO_MAX = 60
@@ -10926,7 +10926,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.new_m4.reload_speed_multiplier = self.new_m4.reload_speed_multiplier * 1.02
 						self.new_m4.panic_suppression_chance = 0.05
 
-					--Ak5 ¾Ü¾øÏ÷ÈõAK5£¡
+					--Ak5 ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½ï¿½AK5ï¿½ï¿½
 						self.ak5.desc_id = "bm_ak5_sc_desc"
 						self.ak5.has_description = true
 						self.ak5.fire_mode_data.fire_rate = 0.0888889
@@ -26946,7 +26946,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				end
 			end
 			if not (weap.use_data and weap.use_data.selection_index == 2) and weap.damage_type and (weap.damage_type == "assault_rifle" or weap.damage_type == "machine_gun") then
-				-- ¼ì²éÊäÈëÊÇ·ñÄÜ±»5Õû³ý¡£ Èç¹û²»ÄÜ±»5Õû³ý£¬ÔòÏòÉÏÈ¡Õûµ½×î½Ó½üµÄ5µÄ±¶Êý¡£
+				-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ü±ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½5ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
 				local function roundUpToNearestFive(num)
     				if num % 5 == 0 then
     				    return num
@@ -27438,7 +27438,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 		end
 	end
 
-	--Determine how much to multiply things by.  --¼ñµ¯Óë×Üµ¯Á¿¹ØÁª
+	--Determine how much to multiply things by.  --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	local pickup_multiplier = weapon.AMMO_MAX
 	local category_pickup_muls = { --Different gun categories have different pickup mults to compensate for various factors.
 		akimbo = 1.1,
@@ -27473,7 +27473,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 		battery = 0
 	}
 
-	--¸±ÎäÆ÷¼Óµ¯Ò©µÄÍ¬Ê±¼ñµ¯²»±ä
+	--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Ò©ï¿½ï¿½Í¬Ê±ï¿½ñµ¯²ï¿½ï¿½ï¿½
 	pickup_multiplier = weapon.Daring_Ori_AMMO_MAX or pickup_multiplier
 
 	--Get weapon category specific pickup multipliers.
@@ -27483,7 +27483,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 	end
 
 	--Double multiplier if gun is a secondary, to compensate for lower total ammo.
-	-- 1±íÊ¾¸±ÎäÆ÷£¬2±íÊ¾Ö÷ÎäÆ÷
+	-- 1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if weapon.use_data.selection_index == 1 then
 		pickup_multiplier = pickup_multiplier * 2
 	end

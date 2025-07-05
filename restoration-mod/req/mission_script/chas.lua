@@ -1,6 +1,6 @@
-local difficulty = Global.game_settings and Global.game_settings.difficulty or "normal"
-local difficulty_index = tweak_data:difficulty_to_index(difficulty)
+local difficulty = tweak_data:difficulty_to_index(Global.game_settings and Global.game_settings.difficulty or "normal")
 local pro_job = Global.game_settings and Global.game_settings.one_down
+local ponr_value = (difficulty <= 5 and 540 or (difficulty == 6 or difficulty == 7) and 480) or 420
 local chance_dozer_var = math.rand(1)
 local chance_dozer = 75
 local hunt_projob = false
@@ -15,6 +15,17 @@ local dozer_table = {
 	dozer_zeal_skull = "units/pd2_dlc_gitgud/characters/ene_zeal_bulldozer_sc/ene_zeal_bulldozer_sc",
 	dozer_titan = "units/pd2_dlc_vip/characters/ene_vip_2_assault/ene_vip_2_assault"
 }
+
+local enable = {
+	values = {
+		enabled = true
+	}
+}
+local sniper_trigger_times = {
+	values = {
+        trigger_times = 0
+	}
+}
 local Daring_dozer_spring = "units/pd2_dlc_vip/characters/ene_spring/ene_spring"
 local Daring_spring_crew = dozer_table.dozer_black
 local Daring_enable_spring = nil
@@ -23,13 +34,13 @@ local Daring_enable_spring = nil
 if pro_job then
 		hunt_projob = true
 	--DSPJ has 100% of spawning the scripted dozer
-	if difficulty_index == 8 then
+	if difficulty == 8 then
 		chance_dozer = 100
 	end
 end
 
 	--Setting up the dozer randomizer, oh yeah
-	if difficulty_index == 6 or difficulty_index == 7 then
+	if difficulty == 6 or difficulty == 7 then
 		if chance_dozer_var < 0.35 then
 			dozer = dozer_table.dozer_skull
 		elseif chance_dozer_var < 0.70 then
@@ -41,7 +52,7 @@ end
 		Daring_enable_spring = true
 	end
 
-	if difficulty_index == 8 then
+	if difficulty == 8 then
 		Daring_spring_crew = dozer_table.dozer_zeal_benelli
 		Daring_enable_spring = true
 		if chance_dozer_var < 0.25 then
@@ -55,9 +66,9 @@ end
 		end
 	end
 
-	if difficulty_index <= 5 then
+	if difficulty <= 5 then
 		ponr_value = 540	
-	elseif difficulty_index == 6 or difficulty_index == 7 then
+	elseif difficulty == 6 or difficulty == 7 then
 		ponr_value = 480	
 	else
 		ponr_value = 420	
@@ -71,87 +82,23 @@ return {
 		hunt = hunt_projob
 	},
 	--Should fix enemies getting stuck
-	[101088] = {
-		values = {
-			enabled = true
-		}
-	},
-	[101238] = {
-		values = {
-			enabled = true
-		}
-	},
-	[100999] = {
-		values = {
-			enabled = true
-		}
-	},
-	[101265] = {
-		values = {
-			enabled = true
-		}
-	},
-	[101262] = {
-		values = {
-			enabled = true
-		}
-	},
-	[101264] = {
-		values = {
-			enabled = true
-		}
-	},
+	[101088] = enable,
+	[101238] = enable,
+	[100999] = enable,
+	[101265] = enable,
+	[101262] = enable,
+	[101264] = enable,
 	--Fixed snipers being able to spawn only once
-	[100368] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100369] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100370] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100371] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100372] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100373] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100374] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100375] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100376] = {
-		values = {
-            trigger_times = 0
-		}
-	},
-	[100377] = {
-		values = {
-            trigger_times = 0
-		}
-	},
+	[100368] = sniper_trigger_times,
+	[100369] = sniper_trigger_times,
+	[100370] = sniper_trigger_times,
+	[100371] = sniper_trigger_times,
+	[100372] = sniper_trigger_times,
+	[100373] = sniper_trigger_times,
+	[100374] = sniper_trigger_times,
+	[100375] = sniper_trigger_times,
+	[100376] = sniper_trigger_times,
+	[100377] = sniper_trigger_times,
 	--Technically should fix softlock when blowtorch interactions are unavailable. Also player can't abuse keys in loud
 	[102704] = {
 		on_executed = {
@@ -282,6 +229,7 @@ return {
 			rotation = Rotation(140, 0, -0)
 		}
 	},--]]
+	--Reinforce spots
 	[101190] = {
 		reinforce = {
 			{
