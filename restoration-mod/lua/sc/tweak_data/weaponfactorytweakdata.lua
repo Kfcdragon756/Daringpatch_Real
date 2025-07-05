@@ -1,3 +1,5 @@
+local is_pro = Global.game_settings and Global.game_settings.one_down
+
 function WeaponFactoryTweakData:_clone_part_type_for_weapon(part_type, factory_id, amount)
 	local factory_data = self[factory_id]
 	local parts = {}
@@ -34,7 +36,6 @@ local sight_1x_offset = {
 		--"wpn_fps_snp_mosin"
 	}
 }
-
 local sight_1_5x_offset = {
 	sights = {
 		"wpn_fps_upg_o_eotech",
@@ -1023,21 +1024,21 @@ local grips = {
 			spread = -1,
 			ads_speed_mult = 0.95
 		},
-}
 
+}
 --SHOTGUN AMMO PRESETS
 --Overrides for shotgun ammo types that vary per damage tier.
 	--Indented to make for easy code folding in most editors.
 	--@SC Feel free to define these for the other ammo types if you want, though it may require way more presets to be made since they also touch ammo count.
 
 	local shot_ammo = {
-		--Flechettes
+		--Flechettes  --箭弹
 			a_piercing_auto_override = {
 				desc_id = "bm_wp_upg_a_piercing_auto_desc_per_pellet",
 				stats = {
 					value = 9,
 					damage = -45,
-					total_ammo_mod = -99,
+					--total_ammo_mod = -99, --未跟进
 					spread = 5
 				},
 				custom_stats = {
@@ -1045,11 +1046,11 @@ local grips = {
 					ap_desc = "bm_ap_armor_weapon_sc_desc",
 					trail_effect = "_dmc/effects/nato_trail",
 					ene_hs_mult_add = 0.5,
-					ammo_pickup_max_mul = 0.8,
-					ammo_pickup_min_mul = 0.8,
+					ammo_pickup_max_mul = 0.80,
+					ammo_pickup_min_mul = 0.80,
 					hs_mult = 2,
 					hs_mult_desc = true,
-					falloff_start_mult = 1,
+					falloff_start_mult = 1.1,  --未跟进1
 					falloff_end_mult = 1.1,
 					damage_min_mult = 5,
 					armor_piercing_add = 1,		
@@ -1073,7 +1074,7 @@ local grips = {
 				stats = {
 					value = 9,
 					damage = -60,
-					total_ammo_mod = -136,
+					--total_ammo_mod = -136,  --未跟进
 					spread = 5
 				},
 				custom_stats = {
@@ -1085,7 +1086,7 @@ local grips = {
 					ammo_pickup_min_mul = 0.8,
 					hs_mult = 2,
 					hs_mult_desc = true,
-					falloff_start_mult = 1,
+					falloff_start_mult = 1.1,  --未跟进1
 					falloff_end_mult = 1.1,
 					damage_min_mult = 6,
 					armor_piercing_add = 1,
@@ -1109,11 +1110,11 @@ local grips = {
 				stats = {
 					value = 9,
 					damage = -90,
-					total_ammo_mod = -104,
+					--total_ammo_mod = -104,  --未跟进
 					spread = 5
 				},
 				custom_stats = {
-					hip_mult = 0.8,
+					hip_mult = 0.5,  --未跟进0.8
 					ap_desc = "bm_ap_armor_weapon_sc_desc",
 					trail_effect = "_dmc/effects/nato_trail",
 					ene_hs_mult_add = 0.35,
@@ -1121,7 +1122,7 @@ local grips = {
 					ammo_pickup_min_mul = 0.8,
 					hs_mult = 2,
 					hs_mult_desc = true,
-					falloff_start_mult = 1,
+					falloff_start_mult = 1.1,  --未跟进1
 					falloff_end_mult = 1.1,
 					damage_min_mult = 5.333333,
 					armor_piercing_add = 1,
@@ -1145,11 +1146,11 @@ local grips = {
 				stats = {
 					value = 9,
 					damage = -150,
-					total_ammo_mod = -77,
+					--total_ammo_mod = -77,  --未跟进
 					spread = 5
 				},
 				custom_stats = {
-					hip_mult = 0.8,
+					hip_mult = 0.5,  --未跟进0.8
 					ap_desc = "bm_ap_armor_weapon_sc_desc",
 					trail_effect = "_dmc/effects/nato_trail",
 					ene_hs_mult_add = 0.2,
@@ -1157,9 +1158,9 @@ local grips = {
 					ammo_pickup_min_mul = 0.8,
 					hs_mult = 2,
 					hs_mult_desc = true,
-					falloff_start_mult = 1,
+					falloff_start_mult = 1.1,  --未跟进1
 					falloff_end_mult = 1.1,
-					damage_min_mult = 5.3333333,
+					damage_min_mult = 4.2,  --未跟进5.3333333
 					armor_piercing_add = 1,
 					rays = 12,		
 					--[[
@@ -1176,19 +1177,22 @@ local grips = {
 				}
 			},
 		
-		--Poison
+		--Poison  --毒弹
 			a_rip_auto_override = {
 				desc_id = "bm_wp_upg_a_rip_auto_desc_sc",
 				stats = {
 					value = 9,
-					damage = -30
+					total_ammo_mod = 56 or 56,
+					damage = (-30 or -6) * 2.5
 				},
 				custom_stats = {
 					trail_effect = "_dmc/effects/warsaw_trail",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_rip",
 					bullet_class = "PoisonBulletBase",
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85,
+					ammo_pickup_max_mul = 1.5--[[0.85]],  --保留修改，原0.85
+					ammo_pickup_min_mul = 1.5--[[0.85]],  --
+					falloff_start_mult = 2.2,  --原无此项
+					falloff_end_mult = 1.5,  --
 					dot_data_name = "ammo_rip_auto"
 				}
 			},
@@ -1197,14 +1201,17 @@ local grips = {
 				desc_id = "bm_wp_upg_a_rip_semi_desc_sc",
 				stats = {
 					value = 9,
-					damage = -30
+					total_ammo_mod = 56 or 56,  --保留修改，原无此项
+					damage = -30 * 2.5  --保留修改，原无*2.5
 				},
 				custom_stats = {
 					trail_effect = "_dmc/effects/warsaw_trail",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_rip",
 					bullet_class = "PoisonBulletBase",
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85,
+					ammo_pickup_max_mul = 1.37--[[0.85]] or 1,  --保留修改，原0.85
+					ammo_pickup_min_mul = 1.37--[[0.85]] or 1,  --
+					falloff_start_mult = 2.2,  --原无此项
+					falloff_end_mult = 1.5,  --
 					dot_data_name = "ammo_rip"
 				}
 			},
@@ -1213,14 +1220,17 @@ local grips = {
 				desc_id = "bm_wp_upg_a_rip_pump_desc_sc",
 				stats = {
 					value = 9,
-					damage = -60
+					total_ammo_mod = 38,  --保留修改，原无此项
+					damage = -60 * 1.5  --保留修改，原无*1.5
 				},
 				custom_stats = {
 					trail_effect = "_dmc/effects/warsaw_trail",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_rip",
 					bullet_class = "PoisonBulletBase",
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85,
+					ammo_pickup_max_mul = 1.25--[[0.85]] or 1,  --保留修改，原0.85
+					ammo_pickup_min_mul = 1.25--[[0.85]] or 1,  --
+					falloff_start_mult = 2.2,  --原无此项
+					falloff_end_mult = 1.5,  --
 					dot_data_name = "ammo_rip_pump"
 				}
 			},
@@ -1228,29 +1238,33 @@ local grips = {
 			a_rip_heavy_override = {
 				stats = {
 					value = 9,
-					damage = -60
+					total_ammo_mod = 20,  --保留修改，原无此项
+					damage = -100 * 1.5  --未跟进，原60且没有*1.5
 				},
 				custom_stats = {
 					trail_effect = "_dmc/effects/warsaw_trail",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_rip",
 					bullet_class = "PoisonBulletBase",
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85,
+					ammo_pickup_max_mul = 1.1--[[0.85]] or 1,  --保留修改，原0.85
+					ammo_pickup_min_mul = 1.1--[[0.85]] or 1,  --
+					falloff_start_mult = 2.2,  --原无此项
+					falloff_end_mult = 1.5,  --
 					dot_data_name = "ammo_rip_heavy"
 				}
 			},
 	
-		--Dragon's Breath
+		--Dragon's Breath  --龙息弹
 			a_dragons_breath_auto_override = {
 				desc_id = "bm_wp_upg_a_dragons_breath_auto_desc_sc",
 				stats = {
 					value = 9,
+					total_ammo_mod = 70,  --保留修改，原无此项
 					damage = -30
 				},
 				custom_stats = {
 					ignore_rof_mult_anims = true,
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
+					ammo_pickup_max_mul = 1.65--[[0.95]] or 1,  --保留修改，原0.95
+					ammo_pickup_min_mul = 1.65--[[0.95]] or 1,  --
 					rof_mult = 0.9,
 					falloff_start_mult = 1.2,
 					falloff_end_mult = 0.8,
@@ -1259,7 +1273,7 @@ local grips = {
 					bullet_class = "FlameBulletBase",
 					armor_piercing_add = 0.01,								
 					can_shoot_through_shield = false,
-					rays = 16,
+					rays = 20,  --保留修改，原16
 					trail_effect = "",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
 					dot_data_name = "ammo_dragons_breath_auto"
@@ -1270,12 +1284,13 @@ local grips = {
 				desc_id = "bm_wp_upg_a_dragons_breath_semi_desc_sc",
 				stats = {
 					value = 9,
+					total_ammo_mod = 70,  --保留修改，原无此项
 					damage = -30
 				},
 				custom_stats = {
 					ignore_rof_mult_anims = true,
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
+					ammo_pickup_max_mul = 1.65--[[0.95]] or 1,  --保留修改，原0.95
+					ammo_pickup_min_mul = 1.65--[[0.95]] or 1,  --
 					rof_mult = 0.9,
 					falloff_start_mult = 1.2,
 					falloff_end_mult = 0.8,
@@ -1284,22 +1299,24 @@ local grips = {
 					bullet_class = "FlameBulletBase",
 					armor_piercing_add = 0.01,								
 					can_shoot_through_shield = false,
-					rays = 16,
+					rays = 20,  --保留修改，原16
 					trail_effect = "",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
 					dot_data_name = "ammo_dragons_breath"
 				}
 			},
 	
+			--where is it?
 			a_dragons_breath_revo_override = {
 				desc_id = "bm_wp_upg_a_dragons_breath_semi_desc_sc",
 				stats = {
 					value = 9,
+					total_ammo_mod = 62,  --保留修改，原无此项
 					damage = -40
 				},
 				custom_stats = {
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
+					ammo_pickup_max_mul = 1.52--[[0.95]] or 1,  --保留修改，原0.95
+					ammo_pickup_min_mul = 1.52--[[0.95]] or 1,  --
 					falloff_start_mult = 1.2,
 					falloff_end_mult = 0.8,
 					damage_min_mult = 0.2,
@@ -1307,7 +1324,7 @@ local grips = {
 					bullet_class = "FlameBulletBase",
 					armor_piercing_add = 0.01,								
 					can_shoot_through_shield = false,
-					rays = 16,
+					rays = 20,  --保留修改，原16
 					trail_effect = "",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
 					dot_data_name = "ammo_dragons_breath"
@@ -1319,11 +1336,12 @@ local grips = {
 				supported = true,
 				stats = {
 					value = 9,
+					total_ammo_mod = 50,  --保留修改，原无此项
 					damage = -60
 				},
 				custom_stats = {
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
+					ammo_pickup_max_mul = 1.40--[[0.95]] or 1,  --保留修改，原0.95
+					ammo_pickup_min_mul = 1.40--[[0.95]] or 1,  --
 					alt_rof_mult = 0.9,
 					falloff_start_mult = 1.2,
 					falloff_end_mult = 0.8,
@@ -1332,7 +1350,7 @@ local grips = {
 					bullet_class = "FlameBulletBase",
 					armor_piercing_add = 0.01,							
 					can_shoot_through_shield = false,
-					rays = 16,
+					rays = 20,  --保留修改，原16
 					trail_effect = "",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
 					dot_data_name = "ammo_dragons_breath_pump"
@@ -1342,11 +1360,12 @@ local grips = {
 			a_dragons_breath_heavy_override = {
 				stats = {
 					value = 9,
-					damage = -60
+					total_ammo_mod = 30 or 30,  --200* = +100%  --保留修改，原无此项
+					damage = -100  --未跟进，原-60，待查阅
 				},
 				custom_stats = {
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
+					ammo_pickup_max_mul = 1.25--[[0.95]] or 1,  --保留修改，原0.95
+					ammo_pickup_min_mul = 1.25--[[0.95]] or 1,  --
 					falloff_start_mult = 1.2,
 					falloff_end_mult = 0.8,
 					damage_min_mult = 0.2,
@@ -1354,29 +1373,31 @@ local grips = {
 					bullet_class = "FlameBulletBase",
 					armor_piercing_add = 0.01,				
 					can_shoot_through_shield = false,
-					rays = 16,
+					rays = 20,  --保留修改，原16
 					trail_effect = "",
 					muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
 					dot_data_name = "ammo_dragons_breath_heavy"
 				}
 			},
 	
-		--000 Buck
+		--000 Buck  --鹿弹
 			a_custom_auto_override = {
 				supported = true,
 				stats = {
 					value = 9,
-					total_ammo_mod = -99,
+					total_ammo_mod = 0,  --未跟进，原-99
 					spread = -5,
 					damage = 30
 				},
 				custom_stats = {
+					bullet_class_cus = "BuckShotPierceDaring",  --保留修改，原无此项
 					hip_mult = 1.5,
-					falloff_start_mult = 1.2,
-					falloff_end_mult = 0.8,
+					armor_piercing_add = 0.8,  --保留修改，原无此项
+					falloff_start_mult = 1,  --未跟进，原1.2
+					falloff_end_mult = 0.75,  --未跟进，原0.8
 					damage_min_mult = 0.66667,
-					ammo_pickup_max_mul = 0.75,
-					ammo_pickup_min_mul = 0.75,
+					ammo_pickup_max_mul = 0.875,  --未跟进，原0.75
+					ammo_pickup_min_mul = 0.875,  --
 					rays = 6
 				}
 			},
@@ -1386,16 +1407,18 @@ local grips = {
 				stats = {
 					value = 9,
 					spread = -5,
-					total_ammo_mod = -136,
+					total_ammo_mod = 0,  --未跟进，原-136
 					damage = 60
 				},
 				custom_stats = {
+					bullet_class_cus = "BuckShotPierceDaring",  --保留修改，原无此项
 					hip_mult = 1.5,
-					falloff_start_mult = 1.2,
-					falloff_end_mult = 0.8,
+					armor_piercing_add = 0.8,  --保留修改，原无此项
+					falloff_start_mult = 1,  --未跟进，原1.2
+					falloff_end_mult = 0.75,  --未跟进，原0.8
 					damage_min_mult = 0.66667,
-					ammo_pickup_max_mul = 0.75,
-					ammo_pickup_min_mul = 0.75,
+					ammo_pickup_max_mul = 0.875,  --未跟进，原0.75
+					ammo_pickup_min_mul = 0.875,  --
 					rays = 6
 				}
 			},
@@ -1405,16 +1428,18 @@ local grips = {
 				stats = {
 					value = 9,
 					spread = -5,
-					total_ammo_mod = -104,
+					total_ammo_mod = 0,  --未跟进，原-104
 					damage = 60
 				},
 				custom_stats = {
+					bullet_class_cus = "BuckShotPierceDaring",  --保留修改，原无此项
 					hip_mult = 1.5,
-					falloff_start_mult = 1.2,
-					falloff_end_mult = 0.8,
+					armor_piercing_add = 0.8,  --保留修改，原无此项
+					falloff_start_mult = 1,  --未跟进，原1.2
+					falloff_end_mult = 0.75,  --未跟进，原0.8
 					damage_min_mult = 0.75,
-					ammo_pickup_max_mul = 0.75,
-					ammo_pickup_min_mul = 0.75,
+					ammo_pickup_max_mul = 0.875,  --未跟进，原0.75
+					ammo_pickup_min_mul = 0.875,  --
 					rays = 6
 				}	
 			},
@@ -1423,29 +1448,31 @@ local grips = {
 				stats = {
 					value = 9,
 					spread = -5,
-					total_ammo_mod = -77,
+					total_ammo_mod = 0,  --未跟进，原-77
 					damage = 60
 				},
 				custom_stats = {
+					bullet_class_cus = "BuckShotPierceDaring",  --保留修改，原无此项
 					hip_mult = 1.5,
-					falloff_start_mult = 1.2,
-					falloff_end_mult = 0.8,
-					damage_min_mult = 0.79999,
-					ammo_pickup_max_mul = 0.75,
-					ammo_pickup_min_mul = 0.75,
+					armor_piercing_add = 0.8,  --保留修改，原无此项
+					falloff_start_mult = 1,  --未跟进，原1.2
+					falloff_end_mult = 0.75,  --未跟进，原0.8
+					damage_min_mult = 0.83333,  --未跟进，原0.79999
+					ammo_pickup_max_mul = 0.875,  --未跟进，原0.75
+					ammo_pickup_min_mul = 0.875,  --
 					rays = 6
 				}	
 			},
 	
-		--Slugs
+		--Slugs  --独头
 			a_slug_auto_override = {
 				name_id = "bm_wp_upg_a_slug",
 				desc_id = "bm_wp_upg_a_slug_spam_desc",
 				supported = true,
 				stats = {
 					value = 10,
-					concealment = -1,
-					total_ammo_mod = -204,
+					concealment = -2,  --未跟进，原-1
+					total_ammo_mod = -102,  --未跟进，原-204
 					damage = 0,
 					recoil = -20,
 					spread = 5,
@@ -1462,10 +1489,10 @@ local grips = {
 					ammo_pickup_min_mul = 0.7,
 					can_shoot_through_enemy = true,
 					can_shoot_through_wall = true,
-					ap_desc = "bm_ap_armor_75_weapon_sc_desc",
+					ap_desc = "bm_ap_armor_75_weapon_sc_desc",  --已跟进(80→75)，待进一步查阅
 					falloff_start_mult = 1.2,
-					falloff_end_mult = 1.4,
-					ads_speed_mult = 1.025
+					falloff_end_mult = 1.5,  --未跟进，原1.4
+					ads_speed_mult = 1.075  --未跟进，原1.025
 				}
 			},
 	
@@ -1475,8 +1502,8 @@ local grips = {
 				supported = true,
 				stats = {
 					value = 10,
-					concealment = -1,
-					total_ammo_mod = -204,
+					concealment = -2,  --未跟进，原-1
+					total_ammo_mod = -102,  --未跟进，原-204
 					damage = 0,
 					spread = 5,
 					spread_multi = {1, 1},	
@@ -1493,10 +1520,10 @@ local grips = {
 					ammo_pickup_min_mul = 0.7,
 					can_shoot_through_enemy = true,
 					can_shoot_through_wall = true,
-					ap_desc = "bm_ap_armor_75_weapon_sc_desc",
+					ap_desc = "bm_ap_armor_75_weapon_sc_desc",  --已跟进(80→75)，待进一步查阅
 					falloff_start_mult = 1.2,
-					falloff_end_mult = 1.4,
-					ads_speed_mult = 1.025
+					falloff_end_mult = 1.5,  --未跟进，原1.4
+					ads_speed_mult = 1.075  --未跟进，原1.025
 				}
 			},
 		
@@ -1506,8 +1533,8 @@ local grips = {
 				desc_id = "bm_wp_upg_a_slug_desc",
 				stats = {
 					value = 10,
-					concealment = -1,
-					total_ammo_mod = -204,
+					concealment = -2,  --未跟进，原-1
+					total_ammo_mod = -102,  --未跟进，原-204
 					damage = 0,
 					recoil = -20,
 					spread = 5,
@@ -1529,17 +1556,17 @@ local grips = {
 					can_shoot_through_wall = true,
 					ap_desc = "bm_ap_weapon_sc_desc",
 					falloff_start_mult = 1.2,
-					falloff_end_mult = 1.4,
-					ads_speed_mult = 1.025
+					falloff_end_mult = 1.5,  --未跟进，原1.4
+					ads_speed_mult = 1.075  --未跟进，原1.025
 				}
 			},
 	
 			a_slug_heavy_override = {
 				stats = {
 					value = 10,
-					concealment = -1,
-					total_ammo_mod = -204,
-					damage = 0,	
+					concealment = -2,  --未跟进，原-1
+					total_ammo_mod = -102,  --未跟进，原-204
+					damage = 0,
 					recoil = -20,
 					spread = 5,
 					spread_multi = {1, 1},	
@@ -1561,26 +1588,29 @@ local grips = {
 					can_shoot_through_titan_shield = true,
 					ap_desc = "bm_heavy_ap_no_mult_weapon_sc_desc",
 					falloff_start_mult = 1.2,
-					falloff_end_mult = 1.4,
-					ads_speed_mult = 1.025
+					falloff_end_mult = 1.5,  --未跟进，原1.4
+					ads_speed_mult = 1.075  --未跟进，原1.025
 				}
 			},
 	
-		--FRAG-12
+		--FRAG-12  高爆弹
 			a_explosive_auto_override = {
+				exp_func = "linear",  --保留修改，爆炸衰减部分[exp_func
+				min_exp_dmg = 13.5,
+				hit_fix = 0.6,  --exp_func]
 				supported = true,
 				stats = {
 					value = 10,
 					recoil = -30,
-					total_ammo_mod = -204,
-					concealment = -4,
+					total_ammo_mod = -102,  --未跟进，原-204
+					concealment = -6,  --未跟进，原-4
 					damage = 0
 				},
 				custom_stats = {
-					ads_speed_mult = 1.1,
+					ads_speed_mult = 1.15,  --未跟进，原1.1
 					hip_mult = 3,
-					ammo_pickup_max_mul = 0.55,
-					ammo_pickup_min_mul = 0.55,
+					ammo_pickup_max_mul = 0.5,  --未跟进，原0.55
+					ammo_pickup_min_mul = 0.5,  --未跟进，原0.55
 					ignore_statistic = true,
 					block_b_storm = true,
 					rays = 1,
@@ -1589,19 +1619,22 @@ local grips = {
 			},
 	
 			a_explosive_semi_override = {
+				exp_func = "linear",  --保留修改，爆炸衰减部分[exp_func
+				min_exp_dmg = 13.5,
+				hit_fix = 0.5625,  --exp_func]
 				supported = true,
 				stats = {
 					value = 10,
 					recoil = -30,
-					total_ammo_mod = -204,
-					concealment = -4,
+					total_ammo_mod = -102,  --未跟进，原-204
+					concealment = -6,  --未跟进，原-4
 					damage = 0
 				},
 				custom_stats = {
-					ads_speed_mult = 1.1,
+					ads_speed_mult = 1.15,  --未跟进，原1.1
 					hip_mult = 3,
-					ammo_pickup_max_mul = 0.55,
-					ammo_pickup_min_mul = 0.55,
+					ammo_pickup_max_mul = 0.5,  --未跟进，原0.55
+					ammo_pickup_min_mul = 0.5,  --未跟进，原0.55
 					ignore_statistic = true,
 					block_b_storm = true,
 					rays = 1,
@@ -1610,20 +1643,23 @@ local grips = {
 			},
 	
 			a_explosive_pump_override = {
+				exp_func = "quad",  --保留修改，爆炸衰减部分[exp_func
+				min_exp_dmg = 20,
+				hit_fix = 0.5625,  --exp_func]
 				desc_id = "bm_wp_upg_a_explosive_desc_sc",
 				supported = true,
 				stats = {
 					value = 10,
-					total_ammo_mod = -204,
 					recoil = -30,
-					concealment = -4,
+					total_ammo_mod = -102,  --未跟进，原-204
+					concealment = -6,  --未跟进，原-4
 					damage = 0
 				},
 				custom_stats = {
-					ads_speed_mult = 1.1,
+					ads_speed_mult = 1.15,  --未跟进，原1.1
 					hip_mult = 3,
-					ammo_pickup_max_mul = 0.55,
-					ammo_pickup_min_mul = 0.55,
+					ammo_pickup_max_mul = 0.5,  --未跟进，原0.55
+					ammo_pickup_min_mul = 0.5,  --未跟进，原0.55
 					ignore_statistic = true,
 					block_b_storm = true,
 					rays = 1,
@@ -1632,19 +1668,22 @@ local grips = {
 			},
 	
 			a_explosive_heavy_override = {
+				exp_func = "quad",  --保留修改，爆炸衰减部分[exp_func
+				min_exp_dmg = 34,
+				hit_fix = 0.5,  --exp_func]
 				stats = {
 					value = 10,
-					total_ammo_mod = -204,
 					damage = 0,
 					recoil = -30,
-					concealment = -4,
+					total_ammo_mod = -102,  --未跟进，原-204
+					concealment = -6,  --未跟进，原-4
 					moving_spread = 3
 				},
 				custom_stats = {
-					ads_speed_mult = 1.1,
+					ads_speed_mult = 1.15,  --未跟进，原1.1
 					hip_mult = 3,
-					ammo_pickup_max_mul = 0.55,
-					ammo_pickup_min_mul = 0.55,
+					ammo_pickup_max_mul = 0.5,  --未跟进，原0.55
+					ammo_pickup_min_mul = 0.5,  --未跟进，原0.55
 					ignore_statistic = true,
 					rays = 1,
 					block_b_storm = true,	
@@ -4024,6 +4063,7 @@ end)
 					self.wpn_fps_pis_rsh12.override.wpn_fps_upg_ns_pis_large_kac = { parent = "barrel",  a_obj = "a_ns" }
 					self.wpn_fps_pis_rsh12.override.wpn_fps_upg_ns_pis_jungle = { parent = "barrel",  a_obj = "a_ns" }
 
+					--待查阅
 					self.wpn_fps_pis_rsh12.override.wpn_fps_upg_i_iw_hailstorm = {
 						desc_id = "bm_wp_upg_i_iw_hailstorm_no_pen_desc",
 						custom_stats = {
@@ -4036,12 +4076,13 @@ end)
 							},
 							can_shoot_through_shield = false,
 							armor_piercing_override = 0.5,
-							falloff_start_mult = 0.2,
-							falloff_end_mult = 0.4,
-							ammo_pickup_max_mul = 2,
-							ammo_pickup_min_mul = 2,
-							alt_ammo_pickup_max_mul = 2,
-							alt_ammo_pickup_min_mul = 2,
+							falloff_start_mult = 0.7,  --保留修改，原0.2
+							falloff_end_mult = 0.833333,  --保留修改，原0.4
+							damage_min_mult = 0.238095,  --保留修改，原无此项
+							ammo_pickup_max_mul = 2.2,  --保留修改，原2
+							ammo_pickup_min_mul = 2.2,  --
+							alt_ammo_pickup_max_mul = 2.2,  --
+							alt_ammo_pickup_min_mul = 2.2,  --
 							rof_mult = 4.443333
 						},
 						stats = {
@@ -4050,8 +4091,8 @@ end)
 							spread = -4,
 							recoil = -6,
 							extra_ammo = 10,
-							damage = -45,
-							total_ammo_mod = 402
+							damage = -30,  --保留修改，原-45
+							total_ammo_mod = 402 --待查阅，此处补丁本为400，更新后原版为402
 						}
 					}
 
@@ -5016,6 +5057,38 @@ end)
 							value = 1
 						}
 					}
+
+					--魏医生的医疗左轮  --保留修改部分[
+					self.parts.dr_wei_MR = {
+						pcs = {},
+						type = "custom",
+						sub_type = "singlefire",
+						name_id = "dr_wei_MR",
+						desc_id = "dr_wei_MR_desc",
+						a_obj = "a_body",
+						has_description = true,
+						alt_icon = "guis/textures/pd2/blackmarket/icons/deployables/ammo_bag",
+						unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+						third_unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+						supported = true,
+						stats = {
+							damage = ((is_pro and -89) or -30) 
+						},
+						internal_part = true,
+						--[[custom_stats = {
+							--alt_desc = "bm_mosin_tranq_desc",
+							bullet_class = "PoisonBulletBase",
+							trail_effect = "_dmc/effects/warsaw_trail",
+							dot_data_name = "ammo_rip_pump",
+							can_shoot_through_enemy = false
+						},--]]
+						dlc = "sc"
+					}
+					self.parts.dr_wei_MR_saw = deep_clone(self.parts.dr_wei_MR)
+					self.parts.dr_wei_MR_saw.name_id = "dr_wei_MR_saw"
+					self.parts.dr_wei_MR_saw.desc_id = "dr_wei_MR_saw_desc"
+					--]
+
 					
 					--Bronco .44 Part Additions
 					table.insert(self.wpn_fps_pis_rage.uses_parts, "wpn_fps_pis_g18c_co_comp_2")
@@ -5025,6 +5098,7 @@ end)
 					table.insert(self.wpn_fps_pis_rage.uses_parts, "wpn_fps_upg_fl_pis_laser")
 					table.insert(self.wpn_fps_pis_rage.uses_parts, "wpn_fps_upg_fl_pis_tlr1")
 					table.insert(self.wpn_fps_pis_rage.uses_parts, "wpn_fps_upg_fl_pis_perst")
+					table.insert(self.wpn_fps_pis_rage.uses_parts, "dr_wei_MR")  --保留修改
 
 					self.wpn_fps_pis_rage.override = self.wpn_fps_pis_rage.override or {}
 					self.wpn_fps_pis_rage.override.wpn_fps_pis_usp_fl_adapter = {
@@ -5036,6 +5110,29 @@ end)
 						a_obj = "a_vg"
 					}
 					
+					--保留修改部分--[
+					self.wpn_fps_pis_rage.override.dr_wei_MR = {
+						stats = {
+							damage = ((is_pro and -89) or -30),
+							extra_ammo = 6,
+							reload = -1,
+							total_ammo_mod = 200  -- +60
+						},
+						custom_stats = {
+							--[[bullet_class = "PoisonBulletBase",
+							trail_effect = "_dmc/effects/warsaw_trail",
+							dot_data_name = "ammo_rip_pump",]]
+							hs_mult = ((is_pro and 60) or 1),
+							ammo_pickup_max_mul = 1.7,  --multi
+            				ammo_pickup_min_mul = 1.85,
+            				alt_ammo_pickup_max_mul = 1.7,
+            				alt_ammo_pickup_min_mul = 1.85,
+							falloff_start_mult = ((is_pro and 0.01) or 1) ,
+							falloff_end_mult = ((is_pro and 0.01) or 1) ,
+						}
+					}	
+					--]			
+
 					self.wpn_fps_pis_rage_npc.override = deep_clone(self.wpn_fps_pis_rage.override)	
 					self.wpn_fps_pis_rage_npc.uses_parts = deep_clone(self.wpn_fps_pis_rage.uses_parts)	
 
@@ -9278,7 +9375,7 @@ end)
 				self.parts.wpn_fps_lmg_mg42_b_vg38.stats = {
 					value = 10,
 					recoil = 4,
-					extra_ammo = -10
+					extra_ammo = -40  --保留修改，原-10
 				}		
 				self.parts.wpn_fps_lmg_mg42_b_vg38.custom_stats = {
 					muzzleflash = "effects/payday2/particles/weapons/9mm_auto_silence_fps",
@@ -10171,6 +10268,34 @@ end)
 					table.insert(self.wpn_fps_ass_vhs.uses_parts, "wpn_fps_upg_o_northtac_reddot")
 					table.insert(self.wpn_fps_ass_vhs.uses_parts, "wpn_fps_upg_o_arbiter_irons_dmc")
 
+					--mag add  --保留修改部分--[
+					self.parts.LR_mag_Daring = {
+    				    pcs = {},
+    				    type = "custom",
+    				    name_id = "LR_mag_Daring",
+    				    desc_id = "LR_mag_Daring_desc",
+    				    a_obj = "a_body",
+    				    has_description = true,
+    				    alt_icon = "guis/textures/pd2/blackmarket/icons/deployables/ammo_bag",
+    				    unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+    				    third_unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+    				    supported = true,
+    				    stats = {
+    				        extra_ammo = 5,
+							spread = -2 
+    				    },
+    				    internal_part = true,
+    				    dlc = "sc"
+    				}
+					self.wpn_fps_pis_rage.override.LR_mag_Daring = {
+    				    stats = {
+    				        extra_ammo = 5,
+    				        spread = -2
+    				    }
+    				}
+					table.insert(self.wpn_fps_ass_vhs.uses_parts, "LR_mag_Daring")
+					--]
+
 					self.wpn_fps_ass_vhs_npc.adds = deep_clone(self.wpn_fps_ass_vhs.adds)
 					self.wpn_fps_ass_vhs_npc.override = deep_clone(self.wpn_fps_ass_vhs.override)
 					self.wpn_fps_ass_vhs_npc.uses_parts = deep_clone(self.wpn_fps_ass_vhs.uses_parts)
@@ -11020,6 +11145,8 @@ end)
 					table.insert(self.wpn_fps_ass_aug.uses_parts, "wpn_fps_upg_o_northtac_reddot")
 					table.insert(self.wpn_fps_ass_aug.uses_parts, "wpn_fps_upg_o_dd_irons_dmc")
 					table.insert(self.wpn_fps_ass_aug.uses_parts, "wpn_fps_upg_o_mbus_rear")
+
+					table.insert(self.wpn_fps_ass_aug.uses_parts, "LR_mag_Daring") --保留修改，原无此项
 					
 					self.wpn_fps_ass_aug_npc.uses_parts = deep_clone(self.wpn_fps_ass_aug.uses_parts)
 
@@ -11814,7 +11941,27 @@ end)
 						}
 					}
 
-
+					--保留修改部分--[
+					self.parts.m16_remove_frontsight = {
+						pcs = {},
+						type = "exclusive_set",
+						sub_type = "singlefire",
+						name_id = "m16_remove_frontsight",
+						desc_id = "m16_remove_frontsight_desc",
+						a_obj = "a_body",
+						has_description = true,
+						alt_icon = "guis/textures/pd2/blackmarket/icons/deployables/ammo_bag",
+						unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+						third_unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+						supported = true,
+						internal_part = true,
+						forbids = {
+							"wpn_fps_ass_m4_os_frontsight"
+						},
+						dlc = "sc"
+					}
+					--]
+					
 					self.parts.wpn_fps_ass_m16_o_handle_sight.visibility = {
 						{
 							objects = {
@@ -11942,6 +12089,7 @@ end)
 					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_s_saintvictor_hera")
 					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac")
 					table.insert(self.wpn_fps_ass_m16.uses_parts, "wpn_fps_upg_o_northtac_reddot")
+					table.insert(self.wpn_fps_ass_m16.uses_parts, "m16_remove_frontsight")  --保留修改，原无此项
 					
 					self.wpn_fps_ass_m16_npc.adds = deep_clone(self.wpn_fps_ass_m16.adds)
 					self.wpn_fps_ass_m16_npc.uses_parts = deep_clone(self.wpn_fps_ass_m16.uses_parts)
@@ -14489,7 +14637,7 @@ end)
 						falloff_start_mult = 0.5,
 						falloff_end_mult = 0.9375,
 						damage_min_mult = 1,
-						descope_on_fire_ignore_setting = true,
+						descope_on_fire_ignore_setting = true,  --此项可能会让龙狙开镜无法拉栓，待检查
 						use_vapor_trail = true
 					}
 					self.parts.wpn_fps_snp_awp_conversion_dragonlore.forbids = {
@@ -15130,7 +15278,7 @@ end)
 					self.parts.wpn_fps_snp_mosin_b_standard.pcs = {}
 					self.parts.wpn_fps_snp_mosin_b_standard.supported = true
 					self.parts.wpn_fps_snp_mosin_b_standard.stats = deep_clone(barrels.long_b3_stats)
-					self.parts.wpn_fps_snp_mosin_b_standard.stats.bayonet_range = 50
+					self.parts.wpn_fps_snp_mosin_b_standard.stats.bayonet_range = 60  --保留修改，原50
 					self.parts.wpn_fps_snp_mosin_b_standard.custom_stats = deep_clone(barrels.long_b3_stats)
 					
 					--Short Barrel
@@ -15168,15 +15316,15 @@ end)
 					self.parts.wpn_fps_snp_mosin_ns_bayonet.stats = {
 						value = 5,
 						concealment = -2,
-						max_damage = 6,
-						min_damage = 6,
+						max_damage = 9,  --保留修改，原6
+						min_damage = 9,  --
 						max_damage_effect = 1,
 						min_damage_effect = 1,
-						bayonet_range = 50
+						bayonet_range = 60  --保留修改，原50
 					}
 					self.parts.wpn_fps_snp_mosin_ns_bayonet.custom_stats = {
-						melee_speed_mult = 0.8,
-						ads_speed_mult = 1.125
+						melee_speed_mult = 0.8,  --已跟进，待查阅商酌
+						ads_speed_mult = 1.15  --保留修改，原1.125
 					}
 						
 					--Iron Sight
@@ -15207,7 +15355,7 @@ end)
 							alt_desc = "bm_mosin_tranq_desc",
 							trail_effect = "_dmc/effects/warsaw_trail",
 							bullet_class = "PoisonBulletBase",
-							dot_data_name = "weapon_tranq_heavy",
+							dot_data_name = "weapon_tranq_mosin_lr_custom", --保留修改，原"weapon_tranq_heavy"，如果这里闪退了说明肯德基没跟好
 							can_shoot_through_enemy = false
 						}
 					}
@@ -16365,6 +16513,8 @@ end)
 						wpn_fps_upg_a_piercing = deep_clone(shot_ammo.a_piercing_semi_override),
 						wpn_fps_upg_a_dragons_breath = deep_clone(shot_ammo.a_dragons_breath_semi_override)		
 					}
+
+					table.insert(self.wpn_fps_sho_ben.uses_parts, "m1014_semi_shotgun")  --保留修改，原无此项
 
 					table.insert(self.wpn_fps_sho_ben.uses_parts, "wpn_fps_sho_ben_cnuy_hoshino")
 
@@ -17684,7 +17834,15 @@ end)
 					}
 					
 					--Override Table
-					self.wpn_fps_sho_boot.override = {}	
+					self.wpn_fps_sho_boot.override = {
+						wpn_fps_upg_a_explosive = deep_clone(shot_ammo.a_explosive_semi_override)  --保留修改，原无此项
+					}	
+
+					--保留修改部分--[
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.exp_func = "quad"
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.min_exp_dmg = 30
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.hit_fix = 0.5625
+					--]
 
 					table.insert(self.wpn_fps_sho_boot.uses_parts, "wpn_fps_upg_boot_legend")
 					table.insert(self.wpn_fps_sho_boot.uses_parts, "wpn_fps_upg_boot_legend_optic")
@@ -17717,7 +17875,15 @@ end)
 					self.parts.wpn_fps_shot_huntsman_s_short.custom_stats = deep_clone(stocks.remove_fixed_stats)
 
 					--Mosconi Override Table
-					self.wpn_fps_shot_huntsman.override = {}
+					self.wpn_fps_shot_huntsman.override = {
+						wpn_fps_upg_a_explosive = deep_clone(shot_ammo.a_explosive_semi_override)  --保留修改，原{}内容为空
+					}
+
+					--保留修改部分--[
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.exp_func = "quad"
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					--]
 					
 					self.wpn_fps_shot_huntsman_npc.uses_parts = deep_clone(self.wpn_fps_shot_huntsman.uses_parts)
 				end)
@@ -17770,7 +17936,16 @@ end)
 					}
 					
 					--Override table
-					self.wpn_fps_shot_b682.override = {}	
+					self.wpn_fps_shot_b682.override = {
+						wpn_fps_upg_a_explosive = deep_clone(shot_ammo.a_explosive_semi_override)  --保留修改，原{}内容为空
+					}	
+
+					--保留修改部分--[
+					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.exp_func = "quad"
+    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
+    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					--]
+
 				end)
 
 		--SECONDARIES
@@ -17801,7 +17976,16 @@ end)
 					self.parts.wpn_fps_sho_coach_s_short.custom_stats = deep_clone(stocks.remove_fixed_stats)
 					
 					--Override Table
-					self.wpn_fps_sho_coach.override = {}	
+					self.wpn_fps_sho_coach.override = {
+						wpn_fps_upg_a_explosive = deep_clone(shot_ammo.a_explosive_semi_override)    --保留修改，原无此项
+					}	
+
+					--保留修改部分--[
+					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.exp_func = "quad"
+    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
+    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					--]
+
 				end)
 
 
@@ -18056,13 +18240,15 @@ end)
 				self.parts.wpn_fps_upg_a_bow_explosion.has_description = true
 				self.parts.wpn_fps_upg_a_bow_explosion.desc_id = "bm_w_bow_exp_desc"
 				self.parts.wpn_fps_upg_a_bow_explosion.supported = true
+				self.parts.wpn_fps_upg_a_bow_explosion.exp_func = "no_falloff"  --保留修改，原无此项
+				self.parts.wpn_fps_upg_a_bow_explosion.hit_fix = true  --
 				self.parts.wpn_fps_upg_a_bow_explosion.stats = {damage = 60, total_ammo_mod = -204, spread = -6}
 				self.parts.wpn_fps_upg_a_bow_explosion.custom_stats = {
 					alt_desc = "bm_bow_exp_sc_desc",
 					launcher_grenade = "west_arrow_exp",
 					block_b_storm = true,
-					ammo_pickup_max_mul = 0.8,
-					ammo_pickup_min_mul = 0.8
+					ammo_pickup_max_mul = 0.925,  --保留修改，原0.8
+					ammo_pickup_min_mul = 0.875   --保留修改，原0.8
 				}
 				
 				--Poisoned Arrows
@@ -18084,14 +18270,16 @@ end)
 				self.parts.wpn_fps_bow_long_m_explosive.pcs = {}
 				self.parts.wpn_fps_bow_long_m_explosive.supported = true
 				self.parts.wpn_fps_bow_long_m_explosive.has_description = true
+				self.parts.wpn_fps_bow_long_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
+				self.parts.wpn_fps_bow_long_m_explosive.hit_fix = true  --保留修改，原无此项
 				self.parts.wpn_fps_bow_long_m_explosive.desc_id = "bm_w_bow_exp_desc"
 				self.parts.wpn_fps_bow_long_m_explosive.stats = {damage = 60, total_ammo_mod = -164, spread = -6}
 				self.parts.wpn_fps_bow_long_m_explosive.custom_stats = {
 					alt_desc = "bm_bow_exp_sc_desc",
 					launcher_grenade = "long_arrow_exp",
 					block_b_storm = true,
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85
+					ammo_pickup_max_mul = 0.975,  --保留修改，原0.85
+					ammo_pickup_min_mul = 0.925  --保留修改，原0.85
 				}
 				
 				--Poison Arrow
@@ -18144,7 +18332,7 @@ end)
 				self.parts.wpn_fps_bow_elastic_g_3.stats = deep_clone(grips.quickdraw_acc)
 				self.parts.wpn_fps_bow_elastic_g_3.custom_stats = deep_clone(grips.quickdraw_acc)
 				
-				--Explosive Arrows
+				--Explosive Arrows  --此项没有添加无衰减箭矢，回头可查阅检查原因是否在预期内
 				self.parts.wpn_fps_bow_elastic_m_explosive.pcs = {}
 				self.parts.wpn_fps_bow_elastic_m_explosive.has_description = true
 				self.parts.wpn_fps_bow_elastic_m_explosive.desc_id = "bm_w_bow_exp_desc"
@@ -18154,8 +18342,8 @@ end)
 					alt_desc = "bm_bow_exp_sc_desc",
 					launcher_grenade = "elastic_arrow_exp",
 					block_b_storm = true,
-					ammo_pickup_max_mul = 0.85,
-					ammo_pickup_min_mul = 0.85
+					ammo_pickup_max_mul = 0.975,  --保留修改，原0.85
+					ammo_pickup_min_mul = 0.925  --保留修改，原0.85
 				}
 				
 				--Poison Arrows
@@ -18193,14 +18381,16 @@ end)
 					self.parts.wpn_fps_bow_frankish_m_explosive.supported = true
 					self.parts.wpn_fps_bow_frankish_m_explosive.has_description = true
 					self.parts.wpn_fps_bow_frankish_m_explosive.desc_id = "bm_w_xbow_exp_desc"
+					self.parts.wpn_fps_bow_frankish_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
+					self.parts.wpn_fps_bow_frankish_m_explosive.hit_fix = true  --保留修改，原无此项
 					self.parts.wpn_fps_bow_frankish_m_explosive.stats = {damage = 60, total_ammo_mod = -204, spread = -12}
 					self.parts.wpn_fps_bow_frankish_m_explosive.custom_stats = {
 						hip_mult = 3,
 						alt_desc = "bm_xbow_exp_sc_desc",
 						launcher_grenade = "frankish_arrow_exp",
 						block_b_storm = true,
-						ammo_pickup_max_mul = 0.85,
-						ammo_pickup_min_mul = 0.85
+						ammo_pickup_max_mul = 0.975,  --保留修改，原0.85
+						ammo_pickup_min_mul = 0.925  --保留修改，原0.85
 					}
 					table.insert(self.wpn_fps_bow_frankish.uses_parts, "avelyn" )
 				end)
@@ -18224,14 +18414,16 @@ end)
 					self.parts.wpn_fps_bow_arblast_m_explosive.supported = true
 					self.parts.wpn_fps_bow_arblast_m_explosive.has_description = true
 					self.parts.wpn_fps_bow_arblast_m_explosive.desc_id = "bm_w_xbow_exp_desc"
+					self.parts.wpn_fps_bow_arblast_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
+					self.parts.wpn_fps_bow_arblast_m_explosive.hit_fix = 0.468  --保留修改，原无此项
 					self.parts.wpn_fps_bow_arblast_m_explosive.stats = {damage = 60, total_ammo_mod = -164, spread = -12}
 					self.parts.wpn_fps_bow_arblast_m_explosive.custom_stats = {
 						hip_mult = 3,
 						alt_desc = "bm_xbow_exp_sc_desc",
 						launcher_grenade = "arblast_arrow_exp",
-						block_b_storm = true,
-						ammo_pickup_max_mul = 0.85,
-						ammo_pickup_min_mul = 0.85
+						--block_b_storm = true,  --保留修改，启用这个会禁用子弹风暴
+						ammo_pickup_max_mul = 0.975,  --保留修改，原0.85
+						ammo_pickup_min_mul = 0.925  --保留修改，原0.85
 					}
 				end)
 
@@ -18298,8 +18490,10 @@ end)
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.has_description = true
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.desc_id = "bm_w_bow_exp_desc"
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.supported = true
+					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.exp_func = "no_falloff"  --保留修改，原无此项
+					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.hit_fix = 0.67  --保留修改，原无此项
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.stats = {
-						damage = 45, 
+						damage = 30, --保留修改，原45
 						total_ammo_mod = -204, 
 						spread = -12
 					}
@@ -18308,8 +18502,8 @@ end)
 						alt_desc = "bm_airbow_exp_sc_desc",
 						launcher_grenade = "ecp_arrow_exp",
 						block_b_storm = true,
-						ammo_pickup_max_mul = 0.85,
-						ammo_pickup_min_mul = 0.85
+						ammo_pickup_max_mul = 0.975,  --保留修改，原0.85
+						ammo_pickup_min_mul = 0.925  --保留修改，原0.85
 					}
 					
 					--Poison Arrow
@@ -18461,20 +18655,28 @@ end)
 					self.parts.wpn_fps_upg_a_crossbow_explosion.supported = true
 					self.parts.wpn_fps_upg_a_crossbow_explosion.has_description = true
 					self.parts.wpn_fps_upg_a_crossbow_explosion.desc_id = "bm_w_xbow_exp_desc"
+					self.parts.wpn_fps_upg_a_crossbow_explosion.exp_func = "no_falloff"  --保留修改，原无此项
+					self.parts.wpn_fps_upg_a_crossbow_explosion.hit_fix = true  --
 					self.parts.wpn_fps_upg_a_crossbow_explosion.stats = {damage = 60, total_ammo_mod = -144, spread = -12}
 					self.parts.wpn_fps_upg_a_crossbow_explosion.custom_stats = {
 						hip_mult = 3,
 						alt_desc = "bm_xbow_exp_sc_desc",
 						launcher_grenade = "crossbow_arrow_exp",
 						block_b_storm = true,
-						ammo_pickup_max_mul = 0.85,
-						ammo_pickup_min_mul = 0.85
+						ammo_pickup_max_mul = 0.925,  --保留修改，原0.85
+						ammo_pickup_min_mul = 0.875  --保留修改，原0.85
 					}
 				end)
 
 	--OVE9000 SAW
 		Hooks:PostHook(WeaponFactoryTweakData, "_init_saw", "resmod_saw", function(self)
 			--Nothing for now
+
+			--保留修改部分--[
+			table.insert(self.wpn_fps_saw.uses_parts, "dr_wei_MR_saw")
+			table.insert(self.wpn_fps_saw_secondary.uses_parts, "dr_wei_MR_saw")
+			--]
+
 		end)
 
 
@@ -24815,7 +25017,8 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			ammo_pickup_min_mul = 2,
 			alt_ammo_pickup_max_mul = 2,
 			alt_ammo_pickup_min_mul = 2,
-			rof_mult = 3.3325,
+			rof_mult = 3.3325  --去掉一个逗号引发的语法错误
+			--disable_steelsight_recoil_anim = true
 		},
 		stats = {
 			value = 10,
@@ -35121,7 +35324,37 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				}		
 				
 				--Hammer 23 ammo stuff
-				self.wpn_fps_shot_bs23.override = {}		
+				self.wpn_fps_shot_bs23.override = {}
+				--已跟进，待查阅新版删除的原因
+				
+				--[[Hammer 23 ammo stuff
+				self.wpn_fps_shot_bs23.override = {
+					wpn_fps_upg_a_explosive = {
+						exp_func = "quad",
+						min_exp_dmg = 34,
+						hit_fix = 0.5,
+						supported = true,
+						stats = {
+							value = 10,
+							recoil = -25,
+							spread = 5,
+							concealment = -5,
+							spread_multi = {1, 1},	
+							total_ammo_mod = -102,
+							damage = 90
+						},
+						custom_stats = {
+							ads_speed_mult = 1.125,
+							hip_mult = 4,
+							ammo_pickup_max_mul = 0.7,
+							ammo_pickup_min_mul = 0.7,
+							ignore_statistic = true,
+							block_b_storm = true,
+							rays = 1,
+							bullet_class = "InstantExplosiveBulletBase"
+						}
+					}
+				}--]]
 			end
 		
 			--That one VMP update that added a tiny hat
@@ -40232,6 +40465,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					value = 5
 				},
 				custom_stats = {
+					bullet_class_cus = "ObjectDamageDaring",  --保留修改，原无此项
 					sounds = {
 						spin_start = "swatturret_spin_start",
 						spin_end = "swatturret_spin_stop"
@@ -40242,12 +40476,16 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_lmg_natascha_body.keep_damage = true
 			self.parts.wpn_fps_lmg_natascha_body.stats = {
 				value = 0,
-				damage = -6,
-				concealment = -2
+				falloff_start_mult = 2,  --保留修改，原无此项
+            	falloff_end_mult = 1,  --
+				damage = -5,  --保留修改，原-6
+				concealment = -1,  --保留修改，原-2
+				total_ammo_mod = 39  --保留修改，原无此项
 			}
 			self.parts.wpn_fps_lmg_natascha_body.custom_stats = {
-				natascha = 975,
-				spin_up_mult = 1.3,
+				bullet_class_cus = "ObjectDamageDaring",  --保留修改，原无此项
+				natascha = 1400,  --保留修改，原975
+				spin_up_mult = 1.15,  --保留修改，原1.3
 				ads_speed_mult = 1.3
 			}
 			table.insert( self.parts.wpn_fps_lmg_natascha_body.adds, "wpn_fps_lmg_natascha_sounds" )
@@ -40264,6 +40502,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					value = 5
 				},
 				custom_stats = {
+					bullet_class_cus = "ObjectDamageDaring",  --保留修改，原无此项
 					sounds = {
 						spin_start = " ",
 						spin_end = " "
@@ -40274,7 +40513,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_lmg_tomislav_body.stats = {
 				value = 0,
 				spread = 5,
-				concealment = 1
+				concealment = 3  --保留修改，原1
 			}
 			self.parts.wpn_fps_lmg_tomislav_body.custom_stats = {
 				spin_up_mult = 0.8,
@@ -40287,12 +40526,13 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_lmg_gatling_gun_body.keep_damage = true
 			self.parts.wpn_fps_lmg_gatling_gun_body.stats = {
 				value = 0,
-				damage = 6,
-				concealment = -3,
+				damage = 15,  --保留修改，原6
+				concealment = -2,  --保留修改，原-3
 				total_ammo_mod = -82
 			}
 			self.parts.wpn_fps_lmg_gatling_gun_body.custom_stats = {
-				spin_up_mult = 1.5,
+				bullet_class_cus = "ObjectDamageDaring",  --保留修改，原无此项
+				spin_up_mult = 1.3,  --保留修改，原1.5
 				ads_speed_mult = 1.5,
 				movement_speed_add = -0.12,
 				sms = 0.88
@@ -40310,6 +40550,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			self.parts.wpn_fps_lmg_canton_ammo.cull = nil
 			self.parts.wpn_fps_lmg_canton_ammo.no_cull = true
 			self.parts.wpn_fps_lmg_canton_ammo.custom_stats = {
+				bullet_class_cus = "ObjectDamageDaring",  --保留修改，原无此项
 				bullet_class = "FlameBulletBase",
 				ignore_statistic = true,
 				armor_piercing_add = 0.01,
