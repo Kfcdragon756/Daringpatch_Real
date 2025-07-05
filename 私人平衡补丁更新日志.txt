@@ -4,8 +4,15 @@
 ——玩具枪的138有部分技能未被适用（如小弟技能），针对这种情况可能暂时可以通过点上相应技能解决。
 ——警告：Beardlib 5.0版本存在已知bug，会导致调整设置时闪退，请更新到5.0.1版本及以上或暂时保留4.88版本不要更新
 
-v9.04
-·跟进恢复mod正式版V12.3.4.2
+[v10] WIP
+· 跟进正式版v12.3.4.2的部分修改
+已知改动（基于9.03补丁）：
+—— 龙息弹的衰减始距和最小伤害被小幅加强（这可能意味着在接近衰减末距的距离下有了更高的燃烧概率）
+—— 鹿弹的精准度惩罚降低
+—— 独头弹的隐匿性惩罚降低1点
+—— Nagant狙击步枪刺刀的近战攻击速度降低20%
+· 待检查的重要事宜：
+—— 检查awp(龙狙)是否会在开镜时无法拉栓，如果是，修改self.parts.wpn_fps_snp_awp_conversion_dragonlore.custom_stats中的descope_on_fire_ignore_setting
 
 v9.03
 · 添加对AR2的支持
@@ -335,6 +342,9 @@ V4.1
 restoration-mod:
 main.xml
 mod.txt
+
+restoration-mod\lua\sc\loc:
+coreloc.lua
 
 restoration-mod\lua\sc\units\player:
 playerdamage.lua
