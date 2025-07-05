@@ -588,7 +588,7 @@ function NewRaycastWeaponBase:recoil_multiplier(...)
 
 	mult = mult * ((self._is_controller and 0.7) or 1)
 	
-		-- ºó×øÁ¦»¤¼×
+		-- åååŠ›æŠ¤ç”²
 		if user_unit:movement()._state_data.ducking then
 			local recoil = managers.player:get_equipped_armor_recoil()[3]
 			mult = mult * (1+(1-recoil))

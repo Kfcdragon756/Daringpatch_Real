@@ -515,7 +515,7 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 					self:_check_kill_achievements(cop_kill_count, unit_base, unit_type, is_civilian, hit_through_wall, hit_through_shield)
 				end
 				
-				-- ÈËÌå½á¹¹
+				-- äººä½“ç»“æ„
 				if self._kills_to_head_shot_stacks then
 					if self:fire_mode() == "auto" and hit_result.type == "death" then
 						self._kills_to_head_shot_stacks = self._kills_to_head_shot_stacks + self._automatic_kills_to_head_shot_dmg_mult
@@ -526,8 +526,19 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 			end
 		end
 	end
-
-	self:_check_tango_achievements(cop_kill_count)
+	
+	if self._fire_to_head_shot_stacks then
+		if self:fire_mode() == "auto" then
+			if is_hit then
+				self._fire_to_head_shot_stacks = self._fire_to_head_shot_stacks + self._automatic_fire_to_head_shot_dmg_mult
+				self._fire_to_head_shot_stacks = math.min(self._fire_to_head_shot_stacks, self._automatic_fire_to_head_shot_max_stacks) 
+			else
+				self._fire_to_head_shot_stacks = self._fire_to_head_shot_stacks - self._automatic_fire_to_head_shot_punishment
+				self._fire_to_head_shot_stacks = math.max(self._fire_to_head_shot_stacks, self._automatic_fire_to_head_shot_min_stacks) 			
+			end
+		end
+	end
+		self:_check_tango_achievements(cop_kill_count)
 
 	self:_check_one_shot_shotgun_achievements(kill_data)
 
@@ -640,11 +651,11 @@ end
 --Adds auto fire sound fix and MG Specialist skill.
 function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul, target_unit)
 
-	--===========================ÄÌÂèÇ¹²¿·Ö============================-
+	--===========================å¥¶å¦ˆæªéƒ¨åˆ†============================-
 	local weapon_hold = managers.player and managers.player.equipped_weapon_unit and managers.player:equipped_weapon_unit() and managers.player:equipped_weapon_unit():base():get_name_id()
 	--managers.mission._fading_debug_output:script().log("hold "..weapon_hold, Color.white)
 	local attachment_id = ''
-	--²»ÊÊÓÃ±¾º¯ÊıµÄÎäÆ÷ÔòÌø¹ı
+	--ä¸é€‚ç”¨æœ¬å‡½æ•°çš„æ­¦å™¨åˆ™è·³è¿‡
 	local run_medical_gun = true
 	for _,v in ipairs(un_fire_weapon) do
 		if weapon_hold == v then
@@ -652,7 +663,7 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 			break
 		end
 	end
-	--¼ì²âµ½ÄÌÂèÅä¼ş¾ÍÖ´ĞĞ
+	--æ£€æµ‹åˆ°å¥¶å¦ˆé…ä»¶å°±æ‰§è¡Œ
 	local heal_attach_match = false
 	if run_medical_gun then
 		for _,b in ipairs(heal_attach) do
@@ -701,7 +712,7 @@ function RaycastWeaponBase:fire(from_pos, direction, dmg_mul, shoot_player, spre
 			end
 		end
 	end
-	--===========================½áÊø============================-
+	--===========================ç»“æŸ============================-
 
 	if managers.player:has_activate_temporary_upgrade("temporary", "no_ammo_cost_buff") then
 		managers.player:deactivate_temporary_upgrade("temporary", "no_ammo_cost_buff")
@@ -1937,12 +1948,12 @@ function RaycastWeaponBase:KFC_is_recategory(...)
 	return false
 end
 
---ÓÉÓÚ´Ë´¦µÄfireº¯Êı¶Ôµç¾â¡¢ö±µ¯Ç¹¡¢ÏÂ¹ÒµÈÎäÆ÷²»ÉúĞ§£¬ËùÒÔ´Ë¶Î¿ÉÒÔÔİÇÒÓÃÓÚÕâÀàÎäÆ÷
+--ç”±äºæ­¤å¤„çš„fireå‡½æ•°å¯¹ç”µé”¯ã€éœ°å¼¹æªã€ä¸‹æŒ‚ç­‰æ­¦å™¨ä¸ç”Ÿæ•ˆï¼Œæ‰€ä»¥æ­¤æ®µå¯ä»¥æš‚ä¸”ç”¨äºè¿™ç±»æ­¦å™¨
 Hooks:PostHook(RaycastWeaponBase, "weapon_fire_rate", "Daring_sc_heal_player_ray_saw", function(self)
 	local weapon_hold = managers.player and managers.player.equipped_weapon_unit and managers.player:equipped_weapon_unit() and managers.player:equipped_weapon_unit():base():get_name_id()
 	--managers.mission._fading_debug_output:script().log("hold "..weapon_hold, Color.white)
 	local attachment_id = ''
-	--¼ì²âµ½²»ÊÊÓÃÓÚfireº¯ÊıµÄÎäÆ÷ÔòÍ¨¹ı
+	--æ£€æµ‹åˆ°ä¸é€‚ç”¨äºfireå‡½æ•°çš„æ­¦å™¨åˆ™é€šè¿‡
 	local un_fire_weapon_check = false
 	for _,v in ipairs(un_fire_weapon) do
 		if weapon_hold == v then
@@ -1950,7 +1961,7 @@ Hooks:PostHook(RaycastWeaponBase, "weapon_fire_rate", "Daring_sc_heal_player_ray
 			break
 		end
 	end
-	--¼ì²âµ½ÄÌÂèÅä¼ş¾ÍÖ´ĞĞ
+	--æ£€æµ‹åˆ°å¥¶å¦ˆé…ä»¶å°±æ‰§è¡Œ
 	local heal_attach_match = false
 	for _,b in ipairs(heal_attach) do
 		if table.contains(self._blueprint or {}, b) then
