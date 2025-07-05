@@ -565,12 +565,21 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 	self.values.player.body_armor.concealment = { --*increments of 2
 		30,
+		27, --2 increments
+		26,
+		25,
+		24,	--3 increments
+		23, --4 increments
+		22 --2 increments
+		--[[此处修改，原：
+		30,
 		26, --2 increments
 		24,
 		22,
 		16,	--3 increments
 		8, --4 increments
 		4 --2 increments
+		--]]
 	}
 	self.values.player.body_armor.damage_shake = { --increments of 0.1
 		1.0,
@@ -1647,7 +1656,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				}
 				--Ace
 				self.values.player.run_dodge_chance = {0.2}
-				self.values.player.zipline_dodge_chance = {0.6}
+				self.values.player.zipline_dodge_chance = {0.6}  --此处修改
 				
 				self.skill_descs.dire_need = {
 					skill_value_b1 = tostring(self.values.player.detection_risk_add_movement_speed[1][1] * 100).."%", -- movement speed per concealment
@@ -2141,7 +2150,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}	
 	
 	--Muscle
-	self.values.player.extra_revive_health = {0.25} --Bonus health % to add when getting up. Used by Muscle and Stoic.
+	self.values.player.extra_revive_health = {0.35}  --此处修改，原0.25 --Bonus health % to add when getting up. Used by Muscle and Stoic.
 	self.values.player.panic_suppression = {
 		true
 	}	
@@ -2167,7 +2176,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 	self.values.player.perk_armor_regen_timer_multiplier = {
 		0.9,
-		0.85, --Armorer Exclusive
+		0.80,  --此处修改，原0.85 --Armorer Exclusive
 
 		0.95, --Copycat
 
@@ -2178,11 +2187,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 	--Hitman
 	self.values.player.store_temp_health = { 
+		{10.0, 3.0},
+		{15, 4.5}
+		--[[
+		此处修改，原
 		{7.5, 2.5},
 		{12, 4}
+		--]]
 	}
 	self.temp_health_decay = 0.5
-	self.temp_health_max = 24
+	self.temp_health_max = 24.5  --此处修改，原24
 	self.values.player.revive_temp_health = { 12 }
 	self.values.player.temp_health_speed = { 1.2 }
 	self.values.player.temp_health_deflection = { 0.1 }
@@ -2304,10 +2318,10 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 	
 	--Hey you're getting your grinder on my grinder
-	self.values.player.level_5_armor_addend_grinder = {-4}
+	self.values.player.level_5_armor_addend_grinder = {-2.5}  --此处修改，原-4
 	self.values.player.flak_jacket_concealment = {
-		8,
-		4
+		3,  --此处修改，原8,4
+		2
 	}
 	self.damage_to_hot_data = {
 		armors_allowed = {"level_5"},
@@ -2315,7 +2329,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		tick_time = 1,
 		total_ticks = 3,
 		max_stacks = 5,
-		stacking_cooldown = 0.5,
+		stacking_cooldown = 0.6,  --此处修改，原0.5
 		add_stack_sources = {
 			bullet = true,
 			explosion = true,
@@ -2414,7 +2428,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		true,
 		0 --Ammo sharing cooldown, not in use
 	}}
-	self.loose_ammo_give_team_ratio = 0.35 --% of ammo given to team. --此处修改
+	self.loose_ammo_give_team_ratio = 0.35 --% of ammo given to team. --此处修改，原0.15
 
 	--Sociopath more like SocioBAD
 	self.values.player.killshot_regen_armor_bonus = {2}
@@ -2426,7 +2440,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 	self.values.player.killshot_close_panic_chance = {0.25}
 	self.values.player.melee_kill_life_leech = {
-		0.02+0.03, --此处修改
+		0.05, --此处修改，原0.02
 		0.01 --Copycat, unused
 	}
 	self.values.player.melee_kill_stamina = {
@@ -2490,7 +2504,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.5
 	}	
 	self.values.player.armor_max_health_store_multiplier = {
-		1.25
+		1.2  --此处修改，原1.25
 	}
 
 	self.values.player.body_armor.skill_max_health_store = { --increments of 0.4 --此处修改
@@ -2584,7 +2598,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 	self.values.player.damage_control_cooldown_drain = {
 		{ 0, 4},
-		{50, 6}
+		{50, 8}  --此处修改，原{50, 6}
 	}
 	
 	--Yakuza--
@@ -2598,7 +2612,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 
 	self.values.player.dodge_regen_damage_health_ratio_multiplier = {
-		0.10
+		0.08  --此处修改，原0.1
 	}
 
 	self.values.player.melee_kill_dodge_regen = {
@@ -2701,10 +2715,10 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			feedback_range = 1600
 		}
 	}	
-	self.values.player.pocket_ecm_heal_on_kill = {
+	self.values.player.pocket_ecm_heal_on_kill = {  --
 		1.2
 	}	
-	self.values.team.pocket_ecm_heal_on_kill = {
+	self.values.team.pocket_ecm_heal_on_kill = {  --
 		0.4
 	}	
 	
