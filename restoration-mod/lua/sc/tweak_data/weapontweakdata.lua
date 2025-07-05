@@ -2817,7 +2817,7 @@ local crew_wep_preset = {
 			self.komodo_crew.FIRE_MODE = "auto"
 		end		
 	
-	--SHOTGUNS �ѸĶ� �����ӵĵ�����Ŀ�ָ���9
+	--SHOTGUNS 拒绝跟进恢复制作组减少霰弹枪弹丸的行为！
 		function WeaponTweakData:_init_data_ben_crew()
 			self.ben_crew.categories = {"shotgun"}
 			self.ben_crew.sounds.prefix = "benelli_m4_npc"
@@ -7862,7 +7862,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_m1911.timers.reload_exit_empty = 0.55
 						self.x_m1911.timers.reload_exit_not_empty = 0.65
 
-					--Kahn .357 ���޸�
+					--Kahn .357
 						self.korth.has_description = true
 						self.korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"	
 						self.korth.fire_mode_data.fire_rate = 0.18181818
@@ -10926,7 +10926,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.new_m4.reload_speed_multiplier = self.new_m4.reload_speed_multiplier * 1.02
 						self.new_m4.panic_suppression_chance = 0.05
 
-					--Ak5 �ܾ�����AK5��
+					--Ak5 拒绝削弱AK5！
 						self.ak5.desc_id = "bm_ak5_sc_desc"
 						self.ak5.has_description = true
 						self.ak5.fire_mode_data.fire_rate = 0.0888889
@@ -26946,7 +26946,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				end
 			end
 			if not (weap.use_data and weap.use_data.selection_index == 2) and weap.damage_type and (weap.damage_type == "assault_rifle" or weap.damage_type == "machine_gun") then
-				-- ���������Ƿ��ܱ�5������ �������ܱ�5������������ȡ�������ӽ���5�ı�����
+				-- 检查输入是否能被5整除。 如果不能被5整除，则向上取整到最接近的5的倍数。
 				local function roundUpToNearestFive(num)
     				if num % 5 == 0 then
     				    return num
@@ -27438,7 +27438,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 		end
 	end
 
-	--Determine how much to multiply things by.  --�������ܵ�������
+	--Determine how much to multiply things by.  --捡弹与总弹量关联
 	local pickup_multiplier = weapon.AMMO_MAX
 	local category_pickup_muls = { --Different gun categories have different pickup mults to compensate for various factors.
 		akimbo = 1.1,
@@ -27473,7 +27473,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 		battery = 0
 	}
 
-	--�������ӵ�ҩ��ͬʱ�񵯲���
+	--副武器加弹药的同时捡弹不变
 	pickup_multiplier = weapon.Daring_Ori_AMMO_MAX or pickup_multiplier
 
 	--Get weapon category specific pickup multipliers.
@@ -27483,7 +27483,7 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 	end
 
 	--Double multiplier if gun is a secondary, to compensate for lower total ammo.
-	-- 1��ʾ��������2��ʾ������
+	-- 1表示副武器，2表示主武器
 	if weapon.use_data.selection_index == 1 then
 		pickup_multiplier = pickup_multiplier * 2
 	end
