@@ -14637,7 +14637,7 @@ end)
 						falloff_start_mult = 0.5,
 						falloff_end_mult = 0.9375,
 						damage_min_mult = 1,
-						descope_on_fire_ignore_setting = true,  --此项可能会让龙狙开镜无法拉栓，待检查
+						--descope_on_fire_ignore_setting = true,  --此项可能会让龙狙开镜无法拉栓，待检查
 						use_vapor_trail = true
 					}
 					self.parts.wpn_fps_snp_awp_conversion_dragonlore.forbids = {
