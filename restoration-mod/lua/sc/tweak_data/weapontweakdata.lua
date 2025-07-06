@@ -24733,7 +24733,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			if self.ar23 then --Helldiver's AR-23
 				self.ar23.categories = { 
 				"assault_rifle",
-				"sweet_liberty",
 				 }
 				self.ar23.recategorize = { "heavy_ar" }
 				self.ar23.damage_type = "assault_rifle"
