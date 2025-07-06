@@ -24732,52 +24732,54 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 			if self.ar23 then --Helldiver's AR-23
 				self.ar23.categories = { 
-				"assault_rifle",
-				 }
-				self.ar23.recategorize = { "heavy_ar" }
+					"assault_rifle",
+					"sweet_liberty"
+				}
+				self.ar23.recategorize = {"heavy_ar"}
 				self.ar23.damage_type = "assault_rifle"
-				--self.ar23.nato = 1
-				--self.ar23.tactical_reload = 1
-				self.ar23.armor_piercing_chance = 0.40
-				self.ar23.hs_mult = 1.25
 				self.ar23.CLIP_AMMO_MAX = 45
-				self.ar23.AMMO_MAX = 135
-				self.ar23.ads_speed = 0.312
-				--self.ar23.lock_slide = true
-				self.ar23.fire_mode_data.fire_rate = 0.092
+				self.ar23.AMMO_MAX = self.ar23.CLIP_AMMO_MAX * 9
+				self.ar23.fire_mode_data.fire_rate = 0.09375
+				self.ar23.sms = 0.5
+				self.ar23.tactical_reload = 1
+				self.ar23.keep_ammo = 0
+				self.ar23.BURST_FIRE = {
+					count = 3,
+					delay = 0.18,
+					recoil_mult = 0.9
+				}
+				self.ar23.CAN_TOGGLE_FIREMODE = true
 				self.ar23.FIRE_MODE = "auto"
-				--[[self.ar23.kick = {}
-				self.ar23.kick = self.stat_info.kick_tables.moderate_kick]]
+				self.ar23.kick = self.stat_info.kick_tables.even_recoil
 				self.ar23.supported = true
+				self.ar23.ads_speed = 0.240
 				self.ar23.damage_falloff = {
 					start_dist = 2000,
-					end_dist = 5100,
-					min_mult = 0.58333333
-				}	
+					end_dist = 5500,
+					min_mult = 0.4
+				}
 				self.ar23.stats = {
-					damage = 24,
-					spread = 86,
-					recoil = 79,
-					spread_moving = 5,
+					damage = 30,
+					spread = 76,
+					recoil = 81,
+					spread_moving = 7,
 					zoom = 1,
-					concealment = 22,
-					suppression = 8,
+					concealment = 25,
+					suppression = 7,
 					alert_size = 2,
 					extra_ammo = 101,
-					total_ammo_mod = 200,
-					value = 1,
+					total_ammo_mod = 400,
+					value = 4,
 					reload = 20
 				}
-				self.ar23.swap_speed_multiplier = 1.05
-				--self.ar23.speen = true
-				--self.ar23.stats_modifiers = nil
+				self.ar23.stats_modifiers = nil
+				self.ar23.is_bullpup = true
 				self.ar23.panic_suppression_chance = 0.05
-				--self.ar23.sounds.magazine_empty = "last_recoil"
-				--[[self.ar23.reload_speed_multiplier = 1.08
-				self.ar23.timers.reload_exit_empty = 0.85
-				self.ar23.timers.reload_empty = 3.05
-				self.ar23.timers.reload_exit_not_empty = 1.15
-				self.ar23.timers.reload_not_empty = 2.4]]
+				self.ar23.sounds.use_fix = nil
+				self.ar23.timers.reload_empty = 3.21
+				self.ar23.timers.reload_exit_empty = 1.12
+				self.ar23.timers.reload_not_empty = 2.32
+				self.ar23.timers.reload_exit_not_empty = 1.13
 			end
 
 			if self.sta52 then
