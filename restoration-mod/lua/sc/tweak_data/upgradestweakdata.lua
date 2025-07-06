@@ -684,7 +684,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	--ECMs: They're ECMs
 	self.ecm_jammer_base_battery_life = 10
 	self.ecm_jammer_base_low_battery_life = 4
-	self.ecm_jammer_base_range = 2400
+	self.ecm_jammer_base_range = 2500 --回调至2500...
 	self.ecm_feedback_min_duration = 10
 	self.ecm_feedback_max_duration = 10
 	self.ecm_feedback_interval = 1.2

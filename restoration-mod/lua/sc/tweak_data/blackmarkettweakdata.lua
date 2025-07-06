@@ -1921,7 +1921,7 @@ function BlackMarketTweakData:_init_projectiles(tweak_data)
 		self.projectiles.xmas_snowball.throw_shout = true --DISABLES the throw callout, totally not confusing at all
 	end
 
-	self.projectiles.pocket_ecm_jammer.max_amount = 1
+	self.projectiles.pocket_ecm_jammer.max_amount = 1  --黑客pcm不要改动
 	self.projectiles.pocket_ecm_jammer.base_cooldown = 70
 	if ViNight_PECM then
 		self.projectiles.pocket_ecm_jammer.max_amount = 6
