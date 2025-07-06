@@ -11,16 +11,16 @@
 
 	"chinsf_res_disable" : "禁用",
 	"chinsf_res_main" : "正式版 V12.3.1",
-	"chinsf_res_dev" : "私人平衡补丁V5.1",
+	"chinsf_res_dev" : "WIP私人平衡补丁V10.0",
 	"chinsf_res_dev_new" : "私人平衡补丁V9.03",
 
 	"CSF_ResModUpdater_title" : "啊哦！",
-	"CSF_DontShowAgain" : "不再提醒",
+	"CSF_DontShowAgain" : "本次游戏不再提醒",
 	"CSF_UpdateNow" : "现在更新",
 	"CSF_WarnMeLater" : "稍后提醒",
 	"CSF_ResModUpdater_message_r1" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这很可能是因为你没有将恢复私人补丁与汉化都更新到最新版本。",
 	"CSF_ResModUpdater_message_r2" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这可能是你没有安装配置文件或配置文件已丢失。请手动在模组选项中调整“官方中文修复优化”使用的恢复Mod汉化版本。",
-	"CSF_ResModUpdater_message_come" : "检测到你没有使用最新的恢复Mod私人更新补丁哦。\n如果你已经在用了，请尽快更新；\n如果你不知道这是什么，在ModWorkshop上搜索“官方中文修复与优化”进入本模组的主页了解更多信息。\n安装补丁即刻获取更加平衡、更加多样性和更加人性化的体验吧！",
+	"CSF_ResModUpdater_message_come" : "检测到你没有使用最新的恢复Mod私人更新补丁哦，本汉化已不再支持官方版本，仅支持我们的补丁版本。\n如果你已经在用了，请尽快更新；\n如果你不知道这是什么，在ModWorkshop上搜索“官方中文修复与优化”进入本模组的主页了解更多信息。\n安装补丁即刻获取更加平衡、更加多样性和更加人性化的体验吧！",
 
 
 

@@ -91,12 +91,15 @@ end
 --log("Restoration found, running compat")
 --log("ResPath"..ChinStringFixes.Res_Path)
 if ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 2 then
+    --dofile(ModPath .. "resloc/origin/origin_loc_.lua")
     dofile(ModPath .. "resloc/loc/loczh.lua")
     current_version = main_version
 elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 3 then
+    dofile(ModPath .. "resloc/origin/origin_loc_dev.lua")
     dofile(ModPath .. "resloc/loc/loczh_dev.lua")
     current_version = dev_version
 elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 4 then
+    --dofile(ModPath .. "resloc/origin/origin_loc_dev_new.lua")
     dofile(ModPath .. "resloc/loc/loczh_dev_new.lua")
     current_version = dev_new_version
 end
@@ -166,10 +169,10 @@ end)
 --[[
 if ChinStringFixes.settings.res_perk then
 	if ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 2 then
-		dofile(ModPath .. "resloc/origin/origin_perk.lua")
+		dofile(ModPath .. "resloc/origin/unused/origin_perk.lua")
 	elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 3 then
-		dofile(ModPath .. "resloc/origin/origin_perk_dev.lua")
+		dofile(ModPath .. "resloc/origin/unused/origin_perk_dev.lua")
 	elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 4 then
-		dofile(ModPath .. "resloc/origin/origin_perk_dev_new.lua")
+		dofile(ModPath .. "resloc/origin/unused/origin_perk_dev_new.lua")
 	end
 end--]]
