@@ -68,14 +68,20 @@ end
 -- 主程序
 local all_read = nil
 
+local Using_CSF_Res_Path
+local Using_SC_Path
+
 local loc_path = ChinStringFixes.mod_path .. "loc/schinese.txt"  --loc路径
 local content = read_txt_file(loc_path)
 local version_path = "mods/restoration-mod/update/version.json"
 if ChinStringFixes.Res_Path then
 	version_path = ChinStringFixes.Res_Path .. "update/version.json"
+    Using_CSF_Res_Path = true
 elseif SC and SC._path then
     version_path = SC._path .. "update/version.json"
+    Using_SC_Path = true
 end
+
 local local_version = read_json_file(version_path)  --res版本号路径
 
 local current_version
@@ -90,16 +96,29 @@ end
 
 --log("Restoration found, running compat")
 --log("ResPath"..ChinStringFixes.Res_Path)
+if ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat ~= 1 then
+    if Using_CSF_Res_Path then
+        dofile(ChinStringFixes.Res_Path .. "lua/sc/loc/loc.lua")
+    elseif Using_SC_Path then
+        dofile(SC._path .. "lua/sc/loc/loc.lua")
+    end
+end
 if ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 2 then
-    --dofile(ModPath .. "resloc/origin/origin_loc_.lua")
+    --[[if not Using_CSF_Res_Path and not Using_SC_Path then
+        dofile(ModPath .. "resloc/origin/origin_loc.lua")
+    end-]]
     dofile(ModPath .. "resloc/loc/loczh.lua")
     current_version = main_version
 elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 3 then
-    dofile(ModPath .. "resloc/origin/origin_loc_dev.lua")
+    if not Using_CSF_Res_Path and not Using_SC_Path then
+        dofile(ModPath .. "resloc/origin/origin_loc_dev.lua")
+    end
     dofile(ModPath .. "resloc/loc/loczh_dev.lua")
     current_version = dev_version
 elseif ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 4 then
-    --dofile(ModPath .. "resloc/origin/origin_loc_dev_new.lua")
+    --[[if not Using_CSF_Res_Path and not Using_SC_Path then
+        dofile(ModPath .. "resloc/origin/origin_loc_dev_new.lua")
+    end-]]
     dofile(ModPath .. "resloc/loc/loczh_dev_new.lua")
     current_version = dev_new_version
 end
