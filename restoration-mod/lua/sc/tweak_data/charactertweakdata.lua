@@ -5123,7 +5123,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.base.damage.explosion_damage_mul = 1
 	presets.base.damage.rocket_damage_mul = 1
 	presets.base.overheal_mult = 1
-	presets.base.critical_hits = {
+	presets.base.critical_hits = { --暴击倍率
 		damage_mul = 2
 	}
 	presets.base.damage.tased_response = {

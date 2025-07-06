@@ -11,6 +11,8 @@
 —— 鹿弹的精准度惩罚降低
 —— 独头弹的隐匿性惩罚降低1点
 —— Nagant狙击步枪刺刀的近战攻击速度降低20%
+—— 小幅度加强大部分霰弹枪，较大幅度加强部分霰弹枪
+—— 暴击的概率上限降低，但暴击倍率现在为原伤害的200%
 · 待检查的重要事宜：
 —— 检查awp(龙狙)是否会在开镜时无法拉栓，如果是，修改self.parts.wpn_fps_snp_awp_conversion_dragonlore.custom_stats中的descope_on_fire_ignore_setting
 
