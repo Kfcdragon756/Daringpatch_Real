@@ -12911,7 +12911,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.mosin.stats_modifiers = nil
 						self.mosin.keep_ammo = 1
-						--self.mosin.descope_on_fire = true
+						self.mosin.descope_on_fire = true
 						self.mosin.panic_suppression_chance = 0.05
 						self.mosin.timers.reload_speed_multiplier = 1.05
 						self.mosin.timers.reload_empty = 2.6
@@ -16890,7 +16890,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.holygrail.can_shoot_through_titan_shield = true
 				self.holygrail.panic_suppression_chance = 0.05
 				self.holygrail.armor_piercing_chance = 1
-				--self.holygrail.descope_on_fire = true
+				self.holygrail.descope_on_fire = true
 				self.holygrail.always_play_anims = true
 				self.holygrail.timers.reload_empty = 1.3
 				self.holygrail.timers.reload_exit_empty = 1
@@ -16943,7 +16943,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.martinihenry.can_shoot_through_titan_shield = true
 				self.martinihenry.panic_suppression_chance = 0.05
 				self.martinihenry.armor_piercing_chance = 1
-				--self.martinihenry.descope_on_fire = true
+				self.martinihenry.descope_on_fire = true
 				self.martinihenry.always_play_anims = true
 				self.martinihenry.timers.reload_empty = 1.3
 				self.martinihenry.timers.reload_exit_empty = 1
