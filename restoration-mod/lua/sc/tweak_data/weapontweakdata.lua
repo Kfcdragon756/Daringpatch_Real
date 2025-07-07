@@ -10742,7 +10742,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{13, self.stat_info.kick_tables.moderate_right_kick},
 							{19, self.stat_info.kick_tables.vertical_kick}
 						}
-						self.s552.AMMO_MAX = 180
+						self.s552.AMMO_MAX = 150
 						self.s552.supported = true
 						self.s552.ads_speed = 0.280
 						self.s552.damage_falloff = {
