@@ -24573,18 +24573,18 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.fik22.timers.reload_exit_not_empty = 0.8
 			end
 
-			if self.ar2 then
+			if self.ar2 then --OSIPR
 				self.ar2.categories = { 
 					"assault_rifle"
 				}
-				self.ar2.recategorize = {"light_ar"}
+				self.ar2.recategorize = {"heavy_ar"}
 				self.ar2.damage_type = "assault_rifle"
 				self.ar2.CLIP_AMMO_MAX = 30
-				self.ar2.AMMO_MAX = 150
+				self.ar2.AMMO_MAX = 120
 				self.ar2.fire_mode_data.fire_rate = 0.1
 				self.ar2.CAN_TOGGLE_FIREMODE = false
 				self.ar2.FIRE_MODE = "auto"
-				self.ar2.kick = self.stat_info.kick_tables.even_recoil
+				self.ar2.kick = self.stat_info.kick_tables.moderate_kick
 				self.ar2.supported = true
 				self.ar2.ads_speed = 0.200
 				self.ar2.damage_falloff = {
@@ -24593,9 +24593,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					min_mult = 0.41667
 				}
 				self.ar2.stats = {
-					damage = 24,
-					spread = 71,
-					recoil = 97,
+					damage = 30,
+					spread = 80,
+					recoil = 70,
 					spread_moving = 7,
 					zoom = 1,
 					concealment = 22,
