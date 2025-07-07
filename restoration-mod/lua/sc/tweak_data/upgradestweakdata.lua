@@ -2964,9 +2964,9 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.specialization_descs[4][7] = {
 		perk_value_1 = tostring((self.values.player.passive_dodge_chance[3] - self.values.player.passive_dodge_chance[2]) * 100) -- More dodge
 	}
-	self.specialization_descs[4][9] = {
-		perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- HP regen per tick
-		perk_value_2 = tostring(self.dodge_to_hot_data.total_ticks/self.dodge_to_hot_data.tick_time) -- Duration of 1 stack
+	self.specialization_descs[4][9] = { --需要添加新的值以表示受击扣除回血率与最低回血率。
+		perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- HP regen per tick --数值不对，尚且需要解决。
+		perk_value_2 = tostring(self.dodge_to_hot_data.total_ticks * self.dodge_to_hot_data.tick_time) -- Duration of 1 stack --想不到恢复制作组居然犯了这样的算术错误！ 原本这个值使用的运算是除运算。
 	}
 	
 	--Hitman
