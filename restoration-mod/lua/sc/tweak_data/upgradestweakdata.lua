@@ -811,14 +811,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Inspire
 				--Basic					
 					self.morale_boost_speed_bonus = 1.2
+					self.morale_boost_reload_speed_bonus = 1.2
 					self.morale_boost_suppression_resistance = 1
 					self.morale_boost_time = 10
-					self.morale_boost_reload_speed_bonus = 1.2
 					self.morale_boost_base_cooldown = 3.5
 					self.values.player.revive_interaction_speed_multiplier = {
 						0.5
 					}
 				--Ace
+					self.morale_boost_speed_bonus_for_myself = 1.2  --此处修改，为了方便调整专精后给自己的加成
+					self.morale_boost_reload_speed_bonus_for_myself = 1.2  --
 					self.values.player.long_dis_revive = {0.5, 0.5}
 					self.values.cooldown.long_dis_revive = {
 						{1, 90}
@@ -828,7 +830,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						skill_value_b1 = tostring(self.values.player.revive_interaction_speed_multiplier[1] * 100).."%", -- Revive speed increase
 						skill_value_b2 = tostring(self.morale_boost_reload_speed_bonus % 1 * 100).."%", -- Reload speed bonus
 						skill_value_b3 = tostring(self.morale_boost_time), -- Duration of bonus
-						skill_value_p1 = tostring(self.values.cooldown.long_dis_revive[1][2]) -- CD of ace version
+						skill_value_p1 = tostring(self.values.cooldown.long_dis_revive[1][2]), -- CD of ace version
+						skill_value_zh_p1 = tostring(self.morale_boost_reload_speed_bonus_for_myself % 1 * 100).."%" -- 此处添加照应上方添加的变量
 					} 
 			
 		--Controller--
@@ -2122,7 +2125,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 
 		--天赋
-		
+
 
 	end
 

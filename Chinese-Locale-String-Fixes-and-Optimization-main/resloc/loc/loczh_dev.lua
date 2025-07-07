@@ -5911,11 +5911,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Combat Doctor
         ["menu_medic_2x_beta_sc"] = "战地医师",
-        ["menu_medic_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的 医疗箱 可额外使用#{skill_color}#1##次。\n\n专精: #{risk}#$pro##\n你可以携带#{skill_color}#2##个 医疗箱。",
+        ["menu_medic_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的 医疗箱 可额外使用#{skill_color}#$skill_value_b1##次。\n\n专精: #{risk}#$pro##\n你可以携带#{skill_color}#$skill_value_p1##个 医疗箱。",
 
         -- Inspire
         ["menu_inspire_beta_sc"] = "领袖鼓舞",
-        ["menu_inspire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的救人速度加快#{skill_color}#50%##。\n\n呼喊你的队友会在#{skill_color}#10##秒内提升他们#{skill_color}#20%##的移动速度和换弹速度。\n\n专精: #{risk}#$pro##\n现在呼喊你的队友（包括AI队友）还会在#{skill_color}#10##秒内提升你自己#{skill_color}#20%##的移动速度和换弹速度。\n\n你可以通过呼喊半径#{skill_color}#9米##范围内的倒地队友将他们救起，冷却时间#{skill_color}#90##秒。\n\n#{important_1}#提示：队友必须在你视野范围内才可用，不能隔墙吼人##",
+        ["menu_inspire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起倒地队友的速度加快#{skill_color}#$skill_value_b1##。\n\n呼喊你的队友会在#{skill_color}#$skill_value_b3##秒内提升他们#{skill_color}#$skill_value_b2##的移动速度和换弹速度。\n\n专精: #{risk}#$pro##\n现在呼喊你的队友（包括AI队友）还会在#{skill_color}#$skill_value_b3##秒内提升你自己#{skill_color}#$skill_value_zh_p1##的移动速度和换弹速度。\n\n你可以通过呼喊半径#{skill_color}#9米##范围内的倒地队友将他们救起，冷却时间#{skill_color}#$skill_value_p1##秒。\n\n#{important_1}#提示：队友必须在你视野范围内才可用，不能隔墙吼人##",
 
         -- }
 

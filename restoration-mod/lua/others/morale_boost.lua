@@ -1,10 +1,11 @@
 Hooks:PostHook(PlayerStandard, "_do_action_intimidate", "gogobothgogo", function(self, t, interact_type, sound_name, skip_alert, ...)
     local my_unit = managers.network:session():local_peer():unit()
+    my_unit:movement().identifier_morale = true
 	
 	if interact_type == "cmd_gogo" and managers.player:has_category_upgrade("cooldown", "long_dis_revive") then
-		my_unit:movement():on_morale_boost(my_unit)
+		my_unit:movement():on_morale_boost_for_myself(my_unit)
 	elseif interact_type == "cmd_come" and managers.player:has_category_upgrade("cooldown", "long_dis_revive") and self._i_call_ai then
-		my_unit:movement():on_morale_boost(my_unit)
+		my_unit:movement():on_morale_boost_for_myself(my_unit)
 	end
 	
 end)
