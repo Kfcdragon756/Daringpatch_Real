@@ -2112,11 +2112,17 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	if schinese then
 		--log("schinese works")
 
+		--技能
 		self.skill_descs.tea_cookies = {  --"menu_tea_cookies_beta_desc_sc"
 			skill_value_b1 = tostring(self.values.first_aid_kit.quantity[1]), -- Amount of FAKs (3 by default)
 			skill_value_p1 = tostring(self.values.first_aid_kit.quantity[2] - self.values.first_aid_kit.quantity[1]),  --多携带几个
 			skill_value_p2 = tostring(self.values.first_aid_kit.uppers_cooldown) -- Uppers's CD
 		}
+
+
+
+		--天赋
+		
 
 	end
 
