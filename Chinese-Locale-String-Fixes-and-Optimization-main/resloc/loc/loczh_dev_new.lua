@@ -18,6 +18,7 @@ local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMS
 Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function(loc)
     LocalizationManager:add_localized_strings({
         -- some vanilla and mod stuff
+        ["menu_warp_health_init_desc"] = "突进后玩家将恢复##0##至##3##血量，具体取决于消耗的耐力值。每##5##秒最多只能恢复##50##血量。",
         ["bm_wp_upg_a_crossbow_explosion_desc"] = "带有爆炸效果的弩箭，接触目标时爆炸。\n\n爆炸伤害不受任何衰减影响。",
         ["achievement_frog_1"] = "返璞归真（Tabula Rasa）",
         ["achievement_trai_10_desc"] = "全队成员在无任何技能，身穿两件套西装，携带Castigo_.44左轮手枪和Mosconi_21G霰弹枪的情况下以强袭途径完成\"迷途纵横\"任务，难度为枪林弹雨或以上。",
@@ -5271,7 +5272,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Joker    
         ["menu_stockholm_syndrome_beta_sc"] = "背盟败约",
-        ["menu_stockholm_syndrome_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以转化一名普通警察为你作战，该技能不能在潜入时使用，你必须先制服一名警察才能转化它。\n\n你同时只能拥有一名转化的警察。\n被转化的警察会被视为人质，可以用于技能加成或换出监狱里的队友。\n\n你转化的警察受到的伤害减少#{skill_color}#60%##。\n\n专精: #{risk}#$pro##\n转化的警察造成的伤害提高#{skill_color}#45%##。\n\n你能同时拥有#{skill_color}#2##名转化的警察。",
+        ["menu_stockholm_syndrome_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以转化一名普通警察为你作战，该技能不能在潜入时使用，你必须先制服一名警察才能转化它。\n\n你同时只能拥有一名转化的警察。\n被转化的警察会被视为人质，可以用于技能加成或换出监狱里的队友。\n\n你转化的警察受到的伤害减少#{skill_color}#60%##。\n\n专精: #{risk}#$pro##\n你能同时拥有#{skill_color}#2##名转化的警察。\n\n你转化的警察受到的伤害再减少#{skill_color}#20%##。",
 
         -- Partners in Crime    
         ["menu_control_freak_beta_sc"] = "犯罪同伙",
@@ -5288,7 +5289,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Leadership
         ["menu_stable_shot_beta_sc"] = "领导风范",
-        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#2##。\n\n专精: #{risk}#$pro##\n全队的武器稳定性额外增加#{skill_color}#2##点。",
+        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#2##。\n\n专精: #{risk}#$pro##\n全队所有武器的稳定性额外增加#{skill_color}#2##点。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- MG Handling
         ["menu_scavenger_sc"] = "控枪达人",

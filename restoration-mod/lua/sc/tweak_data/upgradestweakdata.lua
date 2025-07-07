@@ -2122,7 +2122,21 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			skill_value_p2 = tostring(self.values.first_aid_kit.uppers_cooldown) -- Uppers's CD
 		}
 
+		self.skill_descs.single_shot_ammo_return = {
+			skill_value_b1 = tostring(self.values.player.ap_bullets[1] * 100).."%", -- AP for non-MG
+			skill_value_b2 = tostring(self.values.smg.ap_bullets[1] * 100).."%", -- AP for MG
+			skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
+			skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
+			skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1] * self.values.smg.automatic_kills_to_damage[1][2] * 100).."%" -- ori Amount of stacks
+		}
 
+		self.skill_descs.prison_wife = {
+			skill_value_b1 = tostring(self.values.player.headshot_regen_armor_bonus[1] * 10), -- Armor regen on headshot
+			skill_value_b2 = tostring(self.on_headshot_dealt_cooldown), -- Bullseye's CD
+			skill_value_b3 = tostring(self.values.player.headshot_regen_armor_bonus_cd_reduction[1]), -- Bullseye CD reduction
+			skill_value_p1 = tostring((self.values.player.headshot_regen_armor_bonus[2] - self.values.player.headshot_regen_armor_bonus[1]) * 10),
+			skill_value_p2 = tostring(self.values.player.headshot_regen_armor_bonus_cd_reduction[2])
+		}
 
 		--天赋
 
