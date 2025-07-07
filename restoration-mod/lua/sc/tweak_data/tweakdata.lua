@@ -211,12 +211,12 @@ tweak_data.snp = {
 	swap_bonus = 1,
 	ads_move_speed_mult = 0.45,
 	ads_stationary_spread_mult = 0.1,
-	hipfire_spread_mult = 2.5,
+	hipfire_spread_mult = 2, --此处修改
 	hipfire_moving_spread_mult = 1.5,
 	shake_mul = 1.1
 }
 	tweak_data.semi_snp = {
-		hipfire_spread_mult = 3.5,
+		hipfire_spread_mult = 3, --此处修改
 		ads_moving_recoil = 1.1,
 		hipfire_moving_spread_mult = 1.5,
 		ads_moving_spread_mult = 1.05,
