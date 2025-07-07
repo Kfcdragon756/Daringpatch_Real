@@ -1,6 +1,7 @@
 local job = Global.level_data and Global.level_data.level_id
 local is_pro = Global.game_settings and Global.game_settings.one_down
-local KFC_stable_enalbe = restoration.Options:GetValue("OTHER/WeaponHandling/KFCdragonStablebalance")
+local KFC_stable_enable = restoration.Options:GetValue("OTHER/WeaponHandling/KFCdragonStablebalance")
+local KFC_stable_test = KFC_stable_enable and restoration.Options:GetValue("OTHER/WeaponHandling/KFCdragonStablebalance_test")
 
 local damage_set = {
 	smg = {
@@ -27126,11 +27127,18 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							9
 						}
 					}
-					if KFC_stable_enalbe then
+					if KFC_stable_enable then
 						weap.recoil_values.srm = {
 							0.5,
 							{0.95, 0.2},
 							0
+						}
+					end
+					if KFC_stable_test then
+						weap.recoil_values.srm = {
+							0.5,
+							{0.95, 0.2},
+							1
 						}
 					end
 				elseif weap.recategorize[1] == "heavy_ar" then
@@ -27145,11 +27153,18 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							4
 						}
 					}
-					if KFC_stable_enalbe then
+					if KFC_stable_enable then
 						weap.recoil_values.srm = {
 							0.75,
 							{0.95, 0.2},
 							-1
+						}
+					end
+					if KFC_stable_test then
+						weap.recoil_values.srm = {
+							0.75,
+							{0.95, 0.2},
+							0
 						}
 					end
 				elseif weap.recategorize[1] == "dmr_ar" then

@@ -577,6 +577,9 @@
 					<option type="bool" default_value="true" 
 						title_id="KFCdragon_stable" desc_id="KFCdragon_stable_desc" name="KFCdragonStablebalance" 
 					/>
+					<option type="bool" default_value="true" 
+						title_id="KFCdragon_stable_test" desc_id="KFCdragon_stable_test_desc" name="KFCdragonStablebalance_test" 
+					/>
 					<divider name="tod_divider" size="15"/>
 					<option type="bool" default_value="true" name="NoSwapOnRevive"/>
 					<divider name="tod_divider" size="14"/>

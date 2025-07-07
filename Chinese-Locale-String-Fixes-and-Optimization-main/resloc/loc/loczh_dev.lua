@@ -213,6 +213,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["RestorationModADSTransitionStyleDescID"] = "改变你使用瞄准的动作风格。",
         ["KFCdragon_stable"] = "点射后坐力弱化",
         ["KFCdragon_stable_desc"] = "部分突击步枪前几枪的后坐力会被极大降低，便于你在点射时不需要过度压枪。\n由肯德基龙756支持。",
+		["KFCdragon_stable_test"] = "点射后坐力弱化测试",
+        ["KFCdragon_stable_test_desc"] = "新版本点射后坐力弱化的测试，加强了点射的射击次数。\n由肯德基龙756支持。",
         ["Daring_Tageting_Change"] = "允许自动标记精英单位",
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
