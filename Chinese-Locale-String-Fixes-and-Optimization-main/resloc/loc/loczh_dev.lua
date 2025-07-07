@@ -6376,26 +6376,26 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_st_category_mod"] = "模组",
 
         -- Shared Perks--
-        ["menu_deckall_2_desc_sc"] = "你的爆头伤害增加##25%##。\n\n你造成的伤害增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_4_desc_sc"] = "你的灵活性增加##1##。\n\n防弹背心带来的移动速度惩罚减少##15%##。\n\n你完成单日劫案和整个合约后获得的经验值增加##45%##。\n\n你造成的伤害额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_6_desc_sc"] = "##解锁手雷箱##以供你使用。\n\n你造成的伤害再额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_8_desc_sc"] = "你使用医疗箱的速度加快##20%##。\n\n你造成的伤害再次额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
+        ["menu_deckall_2_desc_sc"] = "你的爆头伤害增加#{skill_color}#$perk_value_1##。\n\n你造成的伤害增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_4_desc_sc"] = "你的灵活性增加#{skill_color}#$perk_value_1##。\n\n防弹背心带来的移动速度惩罚减少#{skill_color}#$perk_value_2##。\n\n你完成单日劫案和整个合约后获得的经验值增加#{skill_color}#$perk_value_3##。\n\n#{risk}#在非专家模式下##，你的换弹速度提升#{skill_color}#$perk_value_4##。\n\n你造成的伤害额外增加#{skill_color}#$perk_value_5##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_6_desc_sc"] = "解锁#{skill_color}#手雷箱##以供你使用，手雷箱可用于在劫案期间#{skill_color}#完全补充##投掷物。\n\n#{risk}#在非专家模式下##，你的捡弹率提升#{skill_color}#$perk_value_1##，该效果在离线模式下将会翻倍。\n\n你造成的伤害再额外增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_8_desc_sc"] = "你使用医疗箱的速度加快#{skill_color}#$perk_value_1##。\n\n你造成的伤害再次额外增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
 
         -- Crook--
 
-        ["menu_deck6_1_desc_sc"] = "你的闪避点数增加##5##。\n\n防弹背心的护甲值提高##15%##。",
-        ["menu_deck6_3_desc_sc"] = "防弹背心的闪避点数增加##5##。",
-        ["menu_deck6_5_desc_sc"] = "防弹背心的护甲值额外提高##15%##。\n\n你的撬锁速度加快##20%##。",
-        ["menu_deck6_7_desc_sc"] = "防弹背心的闪避点数额外增加##5##。",
-        ["menu_deck6_9_desc_sc"] = "防弹背心的护甲值再额外提高##20%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck6_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n防弹背心的护甲值提高##$perk_value_2##。",
+        ["menu_deck6_3_desc_sc"] = "防弹背心的闪避点数增加##$perk_value_1##。",
+        ["menu_deck6_5_desc_sc"] = "防弹背心的护甲值额外提高##$perk_value_1##。\n\n你的撬锁速度加快##$perk_value_2##。",
+        ["menu_deck6_7_desc_sc"] = "防弹背心的闪避点数额外增加##$perk_value_1##。",
+        ["menu_deck6_9_desc_sc"] = "防弹背心的护甲值再额外提高##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Rogue
-
-        ["menu_deck4_1_desc_sc"] = "你的闪避点数增加##5##。\n\n你的切枪速度加快##30%##。",
-        ["menu_deck4_3_desc_sc"] = "你的闪避点数额外增加##5##。",
+		--需要添加新的值以完善。
+        ["menu_deck4_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n你的切枪速度加快##30%##。",
+        ["menu_deck4_3_desc_sc"] = "你的闪避点数额外增加##$perk_value_1##。",
         ["menu_deck4_5_desc_sc"] = "倒地起身后，你的闪避条增加至其正常状态上限的##200%##。\n\n你回路的摄像头，失效的时间增加##20##秒。",
-        ["menu_deck4_7_desc_sc"] = "你的闪避点数再额外增加##5##。",
-        ["menu_deck4_9_desc_sc"] = "完成一次闪避后的##4##秒内，你的血量每##0.4##秒将增加##1.2##点；该效果可以叠加，但每当你受到了对血量的伤害，回血量就变为原来的##75%##，最少每层每次回##0.35##点血量，所有回血叠加失效后重置。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck4_7_desc_sc"] = "你的闪避点数再额外增加##$perk_value_1##。",
+        ["menu_deck4_9_desc_sc"] = "完成一次闪避后的##$perk_value_2##秒内，你的血量每##0.4##秒将增加##$perk_value_1##点；该效果可以叠加，但每当你受到了对血量的伤害，回血量就变为原来的##75%##，最少每层每次回##0.35##点血量，所有回血叠加失效后重置。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Hitman--
         ["menu_deck5_1_sc"] = "刀枪并进",
@@ -6403,42 +6403,42 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_deck5_5_sc"] = "铅笔杀神",
         ["menu_deck5_7_sc"] = "终极杀手",
 
-        ["menu_deck5_1_desc_sc"] = "使用非近战武器击杀一名敌人将为你储存##30##点血量，储存血量的上限为##100##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒##5##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有##245##点临时虚血。",
-        ["menu_deck5_3_desc_sc"] = "你的护甲恢复后，闪避条将会增加闪避点数的##100%##。\n\n你的闪避点数增加##5##。",
-        ["menu_deck5_5_desc_sc"] = "你每次杀敌的存血量及其上限都提高##50%##。\n\n你初始携带的尸体袋数量增加##1##。",
-        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##120##的临时虚血。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck5_9_desc_sc"] = "当你有临时虚血时，你受到的对##血量##的伤害减少##10%##且你的移动速度额外增加##20%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有##60%##的血量减伤分数。\n\n赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck5_1_desc_sc"] = "使用非近战武器击杀一名敌人将为你储存#{skill_color}#$perk_value_1##点血量，储存血量的上限为#{risk}#$perk_value_2##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒#{important_1}#$perk_value_3##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有#{risk}#$perk_value_4##点临时虚血。",
+        ["menu_deck5_3_desc_sc"] = "你的护甲恢复后，闪避条将会增加闪避点数的##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck5_5_desc_sc"] = "你每次杀敌的存血量及其上限都提高##$perk_value_1##。\n\n你初始携带的尸体袋数量增加##$perk_value_2##。",
+        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##$perk_value_1##的临时虚血。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck5_9_desc_sc"] = "当你有临时虚血时，你受到的对##血量##的伤害减少##$perk_value_1##且你的移动速度额外增加##$perk_value_2##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有##$perk_value_3##的血量减伤分数。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Muscle
 
-        ["menu_deck2_1_desc_sc"] = "你的血量上限增加##10%##。",
-        ["menu_deck2_3_desc_sc"] = "你的血量上限额外增加##10%##。\n\n你的闪避点数增加##5##。",
-        ["menu_deck2_5_desc_sc"] = "你的血量上限再额外增加##10%##。\n\n你打包尸体和与人质互动的速度加快##75%##。",
-        ["menu_deck2_7_desc_sc"] = "每次的开火射击有##5%##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck2_9_desc_sc"] = "你的血量上限再次额外增加##10%##。\n\n你倒地起身后的血量恢复##35%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck2_1_desc_sc"] = "你的血量上限增加##$perk_value_1##。",
+        ["menu_deck2_3_desc_sc"] = "你的血量上限额外增加##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck2_5_desc_sc"] = "你的血量上限再额外增加##$perk_value_1##。\n\n你打包尸体和与人质互动的速度加快##$perk_value_2##。",
+        ["menu_deck2_7_desc_sc"] = "每次的开火射击有##$perk_value_1##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck2_9_desc_sc"] = "你的血量上限再次额外增加##$perk_value_1##。\n\n你倒地起身后，额外恢复你最大血量的##$perk_value_2##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Crew Chief
 
-        ["menu_deck1_3_desc_sc"] = "你和你队友的耐力提高##50%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n你的闪避点数增加##5##。\n\n你呼喊的距离增加##25%##。",
-        ["menu_deck1_5_desc_sc"] = "你的血量上限增加##10%##，你队友的血量上限增加##5%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n你回答对讲机所需的时间减少##25%##。",
-        ["menu_deck1_7_desc_sc"] = "你的护甲值提高##10%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck1_9_desc_sc"] = "每位人质会为你和队友增加##5%##的血量上限和##10%##的耐力，最多叠加##4##次。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck1_3_desc_sc"] = "你和你队友的耐力提高#{skill_color}#$perk_value_1.##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你的闪避点数增加#{skill_color}#5## 。\n\n你呼喊的距离增加#{skill_color}#$perk_value_2.##。",
+        ["menu_deck1_5_desc_sc"] = "你的血量上限增加#{skill_color}#$perk_value_1##，你队友的血量上限增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你回答对讲机所需的时间减少#{skill_color}#$perk_value_3##。",
+        ["menu_deck1_7_desc_sc"] = "你的护甲值提高#{skill_color}#$perk_value_1##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你的闪避点数额外增加#{skill_color}#$perk_value_2##。",
+        ["menu_deck1_9_desc_sc"] = "每位人质会为你和队友增加#{skill_color}#$perk_value_1##的血量上限和#{skill_color}#$perk_value_2##的耐力，最多叠加#{skill_color}#$perk_value_3##次。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##",
         -- I only had to put these in to fix Overkill's shitty rebalance attempt--
         -- Armorer--
 
-        ["menu_deck3_1_desc_sc"] = "你的护甲值增加##10%##。",
-        ["menu_deck3_3_desc_sc"] = "你的护甲值额外增加##10%##。",
-        ["menu_deck3_5_desc_sc"] = "你的护甲值再额外增加##5%##。\n\n你可以放置##2##个尸体袋箱。",
-        ["menu_deck3_7_desc_sc"] = "你的护甲恢复速度加快##10%##。",
-        ["menu_deck3_9_desc_sc"] = "你的护甲恢复速度额外加快##10%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck3_1_desc_sc"] = "你的护甲值增加##$perk_value_1##。",
+        ["menu_deck3_3_desc_sc"] = "你的护甲值额外增加##$perk_value_1##。",
+        ["menu_deck3_5_desc_sc"] = "你的护甲值再额外增加##$perk_value_1##。\n\n你可以放置##$perk_value_2##个尸体袋箱。",
+        ["menu_deck3_7_desc_sc"] = "你的护甲恢复速度加快##$perk_value_1##。",
+        ["menu_deck3_9_desc_sc"] = "你的护甲恢复速度额外加快##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Burglar--
 
-        ["menu_deck7_1_desc_sc"] = "你的闪避点数增加##5##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##5%##。",
-        ["menu_deck7_3_desc_sc"] = "你的闪避点数额外增加##5##。",
-        ["menu_deck7_5_desc_sc"] = "你蹲伏的移动速度加快##20%##。\n\n蹲伏时，你的闪避条每秒额外增加闪避点数的##5%##。",
-        ["menu_deck7_7_desc_sc"] = "你的闪避点数再额外增加##5##。",
-        ["menu_deck7_9_desc_sc"] = "你的护甲恢复速率增加##10%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck7_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##$perk_value_2##。",
+        ["menu_deck7_3_desc_sc"] = "你的闪避点数额外增加##$perk_value_1##。",
+        ["menu_deck7_5_desc_sc"] = "你蹲伏的移动速度加快##$perk_value_1##。\n\n蹲伏时，你的闪避条每秒额外增加闪避点数的##$perk_value_2##。",
+        ["menu_deck7_7_desc_sc"] = "你的闪避点数再额外增加##$perk_value_1##。",
+        ["menu_deck7_9_desc_sc"] = "你的护甲恢复速率增加##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Gambler--
 
