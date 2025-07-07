@@ -354,6 +354,7 @@ coreloc.lua
 restoration-mod\lua\sc\units\player:
 playerdamage.lua
 playerstandard.lua
+playermovement.lua（最底下添加了一个函数，关键词_for_myself）
 
 restoration-mod\lua\sc\units\enemies:
 copdamage.lua
