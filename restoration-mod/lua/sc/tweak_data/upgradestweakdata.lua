@@ -9,6 +9,8 @@ before dismissing it. I promise you it's still fun and in fact, you may find tha
 
 ]]--
 
+local schinese = Idstring("schinese"):key() == SystemInfo:language():key()  --此处添加，因为中文表达方式有所不同
+
 local job = Global.level_data and Global.level_data.level_id
 local per_pellet = true --restoration and restoration.Options:GetValue("OTHER/WeaponHandling/PerPelletShotguns") 
 local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
@@ -2103,6 +2105,22 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						skill_value_b1 = tostring(self.values.player.melee_damage_health_ratio_multiplier[1] * 100).."%", -- More melee damage when losing HP
 						skill_value_p1 = tostring(self.values.player.damage_health_ratio_multiplier [1] * 100).."%" -- More damage for guns when losing HP
 					}
+
+
+
+	-- 此处修改上述影响技能描述数值的变量，因为中文的表达方式不同
+	if schinese then
+		--log("schinese works")
+
+		self.skill_descs.tea_cookies = {  --"menu_tea_cookies_beta_desc_sc"
+			skill_value_b1 = tostring(self.values.first_aid_kit.quantity[1]), -- Amount of FAKs (3 by default)
+			skill_value_p1 = tostring(self.values.first_aid_kit.quantity[2] - self.values.first_aid_kit.quantity[1]),  --多携带几个
+			skill_value_p2 = tostring(self.values.first_aid_kit.uppers_cooldown) -- Uppers's CD
+		}
+
+	end
+
+
 
 	--Singleplayer stealth stuff, to give them access to resources closer to what they would have in coop.
 	if not restoration.Options:GetValue("OTHER/DisableSoloBoons") then

@@ -5895,19 +5895,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Combat Medic
         ["menu_combat_medic_beta_sc"] = "医疗兵",
-        ["menu_combat_medic_beta_desc_sc"] = "掌握: #{risk}#$basic##\n救起队友途中及救起队友后的#{skill_color}#5##秒内，你都将获得#{skill_color}#10%##的伤害减免。\n\n专精: #{risk}#$pro##\n救起一个队友将多给予他#{skill_color}#30%##的血量。",
+        ["menu_combat_medic_beta_desc_sc"] = "掌握: #{risk}#$basic##\n救起队友途中及救起队友后的#{skill_color}#$skill_value_b2##秒内，你都将获得#{skill_color}#$skill_value_b1##的伤害减免。\n\n专精: #{risk}#$pro##\n救起一个队友将多给予他#{skill_color}#$skill_value_p1##的血量。",
 
         -- Quick Fix
         ["menu_tea_time_beta_sc"] = "快速包扎",
-        ["menu_tea_time_beta_desc_sc"] = "掌握: #{risk}#$basic##\n减少#{skill_color}#50%##你放置 急救包 和 医疗箱 所需的时间。\n\n专精: #{risk}#$pro##\n使用你 急救包 的任何玩家将会在#{skill_color}#5##秒内获得#{skill_color}#50%##的伤害减免。",
+        ["menu_tea_time_beta_desc_sc"] = "掌握: #{risk}#$basic##\n减少#{skill_color}#$skill_value_b1##你放置 急救包 和 医疗箱 所需的时间。\n\n专精: #{risk}#$pro##\n使用你 急救包 的任何玩家将会在#{skill_color}#$skill_value_p2##秒内获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Pain Killers
         ["menu_fast_learner_beta_sc"] = "止疼药",
-        ["menu_fast_learner_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起的队友将在#{skill_color}#5##秒内获得#{skill_color}#25%##的伤害减免。\n\n专精: #{risk}#$pro##\n你救起的队友再额外获得#{skill_color}#25%##的伤害减免。",
+        ["menu_fast_learner_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起的队友将在#{skill_color}#$skill_value_b2##秒内获得#{skill_color}#$skill_value_b1##的伤害减免。\n\n专精: #{risk}#$pro##\n你救起的队友再额外获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Uppers
         ["menu_tea_cookies_beta_sc"] = "兴奋剂",
-        ["menu_tea_cookies_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以多携带#{skill_color}#3##个 急救包。\n\n专精: #{risk}#$pro##\n你可以再多携带#{skill_color}#3##个 急救包\n\n你放置的急救包将会自动被#{skill_color}#5##米范围内受到致命伤害的玩家使用\n\n每位玩家在#{skill_color}#60##秒内只能触发一次。\n\n#{important_1}#提示：进入 天鹅绝唱 时不可用##",
+        ["menu_tea_cookies_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以多携带#{skill_color}#$skill_value_b1##个 急救包。\n\n专精: #{risk}#$pro##\n你可以再多携带#{skill_color}#$skill_value_p1##个 急救包\n\n你放置的急救包将会自动被#{skill_color}#5##米范围内受到致命伤害的玩家使用\n\n每位玩家在#{skill_color}#$skill_value_p2##秒内只能触发一次。\n\n#{important_1}#提示：进入 天鹅绝唱 时不可用##",
 
         -- Combat Doctor
         ["menu_medic_2x_beta_sc"] = "战地医师",
