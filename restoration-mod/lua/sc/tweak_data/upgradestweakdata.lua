@@ -3170,7 +3170,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.specialization_descs[12][7] = {
 		perk_value_1 = tostring(self.values.player.melee_kill_dodge_regen[1] * 100).."%", -- Max dodge gain on melee kill at low HP
 		perk_value_2 = "150%", -- Grace period increase after melee kill
-		perk_value_3 = "900", -- Max grace period increase after melee kill (in ms)
+		perk_value_3 = tostring(900/1000), -- Max grace period increase after melee kill (in ms) --修正为按秒计算
 		perk_value_4 = tostring((self.values.player.passive_dodge_chance[2] - self.values.player.passive_dodge_chance[1]) * 100) -- Additional dodge
 	}
 	self.specialization_descs[12][9] = {
