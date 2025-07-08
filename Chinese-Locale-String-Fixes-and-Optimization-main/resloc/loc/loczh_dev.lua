@@ -220,6 +220,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["RestorationModADSTransitionStyleDescID"] = "改变你使用瞄准的动作风格。",
         ["KFCdragon_stable"] = "点射后坐力弱化",
         ["KFCdragon_stable_desc"] = "部分突击步枪前几枪的后坐力会被极大降低，便于你在点射时不需要过度压枪。\n由肯德基龙756支持。",
+		["KFCdragon_stable_test"] = "点射后坐力弱化测试",
+        ["KFCdragon_stable_test_desc"] = "新版本点射后坐力弱化的测试，加强了点射的射击次数。\n由肯德基龙756支持。",
         ["Daring_Tageting_Change"] = "允许自动标记精英单位",
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
@@ -6550,7 +6552,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 
         -- Hacker--
 
-        ["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+        ["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
         ["menu_deck21_3_desc_sc"] = "你的闪避点数增加##$perk_value_1##。",
         ["menu_deck21_5_desc_sc"] = "便携式ECM干扰器的反馈生效时，击杀一名敌人将为你回复##$perk_value_1##点血量。",
         ["menu_deck21_7_desc_sc"] = "你的护甲回复速率增加##$perk_value_1##。\n\n你的闪避点数额外增加##$perk_value_2##。",
@@ -6650,7 +6652,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         -- Tag Team
         ["menu_deck20_mrwi_desc"] = "解锁#{skill_color}#电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的#{skill_color}#$perk_value_1##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复#{skill_color}#$perk_value_2##点血量，并且为你标记的队友回复#{skill_color}#$perk_value_3##点血量。\n\n电子烟的持续时间为#{skill_color}#$perk_value_4##秒，冷却时间为#{important_1}#$perk_value_5##秒。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
         -- Hacker
-        ["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+        ["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
         -- Leech
         ["menu_deck22_mrwi_desc"] = "解锁并装备#{skill_color}#水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复#{skill_color}#$perk_value_1##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每#{skill_color}#$perk_value_3##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀#{skill_color}#$perk_value_4##名敌人回复一格且免伤#{skill_color}#$perk_value_5##秒。\n\n水蛭安瓶能够持续#{skill_color}#$perk_value_2##秒钟并且有#{important_1}#$perk_value_6##秒冷却。\n\n你打包尸体和与人质互动的速度加快#{skill_color}#$perk_value_7##。",
 

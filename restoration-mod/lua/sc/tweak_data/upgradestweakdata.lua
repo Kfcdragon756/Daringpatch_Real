@@ -3365,7 +3365,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_4 = tostring(self.values.player.pocket_ecm_jammer_base[1].feedback_interval), -- Tickrate of every feedback proc
 		perk_value_5 = "60%", -- Proc chance on non-1st ticks of feedback. Not defined here
 		perk_value_6 = "60", -- CD of PECM. Not defined here
-		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain) -- CD reduction on kill
+		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain), -- CD reduction on kill
+		perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
 	}
 	self.specialization_descs[21][3] = {
 		perk_value_1 = tostring(self.values.player.passive_dodge_chance[1] * 100) -- Passive dodge increase
@@ -3577,7 +3578,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_4 = tostring(self.values.player.pocket_ecm_jammer_base[1].feedback_interval), -- Tickrate of every feedback proc
 		perk_value_5 = "60%", -- Proc chance on non-1st ticks of feedback. Not defined here
 		perk_value_6 = "60", -- CD of PECM. Not defined here
-		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain) -- CD reduction on kill
+		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain), -- CD reduction on kill
+		perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
 	}
 	self.multi_choice_specialization_descs[23][9][22] = { --Leech
 		perk_value_1 = tostring(self.values.player.copr_activate_bonus_health_ratio[2] * 100).."%", -- HP regen during activation
