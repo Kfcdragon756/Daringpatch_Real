@@ -5976,7 +5976,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Body Expertise
         ["menu_body_expertise_beta_sc"] = "血花四溅",
-        ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n其余所有不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害。\n\n对于本身可以穿甲的武器，其穿透护甲造成的伤害百分比增加#{skill_color}#skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每击杀一名敌人就增加这些武器#{skill_color}#$skill_value_p2##的伤害，最多增加#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。",
+        ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n其余所有不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害。\n\n对于本身可以穿甲的武器，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每击杀一名敌人就增加这些武器#{skill_color}#$skill_value_p2##的伤害，最多增加#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。",
 
         -- }
         -- }
@@ -6166,7 +6166,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Spotter--
         ["menu_ecm_2x_beta_sc"] = "侦察先锋",
-        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#20##米外受到的伤害增加#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n你标记的敌人在任何距离受到的伤害都额外增加#{skill_color}#35%##。",
+        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#$skill_value_b2##米外受到的伤害增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n现在你标记的敌人在#{skill_color}#任何距离##下受到的伤害都额外增加#{skill_color}#$skill_value_p1##。",
 
         -- }
 
@@ -6175,7 +6175,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Duck and Cover--
         ["menu_sprinter_beta_sc"] = "蹲防战术",
-        ["menu_sprinter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的耐力将提前#{skill_color}#25%##的时间进行恢复且恢复速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n蹲伏时，你的闪避条每秒增加你闪避点数的#{skill_color}#6%##。\n\n你的蹲伏移动速度加快#{skill_color}#10%##。",
+        ["menu_sprinter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的耐力将提前#{skill_color}#25%##的时间进行恢复且恢复速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n蹲伏时，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p1##。\n\n你的蹲伏移动速度加快#{skill_color}#$skill_value_p2##。",
 
         -- Deep Pockets--
         ["menu_thick_skin_beta_sc"] = "深层口袋",
@@ -6183,15 +6183,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Moving Target--
         ["menu_dire_need_beta_sc"] = "移动目标",
-        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n你瞄准时的移动速度加快#{skill_color}#50%##。\n#{important_1}#提示：该效果会覆盖你原本的最大速度##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#15%##；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#60%##。",
+        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的移动速度加成，最多加快#{skill_color}#$skill_value_b4##。\n\n你瞄准时受到的移速惩罚降低#{skill_color}#$skill_value_b5##。\n#{important_1}#提示：瞄准时的移速会被限制在你的正常状态最大移速以内##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#$skill_value_p2##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的移动速度加成，最多加快#{skill_color}#$skill_value_p4##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p5##（疲劳状态下减半）；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p6##。\n\n疲劳状态指体力用光时仍保持奔跑的状态。",
 
         -- Shockproof
         ["menu_insulation_beta_sc"] = "绝缘装甲",
-        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#15%##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#30%##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#2##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其血量#{skill_color}#50%##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
+        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#$skill_value_b2##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#$skill_value_p1##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其最大血量#{skill_color}#$skill_value_p2##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
 
         -- }
 
-        --[[   SILENT KILLER SUBTREE   ]] --
+        --[[   CONTRACT KILLER SUBTREE   ]] --
+        --FORMERLY "SILENT KILLER"
         -- {
 
         -- Second Wind
@@ -6204,11 +6205,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- The Professional--
         ["menu_silence_expert_beta_sc"] = "职业杀手",
-        ["menu_silence_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你使用武器瞄准的速度和冲刺转开火的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你使用武器瞄准的速度和冲刺转开火的速度额外加快#{skill_color}#$skill_value_p1##。\n\n被使用一般实弹的武器击杀的特殊敌人会额外掉落一个弹药盒。",
+        ["menu_silence_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你使用武器瞄准的速度和冲刺转开火的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你使用武器瞄准的速度和冲刺转开火的速度额外加快#{skill_color}#$skill_value_p1##。\n\n被远程武器爆头击杀的特殊敌人会额外掉落一个弹药盒。",
 
         -- Unseen Strike, formally Dire Need--
         ["menu_backstab_beta_sc"] = "掩其无备",
-        ["menu_backstab_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你在#{skill_color}#$skill_value_b1##秒内没有受到任何伤害，你将获得#{skill_color}#$skill_value_b2##的暴击率加成直到你受到伤害为止。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：\"杀手\"天赋的临时虚血自动衰减不算受到伤害，而临时虚血因非衰减因素降低都算受到伤害##\n\n专精: #{risk}#$pro##\n受到伤害后，暴击率加成仍将持续#{skill_color}#$skill_value_p1##秒。",
+        ["menu_backstab_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你在#{skill_color}#$skill_value_b1##秒内没有受到任何伤害，你将获得#{skill_color}#$skill_value_b2##的暴击率加成，受到伤害后仍将持续#{skill_color}#$skill_value_b3##秒，随后失效，需要重新触发。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：\"杀手\"天赋的临时虚血自动衰减不算受到伤害，而临时虚血因非衰减因素降低都算受到伤害；爆炸伤害和持续伤害不受暴击影响##\n\n专精: #{risk}#$pro##\n现在在受到伤害后，暴击率加成仍将持续#{skill_color}#$skill_value_p1##秒。",
 
         -- Cleaner--
         ["menu_hitman_beta_sc"] = "清道夫",
@@ -6216,7 +6217,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Low Blow--
         ["menu_unseen_strike_beta_sc"] = "下作手段",
-        ["menu_unseen_strike_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的暴击率，最多增加#{skill_color}#$skill_value_b4##。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的暴击率，最多增加#{skill_color}#$skill_value_p4##。\n\n使用枪械或近战武器从背后攻击一名敌人的暴击几率额外增加#{skill_color}#$skill_value_p5##。",
+        ["menu_unseen_strike_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的暴击率，最多增加#{skill_color}#$skill_value_b4##。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：爆炸伤害和持续伤害不受暴击影响##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的暴击率，最多增加#{skill_color}#$skill_value_p4##。\n\n使用枪械或近战武器从背后攻击一名敌人的暴击几率额外增加#{skill_color}#$skill_value_p5##。",
 
         -- }
         -- }
@@ -6232,7 +6233,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         -- {
 
         -- Swan Song
-        ["menu_perseverance_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量为#{skill_color}#0##时不会立刻倒地，你能在#{skill_color}#3##秒内获得无敌并持续战斗，但此时的移动速度减少#{skill_color}#60%##，3秒结束后进入倒地状态\n\n专精: #{risk}#$pro##\n倒地前持续战斗的时间额外增加#{skill_color}#6##秒",
+        ["menu_perseverance_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量为#{skill_color}#0##时不会立刻倒地，你能在#{skill_color}#$skill_value_b1##秒内获得无敌并持续战斗，但此时的移动速度减少#{skill_color}#60%##，$skill_value_b1秒结束后进入倒地状态。\n\n专精: #{risk}#$pro##\n倒地前持续战斗的时间增加至#{skill_color}#$skill_value_p1##秒。",
 
         -- }
 
@@ -6241,18 +6242,18 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Counter-Strike--
         ["menu_drop_soap_beta_sc"] = "反\"控\"精英",
-        ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##",
+        ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的盾击##了。\n\n#{important_1}#提示：泰坦盾和冬队盾的盾击无法被反击##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
 
         -- Bloodthirst--
         ["menu_bloodthirst_sc"] = "血之渴望",
-        ["menu_bloodthirst_desc_sc"] = "掌握: #{risk}#$basic##\n使用近战武器击杀敌人将在#{skill_color}#10##秒内获得#{skill_color}#25%##的换弹速度加成\n\n专精: #{risk}#$pro##\n每击杀一个敌人会提高#{skill_color}#25%##你下一次使用近战武器攻击的伤害，伤害增益上限为#{skill_color}#100%##\n\n该效果将在使用近战武器成功击中敌人后重置",
+        ["menu_bloodthirst_desc_sc"] = "掌握: #{risk}#$basic##\n使用近战武器击杀敌人将在#{skill_color}#$skill_value_b2##秒内获得#{skill_color}#$skill_value_b1##的换弹速度加成。\n\n专精: #{risk}#$pro##\n每击杀一个敌人会提高#{skill_color}#25%##你下一次使用近战武器攻击的伤害，伤害增益上限为#{skill_color}#100%##。\n\n该效果将在使用近战武器成功击中敌人后重置。",
 
         -- }
         -- }
         -- }
 
         -- Sneaky Bastard--
-        ["menu_jail_diet_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1##点闪避点数，最多增加#{skill_color}#10##点。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1##点闪避点数，最多增加#{skill_color}#10##点。\n\n你的护甲被破坏时，每次闪避成功都将恢复你血量上限#{skill_color}#2%##的血量。",
+        ["menu_jail_diet_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##点闪避点数，最多增加#{skill_color}#$skill_value_b4##点。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_p1##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##点闪避点数，最多增加#{skill_color}#$skill_value_b4##点。\n\n你的护甲被破坏时，每次闪避成功都将恢复你血量上限#{skill_color}#$skill_value_p2##的血量。",
 
         -- Sharpshooter--
         ["menu_discipline_sc"] = "神枪手",
@@ -6280,15 +6281,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Evasion--
         ["menu_awareness_beta_sc"] = "紧急回避",
-        ["menu_awareness_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的移动速度加快#{skill_color}#5%##。\n\n你受到的摔落伤害减少#{skill_color}#75%##。\n\n专精: #{risk}#$pro##\n#{skill_color}#跑步换弹##——你现在可以在冲刺时换弹。\n\n你可以在模组设置中选择是否依然在起跑时打断换弹",
+        ["menu_awareness_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的移动速度加快#{skill_color}#$skill_value_b1##。\n\n你受到的摔落伤害减少#{skill_color}#$skill_value_b2##。\n\n专精: #{risk}#$pro##\n#{skill_color}#跑步换弹##——你现在可以在冲刺时换弹。\n\n你可以在模组设置中选择是否依然在起跑时打断换弹",
 
         -- Equilibrium--
         ["menu_equilibrium_beta_sc"] = "沉着冷静",
-        ["menu_equilibrium_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你与你队友的手枪稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的切枪速度加快#{skill_color}#$skill_value_p1##。",
+        ["menu_equilibrium_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你与你队友的手枪稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的切枪速度加快#{skill_color}#$skill_value_p1##，双持武器的切枪速度加快#{skill_color}#$skill_value_p2##。",
 
         -- Gun Nut--
         ["menu_dance_instructor_sc"] = "手枪狂徒",
-        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害。",
+        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##，双持武器的精准度也增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p2##的伤害。\n\n你的双持武器现在也可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p3##的伤害，对于本身可以穿甲的，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_p3##，最多增加至#{skill_color}#100%##。",
 
         -- Over Pressurized/Gunfighter--
         ["menu_gun_fighter_sc"] = "手枪斗士",
@@ -6300,27 +6301,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Desperado--
         ["menu_expert_handling_sc"] = "亡命之徒",
-        ["menu_expert_handling_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高你所有武器#{skill_color}#$skill_value_b1##的精准度和射程。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n#{important_1}#提示：该技能的精准度增加不适用于霰弹枪和火焰喷射器##\n\n专精: #{risk}#$pro##\n该效果的持续时间延长至#{skill_color}#$skill_value_b2+$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_expert_handling_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高你所有武器#{skill_color}#$skill_value_b1##的精准度和射程。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n#{important_1}#提示：该技能的精准度增加不适用于霰弹枪和火焰喷射器##\n\n专精: #{risk}#$pro##\n该效果的持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Trigger Happy--
         ["menu_trigger_happy_beta_sc"] = "乱枪狂人",
-        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_b3+$skill_value_p2##次，持续时间延长至#{skill_color}#$skill_value_b2+$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#skill_value_zh_p1##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Running From Death--
         ["menu_nine_lives_beta_sc"] = "死里逃生",
-        ["menu_nine_lives_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地起身后在#{skill_color}#10##秒内移动速度加快#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你倒地起身后在#{skill_color}#10##秒内受到的伤害减少#{skill_color}#20%##，且起身后你的#{skill_color}#武器会立即装填完毕##",
+        ["menu_nine_lives_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地起身后在#{skill_color}#$skill_value_b2##秒内移动速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你倒地起身后在#{skill_color}#$skill_value_p2##秒内受到的伤害减少#{skill_color}#$skill_value_p1##，且起身后你的#{skill_color}#武器会立即装填完毕##。",
 
         -- Undying--
         ["menu_running_from_death_beta_sc"] = "苟延残喘",
-        ["menu_running_from_death_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地时的血量增加#{skill_color}#100%##\n\n专精: #{risk}#$pro##\n你倒地时的血量额外增加#{skill_color}#100%##\n\n你现在可以#{skill_color}#在倒地时使用主武器##",
+        ["menu_running_from_death_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地时的血量增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你倒地时的血量额外增加#{skill_color}#$skill_value_p1##。\n\n你现在可以#{skill_color}#在倒地时使用主武器##。",
 
         -- What Doesn't Kill You Only Makes You Stronger--
         ["menu_what_doesnt_kill_beta_sc"] = "越挫越勇",
-        ["menu_what_doesnt_kill_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你获得#{skill_color}#X##点伤害吸收。\n#{skill_color}#X##=#{skill_color}#初始倒地次数##-#{skill_color}#剩余倒地次数##\n\n专精: #{risk}#$pro##\n该技能提供的伤害吸收效果变为原来的#{skill_color}#3##倍。",
+        ["menu_what_doesnt_kill_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你获得#{skill_color}#X##点伤害吸收。\n#{skill_color}#X##=(#{skill_color}#初始倒地次数##-#{skill_color}#剩余倒地次数##)*#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n该技能提供的伤害吸收效果变为原来的#{skill_color}#$skill_value_p1##倍。",
 
         -- Haunt--
         ["menu_haunt_sc"] = "恐惧弥漫",
-        ["menu_haunt_desc_sc"] = "掌握: #{risk}#$basic##\n击杀一名在你半径#{skill_color}#18##米内的敌人有概率在附近#{skill_color}#12##米的敌人中#{skill_color}#散播恐慌##，初始概率为#{skill_color}#5%##，每次倒地会提升该效果触发概率的#{skill_color}#5%##，该效果会随着你倒地次数的恢复而减少。\n\n恐慌会使敌人短暂地失去行动能力\n\n专精: #{risk}#$pro##\n初始概率提高至#{skill_color}#20%##。",
+        ["menu_haunt_desc_sc"] = "掌握: #{risk}#$basic##\n击杀一名在你半径#{skill_color}#18##米内的敌人有概率在附近#{skill_color}#12##米的敌人中#{skill_color}#散播恐慌##，初始概率为#{skill_color}#$skill_value_b1##，每次倒地会提升该效果触发概率的#{skill_color}#$skill_value_b1##，该效果会随着你倒地次数的恢复而减少。\n\n恐慌会使敌人短暂地失去行动能力\n\n专精: #{risk}#$pro##\n初始概率提高至#{skill_color}#$skill_value_p1##。",
 
         -- Messiah--
         ["menu_pistol_beta_messiah_sc"] = "弥赛亚",
@@ -6328,19 +6329,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Martial Arts--
         ["menu_martial_arts_beta_sc"] = "武术训练",
-        ["menu_martial_arts_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你受到来源于近战武器的伤害减少#{skill_color}#50%##。\n\n专精: #{risk}#$pro##\n你近战武器的击倒指数增加#{skill_color}#100%##。\n\n近战武器的击倒指数将影响你用近战武器攻击时击倒敌人的概率，并决定你近战武器能对熊的护甲和面甲造成多少伤害。",
+        ["menu_martial_arts_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你受到来源于近战武器的伤害减少#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你近战武器的击倒指数增加#{skill_color}#$skill_value_p1##。\n\n近战武器的击倒指数将影响你用近战武器攻击时击倒敌人的概率，并决定你近战武器能对熊的护甲和面甲还有泰坦盾及冬队盾造成多少伤害。",
 
         -- Pumping Iron--
         ["menu_steroids_beta_sc"] = "铁拳无敌",
-        ["menu_steroids_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你近战武器的蓄力速度和攻击速度都增快#{skill_color}#20%##\n\n专精: #{risk}#$pro##\n你近战武器的蓄力速度和攻击速度都额外增快#{skill_color}#30%##",
+        ["menu_steroids_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你近战武器的蓄力速度和攻击速度都增快#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你近战武器的蓄力速度和攻击速度都额外增快#{skill_color}#$skill_value_p1##",
 
         -- Frenzy--
         ["menu_wolverine_beta_sc"] = "狂乱",
-        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#30%##，你受到的回血效果也最多减少#{skill_color}#20%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#75%##，你受到的回血效果最多减少#{skill_color}#50%##。",
+        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#30%##，你受到的回血效果也最多减少#{skill_color}#$skill_value_b1##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#$skill_value_p1##，你受到的回血效果最多减少#{skill_color}#75%##。",
 
         -- Berserker--
         ["menu_frenzy_sc"] = "狂战士",
-        ["menu_frenzy_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将会获得最高#{skill_color}#100%##的#{skill_color}#近战武器和电锯##伤害加成。\n\n专精: #{risk}#$pro##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将获得最高#{skill_color}#50%##的#{skill_color}#远程武器##伤害加成。\n\n#{important_1}#提示：不适用于榴弹发射器和火箭筒##"
+        ["menu_frenzy_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将会获得最高#{skill_color}#$skill_value_b1##的#{skill_color}#近战武器和电锯##伤害加成。\n\n专精: #{risk}#$pro##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将获得最高#{skill_color}#$skill_value_p1##的#{skill_color}#远程武器##伤害加成。\n\n#{important_1}#提示：不适用于榴弹发射器和火箭筒##"
 
     })
 
@@ -6352,6 +6353,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         end
         if butt <= frame then
             LocalizationManager:add_localized_strings({
+                ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的肘击##了。\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
                 ["bm_wskn_famas_hypno"] = "巴适之鹰",
                 ["menu_st_spec_23"] = "瑞典蠢驴",
                 ["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
@@ -6748,7 +6750,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 
     if MetroLine_BodyExpert_Convert then
         LocalizationManager:add_localized_strings({
-            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#50%##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#10%##的伤害，最多加至#{skill_color}#30%##，停止射击#{skill_color}#2##秒后失效。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#40%##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#10%##的效果，最多加至#{skill_color}#70%##，停止射击#{skill_color}#2##秒后重置。"
+            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后重置。"
         })
     end
 

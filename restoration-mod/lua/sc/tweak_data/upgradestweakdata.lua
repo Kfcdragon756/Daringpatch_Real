@@ -994,42 +994,14 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Body Expertise aka Spray N' Pray --人体解构 此处修改，不跟进更新
 				self.values.player.ap_bullets = {0.5}
 				self.values.smg.ap_bullets = {1.0}
-				self.automatic_kills_to_damage_reset_t = 2 --delay to reset time (seconds)
+				self.automatic_kills_to_damage_reset_t = 3 --delay to reset time (seconds)  --此处修改，原2
 				self.values.smg.automatic_kills_to_damage = {
 					{
 						3, --stack limit
 						0.2 --dmg mult add
 					}
 				}
-				--Metroline全头加回
-				if MetroLine_BodyExpert_Convert then
-					self.values.player.ap_bullets = {0.5}
-					self.values.smg.ap_bullets = {1.0}
-					self.automatic_kills_to_damage_reset_t = 2 --delay to reset time (seconds)
-					self.values.smg.automatic_kills_to_damage = {
-						{
-							3, --stack limit
-							0.1--16667 --dmg mult add
-						}
-					}
-				end
-				self.automatic_kills_to_head_shot_reset_t = 2 --delay to reset time (seconds)
-				self.values.smg.automatic_kills_to_head_shot = {
-					{
-						0.7,  --最高
-						0.4,  --最低
-						0.1  --每击杀一名敌人+
-					}
-				}
-				self.automatic_fire_to_head_shot_reset_t = 2 --delay to reset time (seconds)
-				self.values.smg.automatic_fire_to_head_shot = {
-					{
-						0.8,  --最高
-						0.5,  --最低
-						0.1,  --每击杀一名敌人+
-						0.05  --空枪扣除
-					}
-				}
+
 				--Unused
 					self.values.weapon.automatic_head_shot_add = {0.03, 0.06}
 					self.values.player.universal_body_expertise = {false}
@@ -1047,6 +1019,47 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 					skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
 					skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1]) -- Amount of stacks
 				}
+
+				--Metroline全头加回
+				self.automatic_kills_to_head_shot_reset_t = 2 --delay to reset time (seconds)
+				self.values.smg.automatic_kills_to_head_shot = {
+					{
+						0.7,  --最高
+						0.4,  --最低
+						0.1  --每击杀一名敌人+
+					}
+				}
+				self.automatic_fire_to_head_shot_reset_t = 2 --delay to reset time (seconds)
+				self.values.smg.automatic_fire_to_head_shot = {
+					{
+						0.8,  --最高
+						0.5,  --最低
+						0.1,  --每击杀(命中？)一名敌人+
+						0.05  --空枪扣除
+					}
+				}
+				if MetroLine_BodyExpert_Convert then
+					self.values.player.ap_bullets = {0.5}
+					self.values.smg.ap_bullets = {1.0}
+					self.automatic_kills_to_damage_reset_t = 2 --delay to reset time (seconds)
+					self.values.smg.automatic_kills_to_damage = {
+						{
+							3, --stack limit
+							0.1--16667 --dmg mult add
+						}
+					}
+					self.skill_descs.single_shot_ammo_return = {
+						skill_value_b1 = tostring(self.values.player.ap_bullets[1] * 100).."%", -- AP for non-MG
+						skill_value_b2 = tostring(self.values.smg.ap_bullets[1] * 100).."%", -- AP for MG
+						skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
+						skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
+						skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1]), -- Amount of stacks
+						skill_value_Metro_base_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][2] * 100).."%",
+						skill_value_Metro_damage_increased = tostring(self.values.smg.automatic_kills_to_head_shot[1][3] * 100).."%",
+						skill_value_Metro_max_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][1] * 100).."%",
+						skill_value_Metro_reset_time = tostring(self.automatic_kills_to_head_shot_reset_t)
+					}
+				end
 						
 	--ENFORCER--
 		--Shotgunner--
@@ -1578,10 +1591,10 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				
 			--Spotter
 				--Basic
-				self.values.player.marked_inc_dmg_distance = {{2000, 1.25}}		
+				self.values.player.marked_inc_dmg_distance = {{1500, 1.25}}	 --此处修改，原{{2000, 1.25}}
 				--Ace
 				self.values.player.marked_enemy_extra_damage = {true}
-				self.values.player.marked_enemy_damage_mul = 1.35
+				self.values.player.marked_enemy_damage_mul = 1.4  --此处修改，原1.35
 
 				self.skill_descs.ecm_2x = {
 					skill_value_b1 = tostring(self.values.player.marked_inc_dmg_distance[1][2] % 1 * 100).."%", -- +damage if player position > distance
@@ -1940,8 +1953,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 			--Desperado
 				self.values.pistol.stacked_accuracy_bonus = {
-					{accuracy_bonus = 0.92, max_stacks = 5, max_time = 4}, --Basic
-					{accuracy_bonus = 0.92, max_stacks = 5, max_time = 8} --Ace
+					{accuracy_bonus = 0.92, max_stacks = 5, max_time = 5}, --Basic  --此处修改，max_time原为4
+					{accuracy_bonus = 0.92, max_stacks = 5, max_time = 12} --Ace  --此处修改，max_time原为8
 				}
 				
 				self.skill_descs.expert_handling = {
@@ -1953,8 +1966,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				
 			--Trigger Happy
 				self.values.pistol.stacking_hit_damage_multiplier = {
-					{damage_bonus = 1.05, max_stacks = 5, max_time = 4}, --Basic
-					{damage_bonus = 1.05, max_stacks = 10, max_time = 8} --Ace
+					{damage_bonus = 1.05, max_stacks = 6, max_time = 5}, --Basic  --此处修改，max_stacks原为5，max_time原为4
+					{damage_bonus = 1.05, max_stacks = 10, max_time = 12} --Ace  --此处修改，max_time原为8
 				}
 				
 				self.skill_descs.trigger_happy = {
@@ -2113,8 +2126,11 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 	-- 此处修改上述影响技能描述数值的变量，因为中文的表达方式不同
 	if schinese then
-		--log("schinese works")
+		--if ChinStringFixes and ChinStringFixes.settings and ChinStringFixes.settings.Mod_Support and ChinStringFixes.settings.Mod_Support.Resmod and ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat and ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat ~= 1 and ChinStringFixes.settings.Enable_String then
+			--log("CSF exists") 是存在的
+		--end
 
+		-- 将阿拉伯数字转为中文汉字的数字
 		local function number_to_chinese(n)
 
 			if ChinStringFixes and ChinStringFixes.number_to_chinese then
@@ -2146,6 +2162,49 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
     		end
 		end
 
+		-- 将B除以A并给结果保留keep位小数
+		local function smart_divide(A, B, keep, method)
+
+			if ChinStringFixes and ChinStringFixes.smart_divide then
+				return ChinStringFixes:smart_divide(A, B, keep, method)
+			end
+
+			keep = keep or 2
+        	if not (type(A) == "number" and A ~= 0) then
+        		return "ERROR : A"
+    		end
+    		if not (type(B) == "number") then
+    		    return "ERROR : B"
+    		end
+    		if not (type(keep) == "number" and keep >= 0 and keep % 1 == 0) then
+    	    	return "ERROR : keep"
+    		end
+
+        	local result = B / A
+
+        	local function decimals_count(x)
+            	-- 15 位足够覆盖 IEEE-754 double 的有效数字
+        	    local s = string.format("%.15f", x)
+        	    s = s:gsub("0+$", "")   -- 去掉结尾 0
+        	    s = s:gsub("%.$",  "")  -- 如果小数点成了最后一个字符，也去掉
+        	    local dot = s:find("%.")
+        	    return dot and (#s - dot) or 0
+        	end
+        	local decimals = decimals_count(result)
+
+        	if decimals == 0 then
+            	-- 整数
+        	    return math.floor(result)
+        	elseif decimals < keep then
+            	-- 小数位数比 keep 少：原样保留
+        	    return tonumber(string.format("%." .. decimals .. "f", result))
+        	else
+            	-- 小数位数不少于 keep：四舍五入到 keep 位
+        	    return tonumber(string.format("%." .. keep .. "f", result))
+        	end
+
+		end
+
 		--技能
 		self.skill_descs.tea_cookies = {  --"menu_tea_cookies_beta_sc"
 			skill_value_b1 = tostring(self.values.first_aid_kit.quantity[1]), -- Amount of FAKs (3 by default)
@@ -2173,6 +2232,30 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			skill_value_b1 = tostring(self.values.player.increased_pickup_area[1] % 1 * 100).."%", -- Increase ammo pick up range
 			skill_value_p1 = tostring(self.values.player.double_drop[1]), -- +1 ammo box after X kills
 			skill_value_zh_p1 = number_to_chinese(self.values.player.double_drop[1]), -- +1 ammo box after X kills  数字转中文
+		}
+
+		self.skill_descs.up_you_go = {
+			skill_value_b1 = tostring(self.values.player.damage_absorption_low_revives[1] * 10), -- DA for each down
+			skill_value_p1 = tostring(smart_divide(self.values.player.damage_absorption_low_revives[1], self.values.player.damage_absorption_addend[1], 2)) -- Permanent DA
+		}
+
+		self.skill_descs.trigger_happy = {
+			skill_value_b1 = tostring(self.values.pistol.stacking_hit_damage_multiplier[1].damage_bonus % 1 * 100).."%", -- Damage bonus per stack
+			skill_value_b2 = tostring(self.values.pistol.stacking_hit_damage_multiplier[1].max_time), -- Duration of buff (basic)
+			skill_value_b3 = tostring(self.values.pistol.stacking_hit_damage_multiplier[1].max_stacks), -- Max stacks (basic)
+			skill_value_p1 = tostring(self.values.pistol.stacking_hit_damage_multiplier[2].max_time), -- Duration of buff (ace)
+			skill_value_p2 = tostring(self.values.pistol.stacking_hit_damage_multiplier[2].max_stacks - self.values.pistol.stacking_hit_damage_multiplier[1].max_stacks), -- How many additional stacks give ace version
+			skill_value_zh_p1 = tostring(self.values.pistol.stacking_hit_damage_multiplier[2].max_stacks) -- Max stacks (ace)
+		}
+
+		self.skill_descs.perseverance = {
+			skill_value_b1 = tostring(self.values.temporary.berserker_damage_multiplier[1][2]), -- Swan song duration
+			skill_value_p1 = tostring(self.values.temporary.berserker_damage_multiplier[2][2])
+		}
+
+		self.skill_descs.feign_death = {
+			skill_value_b1 = tostring(self.values.player.killshot_spooky_panic_chance[1] * 100).."%", -- Panic on kill chance for each down
+			skill_value_p1 = tostring((self.values.player.killshot_spooky_panic_chance[1] + self.values.player.killshot_extra_spooky_panic_chance[1]) * 100).."%" -- Permanent flat chance to panic
 		}
 
 	end

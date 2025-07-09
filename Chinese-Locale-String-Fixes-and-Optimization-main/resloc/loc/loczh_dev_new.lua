@@ -5516,11 +5516,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Moving Target--
         ["menu_dire_need_beta_sc"] = "移动目标",
-        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n你瞄准时的移动速度加快#{skill_color}#50%##。\n#{important_1}#提示：该效果会覆盖你原本的最大速度##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#15%##；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#60%##。",
+        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n你瞄准时的移动速度加快#{skill_color}#50%##。\n#{important_1}#提示：瞄准时的移速会被限制在你的正常状态最大移速以内##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#15%##；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#60%##。",
 
         -- Shockproof
         ["menu_insulation_beta_sc"] = "绝缘装甲",
-        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#15%##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#30%##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#2##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其血量#{skill_color}#50%##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
+        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#15%##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#30%##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#2##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其最大血量#{skill_color}#50%##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
 
         -- }
 
@@ -5633,11 +5633,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Desperado--
         ["menu_expert_handling_sc"] = "亡命之徒",
-        ["menu_expert_handling_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高你所有武器#{skill_color}#$skill_value_b1##的精准度和射程。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n#{important_1}#提示：该技能的精准度增加不适用于霰弹枪和火焰喷射器##\n\n专精: #{risk}#$pro##\n该效果的持续时间延长至#{skill_color}#$skill_value_b2+$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_expert_handling_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高你所有武器#{skill_color}#$skill_value_b1##的精准度和射程。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n#{important_1}#提示：该技能的精准度增加不适用于霰弹枪和火焰喷射器##\n\n专精: #{risk}#$pro##\n该效果的持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Trigger Happy--
         ["menu_trigger_happy_beta_sc"] = "乱枪狂人",
-        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_b3+$skill_value_p2##次，持续时间延长至#{skill_color}#$skill_value_b2+$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_b3+$skill_value_p2##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Running From Death--
         ["menu_nine_lives_beta_sc"] = "死里逃生",
@@ -5669,7 +5669,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Frenzy--
         ["menu_wolverine_beta_sc"] = "狂乱",
-        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#30%##，你受到的回血效果也最多减少#{skill_color}#20%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#75%##，你受到的回血效果最多减少#{skill_color}#50%##。",
+        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#20%##，你受到的回血效果也最多减少#{skill_color}#30%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#50%##，你受到的回血效果最多减少#{skill_color}#75%##。",
 
         -- Berserker--
         ["menu_frenzy_sc"] = "狂战士",
