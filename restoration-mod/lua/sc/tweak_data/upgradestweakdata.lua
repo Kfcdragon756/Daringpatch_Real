@@ -3091,9 +3091,13 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_1 = tostring((self.values.player.passive_dodge_chance[3] - self.values.player.passive_dodge_chance[2]) * 100) -- More dodge
 	}
 	self.specialization_descs[4][9] = {
-		perk_value_1 = tostring(self.values.player.heal_over_time[1] * 12), -- HP regen per tick --数值不对，尚且需要解决。（先这样吧）
+		perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- HP regen per tick --数值不对，尚且需要解决。（先这样吧）
 		perk_value_2 = tostring(self.dodge_to_hot_data.total_ticks * self.dodge_to_hot_data.tick_time) -- Duration of 1 stack --想不到恢复制作组居然犯了这样的算术错误！ 原本这个值使用的运算是除运算。
 	}
+	if schinese then
+		self.specialization_descs[4][9].perk_value_1 = tostring(self.values.player.heal_over_time[1] * 12) --浪人的奶量相对更高一点...
+	end
+		
 	
 	--Hitman
 	self.specialization_descs[5][1] = {
@@ -3282,13 +3286,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.specialization_descs[12][7] = {
 		perk_value_1 = tostring(self.values.player.melee_kill_dodge_regen[1] * 100).."%", -- Max dodge gain on melee kill at low HP
 		perk_value_2 = "150%", -- Grace period increase after melee kill
-		perk_value_3 = tostring(900/1000), -- Max grace period increase after melee kill (in ms) --修正为按秒计算
+		perk_value_3 = "900", -- Max grace period increase after melee kill (in ms) 
 		perk_value_4 = tostring((self.values.player.passive_dodge_chance[2] - self.values.player.passive_dodge_chance[1]) * 100) -- Additional dodge
 	}
 	self.specialization_descs[12][9] = {
 		perk_value_1 = tostring(self.values.player.max_deflection_add[1] * 100 + 60).."%", -- Max deflection boost
 		perk_value_2 = tostring(self.values.survive_one_hit_armor[1] * 10) -- Armor regen after lethal shot survive
 	}
+	if schinese then
+		self.specialization_descs[12][7].perk_value_3 = "0.9" --修改基本时间单位...
+	end
 	
 	--(S)Ex-President
 	self.specialization_descs[13][1] = {
