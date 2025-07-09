@@ -5956,7 +5956,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Leadership
         ["menu_stable_shot_beta_sc"] = "领导风范",
-        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n全队所有武器的稳定性额外增加#{skill_color}#skill_value_p1##点。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
+        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n全队所有武器的稳定性额外增加#{skill_color}#$skill_value_p1##点。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- MG Handling
         ["menu_scavenger_sc"] = "控枪达人",
@@ -6048,7 +6048,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Scavenger    --到这
         ["menu_scavenging_sc"] = "拾荒者",
-        ["menu_scavenging_desc_sc"] = "掌握: #{risk}#$basic##\n你拾取弹药盒的范围增加#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n每击杀#{skill_color}#5##名敌人，第五名被击杀的敌人会额外掉落一个弹药盒",
+        ["menu_scavenging_desc_sc"] = "掌握: #{risk}#$basic##\n你拾取弹药盒的范围增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n每击杀#{skill_color}#$skill_value_p1##名敌人，第$skill_value_zh_p1名被击杀的敌人会额外掉落一个弹药盒",
 
         -- Bulletstorm--
         ["menu_ammo_reservoir_beta_sc"] = "子弹风暴",
@@ -6056,19 +6056,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Specialist Equipment formally Rip and Tear
         ["menu_portable_saw_beta_sc"] = "专业配备",
-        ["menu_portable_saw_beta_desc_sc"] = "掌握: #{risk}#$basic##\n电锯锯片的磨损速度减缓#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n电锯、弓、弩、榴弹发射器或火箭筒的换弹速度加快#{skill_color}#25%##",
+        ["menu_portable_saw_beta_desc_sc"] = "掌握: #{risk}#$basic##\n电锯锯片的磨损速度减缓#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n电锯、弓、弩、榴弹发射器或火箭筒的换弹速度加快#{skill_color}#$skill_value_p1##",
 
         -- Extra Lead
         ["menu_ammo_2x_beta_sc"] = "储备充足",
-        ["menu_ammo_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置的弹药袋的弹药容量额外增加#{skill_color}#200%##\n\n专精: #{risk}#$pro##\n你现在可以放置#{skill_color}#2##个弹药袋",
+        ["menu_ammo_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置的弹药袋的弹药容量额外增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你现在可以放置#{skill_color}#$skill_value_p1##个弹药袋",
 
         -- Rip and Tear formally Carbon Blade
         ["menu_carbon_blade_beta_sc"] = "锯刃轰鸣",
-        ["menu_carbon_blade_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯攻击可以穿过盾牌和泰坦盾造成伤害。\n\n专精: #{risk}#$pro##\n你使用电锯、弓、弩、榴弹发射器或火箭筒击杀敌人有#{skill_color}#50%##的几率在半径#{skill_color}#10##米内的敌人中#{skill_color}#散播恐慌##。\n\n恐慌会使敌人短暂地失去行动能力",
+        ["menu_carbon_blade_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯攻击可以穿过盾牌和泰坦盾造成伤害。\n\n专精: #{risk}#$pro##\n你使用电锯、弓、弩、榴弹发射器或火箭筒击杀敌人有#{skill_color}#$skill_value_p1##的几率在半径#{skill_color}#$skill_value_p2##米内的敌人中#{skill_color}#散播恐慌##。\n\n恐慌会使敌人短暂地失去行动能力",
 
         -- Fully Loaded--
         ["menu_bandoliers_beta_sc"] = "全副武装",
-        ["menu_bandoliers_desc_sc"] = "掌握: #{risk}#$basic##\n你武器携带的总弹量增加#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你武器从每个弹药盒中获取的弹药量增加#{skill_color}#50%##\n\n你有#{skill_color}#5%##的几率从一个弹药盒中获得一个投掷物\n\n若你没有从一个弹药盒中成功获取投掷物，那么该几率将提升#{skill_color}#1%##，成功获取投掷物后该几率将被重置\n\n#{important_1}#提示：你无法用此技能补充天赋/充能投掷物道具##",
+        ["menu_bandoliers_desc_sc"] = "掌握: #{risk}#$basic##\n你武器携带的总弹量增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你武器从每个弹药盒中获取的弹药量增加#{skill_color}#$skill_value_p1##\n\n你现在有#{skill_color}#$skill_value_p2##的几率从一个弹药盒中获得一个投掷物\n\n若你没有从一个弹药盒中成功获取投掷物，那么该几率将提升#{skill_color}#$skill_value_p3##，成功获取投掷物后该几率将被重置\n\n#{important_1}#提示：你无法用此技能补充天赋/充能投掷物道具##",
 
         -- }
         -- }
@@ -6080,27 +6080,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Logistician
         ["menu_defense_up_beta_sc"] = "后勤干员",
-        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#50%##，你队友则加快#{skill_color}#25%##。\n\n#{important_1}#提示：该效果不能叠加##",
+        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#$skill_value_p1##，你队友则加快#{skill_color}#$skill_value_p2##。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- Nerves of Steel--    
         ["menu_fast_fire_beta_sc"] = "钢铁意志",
-        ["menu_fast_fire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以#{skill_color}#在倒地时使用武器瞄准##。\n\n专精: #{risk}#$pro##\n你在互动时获得#{skill_color}#50%##的伤害减免。",
+        ["menu_fast_fire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以#{skill_color}#在倒地时使用武器瞄准##。\n\n专精: #{risk}#$pro##\n你在互动时获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Engineering
         ["menu_eco_sentry_beta_sc"] = "工程师",
-        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#40%##\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#60%##",
+        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#$skill_value_p1##",
 
         -- Jack of all Trades
         ["menu_jack_of_all_trades_beta_sc"] = "万事通",
-        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##",
+        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##",
 
         -- Sentry Tower Defense--
         ["menu_tower_defense_beta_sc"] = "塔防机枪",
-        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#2##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#35%##\n(主副武器各17.5%)",
+        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#35%##\n(主副武器各17.5%)",
 
         -- Bulletproof--
         ["menu_iron_man_sc"] = "刀枪不入",
-        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##\n#{important_1}#提示：对自我伤害无效##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#15%##\n\n你的护甲恢复速度加快#{skill_color}#15%## $anarc_disable",
+        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##\n#{important_1}#提示：对摔落伤害和自我伤害无效，也不能免疫幻影特工飞踢和泰瑟警察电击造成的倒地##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#$skill_value_p1##\n\n你的护甲恢复速度加快#{skill_color}#$skill_value_p2## $anarc_disable",
 
         -- }
 
@@ -6109,15 +6109,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Hardware Expert-- 硬件专家  Silent Drilling
         ["menu_hardware_expert_beta_sc"] = "静音钻机",
-        ["menu_hardware_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的钻机现在#{skill_color}#完全静音##，平民和保安必须看到钻机才会警觉。\n\n专精: #{risk}#$pro##\n你修理电锯和钻机的速度加快#{skill_color}#50%##。",
+        ["menu_hardware_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的钻机现在#{skill_color}#完全静音##，平民和保安必须看到钻机才会警觉。\n\n专精: #{risk}#$pro##\n你修理电锯和钻机的速度加快#{skill_color}#$skill_value_p1##。",
 
         -- Danger Close 危险勿近  Demoman
         ["menu_trip_mine_expert_beta_sc"] = "恐怖分子",
-        ["menu_combat_engineering_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以携带#{skill_color}#6##个聚能炸药。\n\n你放置聚能炸药和诡雷的速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n你现在可以携带#{skill_color}#8##个聚能炸药。\n\n诡雷的爆炸半径增加#{skill_color}#30%##。",
+        ["menu_combat_engineering_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以携带#{skill_color}#6##个聚能炸药。\n\n你放置聚能炸药和诡雷的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你现在可以携带#{skill_color}#8##个聚能炸药。\n\n诡雷的爆炸半径增加#{skill_color}#$skill_value_p1##。",
 
         -- Drill Sawgeant 钻锯技工
         ["menu_drill_expert_beta_sc"] = "钻锯技工",
-        ["menu_drill_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机工作所需时间减少#{skill_color}#10%##\n\n专精: #{risk}#$pro##\n你的电锯和钻机工作所需时间额外减少#{skill_color}#20%##",
+        ["menu_drill_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机工作所需时间减少#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的电锯和钻机工作所需时间额外减少#{skill_color}#$skill_value_p1##。",
 
         -- Demoman-- 恐怖分子  Fire Trap
         ["menu_more_fire_power_sc"] = "火焰陷阱",
@@ -6125,7 +6125,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Kickstarter 物理修复  Expert Hardware
         ["menu_kick_starter_beta_sc"] = "硬件专家",
-        ["menu_kick_starter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机在组装完毕时有#{skill_color}#10%##的概率变成自动修复的电锯或钻机。\n\n专精: #{risk}#$pro##\n你的电锯和钻机变成自动修复版的概率提高#{skill_color}#20%##。\n\n试图破坏你钻机的敌人有#{skill_color}#50%##的概率被电击，以阻止他们的破坏行为。",
+        ["menu_kick_starter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机在组装完毕时有#{skill_color}#$skill_value_b1##的概率变成自动修复的电锯或钻机。\n\n专精: #{risk}#$pro##\n你的电锯和钻机变成自动修复版的概率提高#{skill_color}#$skill_value_p1##。\n\n试图破坏你钻机的敌人有#{skill_color}#$skill_value_p2##的概率被电击，以阻止他们的破坏行为。",
 
         -- Fire Trap 火焰陷阱  Kickstarter
         ["menu_fire_trap_beta_sc"] = "物理修复",
@@ -6256,19 +6256,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Sharpshooter--
         ["menu_discipline_sc"] = "神枪手",
-        ["menu_discipline_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的稳定性增加#{skill_color}#2##\n\n专精: #{risk}#$pro##\n完成爆头击杀将在#{skill_color}#10##秒内使你的开火速率增加#{skill_color}#20%##，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发",
+        ["menu_discipline_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的稳定性增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n完成爆头击杀将在#{skill_color}#$skill_value_p2##秒内使你的开火速率增加#{skill_color}#$skill_value_p1##，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发",
 
         -- Kilmer-- 
         ["menu_heavy_impact_beta_sc"] = "基尔默",
-        ["menu_heavy_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的移动时受到的精准度惩罚减少#{skill_color}#60%##。\n\n移动时受到的精准度惩罚会被稳定性影响。\n\n专精: #{risk}#$pro##\n突击步枪和狙击步枪的换弹速度加快#{skill_color}#25%##",
+        ["menu_heavy_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的移动时受到的精准度惩罚减少#{skill_color}#$skill_value_b1##。\n\n移动时受到的精准度惩罚会被稳定性影响。\n\n专精: #{risk}#$pro##\n突击步枪和狙击步枪的换弹速度加快#{skill_color}#$skill_value_p1##",
 
         -- Mind Blown, formerly Explosive Headshot--
         ["menu_kilmer_sc"] = "脑\"洞\"大开",
-        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#4##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#70%##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n被爆头的敌人每离你#{skill_color}#8##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#3##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪或狙击步枪爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#1##米\n\n被爆头的敌人每离你#{skill_color}#8##米远，擦伤的伤害就额外增加#{skill_color}#10%##，最多额外增加#{skill_color}#100%##",
+        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#$skill_value_b2##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#$skill_value_b1##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发，并且有#{important_1}#$skill_value_b5##秒的冷却时间。\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#$skill_value_b4##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪或狙击步枪以#{skill_color}#单发射击##或#{skill_color}#速射模式##爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#$skill_value_p1##米\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，擦伤的伤害就额外增加#{skill_color}#$skill_value_p2##，最多额外增加#{skill_color}#$skill_value_p3##",
 
         -- Ammo Efficiency--
         ["menu_single_shot_ammo_return_sc"] = "弹无虚发",
-        ["menu_single_shot_ammo_return_desc_sc"] = "掌握: #{risk}#$basic##\n在#{skill_color}#8##秒内完成#{skill_color}#3##次爆头击杀会额外给予你武器总弹量#{skill_color}#3%##的子弹，最少可以获得#{skill_color}#1##发弹药。\n该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发。\n\n专精: #{risk}#$pro##\n现在只需要在#{skill_color}#12##秒内完成#{skill_color}#2##次爆头击杀就能触发技能。", -- ，子弹会在你弹匣不满时#{skill_color}#直接加进弹匣中##
+        ["menu_single_shot_ammo_return_desc_sc"] = "掌握: #{risk}#$basic##\n使用突击步枪和狙击步枪在#{skill_color}#$skill_value_b2##秒内完成#{skill_color}#$skill_value_b1##次爆头击杀会给予你武器捡弹量#{skill_color}#一半##的子弹补充进备弹中，补充值向上取整，最少可以获得#{skill_color}#1##发弹药。\n\n专精: #{risk}#$pro##\n现在只需要在时间内完成#{skill_color}#$skill_value_p1##次爆头击杀就能触发技能，并且子弹会在你弹匣不满时#{skill_color}#直接补充进弹匣中##。",  -- 弹药漏斗这块的
 
         -- Rifleman
         ["menu_rifleman_sc"] = "步枪精通",
@@ -6276,7 +6276,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Aggressive Reload
         ["menu_engineering_beta_sc"] = "迅猛装填",
-        ["menu_engineering_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会在#{skill_color}#10##秒内加快你#{skill_color}#25%##的换弹速度，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n专精: #{risk}#$pro##\n换弹速度增益提升至#{skill_color}#50%##且可以由#{skill_color}#连发射击##的突击步枪和狙击步枪触发",
+        ["menu_engineering_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会在#{skill_color}#$skill_value_b2##秒内加快你#{skill_color}#$skill_value_b1##的换弹速度，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n专精: #{risk}#$pro##\n换弹速度增益提升至#{skill_color}#$skill_value_p1##且可以由#{skill_color}#连发射击##的突击步枪和狙击步枪触发",
 
         -- Evasion--
         ["menu_awareness_beta_sc"] = "紧急回避",

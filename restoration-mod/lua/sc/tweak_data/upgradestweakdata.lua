@@ -1342,8 +1342,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						self.values.player.level_5_armor_addend = {2}
 						self.values.player.level_6_armor_addend = {2}
 					--Ace
-						self.values.player.armor_full_damage_absorb = {0.15}
-						self.values.player.armor_regen_timer_multiplier_tier = {0.85}
+						self.values.player.armor_full_damage_absorb = {0.25}  --此处修改，原0.15
+						self.values.player.armor_regen_timer_multiplier_tier = {0.8}  --此处修改，原0.85
 						
 						self.skill_descs.tower_defense = {
 							skill_value_b1 = tostring(self.values.player.level_5_armor_addend[1]*10), -- +armor for Flak and CTV
@@ -1373,7 +1373,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 					0.5 --Unused
 				}					
 				--Ace
-				self.values.trip_mine.explosion_size_multiplier_1 = {1.3}		
+				self.values.trip_mine.explosion_size_multiplier_1 = {1.5}	--此处修改，原1.3	
 				--Shaped Charge increase amount handled in tweakdata
 				self.skill_descs.combat_engineering = {
 					skill_value_b1 = tostring((1 - self.values.player.trip_mine_deploy_time_multiplier[1]) * 100).."%", -- Faster deploy time
@@ -2115,14 +2115,45 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	if schinese then
 		--log("schinese works")
 
+		local function number_to_chinese(n)
+
+			if ChinStringFixes and ChinStringFixes.number_to_chinese then
+				return ChinStringFixes:number_to_chinese(n)
+			end
+
+    		if n < 0 or n > 99 then
+    		    return "错误：[超出范围]"
+    		end
+
+    		local digits = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"}
+    
+    		if n < 10 then
+    		    return digits[n + 1]
+    		elseif n < 20 then
+    		    if n == 10 then
+    		        return "十"
+    		    else
+    		        return "十" .. digits[n % 10 + 1]
+    		    end
+    		else
+    		    local tens = math.floor(n / 10)
+    		    local ones = n % 10
+    		    local result = digits[tens + 1] .. "十"
+    		    if ones ~= 0 then
+    		        result = result .. digits[ones + 1]
+    		    end
+    		    return result
+    		end
+		end
+
 		--技能
-		self.skill_descs.tea_cookies = {  --"menu_tea_cookies_beta_desc_sc"
+		self.skill_descs.tea_cookies = {  --"menu_tea_cookies_beta_sc"
 			skill_value_b1 = tostring(self.values.first_aid_kit.quantity[1]), -- Amount of FAKs (3 by default)
 			skill_value_p1 = tostring(self.values.first_aid_kit.quantity[2] - self.values.first_aid_kit.quantity[1]),  --多携带几个
 			skill_value_p2 = tostring(self.values.first_aid_kit.uppers_cooldown) -- Uppers's CD
 		}
 
-		self.skill_descs.single_shot_ammo_return = {
+		self.skill_descs.single_shot_ammo_return = {  --"menu_single_shot_ammo_return_sc"
 			skill_value_b1 = tostring(self.values.player.ap_bullets[1] * 100).."%", -- AP for non-MG
 			skill_value_b2 = tostring(self.values.smg.ap_bullets[1] * 100).."%", -- AP for MG
 			skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
@@ -2138,8 +2169,11 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			skill_value_p2 = tostring(self.values.player.headshot_regen_armor_bonus_cd_reduction[2])
 		}
 
-		--天赋
-
+		self.skill_descs.scavenging = {
+			skill_value_b1 = tostring(self.values.player.increased_pickup_area[1] % 1 * 100).."%", -- Increase ammo pick up range
+			skill_value_p1 = tostring(self.values.player.double_drop[1]), -- +1 ammo box after X kills
+			skill_value_zh_p1 = number_to_chinese(self.values.player.double_drop[1]), -- +1 ammo box after X kills  数字转中文
+		}
 
 	end
 

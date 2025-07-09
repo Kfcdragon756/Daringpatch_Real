@@ -34,6 +34,33 @@ if Global then
     Global.ChinStringFixes_ShowResVersion = Global.ChinStringFixes_ShowResVersion or 0
 end
 
+-- 阿拉伯数字转换为中文数字
+function ChinStringFixes:number_to_chinese(n)
+    if n < 0 or n > 99 then
+        return "错误：[超出范围]"
+    end
+
+    local digits = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"}
+    
+    if n < 10 then
+        return digits[n + 1]
+    elseif n < 20 then
+        if n == 10 then
+            return "十"
+        else
+            return "十" .. digits[n % 10 + 1]
+        end
+    else
+        local tens = math.floor(n / 10)
+        local ones = n % 10
+        local result = digits[tens + 1] .. "十"
+        if ones ~= 0 then
+            result = result .. digits[ones + 1]
+        end
+        return result
+    end
+end
+
 local schinese = Idstring("schinese"):key() == SystemInfo:language():key()
 function CSF_is_schinese()
     if not schinese and not CHNMOD_PATCH then
