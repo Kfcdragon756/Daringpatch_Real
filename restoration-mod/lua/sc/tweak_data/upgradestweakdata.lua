@@ -1782,11 +1782,11 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Unseen Strike
 				self.values.temporary.unseen_strike = {
 					{ --Basic
-						1.10,
+						1.15,
 						0.2
 					},
 					{ --Ace
-						1.10,
+						1.15,
 						3
 					}
 				}
@@ -1794,12 +1794,12 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 					{ --Basic
 						min_time = 3,
 						max_duration = 0, --Unused field, holdover from vanilla.
-						crit_chance = 1.10
+						crit_chance = 1.15
 					},
 					{ --Ace
 						min_time = 3,
 						max_duration = 5,
-						crit_chance = 1.10
+						crit_chance = 1.15
 					}
 				}
 				
