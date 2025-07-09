@@ -6289,7 +6289,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Gun Nut--
         ["menu_dance_instructor_sc"] = "手枪狂徒",
-        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##，双持武器的精准度也增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p2##的伤害。\n\n你的双持武器现在也可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p3##的伤害，对于本身可以穿甲的，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_p3##，最多增加至#{skill_color}#100%##。",
+        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##，双持武器的精准度也增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p2##的伤害。\n\n你的双持武器现在也可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p3##的伤害，对于本身可以穿甲的，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_p3##，最多增加至#{skill_color}#100%##。",
 
         -- Over Pressurized/Gunfighter--
         ["menu_gun_fighter_sc"] = "手枪斗士",
@@ -6305,7 +6305,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Trigger Happy--
         ["menu_trigger_happy_beta_sc"] = "乱枪狂人",
-        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#skill_value_zh_p1##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_zh_p1##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Running From Death--
         ["menu_nine_lives_beta_sc"] = "死里逃生",

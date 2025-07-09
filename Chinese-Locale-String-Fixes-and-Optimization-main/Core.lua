@@ -27,6 +27,7 @@ function ChinStringFixes:smart_divide(A, B, keep, method)
 
 
     if method and (method == 1 or method == "o1") then
+
         --[[
           formatDivision(A, B, keep)
           A, B：做除法的两个数
@@ -52,46 +53,30 @@ function ChinStringFixes:smart_divide(A, B, keep, method)
         s = s:gsub("%.$", "")       -- 若只剩下一个 '.', 则去掉 '.'
         
         return s
+
     else
-        -- 智能除法：
-        -- ① 先计算  B / A
-        -- ② 结果是整数 → 直接返回整数
-        -- ③ 小数位数 <  keep → 原样保留
-        -- ④ 小数位数 ≥ keep → 四舍五入到 keep 位
-        --
-        -- @param A     被除数的分母，必须非 0
-        -- @param B     被除数的分子
-        -- @param keep  当需要“四舍五入”时要保留的小数位数（默认 2）
-        -- @return      number 类型；已经根据上述规则格式化
 
-        local result = B / A
+        --------------------------------------------------------------------
+        -- 智能除法：B ÷ A，结果至多保留 keep 位小数
+        -- A : 分母（非 0）
+        -- B : 分子
+        -- keep : 最多保留的小数位，默认 2
+        --------------------------------------------------------------------
 
-        ----------------------------------------------------------------
-        -- 统计有效小数位（末尾 0 不计入）
-        ----------------------------------------------------------------
-        local function decimals_count(x)
-            -- 15 位足够覆盖 IEEE-754 double 的有效数字
-            local s = string.format("%.15f", x)
-            s = s:gsub("0+$", "")   -- 去掉结尾 0
-            s = s:gsub("%.$",  "")  -- 如果小数点成了最后一个字符，也去掉
-            local dot = s:find("%.")
-            return dot and (#s - dot) or 0
-        end
-        local decimals = decimals_count(result)
+        -- ① 原始结果
+        local r = B / A
+    
+        -- ② 先统一按 keep 位四舍五入
+        local fmt = "%." .. keep .. "f"
+        local s   = string.format(fmt, r)
+    
+        -- ③ 把末尾 0 及孤立的 '.' 去掉
+        s = s:gsub("(%..-)0+$", "%1")  -- 去掉末尾 0（保留小数点前已有的内容）
+        s = s:gsub("%.$", "")          -- 如果结尾是 '.'，再去掉 '.'
+    
+        -- ④ 返回数值（若想保留字符串格式，可直接 return s）
+        return tonumber(s)
 
-        ----------------------------------------------------------------
-        -- 根据规则返回
-        ----------------------------------------------------------------
-        if decimals == 0 then
-            -- 整数
-            return math.floor(result)
-        elseif decimals < keep then
-            -- 小数位数比 keep 少：原样保留
-            return tonumber(string.format("%." .. decimals .. "f", result))
-        else
-            -- 小数位数不少于 keep：四舍五入到 keep 位
-            return tonumber(string.format("%." .. keep .. "f", result))
-        end
     end
 end
 

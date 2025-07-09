@@ -2180,28 +2180,19 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
     	    	return "ERROR : keep"
     		end
 
-        	local result = B / A
-
-        	local function decimals_count(x)
-            	-- 15 位足够覆盖 IEEE-754 double 的有效数字
-        	    local s = string.format("%.15f", x)
-        	    s = s:gsub("0+$", "")   -- 去掉结尾 0
-        	    s = s:gsub("%.$",  "")  -- 如果小数点成了最后一个字符，也去掉
-        	    local dot = s:find("%.")
-        	    return dot and (#s - dot) or 0
-        	end
-        	local decimals = decimals_count(result)
-
-        	if decimals == 0 then
-            	-- 整数
-        	    return math.floor(result)
-        	elseif decimals < keep then
-            	-- 小数位数比 keep 少：原样保留
-        	    return tonumber(string.format("%." .. decimals .. "f", result))
-        	else
-            	-- 小数位数不少于 keep：四舍五入到 keep 位
-        	    return tonumber(string.format("%." .. keep .. "f", result))
-        	end
+        	-- ① 原始结果
+        	local r = B / A
+    
+        	-- ② 先统一按 keep 位四舍五入
+        	local fmt = "%." .. keep .. "f"
+        	local s   = string.format(fmt, r)
+    
+        	-- ③ 把末尾 0 及孤立的 '.' 去掉
+        	s = s:gsub("(%..-)0+$", "%1")  -- 去掉末尾 0（保留小数点前已有的内容）
+        	s = s:gsub("%.$", "")          -- 如果结尾是 '.'，再去掉 '.'
+    
+        	-- ④ 返回数值（若想保留字符串格式，可直接 return s）
+        	return tonumber(s)
 
 		end
 
@@ -2217,7 +2208,11 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			skill_value_b2 = tostring(self.values.smg.ap_bullets[1] * 100).."%", -- AP for MG
 			skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
 			skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
-			skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1] * self.values.smg.automatic_kills_to_damage[1][2] * 100).."%" -- ori Amount of stacks
+			skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1] * self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- ori Amount of stacks
+			skill_value_Metro_base_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][2] * 100).."%",
+			skill_value_Metro_damage_increased = tostring(self.values.smg.automatic_kills_to_head_shot[1][3] * 100).."%",
+			skill_value_Metro_max_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][1] * 100).."%",
+			skill_value_Metro_reset_time = tostring(self.automatic_kills_to_head_shot_reset_t)
 		}
 
 		self.skill_descs.prison_wife = {
