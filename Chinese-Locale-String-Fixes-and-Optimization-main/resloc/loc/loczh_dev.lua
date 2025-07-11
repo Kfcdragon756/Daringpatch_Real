@@ -17,6 +17,15 @@ local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMS
 -- ResMod english.json
 Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", function(loc)
     LocalizationManager:add_localized_strings({
+        --Advanced Movement Stuff
+        ["advmov_dashcontrols"] = "侧闪设置",
+        ["advmov_dashcontrols_1"] = "禁用侧闪",
+        ["advmov_dashcontrols_2"] = "按键绑定触发",
+        ["advmov_dashcontrols_3"] = "双击移动键触发",
+        ["advmov_dashcontrols_4"] = "双击绑定键触发",
+        ["advmov_dash"] = "侧闪按键绑定",
+        ["advmov_dashcontrols_desc"] = "决定侧闪（左/右迅速侧移一小段距离）是通过按键绑定、双击还是两者兼有进行控制。\n注意：按键绑定需要安装 HoldTheKey 才能正常工作。默认值：4",
+
         -- some vanilla and mod stuff
         ["menu_warp_health_init_desc"] = "突进后玩家将恢复##0##至##3##血量，具体取决于消耗的耐力值。每##5##秒最多只能恢复##50##血量。",
         ["bm_wp_upg_a_crossbow_explosion_desc"] = "带有爆炸效果的弩箭，接触目标时爆炸。\n\n爆炸伤害不受任何衰减影响。",
@@ -1569,10 +1578,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_wp_upg_quad2_desc"] = "",
         ["bm_wp_upg_vintage_desc"] = "",
 
-        ["bm_wp_upg_o_m4_irons_dmc"] = "CAR-4 Flip-up Iron Sights",  --tra
-        ["bm_wp_upg_o_ozark_irons_dmc"] = "ZR Flip-up Iron Sights",
-        ["bm_wp_upg_o_dd_irons_dmc"] = "Versatile Fixed Iron Sights",
-        ["bm_wp_upg_o_ecp_irons_dmc"] = "Iron Sights",
+        ["bm_wp_upg_o_m4_irons_dmc"] = "CAR-4翻折式机械瞄具",  
+        ["bm_wp_upg_o_ozark_irons_dmc"] = "ZR翻折式机械瞄具",  
+        ["bm_wp_upg_o_dd_irons_dmc"] = "多功能固定式机械瞄具",  
+        ["bm_wp_upg_o_ecp_irons_dmc"] = "机械瞄具", 
 
         -- Scorpion (get in-game-name later)--
         ["bm_wp_scorpion_m_extended_sc"] = "并联弹匣",
@@ -2098,9 +2107,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
             ["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
             ["bm_w_ar2_desc"] = "装甲核心标准脉冲来复枪，又称脉冲步枪或AR2，是一种由联合帝国制造的暗能突击步枪。",
         -- SCAR-L
-        ["bm_w_scarl"] = "Eagle步枪",
+        --["bm_w_scarl"] = "Eagle步枪",
         -- Valmet Rk.62
-        ["bm_w_rk62"] = "Velmer步枪",
+        --["bm_w_rk62"] = "Velmer步枪",
         -- NV4
         ["bm_nova4_sc_desc"] = "一款全自动步枪。中等射速增加了稳定来提供一流的精准。适合中长距离打击。",
         ["bm_wp_wpn_fps_ass_nova4_flatline_desc"] = "获得以下加成：\n#{heat_warm_color}#精确##：\n#{skill_color}#无伤害衰减##但#{important_1}#降低射速##。\n#{item_stage_2}#专注##：\n#{skill_color}#提高##精准度。",
@@ -2583,7 +2592,338 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
 
 
-        --新的 --tra
+        -- Deepseek
+                ["bm_melee_pattern_knife"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+
+                ["bm_melee_pattern_knife2"] = "发动横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_clean"、"melee_grip" 和 "melee_agave"
+
+                ["bm_melee_pattern_ballistic"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫及下劈攻击。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_poker"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+
+                ["bm_melee_pattern_boxcutter"] = "发动横扫攻击。", -- 同样适用于 "melee_catch" 和 "melee_road"
+
+                ["bm_melee_pattern_shield"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+
+                ["bm_melee_pattern_briefcase"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发下劈攻击。", -- 修正拼写 briefcase
+
+                ["bm_melee_pattern_blunt"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。", -- 同样适用于 "melee_brick"、"melee_happy" 和 "melee_cleaver"
+                ["bm_melee_pattern_blunt_90"] = "发动下劈攻击，或充能至少#{skill_color}#90%##触发横扫攻击。",
+
+                ["bm_melee_pattern_beardy"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。侧移会影响充能攻击方向。",
+
+                ["bm_melee_pattern_axe"] = "发动下劈攻击。", -- 同样适用于 "melee_psycho" 和 "melee_pickaxe"
+
+                ["bm_melee_pattern_cutter"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+
+                ["bm_melee_pattern_great"] = "发动下劈攻击，侧移触发横扫攻击，或充能至少#{skill_color}#90%##触发延伸攻击距离的刺击。侧移可改变攻击方向。",
+                ["bm_melee_pattern_great_no_stab"] = "发动下劈攻击或侧移触发横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_cs"
+
+                ["bm_melee_pattern_katana"] = "发动斜劈攻击，或侧移触发横扫攻击。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_fist"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发勾拳。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_boxing"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发左勾拳或右上勾拳。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_tiger"] = "发动右刺拳攻击，或充能至少#{skill_color}#50%##触发左上勾拳或右勾拳。侧移会影响充能攻击方向。",
+
+                ["bm_melee_pattern_jab"] = "发动快速刺击。", -- 适用于仅含中心攻击判定的武器，如 "melee_pitchfork"、"melee_wing" 和 "melee_fight"
+
+        --URSA/USMC KA-BAR
+        ["bm_melee_kabar_info"] = "URSA战刀是自1942年沿用至今的耐用型格斗/多功能刀，坚不可摧。\n\n博伊刀身，锯齿刃口，实用至上。\n\n经典之作。",
+
+        --Krieger
+        ["bm_melee_kampfmesser_info"] = "德国联邦国防军制式战刀。该系列刀具严格遵循ISO标准制造，切削性能显著提升。\n\n近身格斗的优质选择。",
+
+        --Berger
+        ["bm_melee_gerber_info"] = "博格战术折刀配备回形刀尖，是广受欢迎的战术刀具。轻量化高科技材质造就了这把迅捷致命的利器。",
+
+        --Lambo
+        ["bm_melee_rambo_info"] = "重型博伊刀身的生存刀。其长度、锯齿刀背与中心刀尖设计，在荒野求生与近身搏斗中同样出色。",
+
+        --Tomahawk
+        ["bm_melee_tomahawk_info"] = "当分秒必争之际，你无暇纠结是否带对了劫案工具。\n无论门后或金库中暗藏何物，你需要一件如持械劫匪般专注果决的利器。",
+
+        --Becker Machete
+        ["bm_melee_becker_info"] = "专精劈砍、锤击、撬锁的多功能砍刀。\n无论是撬起顽固铰链、破拆门窗、砸碎展示柜，还是切断警用束线带，它都同样高效。",
+
+        --Baton
+        ["bm_melee_baton_info"] = "当前执法部门配备的最精密战术冲击武器。\n经顶尖联邦特勤队实测，其坚固性堪称无懈可击。",
+        ["bm_melee_happy_info"] = "乔伊的私人警棍——当代码失效时的最终解决方案。",
+
+        --Shovel
+        ["bm_melee_shovel_info"] = "K.L.A.S.铲适用于各类休闲用途。\n亦可作为凶器——以刃口劈骨断肉，或以平面将可怜虫锤入早墓。",
+
+        --MONEY MONEY MONEY
+        ["bm_melee_moneybundle_info"] = "大-把-大-把-的-钱！\n这念起来是什么？\n海量钞票！\n\n大概吧。\n\n亮出来！",
+
+        --Fists
+        ["bm_melee_fists_info"] = "你非拳击手，但仍能挥出漂亮重拳。\n只需力量、速度与时机把控，顷刻间便能击出致命一击。",
+
+        --& Knuckles
+        ["bm_melee_brass_knuckles_info"] = "指虎类武器已风行全球数百年。\n通过将冲击力集中于更硬更小的区域，它能显著提升组织破坏效率。力道够猛时，甚至能击碎骨骼。",
+
+        --Lucille
+        ["bm_melee_barbedwire_info"] = "我这烂人可没什么来世... 而我却在这儿... 跟根该死的棒球棍说话！\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Bayonet
+        ["bm_melee_bayonet_info"] = "坚固刺刀，本应装在步枪前端捅穿敌人躯干。\n\n但这想法太合理了。你肯定会把它当普通刀子用，对吧？",
+
+        --Bullseye
+        ["bm_melee_bullseye_info"] = "说实话我不知该作何评价——除非是疯子，否则没人会带这玩意儿打架吧？\n它是用来劈柴露营的，可不是抢银行的。\n\n对吧？",
+
+        --X46
+        ["bm_melee_x46_info"] = "X46采用局部锯齿博伊刀型设计，单块6英寸镀层A2钢锻造，配假刃刀尖。\n集成护手与破窗锥柄。\n多功能战地设计使其在战场与紧急情况下同样实用。",
+
+        --Gunther
+        ["bm_melee_dingdong_info"] = "大锤。\n攻城槌。\n撬棍。\n三者皆是劫匪快速破门的必备工具。\n叮咚锤将这三种功能紧密整合，如团队般无间协作。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Batshit insane
+        ["bm_melee_bat_info"] = "一根纯粹的棒球棍。\n\n本为运动设计，你却要拿它干更阴险的勾当。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Machete
+        ["bm_melee_machete_info"] = "你嗜好伤人，所以才用这把肮脏旧砍刀。\n裂开的伤口、粗暴斩断的肢体、敌人凄厉的惨叫，都是你的动力源泉。\n\n堪称残忍劫匪的终极武器。",
+
+        --Fireaxe
+        ["bm_melee_fireaxe_info"] = "你是否以伤人为乐？\n\n若果真如此，还有什么比用救生工具施暴更美妙！让受害者从你燃火的瞳孔中见证，你如何用一记快劈将他们从你自己手中'拯救'出来。",
+
+        --Briefcase
+        ["bm_melee_briefcase_info"] = "无论内藏何物，公文包本身惊人地坚固。\n\n充能时降低#{skill_color}#10%##远程伤害。",
+        ["bm_melee_toast"] = "阿尔米尔的吐司",
+        ["bm_melee_toast_info"] = "饿了吗？\n\n充能时降低#{skill_color}#10%##远程伤害。",
+
+        --KA-BAR Tanto
+        ["bm_melee_kabar_tanto_info"] = "受亚洲影响的短刀刀型，厚重刀尖专精穿刺。此刀为最严苛的任务而生。",
+
+        --UberHaxorNova
+        ["bm_melee_toothbrush_info"] = "塑料牙刷磨尖制成的临时刺刀，随时准备扎入下一个受害者的躯体。",
+
+        --Psycho Knife
+        ["bm_melee_chef_info"] = "不确定这刀是否切过超市的肉。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
+
+        --Trench Knife
+        ["bm_melee_fairbair_info"] = "英国突击队钟爱的战壕刀，擅长造成撕裂伤。这款经典刀具至今仍在生产使用。",
+
+        --Swag
+        ["bm_melee_swagger_info"] = "发号施令、提升形象或单纯执行体罚！权杖是任何自重领袖的必备配饰。'血胆老将'曾随身携带，甚至在内藏了暗刃。",
+
+        --FREEDOM ISN'T FREE
+        ["bm_melee_freedom_info"] = "十三道红白相间的条纹，左上角蓝色矩形，五十颗白色小五角星，一撮爱国情怀，两杯自由精神，再加一根折断的旗杆。\n\n瞧——你得到了一件致命武器。",
+
+        --Hammer
+        ["bm_melee_hammer_info"] = "\"木匠之悦\"是夹克最爱的锤子。这把锤子是向讨厌之人施加重击的完美工具。\n\n锤子通常用于钉钉子、装配零件、锻造金属和拆解物品——这些功能夹克都不太在乎。",
+
+        --OVERKILL Boxing Gloves
+        ["bm_melee_boxing_gloves_info"] = "我没听到铃响。\n\n使用OVERKILL拳套击杀敌人可#{skill_color}#立即恢复耐力值。##",
+
+        --A stick of lies
+        ["bm_melee_shillelagh_info"] = "橡木棍的真实起源难以考证。谁能确定人类第一次捡起粗棍爆头的时刻？而橡木棍的演化也并未超越本质。有人珍视黑刺李木，也有人往棍头灌熔铅。\n\n归根结底，它终究是根能敲碎头骨的沉重凶棍。",
+
+        --Bottle
+        ["bm_melee_whiskey_info"] = "一瓶威士忌需通过诸多法规审核才能称为苏格兰威士忌。但瓶身硬度并非必要条件——这对邦妮无关紧要，空荡荡的里弗敦格伦酒瓶就是她最爱的近战武器。\n\n毋庸置疑，它让敌人因错误的原因头痛欲裂。",
+
+        --Dragan's Cleaver
+        ["bm_melee_meat_cleaver_info"] = "剁肉刀主要用于切割肉类与骨头，但其威力在于锤击式重劈，能撕裂最坚韧的肌体。此类刀具自古便被用于屠宰牲畜与人类。\n\n你将进行前者操作。\n\n爆头伤害降低#{important_1}#50%##，但提升对躯干与肢体的整体伤害。",
+
+        --Poker
+        ["bm_melee_poker_info"] = "带尖头的长铁棒本是拨弄余烬的器具，却也是制造混乱与极致痛苦的完美工具。\n\n若不信，向酒保点一杯'爱德华二世'便知。",
+
+        --Tenderizer
+        ["bm_melee_tenderizer_info"] = "虽设计初衷是软化坚韧肉排，但事实证明它同样擅长软化顽固条子。\n\n搭配荷兰酱风味更佳。",
+
+        --Fork
+        ["bm_melee_fork_info"] = "一车保龄球与一车死亡 bulldozer 有何区别？你没法用叉妈卸下一车保龄球。\n\n建议佐以胡椒调味。",
+
+        --Speng Bib
+        ["bm_melee_spatula_info"] = "双功能近战武器——既可拍扁条子铺满街道，亦可供他人铲走残骸。\n\n这次请多备张纸巾。",
+
+        --PIPPA NO
+        ["bm_melee_mining_pick_info"] = "山里可有金子！我们说的'山'其实是牙齿。但无论矿山或牙齿，没有什么比挥舞生铁尖镐更能快速掘金。\n\n爆头伤害提升#{skill_color}#50%##。",
+
+        --Ebay Seller
+        ["bm_melee_scalper_info"] = "对胜者而言，它是战争、权力与征服的象征。\n\n对败者而言，它代表一次极其糟糕的发型。",
+
+        --NAOW THIS IS A KNOIFE
+        ["bm_melee_bowie_info"] = "九英寸回形战斗钢刃。起源可溯至古典海盗时代，但真正令其声名大噪的是卡罗尔郡血斗（与十二名浴血壮汉）。",
+
+        --MY BRAND
+        ["bm_melee_branding_iron_info"] = "此物本用于在厚牛皮上烙标识记，但烧红的烙铁对付警官的细皮嫩肉更为有效。",
+
+        --Mic
+        ["bm_melee_microphone_info"] = "\"请对着麦克风清晰发言。\"",
+
+        --Mic Stand
+        ["bm_melee_micstand_info"] = "不妨连支架一起物尽其用。",
+
+        --Nighty Night
+        ["bm_melee_oldbaton_info"] = "#{stats_positive}#\"安全词是'警察暴力'！\"##",
+
+        --Metal Detector
+        ["bm_melee_detector_info"] = "你大概该让这玩意儿保持关机状态。",
+
+        --Croupier Rake
+        ["bm_melee_croupier_rake_info"] = "专为揽入钞票设计的工具？简直为劫匪量身打造！让那些讨厌的条子见识为何庄家永胜。",
+
+        --Switchblade Knife
+        ["bm_melee_switchblade_info"] = "为暴力而生，致命如左轮——这就是弹簧刀！\n\n背后攻击造成#{skill_color}#200%##伤害。",
+
+        --Slot Lever
+        ["bm_melee_slot_lever_info"] = "给我中头奖！\n\n有#{skill_color}#5%##几率造成#{skill_color}#10倍##伤害并击倒目标。",
+
+        --ZAP ZAP MOTHERFUCKER
+        ["bm_melee_taser_info"] = "向嚣张的电击枪实施甜蜜复仇。\n\n完全充能时触碰目标可触电并打断动作。",
+
+        --Kunai
+        ["bm_melee_cqc_info"] = "剧毒苦无只需一击便能放倒最强敌手。\n\n内含异域毒素，造成#{stats_positive}#120##点毒伤，并在#{skill_color}#4##秒内每#{skill_color}#0.5##秒进行#{skill_color}#50%##几率打断。",
+
+        --Tekko-Kagi
+        ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+        --Empty Palm Kata
+        ["bm_melee_fight_info"] = "似水吧，吾友。\n\n招架敌人攻击时对其造成#{skill_color}#120##近战伤害。可通过技能提升。",
+
+        --Katana
+        ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_raiden_info"] = "在你手中，这绝非#{important_1}#\"正义之器\"##。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_2077tkata_info"] = "纳米加热刀锋。\n武士刀最纯粹的精髓，无附加，无改装，唯有炽热钢刃。\n\n完全充能攻击#{heat_warm_color}#点燃敌人##，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
+
+        --Ayy L-Maul
+        ["bm_melee_alien_maul_info"] = "纪念Alienware Alpha发布的战锤。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Beardy
+        ["bm_melee_beardy_info"] = "维京人从异教北境的黑暗森林崛起，自冰岛至伊斯坦布尔留下血腥毁灭之路。\n他们的武器正是双手持握的宽刃战斧。",
+
+        --Morningstar
+        ["bm_melee_morning_info"] = "若尖刺的深创未能致命，钝头的毁灭性冲击必将补刀。\n此武器曾在中世纪战场留下遍地残躯。\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Greatsword
+        ["bm_melee_great_info"] = "#{item_stage_2}#\"试试突刺攻击，前方有洞\"##\n\n威廉·华莱士扬名的巨剑。\n六英尺寒锋藏于税吏人皮缝制的剑鞘。\n\n这才叫反抗权威！",
+        ["bm_melee_jebus_info"] = "光与#{item_stage_2}#暗##\n#{item_stage_2}#黑##与白\n#{stats_positive}#生##与#{important_1}#死##\n\n二元之剑没有中间地带，它将敌人#{important_1}#彻底关闭##",
+        ["bm_melee_headless_sword_info"] = "由噩梦锻铸之剑。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
+        ["bm_melee_titan_hammer_info"] = "由噩梦锻铸之锤。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
+        ["bm_melee_goat_info"] = "\"那东西实在太大，不能称为剑。厚重、粗犷又沉重，简直像堆生铁块。\"\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
+        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"格挡试试这个\"##\n\n巨型双手剑，更似长柄武器。\n\n招架敌人攻击时对其造成#{skill_color}#180##近战伤害。可通过技能提升。",
+        ["bm_melee_broad_info"] = "骑士的标志性武器。",
+
+        --Buckler Shield
+        ["bm_melee_buck_info"] = "在行家手中，小圆盾既是防具亦是凶器。\n缚于前臂猛击敌人，其力道足以震飞对方马裤。\n\n充能时降低#{skill_color}#10%##远程伤害。",
+
+        --Bolt cutters
+        ["bm_melee_cutters_info"] = "你偏好的连环杀手需要的不仅是斧头、小刀或剃刀手套。\n他们需要断线钳悄无声息地进入你认为锁闭的区域。\n\n进入你自以为安全的所在...",
+
+        --Natsumi
+        ["bm_melee_boxcutter_info"] = "看似实用工具，但这把刀既能切开真空密封的坚固包装箱，也必能破开条子裹着的任何护甲。",
+
+        --Selfie
+        ["bm_melee_selfie_info"] = "如霍斯顿所言：\"看那个举自拍杆的蠢货。真是傻缺。不过应该挺结实。知道吗，我该抢过来抽他脸。去去就回...\"",
+
+        --Lara
+        ["bm_melee_iceaxe_info"] = "攀越天使瀑布湿滑岩壁时，你需要能凿入硬岩的工具；在华盛顿抢银行时，你需要能凿穿警盔的利器。\n\n爆头伤害提升#{skill_color}#50%##。",
+        ["bm_melee_iceaxe_gen_info"] = "爆头伤害提升#{skill_color}#50%##。",
+
+        --Dive
+        ["bm_melee_pugio_info"] = "至简至强。无论割喉断命，还是解救缠网海豚，它使命必达。当您踏浪而来时，胯侧此刃尽显锋芒。",
+
+        --Gator
+        ["bm_melee_gator_info"] = "据说人类断食可活三周，断水能撑三日，但在险境中若无利刃傍身，三小时都难以为继。",
+
+
+        --Pitch fork
+        ["bm_melee_pitch_info"] = "双叉戟、三叉戟有何区别？本质都是草叉。既然波塞冬与路西法都用得，我们亦然。\n\n向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+        ["bm_melee_number_3_info"] = "\"若你愿为理想杀戮，必已准备好为之赴死！\"\n\n向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+        ["bm_melee_charge_info"] = "向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+
+        --BONK
+        ["bm_melee_scoutknife_info"] = "莫让锈迹斑驳的外表蒙蔽双眼。刀终归是刀——有人说老刀如陈酿（大概没人真这么说过）。试试便知，万物皆会流血。",
+
+        --Shears
+        ["bm_melee_shawn_info"] = "可知剪羊毛亦是运动？或许我们该创新运动：剪条子？不行？为何？罢了... 随你使用便是...",
+
+        --Crook
+        ["bm_melee_stick"] = "牧羊杖",
+        ["bm_melee_stick_info"] = "劫案漫长疲惫？欲显智者风范？或想砸烂警脸？牧羊杖皆可胜任。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Pounder Nailgun
+        ["bm_melee_nin_info"] = "狼最爱的'重击者'钉枪。\n\n当人们问及名称，狼总会纠正为'玩笑者'（Punder），随即咆哮：\"正中靶心！\"\n\n发射射程短且瞬发的钉子，仍计为近战击杀。",
+        ["bm_melee_thebestweapon_info"] = "#{stats_positive}#游戏最强武器。##",
+
+        --Ballistic Knives
+        ["bm_melee_ballistic_info"] = "吉米绝非'少即是多'的信徒，故携此双生专家战刃。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+        --ALSO ZAP ZAP MOTHERFUCKER
+        ["bm_melee_zeus_info"] = "自制电击指虎，完全充能时触碰目标可触电并打断动作。",
+
+        --Wing Butterfly Knife
+        ["bm_melee_wing_info"] = "与伪装套件绝配！\n\n背后攻击造成#{skill_color}#400%##伤害。",
+
+        --PICKLE
+        ["bm_melee_road_info"] = "拉斯汀独爱链鞭——这位老派痛苦器具的拥趸。\n\n此链鞭购于五金店（非偷窃），他认为如此重要的工具值得花钱。当它呼啸着抽过又一张面庞时，自携别致格调。",
+
+        --ROAMING FROTHING MADNESS
+        ["bm_melee_cs_info"] = "撕裂，杀戮，至死方休。\n\n充能时每#{skill_color}#0.25##秒对前方目标造成#{skill_color}#30##点伤害（可随技能提升）。\n\n#{important_1}#无法招架敌人攻击。##",
+
+        --WHERE'S THE LEAK MA'AM?
+        ["bm_melee_shock_info"] = "\"请您行个方便...\"",
+
+        --YOU KNOW WHEN THAT HOTLINE RING
+        ["bm_melee_brick_info"] = "注意——这非普通电话，而是#{stat_maxed}#热线## #{skill_color}#8000X##，80年代通讯巅峰之作。\n\n喂，哪位？\n致电只为说...\n\n我恨你。",
+
+        --OMG IT SPINS
+        ["bm_melee_ostry_info"] = "转起来吧——！\n\n充能时每#{skill_color}#0.18##秒对前方目标造成#{skill_color}#18##点伤害（可随技能提升）。\n\n#{important_1}#无法招架敌人攻击。##",
+
+        --Pencil
+        ["bm_melee_sword"] = "铅笔",
+        ["bm_melee_sword_info"] = "\"约翰是专注、执着、意志如钢之人... 这些品质你鲜少具备。\n\n我曾见他在酒吧用铅笔杀三人...\n\n用他妈的一支铅笔。\"",
+
+        --Russian Machete
+        ["bm_melee_oxide_info"] = "突破性设计造就可靠近战武器。需在茂密丛林发挥砍刀功能，亦需在营地胜任刀具工作，还要处理驻军劳务。\n\n适用于坠机飞行员、野战士兵等需优质野战刀者。",
+
+        --Another Machete
+        ["bm_melee_agave_info"] = "对毒枭而言，夺命不仅是杀戮——更是威慑。需在目击者心中烙下印记。桑格雷斯的砍刀由此登场。携此凶器者，多半疯狂到真会使用。\n\n桑格雷斯命名其刀为'行刑者'——名器相配。",
+
+        --Alabama Razor
+        ["bm_melee_clean_info"] = "给条子们来次极致净剃体验。\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Kento's Tanto
+        ["bm_melee_ohwell_info"] = "与武士刀并列，短刀是所有武士的核心装备。\n\n此刀属健斗所有，然其来源成谜。",
+
+        --Spoon
+        ["bm_melee_spoon_info"] = "不过一勺的量，对吧？\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        --Gold Spoon
+        ["bm_melee_spoon_gold_info"] = "吃干抹净！吃干抹净！\n\n#{skill_color}#50%##几率造成#{heat_warm_color}#120##点火焰伤害并#{skill_color}#打断##敌人，持续#{skill_color}#3##秒。",
+        ["bm_melee_fire_info"] = "#{skill_color}#50%##几率造成#{heat_warm_color}#120##点火焰伤害并#{skill_color}#打断##敌人，持续#{skill_color}#3##秒。",
+
+        --ADOBE FALSH(LITE)
+        ["bm_melee_aziz_info"] = "\"我并非真要建避难所，但买了成吨罐头和饮水，还有这崭新闪光灯。因当世界陷入黑暗，你需光源支撑——否则活不过一小时。我保证！\"",
+
+        --Chac
+        ["bm_melee_chac_info"] = "执此沙锤踏节而舞，来场字面意义的颅骨摇摆。",
+
+        --Sap
+        ["bm_melee_sap_info"] = "皮拍乃绅士之兵。\n\n轻拍敌首便能放倒目标。公爵挥击时兼具优雅与暴戾，时常用力过猛造成额外伤害。\n\n故而慎用——或不必。",
+
+        --Hockey Stick
+        ["bm_melee_hockey_info"] = "精工木制球棍。既能将冰球击入网窝，亦能狠狠砸碎满口白齿。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续打击。",
+
+        --Ruler
+        ["bm_melee_meter_info"] = "本双头巨尺乃吾辈最大之作。莫被尺寸迷惑——此非凡量器毫无笨拙之态。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续打击。",
+
+        --Hooked
+        ["bm_melee_catch_info"] = "钩乃可靠工具，绝非火箭科学。原木握柄配刚钩看似朴素，却注定掀起腥风血雨。\n\n用途仅受限于你扭曲的想象：钩穿敌喉或拖拽残躯？\n\n锋芒所向，携凶入场。",
+
+        --Syringe
+        ["bm_melee_watson_info"] = "\"只疼一下就好，好吗？\"\n\n内含未知合剂，造成#{stats_positive}#120##点毒伤，并在#{skill_color}#4##秒内每#{skill_color}#0.5##秒进行#{skill_color}#50%##几率打断。",
+
+        --That oinky sploinky
+        ["bm_melee_piggy_hammer_info"] = "呼噜。\n\n对特殊与精英敌人伤害提升#{skill_color}#100%##，成功命中时触发以下#{risk}#随机效果##之一：\n-#{skill_color}#12%##几率造成#{important_1}#流血##\n-#{skill_color}#7%##几率#{ghost_color}#电击麻痹##\n-#{skill_color}#5%##几率造成#{stats_positive}#中毒##\n-#{skill_color}#1%##几率#{risk}#即死##", --Piggu
+
+        --Knuckle Daggers, Push Daggers
+        ["bm_melee_specialist_info"] = "双倍刃锋，双倍欢愉。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+
+
+        --[[新的 --tra
                 ["bm_melee_pattern_knife"] = "Attack with quick jabs or charge up by at least #{skill_color}#50%## for wider swings.",
 
                 ["bm_melee_pattern_knife2"] = "Attack with wide swings. Strafing influences attack direction.", --Also works with "melee_clean", "melee_grip" and "melee_agave"
@@ -2879,7 +3219,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         --Knuckle Daggers, Push Daggers
         ["bm_melee_specialist_info"] = "Twice the blades, twice the fun.\n\nMelee attacks deal #{skill_color}#2x## damage every hit after the first while drawn.",
 
-
+        --]]
 
 
         -- We assets now--
@@ -3093,12 +3433,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
         ["bm_menu_attack_speed"] = "攻击间隔",
         ["bm_menu_impact_delay"] = "攻击前摇",
-        ["bm_menu_cleave"] = "扫击人数",  --tra --check  --测试发现应该指能同时砍死几个人，怎么命名优待
+        ["bm_menu_cleave"] = "扫击人数",  --tra --check  --测试发现应该指能同时砍死几个人，怎么命名有待商议
 
-        ["bm_menu_stats_detection"] = "敏蔽负荷",  --tra 累赘、负担
+        ["bm_menu_stats_detection"] = "敏蔽负荷",  --累赘、负担
         ["bm_menu_stats_min_detection"] = "敏蔽负荷",
         ["bm_menu_stats_max_detection"] = "敏蔽负荷",
-        ["bm_menu_stats_dash_limit"] = "Dash Limit:",  --tra --疑似为新加的一个什么效果或者功能、特技之类的，或者跟跑酷mod的蹬墙跳那种有关
+        ["bm_menu_stats_dash_limit"] = "侧闪次数限制 :",  --跟跑酷mod的侧闪控制有关
 
         ["bm_menu_pickup"] = "捡弹量",
         ["bm_menu_ads_speed"] = "瞄准时间",
@@ -3126,7 +3466,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_forebarrelgrip"] = "枪管&护木",
         ["bm_menu_riser"] = "镜桥",
         ["bm_menu_pump"] = "泵",
-        ["bm_menu_sight_mount"] = "Sight Mount",
+        ["bm_menu_sight_mount"] = "瞄具支架",  --check
 
         ["bm_menu_upotte_barrel"] = "枪管",
         ["bm_menu_upotte_foregrip"] = "护木",
@@ -3244,8 +3584,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_dodge_grace_both"] = " 和 ",
         ["bm_menu_dodge_grace_diff_cap"] = "#{risk}#$risk_level##风险等级 ",
 
-        ["bm_menu_dash_grace"] = "GRACE PERIOD ON DASH: #{skill_color}#$dash_grace##",  --tra
-        ["bm_menu_dash_grace_dodge"] = "\n - WITH DODGE READY: #{skill_color}#$dash_grace_dodge##",
+        ["bm_menu_dash_grace"] = "侧闪时的无敌帧：#{skill_color}#$dash_grace##",  --tra
+        ["bm_menu_dash_grace_dodge"] = "\n - 此时如果闪避条足够的话：#{skill_color}#$dash_grace_dodge##",
 
         ["bm_menu_armor_max_health_store_1"] = "前总统存储血量上限: #{skill_color}#$health_stored##",
         ["bm_menu_armor_max_health_store_2"] = "前总统存储血量上限: #{skill_color}#$health_stored## \n前总统杀敌护甲回复速度加成: #{skill_color}#$regen_bonus%##"
@@ -3416,11 +3756,23 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
         ["bm_wp_upg_i_singlefire_desc"] = "#{important_1}#锁定##你的武器为\"#{skill_color}#单发射击##\"",
         ["bm_wp_upg_i_autofire_desc"] = "#{important_1}#锁定##你的武器为\"#{skill_color}#连发射击##\"",
 
-        -- Fixed names for SMGS to ARs--
+        -- Fixed names --  -- 枪名变更 --
         ["bm_w_olympic"] = "Para步枪",
         ["bm_w_akmsu"] = "Krinkov步枪",
-        ["bm_w_x_akmsu"] = "双持Krinkov步枪",
         ["bm_w_hajk"] = "CR 805B步枪",
+        --[[["bm_w_l85a2"] = "女王之怒",
+        ["bm_w_x_b92fs"] = "双持Bernetti 92x手枪",
+        ["bm_w_x_g17"] = "双持Chimano 88s手枪",
+        ["bm_w_x_g22c"] = "双持Chimano Customs手枪",
+        ["bm_w_x_ppk"] = "双持Gruber Kurzes手枪",
+        ["bm_w_x_packrat"] = "双持合约人M30Ls手枪",
+        ["bm_w_x_pl14"] = "双持White Streaks手枪",
+        ["bm_w_x_legacy"] = "双持M13s手枪",
+        ["bm_w_x_maxim9"] = "双持Magnus 9s手枪",
+        ["bm_w_maxim9"] = "Magnus 9s手枪",
+        ["bm_w_x_g18c"] = "双持Chimano 18Cs手枪",
+        ["bm_w_beer"] = "Bernetti 93R手枪",
+        ["bm_w_czech"] = "CR 92手枪",--]]
 
         ["menu_akimbo_assault_rifle"] = "双持突击步枪",
 
@@ -3543,517 +3895,517 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
 
                 --[[ PISTOLS ]]
                     --Gecko Pistol
-                    ["bm_w_maxim9"] = "Magnus 9",
-                    ["bm_w_x_maxim9"] = "Akimbo Magnus 9s",
+                    ["bm_w_maxim9"] = "Magnus 9手枪",
+                    ["bm_w_x_maxim9"] = "双持Magnus 9s手枪",
                     --Igor (APS)
-                    ["bm_w_stech"] = "Igor Automatik",
-                    ["bm_w_x_stech"] = "Akimbo Igor Automatiks",
+                    ["bm_w_stech"] = "Igor Automatik手枪",
+                    ["bm_w_x_stech"] = "双持Igor Automatiks手枪",
                     --Chimano Compact
-                    ["bm_wp_pis_g26"] = "Chimano 26 Compact",
-                    ["bm_w_jowi"] = "Akimbo Chimano 26 Compacts",
+                    ["bm_wp_pis_g26"] = "Chimano 26 Compact手枪",
+                    ["bm_w_jowi"] = "双持Chimano 26 Compacts手枪",
                     --Glock 18c
-                    ["bm_w_glock_18c"] = "Chimano 18C",
-                    ["bm_w_x_g18c"] = "Akimbo Chimano 18Cs",
+                    ["bm_w_glock_18c"] = "Chimano 18C手枪",
+                    ["bm_w_x_g18c"] = "双持Chimano 18Cs手枪",
                     --CZ 75
-                    ["bm_w_czech"] = "CR 92",
-                    ["bm_w_x_czech"] = "Akimbo CR 92s",
+                    ["bm_w_czech"] = "CR 92手枪",
+                    ["bm_w_x_czech"] = "双持CR 92s手枪",
                     --PPK (Gruber)
-                    ["bm_w_ppk"] = "Gruber Kurz",
-                    ["bm_w_x_ppk"] = "Akimbo Gruber Kurzes",
+                    ["bm_w_ppk"] = "Gruber Kurz手枪",
+                    ["bm_w_x_ppk"] = "双持Gruber Kurzes手枪",
                     --M13
-                    ["bm_w_legacy"] = "M13",
-                    ["bm_w_x_legacy"] = "Akimbo M13s",
+                    ["bm_w_legacy"] = "M13手枪",
+                    ["bm_w_x_legacy"] = "双持M13s手枪",
                     --Glock 17
-                    ["bm_w_glock_17"] = "Chimano 88",
-                    ["bm_w_x_g17"] = "Akimbo Chimano 88s",
+                    ["bm_w_glock_17"] = "Chimano 88手枪",
+                    ["bm_w_x_g17"] = "双持Chimano 88s手枪",
                     --Bernetti 9
-                    ["bm_w_b92fs"] = "Bernetti 92",
-                    ["bm_w_x_b92fs"] = "Akimbo Bernetti 92s",
+                    ["bm_w_b92fs"] = "Bernetti 92手枪",
+                    ["bm_w_x_b92fs"] = "双持Bernetti 92s手枪",
                     --White Streak
-                    ["bm_w_pl14"] = "White Streak",
-                    ["bm_w_x_pl14"] = "Akimbo White Streaks",
+                    ["bm_w_pl14"] = "White Streak手枪",
+                    ["bm_w_x_pl14"] = "双持White Streaks手枪",
                     --Holt 9mm
-                    ["bm_w_holt"] = "Holt 9",
-                    ["bm_w_x_holt"] = "Akimbo Holt 9s",
+                    ["bm_w_holt"] = "Holt 9手枪",
+                    ["bm_w_x_holt"] = "双持Holt 9s手枪",
                     --FMG-9
-                    ["bm_w_fmg9"] = "Wasp DS-9",
+                    ["bm_w_fmg9"] = "Wasp DS-9手枪",
                     --93R
-                    ["bm_w_beer"] = "Bernetti 93R",
+                    ["bm_w_beer"] = "Bernetti 93R手枪",
                     --Contractor Pistols
-                    ["bm_w_packrat"] = "Contractor M30L",
-                    ["bm_w_x_packrat"] = "Akimbo Contractor M30Ls",
+                    ["bm_w_packrat"] = "Contractor M30L手枪",
+                    ["bm_w_x_packrat"] = "双持Contractor M30Ls手枪",
                     --Breech (Luger)
-                    ["bm_w_breech"] = "Parabellum-08",
+                    ["bm_w_breech"] = "Parabellum-08手枪",
                     --Chimano Custom
-                    ["bm_w_g22c"] = "Chimano Custom",
-                    ["bm_w_x_g22c"] = "Akimbo Chimano Customs",
+                    ["bm_w_g22c"] = "Chimano Custom手枪",
+                    ["bm_w_x_g22c"] = "双持Chimano Customs手枪",
                     --Signature .40
-                    ["bm_w_p226"] = "Signature .40",
+                    ["bm_w_p226"] = "Signature .40手枪",
                     --LEO
-                    ["bm_w_hs2000"] = "LEO-40",
+                    ["bm_w_hs2000"] = "LEO-40手枪",
                     ["bm_wp_hs2000_sl_long"] = "Elite Slide",
                     --5/7 pistol
-                    ["bm_w_lemming"] = "Acuto 5/7",
+                    ["bm_w_lemming"] = "Acuto 5/7手枪",
                     ["bm_w_x_lemming"] = "Ultra & Violet",
                     --Baby Deagle--
-                    ["bm_w_sparrow"] = "Sparrow 941",
+                    ["bm_w_sparrow"] = "Sparrow 941手枪",
                     ["bm_w_x_sparrow"] = "Spike & Vicious",
                     --Crosskill
-                    ["bm_w_colt_1911"] = "Crosskill Operator II",
+                    ["bm_w_colt_1911"] = "Crosskill Operator II手枪",
                     ["bm_w_x_1911"] = "Mustang & Sally",
-                    ["bm_wp_1911_m_big"] = "Casket Magazine",
+                    ["bm_wp_1911_m_big"] = "Casket Magazine手枪",
                     --Crosskill Chunky
-                    ["bm_w_m1911"] = "Crosskill A1",
+                    ["bm_w_m1911"] = "Crosskill A1手枪",
                     ["bm_w_x_m1911"] = "Price & MacTavish",
                     --Crosskill Guard
-                    ["bm_w_shrew"] = "Crosskill Guard",
+                    ["bm_w_shrew"] = "Crosskill Guard手枪",
                     ["bm_w_shrew_joshua"] = "A Light Shining in Darkness",
                     ["bm_w_x_shrew"] = "Barry & Paul",
                     --USP
-                    ["bm_w_usp"] = "Interceptor-45",
-                    ["bm_w_x_usp"] = "Akimbo Interceptor-45s",
+                    ["bm_w_usp"] = "Interceptor-45手枪",
+                    ["bm_w_x_usp"] = "双持Interceptor-45s手枪",
                     ["bm_wp_usp_m_big"] = "Casket Magazine",
                     ["bm_wp_pis_usp_b_match"] = "Freeman Slide",
                     --Model 54
-                    ["bm_w_type54"] = "CC-33",
-                    ["bm_w_x_type54"] = "Akimbo CC-33s",
+                    ["bm_w_type54"] = "CC-33手枪",
+                    ["bm_w_x_type54"] = "双持CC-33s手枪",
                     --Broomstick--
-                    ["bm_w_c96"] = "Broomstick",
+                    ["bm_w_c96"] = "Broomstick手枪",
                     ["bm_w_c96_dl44"] = "DL-44",
                     ["bm_wp_c96_nozzle"] = "BlasTech DL-44 Muzzle",
                     --Sub2000
-                    ["bm_w_sub2000"] = "Cavity .40",
+                    ["bm_w_sub2000"] = "Cavity .40手枪",
                     --Deagle
-                    ["bm_w_deagle"] = "Deagle",
-                    ["bm_w_x_deagle"] = "Akimbo Deagles",
+                    ["bm_w_deagle"] = "沙漠之鹰",
+                    ["bm_w_x_deagle"] = "双持沙漠之鹰",
                     --Kahn .357
-                    ["bm_w_korth"] = "Kahn .357",
-                    ["bm_w_x_korth"] = "Akimbo Kahn .357s",
+                    ["bm_w_korth"] = "Kahn .357手枪",
+                    ["bm_w_x_korth"] = "双持Kahn .357s手枪",
                     --Matever 2006m
-                    ["bm_w_mateba"] = "Matever 9mm", --:^)
+                    ["bm_w_mateba"] = "Matever 9mm手枪", --:^)
                     ["bm_wp_2006m_b_short"] = "Tachikoma Barrel",
                     ["bm_wp_2006m_b_medium"] = "Togusa Barrel",
                     ["bm_wp_2006m_b_long"] = "Kusanagi Barrel",
-                    ["bm_w_x_2006m"] = "Akimbo Matevers",
+                    ["bm_w_x_2006m"] = "双持Matevers手枪",
                     --Frenchman Model 87
-                    ["bm_w_model3"] = "J&M Model 87",
-                    ["bm_w_x_model3"] = "Akimbo Model 87s",
+                    ["bm_w_model3"] = "J&M Model 87手枪",
+                    ["bm_w_x_model3"] = "双持Model 87s手枪",
                     --Raging bull
-                    ["bm_w_raging_bull"] = "Bronco .44",
-                    ["bm_w_x_rage"] = "Akimbo Bronco .44s",
+                    ["bm_w_raging_bull"] = "Bronco .44手枪",
+                    ["bm_w_x_rage"] = "双持Bronco .44s手枪",
                     --Castigo
-                    ["bm_w_chinchilla"] = "Castigo .44",
-                    ["bm_w_x_chinchilla"] = "Akimbo Castigo .44s",
+                    ["bm_w_chinchilla"] = "Castigo .44手枪",
+                    ["bm_w_x_chinchilla"] = "双持Castigo .44s手枪",
                     --RUS-12
-                    ["bm_w_rsh12"] = "RUS-12",
+                    ["bm_w_rsh12"] = "RUS-12手枪",
                     --SAA/Peacemaker
-                    ["bm_w_peacemaker"] = "Peacemaker .45LC",
+                    ["bm_w_peacemaker"] = "Peacemaker .45LC手枪",
                     --CUSTOM PISTOLS
                         --ZiP 22
-                        ["bm_w_zip22"] = "Zippy 3000",
+                        ["bm_w_zip22"] = "Zippy 3000手枪",
                         --Px4
-                        ["bm_w_px4"] = "Bernetti Px4",
+                        ["bm_w_px4"] = "Bernetti Px4手枪",
                         --Browning Hi-Power
-                        ["bm_w_hpb"] = "Hi-Power",
+                        ["bm_w_hpb"] = "Hi-Power手枪",
                         --Browning Hi-Power (Mira)
                         --["bm_w_hpb"] = "Hi-Power",
                         --Walther P99
-                        ["bm_w_p99"] = "Lakner G99",
+                        ["bm_w_p99"] = "Lakner G99手枪",
                         --Derringer
-                        ["bm_w_derringer"] = "Derringer",
+                        ["bm_w_derringer"] = "Derringer手枪",
                         --Automag .44
-                        ["bm_w_amt"] = "Automag .44",
+                        ["bm_w_amt"] = "Automag .44手枪",
                         --Colt Detective
-                        ["bm_w_coltds"] = "Crosskill Investigator",
+                        ["bm_w_coltds"] = "Crosskill Investigator手枪",
                         --SIG P320
-                        ["bm_w_papa320"] = "M19",
+                        ["bm_w_papa320"] = "M19手枪",
                 --[[ SMGs ]]
                     --Kobus 90--
-                    ["bm_w_p90"] = "Project-90",
-                    ["bm_w_x_p90"] = "Akimbo Project-90s",
+                    ["bm_w_p90"] = "Project-90冲锋枪",
+                    ["bm_w_x_p90"] = "双持Project-90s冲锋枪",
                     ["bm_wp_p90_b_ninja"] = "Ninja Barrel",
                     ["bm_wp_90_body_boxy"] = "OMNIA Assault Stock",
                     --Spec Ops
-                    ["bm_w_mp7"] = "SpecOps-7",
+                    ["bm_w_mp7"] = "SpecOps-7冲锋枪",
                     --Tec-9
-                    ["bm_w_tec9"] = "T3K Urban",
-                    ["bm_w_x_tec9"] = "Akimbo T3K Urbans",
+                    ["bm_w_tec9"] = "T3K Urban冲锋枪",
+                    ["bm_w_x_tec9"] = "双持T3K Urbans冲锋枪",
                     --Heather
-                    ["bm_w_sr2"] = "Heather-2M",
-                    ["bm_w_x_sr2"] = "Akimbo Heather-2Ms",
+                    ["bm_w_sr2"] = "Heather-2M冲锋枪",
+                    ["bm_w_x_sr2"] = "双持Heather-2Ms冲锋枪",
                     --CMP
-                    ["bm_w_mp9"] = "CMP-9",
+                    ["bm_w_mp9"] = "CMP-9冲锋枪",
                     --Miyaka
-                    ["bm_w_pm9"] = "Miyaka 9 Special",
+                    ["bm_w_pm9"] = "Miyaka 9 Special冲锋枪",
                     --Micro Uzi
-                    ["bm_w_baka"] = "Micro Uzi",
-                    ["bm_w_x_baka"] = "Akimbo Micro Uzis",
+                    ["bm_w_baka"] = "Micro Uzi冲锋枪",
+                    ["bm_w_x_baka"] = "双持Micro Uzis冲锋枪",
                     --Cobra/Skorpion
-                    ["bm_w_scorpion"] = "Cobra",
-                    ["bm_w_x_scorpion"] = "Akimbo Cobras",
+                    ["bm_w_scorpion"] = "Cobra冲锋枪",
+                    ["bm_w_x_scorpion"] = "双持Cobras冲锋枪",
                     ["bm_wp_scorpion_m_extended"] = "Dual Magazines",
                     --Tatonka
-                    ["bm_w_coal"] = "AK-19 Tatonka",
+                    ["bm_w_coal"] = "AK-19 Tatonka冲锋枪",
                     --AK Gen
-                    ["bm_w_vityaz"] = "AK-19-01 Tasunka",
+                    ["bm_w_vityaz"] = "AK-19-01 Tasunka冲锋枪",
                     --Signature SMG
-                    ["bm_w_shepheard"] = "Signature PC9",
+                    ["bm_w_shepheard"] = "Signature PC9冲锋枪",
                     --Compact-5/MP5
-                    ["bm_w_mp5"] = "Compact-5",
-                    ["bm_w_mp5sd"] = "Compact-5SD",
-                    ["bm_w_mp5k"] = "Compact-5K",
-                    ["bm_w_mp5k_pdw"] = "Compact-5K PDW",
-                    ["bm_w_x_mp5"] = "Akimbo Compact-5s",
+                    ["bm_w_mp5"] = "Compact-5冲锋枪",
+                    ["bm_w_mp5sd"] = "Compact-5SD冲锋枪",
+                    ["bm_w_mp5k"] = "Compact-5K冲锋枪",
+                    ["bm_w_mp5k_pdw"] = "Compact-5K PDW冲锋枪",
+                    ["bm_w_x_mp5"] = "双持Compact-5s冲锋枪",
                     ["bm_wp_mp5_fg_mp5sd"] = "SPOOC Foregrip",
                     --Swedish K
-                    ["bm_w_m45"] = "Swedish K",
+                    ["bm_w_m45"] = "Swedish K冲锋枪",
                     --Pachett/Sterling
-                    ["bm_w_sterling"] = "Patchette L2A3",
-                    ["bm_w_sterling_sd"] = "Patchette L34A1",
-                    ["bm_w_sterling_pistol"] = "Patchette Mk. VII",
-                    ["bm_w_sterling_e11"] = "E-11",
+                    ["bm_w_sterling"] = "Patchette L2A3冲锋枪",
+                    ["bm_w_sterling_sd"] = "Patchette L34A1冲锋枪",
+                    ["bm_w_sterling_pistol"] = "Patchette Mk. VII冲锋枪",
+                    ["bm_w_sterling_e11"] = "E-11冲锋枪",
                     ["bm_wp_sterling_b_e11"] = "BlasTech E-11 Barrel",
                     --Uzi
-                    ["bm_w_uzi"] = "Uzi",
+                    ["bm_w_uzi"] = "Uzi冲锋枪",
                     --Chicago Typewriter
-                    ["bm_w_m1928"] = "Chicago Typewriter",
+                    ["bm_w_m1928"] = "Chicago Typewriter冲锋枪",
                     --Mark 10
-                    ["bm_w_mac10"] = "Mark 10",
-                    ["bm_w_x_mac10"] = "Akimbo Mark 10s",
+                    ["bm_w_mac10"] = "Mark 10冲锋枪",
+                    ["bm_w_x_mac10"] = "双持Mark 10s冲锋枪",
                     --MP40
-                    ["bm_w_erma"] = "MP 40",
+                    ["bm_w_erma"] = "MP 40冲锋枪",
                     --Jackal
-                    ["bm_w_schakal"] = "Jackal",
+                    ["bm_w_schakal"] = "Jackal冲锋枪",
                     --Kross Vertex
-                    ["bm_w_polymer"] = "Kross Vertex",
+                    ["bm_w_polymer"] = "Kross Vertex冲锋枪",
                     --CUSTOM SMGs
                         --Grendel R31
-                        ["bm_w_r31"] = "Tanto .22",
+                        ["bm_w_r31"] = "Tanto .22冲锋枪",
                         --AR57
-                        ["bm_w_alpha57_prim"] = "FSS Hurricane",
+                        ["bm_w_alpha57_prim"] = "FSS Hurricane冲锋枪",
                         --LWRC
-                        ["bm_w_smg45"] = "FT Striker .45",
+                        ["bm_w_smg45"] = "FT Striker .45冲锋枪",
                         --LWRC
-                        ["bm_w_fang45"] = "Fang 45",
+                        ["bm_w_fang45"] = "Fang 45冲锋枪",
                         --Typhoon
-                        ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon",
+                        ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon冲锋枪",
                         --KSP 45
-                        ["bm_w_ksp45"] = "KSP 45",
+                        ["bm_w_ksp45"] = "KSP 45冲锋枪",
                         --LC10
-                        ["bm_w_lc10"] = "LC10",
+                        ["bm_w_lc10"] = "LC10冲锋枪",
                 --[[ MGs ]]
                     --Bootleg/HK416c
-                    ["bm_w_tecci"] = "Bootlegger",
+                    ["bm_w_tecci"] = "Bootlegger轻机枪",
                     --KSP/M249
-                    ["bm_w_m249"] = "KSP-90",
+                    ["bm_w_m249"] = "KSP-90轻机枪",
                     --ChainSAW
-                    ["bm_w_kacchainsaw"] = "Campbell 74",
+                    ["bm_w_kacchainsaw"] = "Campbell 74轻机枪",
                     --RPK
-                    ["bm_w_rpk"] = "RPK",
+                    ["bm_w_rpk"] = "RPK轻机枪",
                     --Brenner 21/HK21
-                    ["bm_w_hk21"] = "Brenner-21",
+                    ["bm_w_hk21"] = "Brenner-21重机枪",
                     --M60
-                    ["bm_w_m60"] = "M60",
+                    ["bm_w_m60"] = "M60重机枪",
                     --Ksp 58
-                    ["bm_w_par"] = "KSP-58B",
+                    ["bm_w_par"] = "KSP-58B重机枪",
                     ["bm_wp_par_b_short"] = "Comped Barrel",
                     --Buzzsaw/Mg42
-                    ["bm_w_mg42"] = "Buzzsaw-42",
-                    ["bm_w_mg42_dlt19"] = "DLT-19",
+                    ["bm_w_mg42"] = "Buzzsaw-42重机枪",
+                    ["bm_w_mg42_dlt19"] = "DLT-19重机枪",
                     --Versteckt-51/HK51B
-                    ["bm_w_hk51b"] = "Versteckt-51B",
+                    ["bm_w_hk51b"] = "Versteckt-51B轻机枪",
                     --Microgun
                     ["bm_wp_wpn_fps_lmg_shuno_body_red"] = "Red Body",
                     --CUSTOM MGs
-                        ["bm_w_sig_xm250"] = "FIK MG277",
+                        ["bm_w_sig_xm250"] = "FIK MG277轻机枪",
 
                 --[[ SHOTGUNS ]]
                     --Grimm
-                    ["bm_w_basset"] = "Grimm 12G",
-                    ["bm_w_x_basset"] = "Brothers Grimm 12G",
+                    ["bm_w_basset"] = "格林姆 12G霰弹枪",
+                    ["bm_w_x_basset"] = "格林姆兄弟 12G霰弹枪",
                     --Saiga
-                    ["bm_w_saiga"] = "IZHMA 12G",
+                    ["bm_w_saiga"] = "IZHMA 12G霰弹枪",
                     --AA12
-                    ["bm_w_aa12"] = "Steakout 12G",
+                    ["bm_w_aa12"] = "Steakout 12G霰弹枪",
                     --Spas12
-                    ["bm_w_spas12"] = "Predator 12G",
+                    ["bm_w_spas12"] = "Predator 12G霰弹枪",
                     --Benelli
-                    ["bm_w_benelli"] = "M1014 12G",
+                    ["bm_w_benelli"] = "M1014 12G霰弹枪",
                     --Argos III
-                    ["bm_w_ultima"] = "Argos III 12G",
+                    ["bm_w_ultima"] = "Argos III 12G霰弹枪",
                     --Street Sweeper
-                    ["bm_w_striker"] = "Street Sweeper 12G",
+                    ["bm_w_striker"] = "Street Sweeper 12G霰弹枪",
                     --Goliath
-                    ["bm_w_rota"] = "Goliath 12G",
+                    ["bm_w_rota"] = "Goliath 12G霰弹枪",
                     --VD-12
-                    ["bm_w_sko12"] = "VD-12G",
-                    ["bm_w_x_sko12"] = "Akimbo VD-12s",
+                    ["bm_w_sko12"] = "VD-12G霰弹枪",
+                    ["bm_w_x_sko12"] = "双持VD-12s霰弹枪",
                     --GSPS
-                    ["bm_w_m37"] = "GSPS 12G",
+                    ["bm_w_m37"] = "GSPS 12G霰弹枪",
                     --Supernova
-                    ["bm_w_supernova"] = "Deimos 12G",
+                    ["bm_w_supernova"] = "Deimos 12G霰弹枪",
                     --Loco
-                    ["bm_w_serbu"] = "Locomotive 12G",
+                    ["bm_w_serbu"] = "Locomotive 12G霰弹枪",
                     --Reinfeld 88
-                    ["bm_w_m1897"] = "Repeater 1897 12G",
+                    ["bm_w_m1897"] = "Repeater 1897 12G霰弹枪",
                     --Mosconi 12g
-                    ["bm_w_m590"] = "Mosconi Tactical 12G",
+                    ["bm_w_m590"] = "Mosconi Tactical 12G霰弹枪",
                     --R870
-                    ["bm_w_r870"] = "Reinfeld 880 12G",
+                    ["bm_w_r870"] = "Reinfeld 880 12G霰弹枪",
                     --KSG
-                    ["bm_w_ksg"] = "Raven 12G",
+                    ["bm_w_ksg"] = "Raven 12G霰弹枪",
                     --Breaker 10g
-                    ["bm_w_boot"] = "Breaker 10G",
+                    ["bm_w_boot"] = "Breaker 10G霰弹枪",
                     --Claire Angélique Florette du Bertrand
-                    ["bm_w_coach"] = "Claire S/S 12G",
+                    ["bm_w_coach"] = "Claire S/S 12G霰弹枪",
                     --Mosconi
-                    ["bm_w_huntsman"] = "Mosconi S/S 12G",
+                    ["bm_w_huntsman"] = "Mosconi S/S 12G霰弹枪",
                     --Judge
-                    ["bm_w_judge"] = "The Judge .410",
+                    ["bm_w_judge"] = "The Judge .410霰弹枪",
                     ["bm_w_x_judge"] = "Judge & Jury", --really wish weaponlib's right_only worked w/ the Judges so that we could have the 'right' one be the reinforced frame. a real shame.
                     --Joceline
-                    ["bm_w_b682"] = "Joceline O/U 12G",
+                    ["bm_w_b682"] = "Joceline O/U 12G霰弹枪",
                     --Custom Shotguns
                         --MW2023 Riveter
-                        ["bm_w_riveter"] = "Riveter",
+                        ["bm_w_riveter"] = "Riveter霰弹枪",
                         --MW2022 Vepr
-                        ["bm_w_vecho"] = "KV Broadside",
+                        ["bm_w_vecho"] = "KV Broadside霰弹枪",
                         --MW2023 Origin 12
-                        ["bm_w_haymaker"] = "Haymaker",
+                        ["bm_w_haymaker"] = "Haymaker霰弹枪",
                         --Doomstick
-                        ["bm_w_quadbarrel"] = "Doomstick",
+                        ["bm_w_quadbarrel"] = "Doomstick霰弹枪",
                         --Widowmaker TX
                         ["bm_wp_wpn_fps_shot_wmtx_mag_ext"] = "Extended Magazine",
                         ["bm_wp_wpn_fps_upg_wmtx_gastube_burst"] = "Burst Fire System",
                 --[[ ARs ]]
                     --S552
-                    ["bm_w_s552"] = "Commando 552",
+                    ["bm_w_s552"] = "Commando 552步枪",
                     --M733/AMCAR
-                    ["bm_w_amcar"] = "AM-CAR",
+                    ["bm_w_amcar"] = "AM-CAR步枪",
                     --G36
-                    ["bm_w_g36"] = "JP-36KV",
-                    ["bm_w_g36_k"] = "JP-36K",
-                    ["bm_w_g36_c"] = "JP-36C",
-                    ["bm_w_g36_v"] = "JP-36V",
-                    ["bm_w_g36_long"] = "JP-36",
+                    ["bm_w_g36"] = "JP-36KV步枪",
+                    ["bm_w_g36_k"] = "JP-36K步枪",
+                    ["bm_w_g36_c"] = "JP-36C步枪",
+                    ["bm_w_g36_v"] = "JP-36V步枪",
+                    ["bm_w_g36_long"] = "JP-36步枪",
                     --VHS/Lion's Roar
-                    ["bm_w_vhs"] = "Lion's Roar",
+                    ["bm_w_vhs"] = "Lion's Roar步枪",
                     ["bm_wp_vhs_b_sniper"] = "Hyper Barrel",
                     ["bm_wp_vhs_b_silenced"] = "Bad Dragan Barrel",
                     --Olympic/Para
-                    ["bm_w_olympic"] = "Para-23",
-                    ["bm_w_x_olympic"] = "Akimbo Para-23s",
+                    ["bm_w_olympic"] = "Para-23步枪",
+                    ["bm_w_x_olympic"] = "双持Para-23s步枪",
                     --TAR-21
-                    ["bm_w_komodo"] = "Tempest-95", --it's modeled after the X95, not the 21
+                    ["bm_w_komodo"] = "Tempest-95步枪", --it's modeled after the X95, not the 21
                     --Famas
-                    ["bm_w_famas"] = "Clarion 5.56",
+                    ["bm_w_famas"] = "Clarion 5.56步枪",
                     --M4/CAR-4
-                    ["bm_w_m4"] = "CAR-4",
-                    ["bm_w_m4_mk12"] = "CAR-12 SPR",
-                    ["bm_w_m4_lr300"] = "TR-300",
+                    ["bm_w_m4"] = "CAR-4步枪",
+                    ["bm_w_m4_mk12"] = "CAR-12 SPR步枪",
+                    ["bm_w_m4_lr300"] = "TR-300步枪",
                     ["bm_wp_upg_ass_m4_b_beowulf"] = "Wolf Barrel",
                     ["bm_wp_upg_s_fixed"] = "CAR Fixed Stock",
                     --AK5
-                    ["bm_w_ak5"] = "Ak 5",
-                    ["bm_w_ak5b"] = "Ak 5B",
-                    ["bm_w_ak5c"] = "Ak 5C",
-                    ["bm_w_ak5_fnc"] = "VF Carabine",
+                    ["bm_w_ak5"] = "Ak 5步枪",
+                    ["bm_w_ak5b"] = "Ak 5B步枪",
+                    ["bm_w_ak5c"] = "Ak 5C步枪",
+                    ["bm_w_ak5_fnc"] = "VF Carabine步枪",
                     --Union 5.56
-                    ["bm_w_corgi"] = "Union 5.56",
+                    ["bm_w_corgi"] = "Union 5.56步枪",
                     ["bm_wp_corgi_b_short"] = "MSG Barrel",
                     --UAR
-                    ["bm_w_aug"] = "UAR A2",
-                    ["bm_w_aug_a3"] = "UAR A3",
-                    ["bm_w_aug_f90"] = "Raptor 90",
+                    ["bm_w_aug"] = "UAR A2步枪",
+                    ["bm_w_aug_a3"] = "UAR A3步枪",
+                    ["bm_w_aug_f90"] = "Raptor 90步枪",
                     ["bm_wp_upg_b_hbar"] = "Heavy Barrel",
                     --AK17
-                    ["bm_w_ak12"] = "AK-17",
+                    ["bm_w_ak12"] = "AK-17步枪",
                     --AK 5.45
-                    ["bm_w_ak74"] = "AK 5.45",
+                    ["bm_w_ak74"] = "AK 5.45步枪",
                     --CR 805
-                    ["bm_w_hajk"] = "CR 805B",
+                    ["bm_w_hajk"] = "CR 805B步枪",
                     --AMR-16
-                    ["bm_w_m16"] = "AMR-16",
-                    ["bm_w_m16a1"] = "AMR-16A1",
+                    ["bm_w_m16"] = "AMR-16步枪",
+                    ["bm_w_m16a1"] = "AMR-16A1步枪",
                     --Queen's Wrath
-                    ["bm_w_l85a2"] = "Queen's Wrath",
+                    ["bm_w_l85a2"] = "女王之怒 步枪",
                     --AK 7.62
-                    ["bm_w_akm"] = "AK 7.62",
-                    ["bm_w_akm_gold"] = "Golden AK 7.62",
+                    ["bm_w_akm"] = "AK 7.62步枪",
+                    ["bm_w_akm_gold"] = "Golden AK 7.62步枪",
                     ["bm_wp_upg_ass_ak_b_zastava"] = "Long Barrel",
                     --KETCHUPKNOB--
                     --ASPIRING POKEMON TRAINER, ASH KETCHNOV--
-                    ["bm_w_groza"] = "OB-14st Byk-1", --Hopefully less silly than its Ketchup name
+                    ["bm_w_groza"] = "OB-14st Byk-1步枪", --Hopefully less silly than its Ketchup name
                     --"OB-14st" being an awful combo of "Oblast" (a word for region/zone/area, as well as literally having BLAST in the name) and the "14" in "OTs-14"
                     --Although, a Russian word for "region/zone/area" followed up with a Polish word...
                     --Eh, whatever
                     --CHIKUBI
-                    ["bm_w_tkb"] = "Rodion 3B",
+                    ["bm_w_tkb"] = "Rodion 3B步枪",
                     ["bm_wp_tkb_m_bakelite"] = "Siberian 15x3 Magazine",
                     --Krinkov
-                    ["bm_w_akmsu"] = "Krinkov",
+                    ["bm_w_akmsu"] = "Krinkov步枪",
                     --Akimbo Krinkov
-                    ["bm_w_x_akmsu"] = "Akimbo Krinkovs",
+                    ["bm_w_x_akmsu"] = "双持Krinkovs步枪",
                     --CUSTOM ARs
                         --BO6 CETME L
-                        ["bm_w_modl"] = "Model L",
+                        ["bm_w_modl"] = "Model L步枪",
                         --MW2023 ARX-200
-                        ["bm_w_soa"] = "SOA Subverter",
+                        ["bm_w_soa"] = "SOA Subverter步枪",
                         --QBZ-191
-                        ["bm_w_pd3_qbz191"] = "Northwest B-9",
+                        ["bm_w_pd3_qbz191"] = "Northwest B-9步枪",
                         --AN-94/92
-                        ["bm_w_tilt"] = "KVK-99",
+                        ["bm_w_tilt"] = "KVK-99步枪",
                         --HK G36
-                        ["bm_w_g36k"] = "JP36K",
+                        ["bm_w_g36k"] = "JP36K步枪",
                         --SCAR-L
-                        ["bm_w_scarl"] = "Eagle Light",
+                        ["bm_w_scarl"] = "Eagle Light步枪",
                         --Valmet Rk.62
-                        ["bm_w_rk62"] = "Velmer",
+                        ["bm_w_rk62"] = "Velmer步枪",
                         --MW22 Honey Badger
-                        ["bm_w_mcbravo"] = "Chimera",
+                        ["bm_w_mcbravo"] = "Chimera步枪",
                         --AR-18
-                        ["bm_w_ar18"] = "CAR-18",
+                        ["bm_w_ar18"] = "CAR-18步枪",
                         --FIK-22
-                        ["bm_w_fik22"] = "FIK-22 TLR", --why does this use the in-universe Sig name?
+                        ["bm_w_fik22"] = "FIK-22 TLR步枪", --why does this use the in-universe Sig name?
                         --ACR 2012
-                        ["bm_w_acr_2012"] = "MCW-R",
+                        ["bm_w_acr_2012"] = "MCW-R步枪",
                         --MW2022 M4
-                        ["bm_w_mike4_2022"] = "M4",
+                        ["bm_w_mike4_2022"] = "M4步枪",
                 --[[ DMRs ]]
                     --Little Friend
-                    ["bm_w_contraband"] = "Bigger Friend 7.62",
-                    ["bm_w_contraband_m16"] = "Little Friend 5.56",
-                    ["bm_w_contraband_mpx"] = "OMNIA PC9 9mm",
+                    ["bm_w_contraband"] = "Bigger Friend 7.62步枪",
+                    ["bm_w_contraband_m16"] = "Little Friend 5.56步枪",
+                    ["bm_w_contraband_mpx"] = "OMNIA PC9 9mm步枪",
                     --FAL
-                    ["bm_w_fal"] = "Falcon 58",
-                    ["bm_w_fal_l1a1"] = "Falcon SLR",
-                    ["bm_w_fal_sa58"] = "Falcon 58 OSW",
-                    ["bm_w_fal_idf"] = "Falcon RMT",
+                    ["bm_w_fal"] = "Falcon 58步枪",
+                    ["bm_w_fal_l1a1"] = "Falcon SLR步枪",
+                    ["bm_w_fal_sa58"] = "Falcon 58 OSW步枪",
+                    ["bm_w_fal_idf"] = "Falcon RMT步枪",
                     --ASS VAL
-                    ["bm_w_asval"] = "Valkyria",
+                    ["bm_w_asval"] = "Valkyria步枪",
                     --Galil
-                    ["bm_w_galil"] = "Gecko 7.62",
-                    ["bm_w_galil_galatz"] = "Gekkota 7.62",
-                    ["bm_w_galil_mar"] = "Micro Gecko 7.62",
-                    ["bm_w_galil_556"] = "Gecko 5.56",
-                    ["bm_w_galil_mar_556"] = "Micro Gecko 5.56",
+                    ["bm_w_galil"] = "Gecko 7.62步枪",
+                    ["bm_w_galil_galatz"] = "Gekkota 7.62步枪",
+                    ["bm_w_galil_mar"] = "Micro Gecko 7.62步枪",
+                    ["bm_w_galil_556"] = "Gecko 5.56步枪",
+                    ["bm_w_galil_mar_556"] = "Micro Gecko 5.56步枪",
                     --SCAR
-                    ["bm_w_scar"] = "Eagle Heavy",
-                    ["bm_w_scar_l"] = "Eagle Light",
-                    ["bm_w_scar_hamr"] = "Eagle Hammer",
+                    ["bm_w_scar"] = "Eagle Heavy步枪",
+                    ["bm_w_scar_l"] = "Eagle Light步枪",
+                    ["bm_w_scar_hamr"] = "Eagle Hammer步枪",
                     --Galant--
-                    ["bm_w_ching"] = "M1 Galant",
+                    ["bm_w_ching"] = "M1 Galant步枪",
                     --M308
-                    ["bm_w_m14"] = "M308",
+                    ["bm_w_m14"] = "M308步枪",
                     --G3
-                    ["bm_w_g3"] = "Gewehr-3",
-                    ["bm_w_g3_sg1"] = "Gewehr-S1",
-                    ["bm_w_g3_msg"] = "Gewehr-90",
-                    ["bm_w_g3_psg"] = "Präzision Gewehr-1",
-                    ["bm_w_g3_hk33"] = "SG-33",
-                    ["bm_w_g3_hk33_fo3"] = "R91",
+                    ["bm_w_g3"] = "Gewehr-3步枪",
+                    ["bm_w_g3_sg1"] = "Gewehr-S1步枪",
+                    ["bm_w_g3_msg"] = "Gewehr-90步枪",
+                    ["bm_w_g3_psg"] = "Präzision Gewehr-1步枪",
+                    ["bm_w_g3_hk33"] = "SG-33步枪",
+                    ["bm_w_g3_hk33_fo3"] = "R91步枪",
                     ["bm_wp_g3_b_sniper"] = "Macro Barrel",
                     ["bm_wp_g3_b_short"] = "Micro Barrel",
                     --KS12
-                    ["bm_w_shak12"] = "KS-12 Urban",
-                    ["bm_w_shak12_vks"] = "KSV-12 Urban",
+                    ["bm_w_shak12"] = "KS-12 Urban步枪",
+                    ["bm_w_shak12_vks"] = "KSV-12 Urban步枪",
                     --HCAR
-                    ["bm_w_hcar"] = "Akron HC",
-                    ["bm_w_hcar_bar"] = "Akron HC",
+                    ["bm_w_hcar"] = "Akron HC步枪",
+                    ["bm_w_hcar_bar"] = "Akron HC步枪",
 
                     --Custom DMRs
                         --MCX Spear
-                        ["bm_w_mcx_spear"] = "FIK M7",
-                        ["bm_w_ngsierra"] = "Amicus 277",
+                        ["bm_w_mcx_spear"] = "FIK M7步枪",
+                        ["bm_w_ngsierra"] = "Amicus 277步枪",
                         --VSS
-                        ["bm_w_vss"] = "Viktoriya",
+                        ["bm_w_vss"] = "Viktoriya步枪",
                         --G3 HK79
-                        ["bm_w_g3hk79"] = "Gewehr-A3 w/ GL79",
+                        ["bm_w_g3hk79"] = "Gewehr-A3 w/ GL79步枪",
                         --BO3 XR2
-                        ["bm_w_xr2"] = "XR-2",
+                        ["bm_w_xr2"] = "XR-2步枪",
                         --SIERRA .458
-                        ["bm_w_sierra458"] = "Sierra .458",
+                        ["bm_w_sierra458"] = "Sierra .458步枪",
                         --MW2022 .458 AR15
-                        ["bm_w_msecho"] = "FTAC Recon",
+                        ["bm_w_msecho"] = "FTAC Recon步枪",
                 --[[ SNIPERS ]]
                     --MSR
-                    ["bm_w_msr"] = "Rattlesnake",
+                    ["bm_w_msr"] = "Rattlesnake狙击步枪",
                     ["bm_wp_snp_msr_ns_suppressor"] = "Viper Suppressor",
                     --R700
-                    ["bm_w_r700"] = "Reinfeld Model 700",
+                    ["bm_w_r700"] = "Reinfeld Model 700狙击步枪",
                     --QBU88
-                    ["bm_w_qbu88"] = "Káng Arms X1",
+                    ["bm_w_qbu88"] = "Káng Arms X1狙击步枪",
                     --Winchester 1874
-                    ["bm_w_winchester1874"] = "Repeater 1874", --"Repeater" is the stand-in/fake name for the IRL manufacturer "Winchester"; I know "Eaton" exists from OTWD
+                    ["bm_w_winchester1874"] = "Repeater 1874狙击步枪", --"Repeater" is the stand-in/fake name for the IRL manufacturer "Winchester"; I know "Eaton" exists from OTWD
                     --TTI(TTY)
-                    ["bm_w_tti"] = "Tecci Tactical .308",
+                    ["bm_w_tti"] = "Tecci Tactical .308狙击步枪",
                     --Icky Vicky
-                    ["bm_w_victor"] = "SA North Star",
+                    ["bm_w_victor"] = "SA North Star狙击步枪",
                     --Scunt
-                    ["bm_w_scout"] = "Pronghorn",
+                    ["bm_w_scout"] = "Pronghorn狙击步枪",
                     --AWP
-                    ["bm_w_awp"] = "AIM 900F", --Dunno why Overkill didn't use the naming method used for OTWD; the model itself even uses OTWD's method by directly referencing "AIM" on the receiver
+                    ["bm_w_awp"] = "AIM 900F狙击步枪", --Dunno why Overkill didn't use the naming method used for OTWD; the model itself even uses OTWD's method by directly referencing "AIM" on the receiver
                     --WA2000
-                    ["bm_w_wa2000"] = "Lebensauger",
+                    ["bm_w_wa2000"] = "Lebensauger狙击步枪",
                     --Rangerhitter
-                    ["bm_w_sbl"] = "Rangehitter Mk. 2", --It's not a Beretta gun so "Rangehitter" is the stand-in/fake name for the IRL manufacturer "Marlin"
+                    ["bm_w_sbl"] = "Rangehitter Mk. 2狙击步枪", --It's not a Beretta gun so "Rangehitter" is the stand-in/fake name for the IRL manufacturer "Marlin"
                     --Contender G2
-                    ["bm_w_contender"] = "Aran G2",
+                    ["bm_w_contender"] = "Aran G2狙击步枪",
                     --Model 70
-                    ["bm_w_model70"] = "Platypus 70",
+                    ["bm_w_model70"] = "Platypus 70狙击步枪",
                     --SVD
-                    ["bm_w_siltstone"] = "Grom",
+                    ["bm_w_siltstone"] = "Grom狙击步枪",
                     --Mosin--
-                    ["bm_w_mosin"] = "Nagant",
+                    ["bm_w_mosin"] = "Nagant狙击步枪",
                     --Desert Fox
-                    ["bm_w_desertfox"] = "Desertfox",
+                    ["bm_w_desertfox"] = "Desertfox狙击步枪",
                     --R93
-                    ["bm_w_r93"] = "R93",
+                    ["bm_w_r93"] = "R93狙击步枪",
                     --Thanatos--
-                    ["bm_w_m95"] = "Thanatos 95",
+                    ["bm_w_m95"] = "Thanatos 95狙击步枪",
                     --Custom Snipers
                         --Guerilla
-                        ["bm_w_sgs"] = "Guerilla 542",
+                        ["bm_w_sgs"] = "Guerilla 542狙击步枪",
                         --PD3 Lynx
-                        ["bm_w_pd3_lynx"] = "HET-5 Red Fox",
+                        ["bm_w_pd3_lynx"] = "HET-5 Red Fox狙击步枪",
                         --AMR2
-                        ["bm_w_amr2"] = "Northwest AM-2",
+                        ["bm_w_amr2"] = "Northwest AM-2狙击步枪",
                         --M107
-                        ["bm_w_m107cq"] = "Thanatos 107",
+                        ["bm_w_m107cq"] = "Thanatos 107狙击步枪",
                         --M200
-                        ["bm_w_m200"] = "TF 141",
+                        ["bm_w_m200"] = "TF 141狙击步枪",
                         --Marlin 1894
-                        ["bm_w_m1894"] = "Mare's Leg",
+                        ["bm_w_m1894"] = "Mare's Leg狙击步枪",
                         --SPX Centerfire
-                        ["bm_w_moss464spx"] = "Mosconi SPX",
+                        ["bm_w_moss464spx"] = "Mosconi SPX狙击步枪",
                         --Winchester 1894
-                        ["bm_w_winchester1894"] = "Repeater 1894",
+                        ["bm_w_winchester1894"] = "Repeater 1894狙击步枪",
                         --SVD
-                        ["bm_w_svd"] = "SV7",
+                        ["bm_w_svd"] = "SV7狙击步枪",
                         ["bm_wp_wpn_fps_snp_svd_pso"] = "SV7 Scope",
                         --L115
-                        ["bm_w_l115"] = "AIM 90M",
+                        ["bm_w_l115"] = "AIM 90M狙击步枪",
                         --"PTRS"
-                        ["bm_w_mptango41"] = "Gorenko Anti-Tank Rifle",
+                        ["bm_w_mptango41"] = "Gorenko Anti-Tank Rifle狙击步枪",
                         --Lockwood Mk2
-                        ["bm_w_sbeta"] = "Lockwood Mk2",
+                        ["bm_w_sbeta"] = "Lockwood Mk2狙击步枪",
                 --[[ LAUNCHERS & BOWS ]]
                     --GL40
-                    ["bm_w_gre_m79"] = "GL-40",
+                    ["bm_w_gre_m79"] = "GL-40榴弹发射器",
                     --3GL
-                    ["bm_w_ms3gl"] = "Basilisk 3GL",
+                    ["bm_w_ms3gl"] = "Basilisk 3GL榴弹发射器",
                     --PIGLET/M32
-                    ["bm_w_m32"] = "Piglet",
+                    ["bm_w_m32"] = "Piglet榴弹发射器",
                     --China Puff
-                    ["bm_w_china"] = "China Puff",
+                    ["bm_w_china"] = "China Puff榴弹发射器",
                     --Compact 40mm
-                    ["bm_w_slap"] = "Compact 40mm",
+                    ["bm_w_slap"] = "Compact 40mm榴弹发射器",
                     --Arbiter
-                    ["bm_w_arbiter"] = "Arbiter",
+                    ["bm_w_arbiter"] = "Arbiter榴弹发射器",
                     --RPG
-                    ["bm_w_rpg7"] = "HRL-7",
+                    ["bm_w_rpg7"] = "HRL-7火箭筒",
                     --COMMANDO 101/M202 FLASH
-                    ["bm_w_ray"] = "Commando 101 FLASH",
+                    ["bm_w_ray"] = "Commando 101 FLASH火箭筒",
                 --[[ UNIVERSAL ATTACHMENTS ]]
                     --MUZZLE DEVICES
                     ["bm_wp_upg_ns_ass_smg_stubby"] = "Stubby Flash Hider",

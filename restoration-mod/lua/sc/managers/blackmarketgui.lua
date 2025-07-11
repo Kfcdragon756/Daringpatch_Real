@@ -5445,14 +5445,14 @@ function BlackMarketGui:update_info_text()
 
 		--Daring Armor usage
 		if liberty_protect and liberty_protect == 1 then
-			updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_liberty_saves_me", {armor_break_in = (tweak_data.upgrades.values.player.body_armor.liberty_saves_me.chance[1])*100, hp_break_in = (tweak_data.upgrades.values.player.body_armor.liberty_saves_me.chance[2])*100})
+			updated_texts[4].text = updated_texts[4].text .. ((has_advmov and "\n") or "") .. managers.localization:text("bm_menu_liberty_saves_me", {armor_break_in = (tweak_data.upgrades.values.player.body_armor.liberty_saves_me.chance[1])*100, hp_break_in = (tweak_data.upgrades.values.player.body_armor.liberty_saves_me.chance[2])*100})
 		end
 		if medic_armor then
 			if medic_armor == 2 then
-				updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_medic_armor_first_aid", {first_aid_upgrade = tweak_data.upgrades.values.player.body_armor.medic_armor.first_aid[1]})
+				updated_texts[4].text = updated_texts[4].text .. ((has_advmov and "\n") or "") .. managers.localization:text("bm_menu_medic_armor_first_aid", {first_aid_upgrade = tweak_data.upgrades.values.player.body_armor.medic_armor.first_aid[1]})
 			end
 			if medic_armor == 1 then
-				updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_medic_armor_doctor_bag", {doctor_bag_mult = ((tweak_data.upgrades.values.player.body_armor.medic_armor.medic_bag[1])-1)*100, doctor_bag_time = tweak_data.upgrades.values.player.body_armor.medic_armor.medic_bag[2]})
+				updated_texts[4].text = updated_texts[4].text .. ((has_advmov and "\n") or "") .. managers.localization:text("bm_menu_medic_armor_doctor_bag", {doctor_bag_mult = ((tweak_data.upgrades.values.player.body_armor.medic_armor.medic_bag[1])-1)*100, doctor_bag_time = tweak_data.upgrades.values.player.body_armor.medic_armor.medic_bag[2]})
 			end
 		end
 		if (throwable_add and throwable_add == 1) then
