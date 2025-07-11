@@ -15,6 +15,21 @@
 	"chinsf_res_dev_new" : "私人平衡补丁V9.03",
 
 	"CSF_ResModUpdater_title" : "啊哦！",
+
+	"CSF_DontShowAgain_Permanent" : "永远别再提醒",
+	"CSF_DSA_cancel_message" : "这将导致模组真的永远不再提醒你任何更新！\n\n如果你需要恢复提醒，可以通过在模组设置中点击“恢复启动游戏时检查版本更新状态”（需要Hoplib支持），或者删除“游戏根目录/mods/saves/CSF_Display_Update_Notification.json”来实现。",
+	"CSF_DSA_cancel_message_old" : "这将导致模组真的永远不再提醒你此项事宜！\n\n如果你需要恢复提醒，可以通过在模组设置中点击“恢复启动游戏时检查版本更新状态”（需要Hoplib支持），或者删除“游戏根目录/mods/saves/CSF_Display_Update_Notification.json”来实现。",
+	"CSF_cancel_DontShowAgain" : "取消，改为本次游戏不再提醒",
+	"CSF_cancel_WarnMeLater" : "取消，改为稍后提醒",
+
+	"CSF_DSA_id_ERROR" : "执行操作时遇到了一个错误，这是一个代码BUG，请将此截图告诉作者。\n错误代码：id_ERROR\n\n现在，改为本次游戏不再提醒。",
+	"CSF_DSA_mssing_ERROR_config" : "执行操作时遇到了一个错误，这可能是一个代码BUG，请将此截图告诉作者。\n错误代码：mssing_ERROR_config",
+	"CSF_DSA_edit_ERROR" : "抱歉，我们遇到了一个错误：配置文件不存在。\n这可能是因为模组未能成功创建配置文件，请尝试以管理员的身份运行游戏，如若持续遇到此问题，请联系作者获得帮助。\n现在，改为本次游戏不再提醒。",
+	"CSF_DSA_edit_ERROR_config" : "抱歉，我们遇到了一个错误：配置文件不存在。\n这可能是因为模组未能成功创建配置文件，请尝试以管理员的身份运行游戏，如若持续遇到此问题，请联系作者获得帮助。\n如果你不知道或本来不需要进行此操作，请无视此次报错。",
+
+	"CSF_finished" : "完成",
+	"CSF_DSA_complete" : "已成功执行恢复。",
+
 	"CSF_DontShowAgain" : "本次游戏不再提醒",
 	"CSF_UpdateNow" : "现在更新",
 	"CSF_WarnMeLater" : "稍后提醒",
@@ -111,6 +126,10 @@
 	"menu_chin_string_fixes_Resmod_Compat_desc" : "在此根据你使用的恢复Mod版本号选择对应版本的汉化。",
 	"menu_chin_string_fixes_Resmod_Updater" : "检查恢复补丁的更新",
 	"menu_chin_string_fixes_Resmod_Updater_desc" : "按下此按钮会调用一个程序检查你是否有私人平衡补丁的更新。\n如果有，会自动访问手动更新的下载页面。私人补丁V8及以上版本才可用。",
+
+	"menu_chin_string_fixes_Resmod_WarnMe" : "重新恢复到启动游戏时会检查版本更新的状态",
+	"menu_chin_string_fixes_Resmod_WarnMe_desc" : "如果你原先在更新提醒页面点了“永远别再提醒”，\n则可以通过按下此按钮恢复更新提醒。",
+
 	"menu_chin_string_fixes_res_perk" : "恢复MOD原天赋总结描述还原",
 	"menu_chin_string_fixes_res_perk_desc" : "显示原先恢复MOD自带的天赋总效果描述，但内容无法添加蓝字。\n因个人认为官方的那个总描述效果不是很好，所以想还原一下这个。",
 	

@@ -107,6 +107,7 @@ ChinStringFixes.start_time = ChinStringFixes.start_time or 0
 if Global then
     Global.ChinStringFixesTimer = Global.ChinStringFixesTimer or 0
     Global.ChinStringFixes_ShowResVersion = Global.ChinStringFixes_ShowResVersion or 0
+    Global.ChinStringFixes_WarnMeLater = Global.ChinStringFixes_WarnMeLater or 0
 end
 
 -- 阿拉伯数字转换为中文数字

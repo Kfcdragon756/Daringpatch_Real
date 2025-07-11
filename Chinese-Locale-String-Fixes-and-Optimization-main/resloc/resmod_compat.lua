@@ -126,62 +126,177 @@ end
 
 --检测版本号
 Hooks:Add("MenuManagerOnOpenMenu", "CSF_MenuManagerOnOpenMenu_CheckResVersion", function()
-    local title = managers.localization:text('CSF_ResModUpdater_title')
-    local message
-    if all_read then
-        if local_version == current_version then
-            --nothing
+    -- json的初始化和写入部分，用于永远不要再显示文本
+    local json_data_get
+        -- 读取文件
+    local file_read = io.open(SavePath .. "CSF_Display_Update_Notification.json", "r")
+    if not file_read then
+                -- 写入文件
+        local config_data = {
+            Never_Display_Again_old = false,
+            Never_Display_Again_dismatch = false
+        }
+        local file_write = io.open(SavePath .. "CSF_Display_Update_Notification.json", "w")
+        if file_write then
+            file_write:write(json.encode(config_data))
+            file_write:close()
+            --log("JSON文件创建完成")
         else
-            local reason = ""
-            if local_version ~= main_version and local_version ~= dev_version and local_version ~= dev_new_version then
-                message = managers.localization:text('CSF_ResModUpdater_message_r1')
-                reason = "r1"
-            else
-                message = managers.localization:text('CSF_ResModUpdater_message_r2')
-                reason = "r2"
+            log("CSF: CSF_Display_Update_Notification.json created failed, try running the game with Administrator.")
+        end
+    else
+        local json_str = file_read:read("*a")
+        file_read:close()
+        json_data_get = json.decode(json_str)
+    end
+
+    -- “你确定吗？” -- 是否确定永远都不要再提醒
+    local function CSF_Never_Display_Again_Confirming(id)
+        local menu_options_Confirming = {}
+        menu_options_Confirming[1] = {
+            text = managers.localization:text('CSF_Miss_QKI_yes'),
+            callback = function()  --确定永远不再提醒
+                local file_edit = io.open(SavePath .. "CSF_Display_Update_Notification.json", "r")
+                if not file_edit then
+                    local menu_options_edit_ERROR = {}
+                    menu_options_edit_ERROR[1] = {
+                        text = managers.localization:text('CSF_Miss_QKI_yes'),
+                    }
+                    local title_edit_ERROR = managers.localization:text('CSF_BLT_Text_Title')
+                    local message_edit_ERROR = managers.localization:text('CSF_DSA_edit_ERROR')
+                    local menu_edit_ERROR = QuickMenu:new(title_edit_ERROR, message_edit_ERROR, menu_options_edit_ERROR)
+                    menu_edit_ERROR:Show()
+                    Global.ChinStringFixes_ShowResVersion = 1
+                    return
+                end
+                local json_str = file_edit:read("*a")
+                file_edit:close()
+                local config_data = json.decode(json_str)
+                if id == "old" then
+                    config_data.Never_Display_Again_old = true
+                elseif id == "dismatch" then
+                    config_data.Never_Display_Again_dismatch = true
+                else
+                    local menu_options_id_ERROR = {}
+                    menu_options_id_ERROR[1] = {
+                        text = managers.localization:text('CSF_Miss_QKI_yes'),
+                    }
+                    local title_id_ERROR = managers.localization:text('CSF_BLT_Text_Title')
+                    local message_id_ERROR = managers.localization:text('CSF_DSA_id_ERROR')
+                    local menu_id_ERROR = QuickMenu:new(title_id_ERROR, message_id_ERROR, menu_options_id_ERROR)
+                    menu_id_ERROR:Show()
+                    Global.ChinStringFixes_ShowResVersion = 1
+                    return
+                end
+                --config_data.Last_Modified = os.date("%Y-%m-%d %H:%M:%S")  --测试用
+                local updated_json = json.encode(config_data)
+                file_edit = io.open(SavePath .. "CSF_Display_Update_Notification.json", "w")
+                file_edit:write(updated_json)
+                file_edit:close()
             end
+        }
+        menu_options_Confirming[2] = {
+            text = managers.localization:text('CSF_cancel_DontShowAgain'),
+            callback = function()
+                Global.ChinStringFixes_ShowResVersion = 1
+            end
+        }
+        menu_options_Confirming[3] = {
+            text = managers.localization:text('CSF_cancel_WarnMeLater'),
+            callback = function()
+                Global.ChinStringFixes_WarnMeLater = Global.ChinStringFixes_WarnMeLater + 1       
+            end
+        }
+        local title_Confirming = managers.localization:text('CSF_Miss_QKI_title')
+        local message_Confirming = (id == "old" and managers.localization:text('CSF_DSA_cancel_message_old')) or managers.localization:text('CSF_DSA_cancel_message')
+        local menu_Confirming = QuickMenu:new(title_Confirming, message_Confirming, menu_options_Confirming)
+        menu_Confirming:Show()
+    end
+
+    -- 稍后提醒
+    local Warn_Me
+    if (Global.ChinStringFixes_WarnMeLater == 0) or (Global.ChinStringFixes_WarnMeLater > 0 and Global.ChinStringFixes_WarnMeLater % 10 == 0) then
+        Warn_Me = true
+    else
+        Global.ChinStringFixes_WarnMeLater = Global.ChinStringFixes_WarnMeLater + 1
+    end
+
+    -- 主要处理逻辑部分
+    local title_first = managers.localization:text('CSF_ResModUpdater_title')
+    local message_first
+    --log("old_res is "..tostring(old_res)..", json_data_get.Never_Display_Again_old is "..tostring(json_data_get.Never_Display_Again_false))
+    if Warn_Me then
+        if all_read then
+            if (local_version == current_version) or (json_data_get and json_data_get.Never_Display_Again_dismatch == true) then
+                --nothing
+            else
+                local reason = ""
+                if local_version ~= main_version and local_version ~= dev_version and local_version ~= dev_new_version then
+                    message_first = managers.localization:text('CSF_ResModUpdater_message_r1')
+                    reason = "r1"
+                else
+                    message_first = managers.localization:text('CSF_ResModUpdater_message_r2')
+                    reason = "r2"
+                end
+                if Global.ChinStringFixes_ShowResVersion == 0 then
+                    local menu_options_first = {}
+                    menu_options_first[1] = {
+                        text = managers.localization:text('CSF_DontShowAgain_Permanent'),
+                        callback = function()
+                            CSF_Never_Display_Again_Confirming("dismatch")
+                        end
+                    }
+                    menu_options_first[2] = {
+                        text = managers.localization:text('CSF_DontShowAgain'),
+                        callback = function()
+                            Global.ChinStringFixes_ShowResVersion = 1
+                        end
+                    }
+                    menu_options_first[3] = {
+                        text = managers.localization:text('CSF_WarnMeLater'),
+                        callback = function()
+                            Global.ChinStringFixes_WarnMeLater = Global.ChinStringFixes_WarnMeLater + 1
+                        end
+                    }
+                    if reason == "r1" then
+                        menu_options_first[4] = {
+                            text = managers.localization:text('CSF_UpdateNow'),
+                            callback = function()
+                                local path = ChinStringFixes.Res_Path .. "update\\updater.exe"
+                                os.execute('start "" "' .. path .. '"')
+                            end
+                        }
+                    end
+                    local menu_first = QuickMenu:new(title_first, message_first, menu_options_first)
+                    menu_first:Show()
+                end
+            end
+        elseif (old_res and json_data_get == nil) or (old_res and (json_data_get and json_data_get.Never_Display_Again_old == false)) then
+            message_old = managers.localization:text('CSF_ResModUpdater_message_come')
             if Global.ChinStringFixes_ShowResVersion == 0 then
-                local menu_options = {}
-                menu_options[1] = {
+                local menu_options_old = {}
+                menu_options_old[1] = {
+                    text = managers.localization:text('CSF_DontShowAgain_Permanent'),
+                    callback = function()
+                        CSF_Never_Display_Again_Confirming("old")
+                    end
+                }
+                menu_options_old[2] = {
                     text = managers.localization:text('CSF_DontShowAgain'),
                     callback = function()
                         Global.ChinStringFixes_ShowResVersion = 1
                     end
                 }
-                menu_options[2] = {
-                    text = managers.localization:text('CSF_WarnMeLater')
+                menu_options_old[3] = {
+                    text = managers.localization:text('CSF_Quit')
                 }
-                if reason == "r1" then
-                    menu_options[3] = {
-                        text = managers.localization:text('CSF_UpdateNow'),
-                        callback = function()
-                            local path = ChinStringFixes.Res_Path .. "update\\updater.exe"
-                            os.execute('start "" "' .. path .. '"')
-                        end
-                    }
-                end
-                local menu = QuickMenu:new(title, message, menu_options)
-                menu:Show()
+                local menu_old = QuickMenu:new(title_first, message_old, menu_options_old)
+                menu_old:Show()
             end
-        end
-    elseif old_res then
-        message = managers.localization:text('CSF_ResModUpdater_message_come')
-        if Global.ChinStringFixes_ShowResVersion == 0 then
-            local menu_options = {}
-            menu_options[1] = {
-                text = managers.localization:text('CSF_DontShowAgain'),
-                callback = function()
-                    Global.ChinStringFixes_ShowResVersion = 1
-                end
-            }
-            menu_options[2] = {
-                text = managers.localization:text('CSF_Quit')
-            }
-            local menu = QuickMenu:new(title, message, menu_options)
-            menu:Show()
         end
     end
 end)
+
 
 
 

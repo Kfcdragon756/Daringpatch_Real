@@ -15,7 +15,26 @@
 	"chinsf_res_dev" : "dev2",
 
 	"CSF_ResModUpdater_title" : "Ooooops!",
-	"CSF_DontShowAgain" : "Don't show me again",
+
+	"CSF_DontShowAgain_Permanent" : "Never Ever warn me again",
+	"CSF_DSA_cancel_message" : "This will cause the mod to NEVER notify you about ANY updates again!\n\nIf you need to restore notifications, you can either:\n1. Click 'Restore update notification check on game launch' in the mod settings (requires Hoplib), OR\n2. Delete the file: 'game root directory/mods/saves/CSF_Display_Update_Notification.json'.",
+	"CSF_DSA_cancel_message_old" : "This will cause the mod to NEVER notify you about THIS matter again!\n\nIf you need to restore notifications, you can either:\n1. Click 'Restore update notification check on game launch' in the mod settings (requires Hoplib support), OR\n2. Delete the file: 'game root directory/mods/saves/CSF_Display_Update_Notification.json'.",
+	"CSF_cancel_DontShowAgain" : "Cancel, and don't warn me again until next time gaming",
+	"CSF_cancel_WarnMeLater" : "Cancel, and remind me later",
+
+	"CSF_DSA_id_ERROR" : "An error occurred while performing the operation. This is a code bug. Please screenshot this and notify the author.\nError code: id_ERROR\n\nFalling back to: Don't warn me again for this session.",
+	"CSF_DSA_mssing_ERROR_config" : "An error occurred while performing the operation. This might be a code bug. Please screenshot this and notify the author.\nError code: mssing_ERROR_config",
+	"CSF_DSA_edit_ERROR" : "Sorry, we encountered an error: Configuration file does not exist.\nThis might be because the mod failed to create the config file. Please try running the game as an administrator. If the problem persists, contact the author for assistance.\nFalling back to: Don't warn me again for this session.",
+	"CSF_DSA_edit_ERROR_config" : "Sorry, we encountered an error: Configuration file does not exist.\nThis might be because the mod failed to create the config file. Please try running the game as an administrator. If the problem persists, contact the author for assistance.\nIf you didn't intend this action or don't require it, you can safely ignore this error.",
+
+	"CSF_finished" : "Complete",
+	"CSF_DSA_complete" : "Restore operation completed successfully.",
+
+	"menu_chin_string_fixes_Resmod_WarnMe" : "Restore Update Notification Check on Game Launch",
+	"menu_chin_string_fixes_Resmod_WarnMe_desc" : "If you previously selected 'Never Ever warn me again' on the update notification,\nyou can press this button to re-enable update notifications.",
+
+
+	"CSF_DontShowAgain" : "Warn me next time strating the game",
 	"CSF_UpdateNow" : "Update now",
 	"CSF_WarnMeLater" : "Warn me later",
 	"CSF_ResModUpdater_message_r1" : "It seems that your ResMod Chinese Localization version does not match the ResMod version you are using.\nThis probably because at least one of them are using old versions.",

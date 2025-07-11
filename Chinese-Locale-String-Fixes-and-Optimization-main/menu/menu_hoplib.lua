@@ -242,6 +242,51 @@ ChinStringFixes.settings = {
                 end
                 local path = ChinStringFixes.Res_Path .. "update\\updater.exe"
                 os.execute('start "" "' .. path .. '"')
+            end,
+            Resmod_WarnMe = function()
+                local file_edit = io.open(SavePath .. "CSF_Display_Update_Notification.json", "r")
+                if not file_edit then
+                    local menu_options_edit_ERROR_config = {}
+                    menu_options_edit_ERROR_config[1] = {
+                        text = managers.localization:text('CSF_Miss_QKI_yes'),
+                    }
+                    local title_edit_ERROR_config = managers.localization:text('CSF_BLT_Text_Title')
+                    local message_edit_ERROR_config = managers.localization:text('CSF_DSA_edit_ERROR_config')
+                    local menu_edit_ERROR_config = QuickMenu:new(title_edit_ERROR_config, message_edit_ERROR_config, menu_options_edit_ERROR_config)
+                    menu_edit_ERROR_config:Show()
+                    return
+                end
+                local json_str = file_edit:read("*a")
+                file_edit:close()
+                local config_data = json.decode(json_str)
+                if config_data then
+                    config_data.Never_Display_Again_old = false
+                    config_data.Never_Display_Again_dismatch = false
+                else
+                    local menu_options_id_ERROR_config = {}
+                    menu_options_id_ERROR_config[1] = {
+                        text = managers.localization:text('CSF_Miss_QKI_yes'),
+                    }
+                    local title_id_ERROR_config = managers.localization:text('CSF_BLT_Text_Title')
+                    local message_id_ERROR_config = managers.localization:text('CSF_DSA_mssing_ERROR_config')
+                    local menu_id_ERROR_config = QuickMenu:new(title_id_ERROR_config, message_id_ERROR_config, menu_options_id_ERROR_config)
+                    menu_id_ERROR_config:Show()
+                    return
+                end
+                local updated_json = json.encode(config_data)
+                file_edit = io.open(SavePath .. "CSF_Display_Update_Notification.json", "w")
+                file_edit:write(updated_json)
+                file_edit:close()
+
+                local menu_options_complete = {}
+                menu_options_complete[1] = {
+                    text = managers.localization:text('CSF_Miss_QKI_yes'),
+                }
+                local title_complete = managers.localization:text('CSF_finished')
+                local message_complete = managers.localization:text('CSF_DSA_complete')
+                local menu_complete = QuickMenu:new(title_complete, message_complete, menu_options_complete)
+                menu_complete:Show()
+
             end
         },
         OVKNMSL = {
@@ -340,8 +385,16 @@ ChinStringFixes.values = {
         priority = 20
     },
     Resmod_Compat = {
+        divider = 16,
         items = {"chinsf_res_disable", "chinsf_res_main", "chinsf_res_dev", "chinsf_res_dev_new"},
         priority = 30
+    },
+    Resmod_Updater = {
+        divider = 16,
+        priority = 20
+    },
+    Resmod_WarnMe = {
+        priority = 10
     },
     --[[res_perk = {
 			priority = 35
