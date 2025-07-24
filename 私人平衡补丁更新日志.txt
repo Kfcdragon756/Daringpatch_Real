@@ -12,6 +12,7 @@
 == 以下为版本更新更新日志 ==
 v10.1（未完成）
 · 修复“脑洞大开”专精中，“不受距离衰减影响”的效果有时不生效的问题
+· 修复一个敌人生成上的问题
 · 
 
 [v10] 
@@ -433,6 +434,7 @@ blackmarketmanager.lua
 crimespreemananger.lua
 snipergrazedamage.lua
 gameplaycentralmanager.lua
+groupaistatebesiege.lua（原文“if not _add_unit_type_to_spawn_task”/注释“--Don't increment to next value if a unit was invalidated.”处添加了一个“not”以实现v10.1中修复敌人生成上的问题）
 
 restoration-mod\lua\sc\utils:
 inventorydescription.lua
