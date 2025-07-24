@@ -4393,7 +4393,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
                     --GL40
                     ["bm_w_gre_m79"] = "GL-40榴弹发射器",
                     --3GL
-                    ["bm_w_ms3gl"] = "Basilisk 3GL榴弹发射器",
+                    ["bm_w_ms3gl"] = "Basilisk 3榴弹发射器",
                     --PIGLET/M32
                     ["bm_w_m32"] = "Piglet榴弹发射器",
                     --China Puff

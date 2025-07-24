@@ -1,7 +1,7 @@
 Month = os.date("%m")
 Day = os.date("%d")
 local weapon_names = restoration.Options:GetValue("OTHER/WepNames") or 1
-local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSACText")
+local easterless = true
 	local eggplant = restoration and restoration.Options:GetValue("OTHER/ForceEggs/Upotte")
 	local my_wife = restoration and restoration.Options:GetValue("OTHER/ForceEggs/MyWife")
 	local bobcat = restoration and restoration.Options:GetValue("OTHER/ForceEggs/CrabBattle")
