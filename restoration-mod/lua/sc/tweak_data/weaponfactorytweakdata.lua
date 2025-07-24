@@ -1643,7 +1643,7 @@ local grips = {
 			},
 	
 			a_explosive_pump_override = {
-				exp_func = "quad",  --保留修改，爆炸衰减部分[exp_func
+				exp_func = "linear",  --保留修改，爆炸衰减部分[exp_func
 				min_exp_dmg = 20,
 				hit_fix = 0.5625,  --exp_func]
 				desc_id = "bm_wp_upg_a_explosive_desc_sc",
@@ -17842,6 +17842,7 @@ end)
 					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.exp_func = "quad"
 					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.min_exp_dmg = 30
 					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.hit_fix = 0.5625
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.stats.concealment = -4
 					--]
 
 					table.insert(self.wpn_fps_sho_boot.uses_parts, "wpn_fps_upg_boot_legend")
@@ -17883,6 +17884,7 @@ end)
 					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.exp_func = "quad"
 					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
 					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.stats.concealment = -4
 					--]
 					
 					self.wpn_fps_shot_huntsman_npc.uses_parts = deep_clone(self.wpn_fps_shot_huntsman.uses_parts)
@@ -17944,6 +17946,7 @@ end)
 					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.exp_func = "quad"
     				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
     				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.stats.concealment = -4
 					--]
 
 				end)
@@ -17984,6 +17987,7 @@ end)
 					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.exp_func = "quad"
     				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
     				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
+					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.stats.concealment = -4
 					--]
 
 				end)
