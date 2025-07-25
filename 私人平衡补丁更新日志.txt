@@ -2,6 +2,7 @@
 ——网络较差的时候使用手雷类投掷物（尤其是火瓶）有较小的可能（火瓶概率较大）会导致闪退。
 ——完美PPECM的反馈持续时间以房主为准。
 ——玩具枪的138有部分技能未被适用（如小弟技能），针对这种情况可能暂时可以通过点上相应技能解决。
+——“脑洞大开”专精中，“不受距离衰减影响”的效果有时不生效
 ——警告：Beardlib 5.0版本存在已知bug，会导致调整设置时闪退，请更新到5.0.1版本及以上或暂时保留4.88版本不要更新
 
 待办事宜：
@@ -17,8 +18,8 @@
 
 == 以下为版本更新更新日志 ==
 v10.1（未完成）
-· 修复“脑洞大开”专精中，“不受距离衰减影响”的效果有时不生效的问题（没修好）
 · 修复一个敌人生成上的问题
+· “侦察先锋”技能加强（未完成）
 · 为Piglet榴弹发射器、Arbiter榴弹发射器、Basilisk 3GL榴弹发射器、Compact 40mm榴弹发射器添加最小伤害，并加强它们的爆炸衰减
 · 调整榴弹的爆炸伤害及其衰减，弹容量少的榴弹比起弹容量多的榴弹更容易造成更高的爆炸伤害
 · 减小重型霰弹枪HE高爆弹的灵活性惩罚
@@ -420,11 +421,13 @@ copdamage.lua
 
 restoration-mod\lua\sc\units\weapons:
 frag.lua
+projectilebase.lua（最底下--为HD2战备光束设置同步）
 raycastweaponbase.lua
 newraycastweaponbase.lua
 ==[已删除]==incendiaryburstgrenade.lua
 \trip_mine\tripminebase.lua
-projectilebase.lua（最底下--为HD2战备光束设置同步）
+\equipment\sentrygundamage.lua（修改技能伤害计算方式）
+
 
 restoration-mod\lua\sc\tweak_data:
 tweakdata.lua
