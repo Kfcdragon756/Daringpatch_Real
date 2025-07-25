@@ -2517,8 +2517,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_raiden_info"] = "你的手中并无\"#{risk}#正义之器##\"。\n\n完全蓄力时出刀速度加快#{skill_color}#50%##，允许快速进行后续挥砍。",
         ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全蓄力时出刀速度加快#{skill_color}#50%##，允许快速进行后续挥砍。",
         ["bm_melee_2077tkata_info"] = "这是一把纳米高热刀，其极致精髓体现了传统日本刀剑的威力，没有任何附加功能，也未做任何修改，唯有灼热的钢铁之力。\n\n完全蓄力后攻击可点燃敌人，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
-        ["bm_melee_buck_info"] = "对抗现代武器仍然十分有效。\n蓄力时减少#{skill_color}#25%##的远程伤害。", -- Buckler Shield
-        ["bm_melee_briefcase_info"] = "不管里面装的什么，手提箱自身有着惊人的弹性。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。", -- Briefcase
+        --["bm_melee_buck_info"] = "对抗现代武器仍然十分有效。\n蓄力时减少#{skill_color}#25%##的远程伤害。", -- Buckler Shield
+        --["bm_melee_briefcase_info"] = "不管里面装的什么，手提箱自身有着惊人的弹性。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。", -- Briefcase
         ["bm_melee_pitch_info"] = "用力叉，再用力叉！\n\n蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- Randal Pitchfork
         ["bm_melee_charge_info"] = "蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##",
         ["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害。此属性受到相关技能影响。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- ROAMING FR-
@@ -2688,9 +2688,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_fireaxe_info"] = "你是否以伤人为乐？\n\n若果真如此，还有什么比用救生工具施暴更美妙！让受害者从你燃火的瞳孔中见证，你如何用一记快劈将他们从你自己手中'拯救'出来。",
 
         --Briefcase
-        ["bm_melee_briefcase_info"] = "无论内藏何物，公文包本身惊人地坚固。\n\n充能时降低#{skill_color}#10%##远程伤害。",
-        ["bm_melee_toast"] = "阿尔米尔的吐司",
-        ["bm_melee_toast_info"] = "饿了吗？\n\n充能时降低#{skill_color}#10%##远程伤害。",
+        ["bm_melee_briefcase_info"] = "无论内藏何物，公文包本身惊人地坚固。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。",
+        ["bm_melee_toast"] = "阿米尔的吐司",
+        ["bm_melee_toast_info"] = "饿了吗？\n\n蓄力时减少#{skill_color}#40%##的远程伤害。",
 
         --KA-BAR Tanto
         ["bm_melee_kabar_tanto_info"] = "受亚洲影响的短刀刀型，厚重刀尖专精穿刺。此刀为最严苛的任务而生。",
@@ -2807,7 +2807,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_broad_info"] = "骑士的标志性武器。",
 
         --Buckler Shield
-        ["bm_melee_buck_info"] = "在行家手中，小圆盾既是防具亦是凶器。\n缚于前臂猛击敌人，其力道足以震飞对方马裤。\n\n充能时降低#{skill_color}#10%##远程伤害。",
+        ["bm_melee_buck_info"] = "在行家手中，小圆盾既是防具亦是凶器。\n缚于前臂猛击敌人，其力道足以震飞对方马裤。\n\n蓄力时减少#{skill_color}#25%##的远程伤害。",
 
         --Bolt cutters
         ["bm_melee_cutters_info"] = "你偏好的连环杀手需要的不仅是斧头、小刀或剃刀手套。\n他们需要断线钳悄无声息地进入你认为锁闭的区域。\n\n进入你自以为安全的所在...",
