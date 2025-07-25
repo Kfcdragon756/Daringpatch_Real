@@ -1592,7 +1592,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Spotter  --侦察先锋
 				--Basic
 				self.values.player.marked_inc_dmg_distance = {{300, 1.1}}	 --此处修改，原{{2000, 1.25}}
-				self.values.player.max_marked_inc_dmg_distance = {dst = 2500, dmg_mult = 1.6}	 --此处添加
+				self.values.player.max_marked_inc_dmg_distance = {dst = 3000, dmg_mult = 1.45}	 --此处添加
 				--Ace
 				self.values.player.marked_enemy_extra_damage = {true}
 				self.values.player.marked_enemy_damage_mul = 1.4  --此处修改，原1.35
