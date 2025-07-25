@@ -14822,7 +14822,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m32.fire_rate_multiplier = 1.5
 						self.m32.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
 						self.m32.min_exp_dmg = 30
-						self.m32.hit_fix = 0.95  --exp_func]]
+						self.m32.hit_fix = 0.9  --exp_func]]
 						--self.m32.BURST_FIRE = 2
 						--self.m32.BURST_FIRE_RATE_MULTIPLIER = 3
 						--self.m32.BURST_FIRE_RECOIL_MULTIPLIER = 1.5
@@ -14980,7 +14980,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.arbiter.AMMO_MAX = 6
 						self.arbiter.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
 						self.arbiter.min_exp_dmg = 25
-						self.arbiter.hit_fix = 0.92  --exp_func]]
+						self.arbiter.hit_fix = 0.9  --exp_func]]
 						self.arbiter.alt_shotgunraycast = true
 						self.arbiter.rays = 1
 						self.arbiter.supported = true
@@ -15024,6 +15024,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.slap.fire_mode_data.fire_rate = 1.2
 						self.slap.kick = self.stat_info.kick_tables.vertical_kick
 						self.slap.AMMO_MAX = 5
+						self.slap.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+						self.slap.min_exp_dmg = 36
+						self.slap.hit_fix = 0.825  --exp_func]]
 						self.slap.alt_shotgunraycast = true
 						self.slap.rays = 1
 						self.slap.supported = true
@@ -15070,7 +15073,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.china.rays = 1
 						self.china.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
 						self.china.min_exp_dmg = 30
-						self.china.hit_fix = 0.725  --exp_func]]
+						self.china.hit_fix = 0.875  --exp_func]]
 						self.china.kick = self.stat_info.kick_tables.vertical_kick
 						self.china.supported = true
 						self.china.ads_speed = 0.500

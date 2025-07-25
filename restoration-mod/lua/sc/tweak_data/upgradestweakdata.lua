@@ -1589,7 +1589,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 					2 --Ace
 				}
 				
-			--Spotter
+			--Spotter  --侦察先锋
 				--Basic
 				self.values.player.marked_inc_dmg_distance = {{1500, 1.25}}	 --此处修改，原{{2000, 1.25}}
 				--Ace
