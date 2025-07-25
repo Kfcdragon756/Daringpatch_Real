@@ -1833,10 +1833,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- duke1911
         --["bm_w_duke1911_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
         -- deckard
-        ["bm_w_deckard_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_w_deckard_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- Matever 2006m
-        ["bm_2006m_sc_desc"] = "小批生产的稀少设计型。一种射程内花式打出.38子弹的方式。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
-        ["bm_x_2006m_sc_desc"] = "双持这俩枪体现的纯正坏蛋因子要远远超过为了双持要做的准备工作。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_2006m_sc_desc"] = "小批生产的稀少设计型。一种射程内花式打出.38子弹的方式。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
+        ["bm_x_2006m_sc_desc"] = "双持这俩枪体现的纯正坏蛋因子要远远超过为了双持要做的准备工作。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- FP45
         ["bm_fp45_sc_desc"] = "能够#{skill_color}#穿透护甲，盾牌，泰坦盾牌，薄墙壁以及多个敌人##。\n\n其冲击力能对泰坦盾和熊面甲额外造成#{skill_color}#500%##的伤害。",  --520%
         -- Frenchman Model 87
@@ -1846,8 +1846,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_rage_sc_desc"] = "威力十足的短距离手炮。\n对面排排站，嘎嘎吃子弹。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
         ["bm_x_rage_sc_desc"] = "既不好用也不实用，但你就是忍不住想在抢银行的时候掏这俩枪出来干条子。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
         -- Castigo  [240
-        ["bm_chinchilla_sc_desc"] = "强大，精准，有型。便于突破特区里更持久的敌人。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
-        ["bm_x_chinchilla_sc_desc"] = "一个刺客需要确保它的目标能够毙命，两把这枪能够保证这点。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_chinchilla_sc_desc"] = "强大，精准，有型。便于突破特区里更持久的敌人。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
+        ["bm_x_chinchilla_sc_desc"] = "一个刺客需要确保它的目标能够毙命，两把这枪能够保证这点。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- RUS-12
         ["bm_rsh12_sc_desc"] = "单持口径口水战中毋庸置疑的终结语。\n\"汝等舌战可休矣！\"\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",--对泰坦盾和熊面甲额外造成#{skill_color}#100%##的伤害。",
         -- Chunky 1911 
@@ -2057,16 +2057,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_aug_sc_desc"] = "经典无托式步枪。非常适合用来打坏蛋。",
         ["bm_wp_upg_b_hbar"] = "重型枪管",
         -- AK17
-        ["bm_flint_sc_desc"] = "经典AK的现代理解版。因其强力的二连发速射模式一度被怀疑其ak身份。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_flint_sc_desc"] = "经典AK的现代理解版。因其强力的二连发速射模式一度被怀疑其ak身份。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- AK 5.45
         ["bm_w_ak74"] = "AK 5.45步枪",
-        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- CR 805
         ["bm_menu_sc_hajk_desc"] = "经典眼镜蛇枪管的枪中更年轻，现代化的小侄子。这一款有着更多开火模式，甚至有更多弹种选择...可没说你能得到这些。",
         -- CUSTOM 48 DAMAGE ARs
         -- AN-94/92
         ["bm_w_tilt"] = "KVK-99步枪",
-        ["bm_tilt_sc_desc"] = "扣动板机打出的前两发子弹是#{skill_color}#三倍射速##。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_tilt_sc_desc"] = "扣动板机打出的前两发子弹是#{skill_color}#三倍射速##。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- HK G36
         ["bm_w_hkg36"] = "SG36K步枪",
 
@@ -2081,7 +2081,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_w_akm"] = "AK 7.62步枪",
         ["bm_akm_sc_desc"] = "当防弹衣在特区开始逐渐流行时，这把枪将是个随身携带的好东西。\n\n是世界各地叛军和疯狂政府的首选。",
         ["bm_w_akm_gold"] = "黄金AK 7.62步枪",
-        ["bm_akm_gold_sc_desc"] = "什么是劫匪，墨西哥毒枭和自大的独裁者的共同点呢？当然是对镀金ak的迷恋。\n#{risk}#真金制作，价格不菲，收藏佳品。##\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#33%##。 ",
+        ["bm_akm_gold_sc_desc"] = "什么是劫匪，墨西哥毒枭和自大的独裁者的共同点呢？当然是对镀金ak的迷恋。\n#{risk}#真金制作，价格不菲，收藏佳品。##\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#33%##。 ",
         -- Queen's Wrath
         ["bm_l85a2_sc_desc"] = "即便这枪晚节不保，这把枪依然以其精准度在所有自动步枪中脱颖而出。\n\n依旧是人体工程学噩梦。",
         -- KETCHUPKNOB--
@@ -2375,7 +2375,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- L115
         ["bm_w_l115"] = "AIM 90M狙击步枪",
         -- Highly Modified CAR-4
-        ["bm_hmcar_sc_desc"] = "在被执法人员逐步淘汰掉之前，你成功地偷到了装满这些套件的箱子。\n\n发射能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##的#{stat_maxed}#泰坦狙击弹##；辅助射击能够改为#{skill_color}#双倍弹药消耗和威力##的同时提供#{skill_color}#穿透泰坦盾##能力的#{event_color}#全火力狙击弹##。\n\n提示：武器开火使用#{skill_color}#连发##和#{skill_color}#齐射##模式，但可以吃#{ghost_color}#擦伤##",--\n\n#{important_1}#该武器无法触发脑洞大开（擦伤）技能##",
+        ["bm_hmcar_sc_desc"] = "在被执法人员逐步淘汰掉之前，你成功地偷到了装满这些套件的箱子。\n\n发射能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##的#{stat_maxed}#泰坦狙击弹##；辅助射击能够改为#{skill_color}#双倍弹药消耗和威力##的同时提供#{skill_color}#穿透泰坦盾##能力的#{event_color}#全火力狙击弹##。\n\n提示：武器开火使用#{skill_color}#连发##和#{skill_color}#齐射##模式，但可以吃#{ghost_color}#擦伤##\n",--\n\n#{important_1}#该武器无法触发脑洞大开（擦伤）技能##",
         ["bm_wp_hmcar_hd_kit"] = "32位-8K超高清套件",
         ["bm_wp_hmcar_hd_kit_desc"] = "Application has crashed: C++ exception\nCould not load texture because IDirect3D9::CreateTexture call failed.\nDirect3D could not allocate sufficient memory to complete the call.\n\n\n\n\n\n\n ",
 
@@ -2406,8 +2406,25 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_weapon_multishot_3"] = "点伤害。",
         ["bm_menu_weapon_ene_hs_mult_sub"] = "对敌人的基础爆头倍率减少至",
         ["bm_menu_weapon_ene_hs_mult_add"] = "对敌人的基础爆头倍率增加至",
+
+        -- 爆头倍率
         ["bm_menu_weapon_hs_mult_1"] = "爆头非队长单位可额外造成",
         ["bm_menu_weapon_hs_mult_2"] = "的伤害。",
+        ["bm_menu_weapon_hs_mult_1_op"] = "爆头非队长单位造成的伤害降低",
+        ["bm_menu_weapon_hs_mult_2_op"] = "。",
+
+        -- 物体伤害倍率
+        ["bm_menu_weapon_obj_mult_1"] = "对熊面甲和泰坦盾可额外造成",
+        ["bm_menu_weapon_obj_mult_2"] = "的伤害。",
+        ["bm_menu_weapon_obj_mult_1_op"] = "对熊面甲和泰坦盾的造成的伤害降低",
+        ["bm_menu_weapon_obj_mult_2_op"] = "。",
+
+        -- 爆头倍率跟物体伤害倍率相等时
+        ["bm_menu_weapon_same_mult_1"] = "爆头倍率以及对熊面甲和泰坦盾造成的伤害都提高",
+        ["bm_menu_weapon_same_mult_2"] = "。",
+        ["bm_menu_weapon_same_mult_1_op"] = "爆头倍率以及对熊面甲和泰坦盾造成的伤害都降低",
+        ["bm_menu_weapon_same_mult_2_op"] = "。",
+        
         ["bm_menu_weapon_ene_hs_mult_end"] = "",
         ["bm_menu_weapon_exp_no_hs_info"] = "使用了#{risk}#高爆弹药##，#{skill_color}#直接命中会多造成50%的判定为子弹的伤害##。",
         ["bm_menu_weapon_movement_penalty_info"] = "移动速度降低 ",

@@ -1,6 +1,8 @@
 require("lib/managers/menu/WalletGuiObject")
 require("lib/utils/InventoryDescription")
 
+local schinese = Idstring("schinese"):key() == SystemInfo:language():key()  --添加中文检测
+
 local is_win32 = SystemInfo:platform() == Idstring("WIN32")
 local NOT_WIN_32 = not is_win32
 local WIDTH_MULTIPLIER = NOT_WIN_32 and 0.68 or 0.71
@@ -4879,6 +4881,7 @@ function BlackMarketGui:update_info_text()
 				local custom_stats = crafted and  managers.weapon_factory:get_custom_stats_from_weapon(crafted.factory_id, crafted.blueprint)
 				local upgrade_tweak = weapon_tweak and tweak_data.upgrades.weapon_movement_penalty[weapon_tweak.categories[1]] or 1
 				local movement_penalty = weapon_tweak and weapon_tweak.weapon_movement_penalty or upgrade_tweak or 1
+				local obj_mult = (weapon_tweak and weapon_tweak.object_damage_mult) or 1  --此处添加
 				local hs_mult = (weapon_tweak and weapon_tweak.hs_mult) or 1
 				local hs_mult_desc = (weapon_tweak and weapon_tweak.hs_mult and true) or nil
 				local ene_hs_mult = (weapon_tweak and weapon_tweak.ene_hs_mult) or 1
@@ -4913,6 +4916,9 @@ function BlackMarketGui:update_info_text()
 						end
 						if stats.hs_mult then
 							hs_mult = hs_mult * stats.hs_mult
+						end
+						if stats.object_damage_mult then  --此处添加
+							obj_mult = obj_mult * stats.object_damage_mult
 						end
 						if stats.hs_mult_desc then
 							hs_mult_desc = true
@@ -5003,14 +5009,83 @@ function BlackMarketGui:update_info_text()
 					end
 				end
 
-				if hs_mult_desc and hs_mult ~= 1 then
-					local penalty_as_string = string.format("%d%%", math.round((hs_mult - 1) * 100))
+				-- 爆头倍率和物体伤害的文本表述
+					-- 计算爆头倍率的百分比
+				local raw_penalty = (hs_mult - 1) * 100
+				local is_negative = raw_penalty < 0  -- 检测是否为负值
+				local penalty_as_string = string.format("%d%%", math.round(raw_penalty))  -- 原值的格式化
+				local penalty_as_string_op = string.format("%d%%", math.abs(math.floor(raw_penalty+0.5)))  -- 负值转为正值的格式化，用于中文文本
+					-- 计算物体伤害的百分比
+				local raw_penalty_obj = (obj_mult - 1) * 100
+				local is_negative_obj = raw_penalty_obj < 0  -- 检测是否为负值
+				local penalty_as_string_obj = string.format("%d%%", math.round(raw_penalty_obj))  -- 原值的格式化
+				local penalty_as_string_op_obj = string.format("%d%%", math.abs(math.floor(raw_penalty_obj+0.5)))  -- 负值转为正值的格式化，用于中文文本
+				local obj_mult_added = false
+					-- 开始处理
+				if schinese and (obj_mult ~= 1) and (hs_mult_desc and hs_mult ~= 1) and obj_mult == hs_mult and not weapon_tweak.no_obj_desc and not weapon_tweak.no_hs_desc then  --物体伤害和爆头倍率都存在且相等时
+					
 					if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays then
-						updated_texts[4].text = updated_texts[4].text .. "\n##" .. managers.localization:text("bm_menu_weapon_hs_mult_1") .. penalty_as_string .. managers.localization:text("bm_menu_weapon_hs_mult_2") .. "##"
+						if is_negative then
+							updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_same_mult_1_op") .. "##" .. penalty_as_string_op .. "##" .. managers.localization:text("bm_menu_weapon_same_mult_2_op")
+						else
+							updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_same_mult_1") .. "##" .. penalty_as_string .. "##" .. managers.localization:text("bm_menu_weapon_same_mult_2")
+						end
 					else
-						updated_texts[4].text = updated_texts[4].text .. "##" ..  managers.localization:text("bm_menu_weapon_hs_mult_1") .. penalty_as_string .. managers.localization:text("bm_menu_weapon_hs_mult_2") .. "##"
+						if is_negative then
+							updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_same_mult_1_op") .. "##" .. penalty_as_string_op .. "##" .. managers.localization:text("bm_menu_weapon_same_mult_2_op")
+						else
+							updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_same_mult_1") .. "##" .. penalty_as_string .. "##" .. managers.localization:text("bm_menu_weapon_same_mult_2")
+						end
 					end
 					table.insert(updated_texts[4].resource_color, (hs_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
+					
+				else  --物体伤害和爆头倍率不相等时
+
+					if obj_mult ~= 1 and not weapon_tweak.no_obj_desc then  --对物体伤害文本作处理
+						if schinese then
+							if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays then
+								if is_negative_obj then
+									updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_obj_mult_1_op") .. "##" .. penalty_as_string_op_obj .. "##" .. managers.localization:text("bm_menu_weapon_obj_mult_2_op")
+								else
+									updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_obj_mult_1") .. "##" .. penalty_as_string_obj .. "##" .. managers.localization:text("bm_menu_weapon_obj_mult_2")
+								end
+							else
+								if is_negative_obj then
+									updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_obj_mult_1_op") .. "##" .. penalty_as_string_op_obj .. "##" .. managers.localization:text("bm_menu_weapon_obj_mult_2_op")
+								else
+									updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_obj_mult_1") .. "##" .. penalty_as_string_obj .. "##" .. managers.localization:text("bm_menu_weapon_obj_mult_2")
+								end
+							end
+						obj_mult_added = true
+						end
+						table.insert(updated_texts[4].resource_color, (obj_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
+					end
+
+					if hs_mult_desc and hs_mult ~= 1 and not weapon_tweak.no_hs_desc then  --对爆头倍率文本作处理
+						if schinese then  --中文的表现手法有所不同
+							if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays or obj_mult_added then
+								if is_negative then
+									updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_hs_mult_1_op") .. "##" .. penalty_as_string_op .. "##" .. managers.localization:text("bm_menu_weapon_hs_mult_2_op")
+								else
+									updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_weapon_hs_mult_1") .. "##" .. penalty_as_string .. "##" .. managers.localization:text("bm_menu_weapon_hs_mult_2")
+								end
+							else
+								if is_negative then
+									updated_texts[4].text = updated_texts[4].text .. "" ..  managers.localization:text("bm_menu_weapon_hs_mult_1_op") .. "##" .. penalty_as_string_op .. "##" .. managers.localization:text("bm_menu_weapon_hs_mult_2_op")
+								else
+									updated_texts[4].text = updated_texts[4].text .. "" ..  managers.localization:text("bm_menu_weapon_hs_mult_1") .. "##" .. penalty_as_string .. "##" .. managers.localization:text("bm_menu_weapon_hs_mult_2")
+								end
+							end
+						else
+							if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays then
+								updated_texts[4].text = updated_texts[4].text .. "\n##" .. managers.localization:text("bm_menu_weapon_hs_mult_1") .. penalty_as_string .. managers.localization:text("bm_menu_weapon_hs_mult_2") .. "##"
+							else
+								updated_texts[4].text = updated_texts[4].text .. "##" ..  managers.localization:text("bm_menu_weapon_hs_mult_1") .. penalty_as_string .. managers.localization:text("bm_menu_weapon_hs_mult_2") .. "##"
+							end
+						end
+						table.insert(updated_texts[4].resource_color, (hs_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
+					end
+
 				end
 
 				if ene_hs_mult ~= 1 then
@@ -5055,7 +5130,7 @@ function BlackMarketGui:update_info_text()
 				end
 
 
-				if sms < 1 then
+				if sms < 1 then  --此处可以考虑优化，待定
 					local penalty_as_string = string.format("%d%%", math.round((1 - sms) * 100))
 					if slot_data.global_value and slot_data.global_value ~= "normal" or weapon_tweak.has_description then
 						if movement_penalty < 1 then
@@ -5983,7 +6058,7 @@ function BlackMarketGui:update_info_text()
 
 		if has_sms then
 			local penalty_as_string = string.format("%d%%", math.round((1 - has_sms) * 100)):gsub("-", "")
-			if has_sms < 1 then
+			if has_sms < 1 then  --此处可以考虑优化，待定
 				if (slot_data.global_value and slot_data.global_value ~= "normal") or is_gadget or is_ammo or is_bayonet or is_bipod or has_desc or has_move_speed or (perks and table.contains(perks, "bonus")) then
 					updated_texts[4].text = updated_texts[4].text .. "\n##" .. managers.localization:text("bm_menu_weapon_movement_penalty_info") .. penalty_as_string .. managers.localization:text(stat_sms and "bm_menu_stat_sms_info_2" or "bm_menu_sms_info_2") .. "##"
 				else
