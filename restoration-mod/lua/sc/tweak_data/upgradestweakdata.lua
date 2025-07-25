@@ -994,7 +994,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Body Expertise aka Spray N' Pray --人体解构 此处修改，不跟进更新
 				self.values.player.ap_bullets = {0.5}
 				self.values.smg.ap_bullets = {1.0}
-				self.automatic_kills_to_damage_reset_t = 3 --delay to reset time (seconds)  --此处修改，原2
+				self.automatic_kills_to_damage_reset_t = 5 --delay to reset time (seconds)  --此处修改，原2
 				self.values.smg.automatic_kills_to_damage = {
 					{
 						3, --stack limit
@@ -1021,7 +1021,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				}
 
 				--Metroline全头加回
-				self.automatic_kills_to_head_shot_reset_t = 2 --delay to reset time (seconds)
+				self.automatic_kills_to_head_shot_reset_t = 3.5 --delay to reset time (seconds)
 				self.values.smg.automatic_kills_to_head_shot = {
 					{
 						0.7,  --最高
@@ -1029,7 +1029,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						0.1  --每击杀一名敌人+
 					}
 				}
-				self.automatic_fire_to_head_shot_reset_t = 2 --delay to reset time (seconds)
+				self.automatic_fire_to_head_shot_reset_t = 3.5 --delay to reset time (seconds)
 				self.values.smg.automatic_fire_to_head_shot = {
 					{
 						0.8,  --最高
@@ -1041,7 +1041,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				if MetroLine_BodyExpert_Convert then
 					self.values.player.ap_bullets = {0.5}
 					self.values.smg.ap_bullets = {1.0}
-					self.automatic_kills_to_damage_reset_t = 2 --delay to reset time (seconds)
+					self.automatic_kills_to_damage_reset_t = 3.5 --delay to reset time (seconds)
 					self.values.smg.automatic_kills_to_damage = {
 						{
 							3, --stack limit

@@ -2861,6 +2861,7 @@ function PlayerStandard:_last_shot_t(t, dt)
 				end
 			end
 			
+			--下面这些应该是加全头的时候添加的东西
 			if self._automatic_kills_to_head_shot_reset_t then
 				self._automatic_kills_to_head_shot_reset_t = self._automatic_kills_to_head_shot_reset_t - dt
 				
