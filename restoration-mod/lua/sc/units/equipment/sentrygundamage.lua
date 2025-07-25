@@ -305,7 +305,7 @@ function SentryGunDamage:damage_bullet(attack_data)
 
 			local actual_mult = 1
 
-			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+			if min_dst < dst and dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
 				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
 				damage = damage * actual_mult
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
@@ -459,7 +459,7 @@ function SentryGunDamage:damage_fire(attack_data)
 
 			local actual_mult = 1
 
-			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+			if min_dst < dst and dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
 				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
 				damage = damage * actual_mult
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
@@ -610,7 +610,7 @@ function SentryGunDamage:damage_explosion(attack_data)
 
 			local actual_mult = 1
 
-			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+			if min_dst < dst and dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
 				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
 				damage = damage * actual_mult
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
