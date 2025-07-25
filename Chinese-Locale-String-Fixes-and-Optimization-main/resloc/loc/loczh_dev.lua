@@ -6518,7 +6518,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Spotter--
         ["menu_ecm_2x_beta_sc"] = "侦察先锋",
-        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#$skill_value_b2##米外受到的伤害增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n现在你标记的敌人在#{skill_color}#任何距离##下受到的伤害都额外增加#{skill_color}#$skill_value_p1##。",
+        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#$skill_value_b2##米外受到的伤害增加#{skill_color}#$skill_value_b1##，随着距离增加，伤害加成逐渐提高，在#{skill_color}#$skill_value_zh_b2##米的距离下达到最大值#{skill_color}#$skill_value_zh_b1##。\n\n专精: #{risk}#$pro##\n现在你标记的敌人在#{skill_color}#任何距离##下受到的伤害都额外增加#{skill_color}#$skill_value_p1##。",
 
         -- }
 

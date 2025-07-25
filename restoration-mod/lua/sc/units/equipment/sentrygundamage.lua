@@ -294,9 +294,23 @@ function SentryGunDamage:damage_bullet(attack_data)
 		if self._marked_dmg_dist_mul then
 			local dst = mvector3.distance(attack_data.origin, self._unit:movement():m_head_pos())
 			local spott_dst = tweak_data.upgrades.values.player.marked_inc_dmg_distance[self._marked_dmg_dist_mul]
+			-- 以下内容经过修改，为修改技能伤害计算方式 1  --子弹伤害部分
+			local max_spott = tweak_data.upgrades.values.player.max_marked_inc_dmg_distance
 
-			if spott_dst[1] < dst then
-				damage = damage * spott_dst[2]
+			local min_dst = spott_dst[1]
+			local max_dst = max_spott.dst
+
+			local min_dmg_mul = spott_dst[2]
+			local max_dmg_mul = max_spott.dmg_mult
+
+			local actual_mult = 1
+
+			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
+				damage = damage * actual_mult
+			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
+				actual_mult = max_dmg_mul
+				damage = damage * actual_mult
 			end
 		end
 	end
@@ -434,9 +448,23 @@ function SentryGunDamage:damage_fire(attack_data)
 		if self._marked_dmg_dist_mul and alive(attacker_unit) then
 			local dst = mvector3.distance(attacker_unit:position(), self._unit:movement():m_head_pos())
 			local spott_dst = tweak_data.upgrades.values.player.marked_inc_dmg_distance[self._marked_dmg_dist_mul]
+			-- 以下内容经过修改，为修改技能伤害计算方式 2  --燃烧伤害部分
+			local max_spott = tweak_data.upgrades.values.player.max_marked_inc_dmg_distance
 
-			if spott_dst[1] < dst then
-				damage = damage * spott_dst[2]
+			local min_dst = spott_dst[1]
+			local max_dst = max_spott.dst
+
+			local min_dmg_mul = spott_dst[2]
+			local max_dmg_mul = max_spott.dmg_mult
+
+			local actual_mult = 1
+
+			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
+				damage = damage * actual_mult
+			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
+				actual_mult = max_dmg_mul
+				damage = damage * actual_mult
 			end
 		end
 	end
@@ -571,9 +599,23 @@ function SentryGunDamage:damage_explosion(attack_data)
 		if self._marked_dmg_dist_mul and alive(attacker_unit) then
 			local dst = mvector3.distance(attacker_unit:position(), self._unit:movement():m_head_pos())
 			local spott_dst = tweak_data.upgrades.values.player.marked_inc_dmg_distance[self._marked_dmg_dist_mul]
+			-- 以下内容经过修改，为修改技能伤害计算方式 3  --爆炸伤害部分
+			local max_spott = tweak_data.upgrades.values.player.max_marked_inc_dmg_distance
 
-			if spott_dst[1] < dst then
-				damage = damage * spott_dst[2]
+			local min_dst = spott_dst[1]
+			local max_dst = max_spott.dst
+
+			local min_dmg_mul = spott_dst[2]
+			local max_dmg_mul = max_spott.dmg_mult
+
+			local actual_mult = 1
+
+			if min_dst < dst < max_dst then  --如果 实际距离 介于 最小距离 和 最大距离 之间
+				actual_mult = math.lerp(min_dmg_mul, max_dmg_mul, (dst - min_dst) / (max_dst - min_dst))  --线性计算伤害倍率
+				damage = damage * actual_mult
+			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
+				actual_mult = max_dmg_mul
+				damage = damage * actual_mult
 			end
 		end
 	end
