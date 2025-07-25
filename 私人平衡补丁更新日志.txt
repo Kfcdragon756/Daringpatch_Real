@@ -422,8 +422,9 @@ restoration-mod\lua\sc\units\weapons:
 frag.lua
 raycastweaponbase.lua
 newraycastweaponbase.lua
-incendiaryburstgrenade.lua
+==[已删除]==incendiaryburstgrenade.lua
 \trip_mine\tripminebase.lua
+projectilebase.lua（最底下--为HD2战备光束设置同步）
 
 restoration-mod\lua\sc\tweak_data:
 tweakdata.lua
@@ -436,7 +437,7 @@ weapontweakdata.lua
 skilltreetweakdata.lua
 
 restoration-mod\lua\sc\managers:
-menumanager.lua
+menumanager.lua（最底下的LuaNetworking Receiver，还有吗？）
 playermanager.lua
 hudmanagerpd2.lua
 blackmarketgui.lua
@@ -452,7 +453,7 @@ inventorydescription.lua
 
 restoration-mod\lua\sc\network\base:
 basenetworksession.lua
-networkpeer.lua
+==[已删除]==networkpeer.lua
 
 restoration-mod\req\mission_script:
 man.lua
@@ -462,3 +463,4 @@ pal.lua
 添加的文件：
 restoration-mod/assets/guis/textures/alphawipe_test.texture
 restoration-mod/lua/others/morale_boost.lua
+restoration-mod/update/*

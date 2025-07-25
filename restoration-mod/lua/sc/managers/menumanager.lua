@@ -606,17 +606,19 @@ if VakaraAmmoGui then
 end
 
 
--- LuaNetworking Receiver
+-- LuaNetworking Receiver  --本来应该是治疗枪的同步，但是把该同步的都放在这了
 Global.Daring_heal_attch_check = Global.Daring_heal_attch_check or ''
 Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", function(sender, id, data)
     local table_get_from_data = {}
     if data then
         table_get_from_data = json.decode(data)
     end
+	-- 应该是检测配件确认治疗枪的存在的
     if id == "Resmod_Daring_heal_num" then
         if table_get_from_data and table_get_from_data.attchment then
             Global.Daring_heal_attch_check = table_get_from_data.attchment
 		end
+	-- 应该是为了改善专家模式不同步的问题，不确定是否有用
 	elseif id == 'Resmod_Daring_is_pro_fixed_sync' then
 		local is_pro = Global.game_settings and Global.game_settings.one_down
 		if Network:is_server() then
@@ -645,6 +647,18 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 				end
 			end
 		end
+	-- HD2战备光束的同步
+	elseif id == "sync_hd2offensive_red_trail" then
+		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
+
+		if HD2OffensiveRedTrail then
+			HD2OffensiveRedTrail:spawn(table_get_from_data)
+		elseif HD2OffensiveRedTrail_res then
+			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
+		else
+			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
+		end
+
 	end
 end)
 

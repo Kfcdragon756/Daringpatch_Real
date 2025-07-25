@@ -451,6 +451,13 @@
 		<hook file="sc/managers/customsafehousemanager.lua" source_file="lib/managers/customsafehousemanager"/>
 
     </Hooks>
+
+    <!--///HD2_Red_Trail\\\-->
+    <AddFiles directory="assets">
+    	<!-- Effect -->
+		<effect path="effects/particles/weapons/hd2offensive/hd2offensive_red_trail"/>
+    </AddFiles>
+
 	<!--///MOD SETTINGS\\\-->
 	<!-- <<Keybind keybind_id="radialmousemenu_keybind" name="menu_utility_radial_menu_name" description="menu_utility_radial_menu_desc" localized="true" script_path="menu/radialmousemenu_keybind.lua"/> -->
     <Options name="Options" auto_build_menu="true" auto_load="true" save_file="restoration.txt" value_changed="RestorationCoreCallbacks:ValueChanged">
