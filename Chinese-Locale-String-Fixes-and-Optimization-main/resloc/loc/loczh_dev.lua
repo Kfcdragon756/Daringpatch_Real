@@ -703,6 +703,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["menu_l_global_value_veritas"] = "恢复MOD",
         ["menu_l_global_value_veritas_desc"] = "这是一件恢复MOD物品！",
 
+        ["menu_l_global_value_helldivers2_mod"] = "这是一件来自超级地球的物品！",
+
         ["menu_alex_1_zipline"] = "运包滑索",
 
         ["menu_asset_wet_intel"] = "情报",
@@ -2450,6 +2452,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_ap_weapon_sc_desc"] = "能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
         ["bm_ap_weapon_semi_sc_desc"] = "能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         ["bm_ap_armor_weapon_sc_desc"] = "能够#{skill_color}#穿透护甲##。",
+        --["bm_daring_ap_desc_1"] = "可穿透护甲造成",
+        ["bm_daring_ap_desc_2"] = "的伤害。",
+        ["bm_daring_ap_desc_3"] = "的伤害并",
         ["bm_ap25_armor_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#125%##的伤害。",
         ["bm_ap_armor_20_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",  --abandoned
         ["bm_ap_armor_25_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
@@ -3649,7 +3654,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
 
         -- AR23 from HELLDIVERS 2
         ["bm_w_ar23"] = "AR-23 解放者",
-        ["bm_w_ar23_desc"] = "超级地球武装部队的标准突击步枪，是对抗小型外星目标的均衡武器，但用于警匪交战它表现出众，不容小觑。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#40%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#25%##的伤害。",
+        ["bm_w_ar23_desc"] = "超级地球武装部队的标准突击步枪，是对抗小型外星目标的均衡武器，但用于警匪交战它也表现出众，不容小觑。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#40%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#25%##的伤害。",
         ["bm_wp_wpn_fps_ass_ar23_optic"] = "穿甲解放者瞄具",
 
         -- Unknown Weapon--
@@ -6078,8 +6083,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         ["mutator_thecandlesburnoutforyou_longdesc"] = "Disables the auto-reload that occurs when emptying your magazine; Reloads require a manual input",
 
         ["mutator_letthesleepinggoddie"] = "Magazine Martyr",
-        ["mutator_letthesleepinggoddie_desc"] = "Upon a non-empty reload, ammo from the previous magazine is lost.",
-        ["mutator_letthesleepinggoddie_longdesc"] = "Upon a non-empty reload, ammo from the previous magazine is lost.\n\nNote: Weapons that retain their ammo during their reload (per-round loading, retention reloads, etc.) as well as reloads triggered by skills are exempt from the effects of this mutator.",
+        ["mutator_letthesleepinggoddie_desc"] = "弹匣未空就进行换弹时，会丢失弹匣中剩余的子弹。",
+        ["mutator_letthesleepinggoddie_longdesc"] = "弹匣未空就进行换弹时，会丢失弹匣中剩余的子弹。\n\nNote: Weapons that retain their ammo during their reload (per-round loading, retention reloads, etc.) as well as reloads triggered by skills are exempt from the effects of this mutator.",
         ["mutator_letthesleepinggoddie_no_effect"] = "Unaffected by the \"Magazine Martyr\" mutator.",
 
         ["menu_cg22_post_objective_1_desc"] = "使用任意狙击步枪击杀200名敌人。",

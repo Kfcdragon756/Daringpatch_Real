@@ -16561,6 +16561,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		--[[     ZDANN'S MODS     ]]--
 			if self.akm_nomag then --Leather Dann's Early Access AK
 				self.akm_nomag.warsaw = true
+				self.akm_nomag.newline_num = 1  --文本换行次数
+				self.akm_nomag.has_daring_ap_desc = true  --用于显示文本
+				self.akm_nomag.armor_piercing_chance = 0.3  --此处添加
 				self.akm_nomag.recategorize = { "heavy_ar" }
 				self.akm_nomag.has_description = false
 				self.akm_nomag.AMMO_MAX = 30
@@ -18252,6 +18255,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ak12.damage_type = "assault_rifle"
 				self.ak12.tactical_reload = 1
 				self.ak12.warsaw = true
+				self.ak12.newline_num = 1  --此处添加
 				self.ak12.AMMO_MAX = 150
 				self.ak12.CLIP_AMMO_MAX = 30
 				self.ak12.BURST_FIRE = {
@@ -27343,6 +27347,20 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				end
 			end
 
+			-- 给一些步枪上穿甲
+			local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akm_gold, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.ak12--[[这个不是原版就存在的ak17，那个是flint]], self.ak5, self.ak5s, self.x_ak5s, self.tilt}
+			--local is_m4_all = {}
+
+			for _,v in ipairs(is_ak_all) do
+				if v then
+					--log("check ap "..tostring(v.armor_piercing_chance))
+					if (not v.armor_piercing_chance) or (v.armor_piercing_chance <= 0) then
+						v.armor_piercing_chance = 0.15
+					end
+					v.has_daring_ap_desc = true
+				end
+			end
+
 			if self.x_chinchilla then
 				self.x_chinchilla.AMMO_PICKUP = {self.x_chinchilla.AMMO_PICKUP[1] + 0.0050, self.x_chinchilla.AMMO_PICKUP[2] + 0.0054}
 			end
@@ -27389,7 +27407,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.fp45.AMMO_PICKUP = {self.fp45.AMMO_PICKUP[1] - 0.0045, self.fp45.AMMO_PICKUP[2] - 0.0045}
 			end
 			if self.ar23 then
-				self.ar23.AMMO_PICKUP = {self.ar23.AMMO_PICKUP[1] - 0.012, self.ar23.AMMO_PICKUP[2] - 0.012}
+				self.ar23.AMMO_PICKUP = {self.ar23.AMMO_PICKUP[1] + 0.045, self.ar23.AMMO_PICKUP[2] + 0.045}
 			end
 			if self.spas12 then
 				self.spas12.AMMO_PICKUP = {self.spas12.AMMO_PICKUP[1] + 0.0017, self.spas12.AMMO_PICKUP[2] + 0.0017}

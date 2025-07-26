@@ -4881,6 +4881,7 @@ function BlackMarketGui:update_info_text()
 				local custom_stats = crafted and  managers.weapon_factory:get_custom_stats_from_weapon(crafted.factory_id, crafted.blueprint)
 				local upgrade_tweak = weapon_tweak and tweak_data.upgrades.weapon_movement_penalty[weapon_tweak.categories[1]] or 1
 				local movement_penalty = weapon_tweak and weapon_tweak.weapon_movement_penalty or upgrade_tweak or 1
+				local ap_chance = (weapon_tweak and weapon_tweak.armor_piercing_chance) or 0
 				local obj_mult = (weapon_tweak and weapon_tweak.object_damage_mult) or 1  --此处添加
 				local hs_mult = (weapon_tweak and weapon_tweak.hs_mult) or 1
 				local hs_mult_desc = (weapon_tweak and weapon_tweak.hs_mult and true) or nil
@@ -5015,6 +5016,7 @@ function BlackMarketGui:update_info_text()
 				local is_negative = raw_penalty < 0  -- 检测是否为负值
 				local penalty_as_string = string.format("%d%%", math.round(raw_penalty))  -- 原值的格式化
 				local penalty_as_string_op = string.format("%d%%", math.abs(math.floor(raw_penalty+0.5)))  -- 负值转为正值的格式化，用于中文文本
+				local hs_mult_added = false
 					-- 计算物体伤害的百分比
 				local raw_penalty_obj = (obj_mult - 1) * 100
 				local is_negative_obj = raw_penalty_obj < 0  -- 检测是否为负值
@@ -5037,6 +5039,8 @@ function BlackMarketGui:update_info_text()
 							updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_same_mult_1") .. "##" .. penalty_as_string .. "##" .. managers.localization:text("bm_menu_weapon_same_mult_2")
 						end
 					end
+					obj_mult_added = true
+					hs_mult_added = true
 					table.insert(updated_texts[4].resource_color, (hs_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
 					
 				else  --物体伤害和爆头倍率不相等时
@@ -5056,8 +5060,8 @@ function BlackMarketGui:update_info_text()
 									updated_texts[4].text = updated_texts[4].text .. "" .. managers.localization:text("bm_menu_weapon_obj_mult_1") .. "##" .. penalty_as_string_obj .. "##" .. managers.localization:text("bm_menu_weapon_obj_mult_2")
 								end
 							end
-						obj_mult_added = true
 						end
+						obj_mult_added = true
 						table.insert(updated_texts[4].resource_color, (obj_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
 					end
 
@@ -5083,9 +5087,50 @@ function BlackMarketGui:update_info_text()
 								updated_texts[4].text = updated_texts[4].text .. "##" ..  managers.localization:text("bm_menu_weapon_hs_mult_1") .. penalty_as_string .. managers.localization:text("bm_menu_weapon_hs_mult_2") .. "##"
 							end
 						end
+						hs_mult_added = true
 						table.insert(updated_texts[4].resource_color, (hs_mult < 1 and tweak_data.screen_colors.important_1 or tweak_data.screen_colors.skill_color) )
 					end
 
+				end
+
+				-- 特定武器穿甲倍率
+				local shot_th_shield = weapon_tweak.can_shoot_through_shield                  --穿盾
+				local shot_th_wall = weapon_tweak.can_shoot_through_wall                      --穿墙
+				local shot_th_enemy = weapon_tweak.can_shoot_through_enemy                    --穿人
+				local shot_th_titan_shield = weapon_tweak.can_shoot_through_titan_shield      --穿泰坦盾
+
+				local only_th_armor = not shot_th_shield and not shot_th_wall and not shot_th_enemy and not shot_th_titan_shield
+				local th_shield = shot_th_shield and not shot_th_wall and not shot_th_enemy and not shot_th_titan_shield
+				local th_wall = shot_th_wall and not shot_th_shield and not shot_th_enemy and not shot_th_titan_shield
+				local th_enemy = shot_th_enemy and not shot_th_shield and not shot_th_wall and not shot_th_titan_shield
+
+				local th_shield_and_wall = shot_th_shield and shot_th_wall and not shot_th_enemy and not shot_th_titan_shield
+				local th_shield_and_enemy = shot_th_shield and shot_th_enemy and not shot_th_wall and not shot_th_titan_shield
+				local th_wall_and_enemy = shot_th_wall and shot_th_enemy and not shot_th_shield and not shot_th_titan_shield
+
+				local th_shield_and_wall_and_enemy = shot_th_shield and shot_th_wall and shot_th_enemy and not shot_th_titan_shield
+
+				local newline = ((weapon_tweak and weapon_tweak.newline_num) and string.rep("\n", weapon_tweak.newline_num)) or ((not obj_mult_added and not hs_mult_added) and "\n\n") or "\n"
+				local piercing_desc = (only_th_armor and managers.localization:text("bm_daring_ap_desc_2")) or 
+                      (managers.localization:text("bm_daring_ap_desc_3") .. 
+                       ((th_shield_and_wall_and_enemy and "可##穿透盾牌、敌人和薄墙壁##。") or 
+                        (th_shield_and_enemy and "可##穿透盾牌和敌人##。") or 
+                        (th_shield_and_wall and "可##穿透盾牌和薄墙壁##。") or 
+                        (th_shield and "可##穿透盾牌##。") or 
+                        (th_wall and "可##穿透薄墙壁##。") or 
+                        (th_enemy and "可##穿透敌人##。")))
+
+				local real_ap_chance = string.format("%d%%", math.round(ap_chance*100))
+				--log("check ap_chance "..tostring(weapon_tweak.armor_piercing_chance))
+				if ap_chance > 0 and weapon_tweak.has_daring_ap_desc then
+					if schinese then
+						if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays or obj_mult_added or hs_mult_added then
+							updated_texts[4].text = updated_texts[4].text .. newline .. "可##穿透护甲##造成" .. "##" .. real_ap_chance .. "##" .. piercing_desc
+						else
+							updated_texts[4].text = updated_texts[4].text .. "可##穿透护甲##造成" .. "##" .. real_ap_chance .. "##" .. piercing_desc
+						end
+						table.insert(updated_texts[4].resource_color, tweak_data.screen_colors.skill_color)
+					end
 				end
 
 				if ene_hs_mult ~= 1 then
