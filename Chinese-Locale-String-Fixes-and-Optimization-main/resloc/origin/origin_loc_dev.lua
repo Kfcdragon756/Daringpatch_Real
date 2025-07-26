@@ -2,11 +2,11 @@ Month = os.date("%m")
 Day = os.date("%d")
 local weapon_names = restoration.Options:GetValue("OTHER/WepNames") or 1
 local easterless = true
-	local eggplant = restoration and restoration.Options:GetValue("OTHER/ForceEggs/Upotte")
-	local my_wife = restoration and restoration.Options:GetValue("OTHER/ForceEggs/MyWife")
-	local bobcat = restoration and restoration.Options:GetValue("OTHER/ForceEggs/CrabBattle")
-	local shitpost = restoration and restoration.Options:GetValue("OTHER/ForceEggs/BigMan")
-	local registeredloser = restoration and restoration.Options:GetValue("OTHER/ForceEggs/EmberMyBeloved")
+	local eggplant = nil--restoration and restoration.Options:GetValue("OTHER/ForceEggs/Upotte")
+	local my_wife = nil--restoration and restoration.Options:GetValue("OTHER/ForceEggs/MyWife")
+	local bobcat = nil--restoration and restoration.Options:GetValue("OTHER/ForceEggs/CrabBattle")
+	local shitpost = nil--restoration and restoration.Options:GetValue("OTHER/ForceEggs/BigMan")
+	local registeredloser = nil--restoration and restoration.Options:GetValue("OTHER/ForceEggs/EmberMyBeloved")
 
 -- ResMod english.json
 Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", function(loc)
