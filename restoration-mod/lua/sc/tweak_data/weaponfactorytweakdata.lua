@@ -1593,7 +1593,7 @@ local grips = {
 				}
 			},
 	
-		--FRAG-12  高爆弹
+		--FRAG-12  HE高爆弹
 			a_explosive_auto_override = {
 				exp_func = "linear",  --保留修改，爆炸衰减部分[exp_func
 				min_exp_dmg = 13.5,
