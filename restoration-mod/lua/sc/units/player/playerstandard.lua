@@ -2849,9 +2849,6 @@ function PlayerStandard:_last_shot_t(t, dt)
 		if self._shooting and fire_mode == "auto" then
 			local reset_delay_t = tweak_data.upgrades.automatic_kills_to_damage_reset_t or 1
 			self._last_shooting_t = reset_delay_t
-			
-			self._automatic_kills_to_head_shot_reset_t = tweak_data.upgrades.automatic_kills_to_head_shot_reset_t or 1
-			self._automatic_fire_to_head_shot_reset_t = tweak_data.upgrades.automatic_fire_to_head_shot_reset_t or 1
 		else
 			if self._last_shooting_t then
 				self._last_shooting_t = self._last_shooting_t - dt
@@ -2860,23 +2857,57 @@ function PlayerStandard:_last_shot_t(t, dt)
 					weapon._no_cheevo_kills_without_releasing_trigger = 0
 				end
 			end
-			
-			--下面这些应该是加全头的时候添加的东西
-			if self._automatic_kills_to_head_shot_reset_t then
-				self._automatic_kills_to_head_shot_reset_t = self._automatic_kills_to_head_shot_reset_t - dt
-				
-				if self._automatic_kills_to_head_shot_reset_t <= 0 then
-					self._automatic_kills_to_head_shot_reset_t = nil
-					weapon._kills_to_head_shot_stacks = weapon._automatic_kills_to_head_shot_min_stacks
+		end
+	end
+
+	-- [ 修改后的击杀命中的全头伤害，单独计算两把武器的加成和重置时间 ] --
+	local player_unit = managers.player:player_unit()
+	local automatic_kills_to_head_shot_reset_t = tweak_data.upgrades.automatic_kills_to_head_shot_reset_t or 1
+	local automatic_fire_to_head_shot_reset_t = tweak_data.upgrades.automatic_fire_to_head_shot_reset_t or 1
+	for id, f_weapon in pairs(player_unit:inventory():available_selections()) do
+		local f_weapon_base = alive(f_weapon.unit) and f_weapon.unit:base()
+		if f_weapon_base then
+			local fire_mode = f_weapon_base and f_weapon_base:fire_mode()
+
+			if self._shooting and fire_mode == "auto" and f_weapon.unit == self._equipped_unit then  --开始射击
+				f_weapon_base._kths_reset_t = automatic_kills_to_head_shot_reset_t
+				f_weapon_base._fths_reset_t = automatic_fire_to_head_shot_reset_t
+			else
+				-- 击杀给全头
+				if f_weapon_base._kths_reset_t and f_weapon_base._kills_to_head_shot_stacks then
+					f_weapon_base._kths_reset_t = f_weapon_base._kths_reset_t - dt
+					
+					if f_weapon_base._kths_reset_t <= 0 and f_weapon_base._kills_to_head_shot_stacks then
+						-- 重置时间
+						f_weapon_base._kths_reset_t = automatic_kills_to_head_shot_reset_t
+
+						-- 减少伤害加成
+						local when_timeout_the_dmg_lost = tweak_data.upgrades.automatic_kills_to_head_shot_damage_lost or 1  --获取倒计时结束后减少多少伤害加成
+						local after_lost_dmg = f_weapon_base._kills_to_head_shot_stacks - when_timeout_the_dmg_lost  --伤害被减少后
+
+						managers.mission._fading_debug_output:script().log("after "..after_lost_dmg)
+						managers.mission._fading_debug_output:script().log("stack "..f_weapon_base._kills_to_head_shot_stacks)
+
+						f_weapon_base._kills_to_head_shot_stacks = math.max(after_lost_dmg, f_weapon_base._automatic_kills_to_head_shot_min_stacks)  --确保伤害不会被减成负数
+					end
+					-- managers.mission._fading_debug_output:script().log(tostring(f_weapon_base._kills_to_head_shot_stacks).." - "..tostring(id).." - "..tostring(f_weapon_base._kths_reset_t), Color.red)
 				end
-			end
-			
-			if self._automatic_fire_to_head_shot_reset_t then
-				self._automatic_fire_to_head_shot_reset_t = self._automatic_fire_to_head_shot_reset_t - dt
 				
-				if self._automatic_fire_to_head_shot_reset_t <= 0 then
-					self._automatic_fire_to_head_shot_reset_t = nil
-					weapon._fire_to_head_shot_stacks = weapon._automatic_fire_to_head_shot_min_stacks
+				-- 命中给全头
+				if f_weapon_base._fths_reset_t and f_weapon_base._fire_to_head_shot_stacks then
+					f_weapon_base._fths_reset_t = f_weapon_base._fths_reset_t - dt
+					
+					if f_weapon_base._fths_reset_t <= 0 then
+						-- 重置时间
+						f_weapon_base._fths_reset_t = automatic_fire_to_head_shot_reset_t
+
+						-- 减少伤害加成
+						local when_timeout_the_dmg_lost = tweak_data.upgrades.automatic_fire_to_head_shot_damage_lost or 1  --获取倒计时结束后减少多少伤害加成
+						local after_lost_dmg = f_weapon_base._fire_to_head_shot_stacks - when_timeout_the_dmg_lost  --伤害被减少后
+
+						f_weapon_base._fire_to_head_shot_stacks = math.max(after_lost_dmg, f_weapon_base._automatic_fire_to_head_shot_min_stacks)  --确保伤害不会被减成负数
+					end
+					-- managers.mission._fading_debug_output:script().log(tostring(f_weapon_base._fire_to_head_shot_stacks).." - "..tostring(id).." - "..tostring(f_weapon_base._fths_reset_t), Color.green)
 				end
 			end
 		end
