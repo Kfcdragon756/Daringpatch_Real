@@ -187,6 +187,10 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["RestorationModInfo_sociopathDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_body_expertiseTitleID"] = "血花四溅", --人体解析
         ["RestorationModInfo_body_expertiseDescID"] = "开启或关闭对此技能的追踪",
+        ["RestorationModInfo_body_expertise_kills_to_head_shotTitleID"] = "血花四溅（全头部分1）", --全头
+        ["RestorationModInfo_body_expertise_kills_to_head_shotDescID"] = "开启或关闭对此技能的追踪",
+        ["RestorationModInfo_body_expertise_fire_to_head_shotTitleID"] = "血花四溅（全头部分2）", --全头
+        ["RestorationModInfo_body_expertise_fire_to_head_shotDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_long_dis_reviveTitleID"] = "领袖鼓舞",
         ["RestorationModInfo_long_dis_reviveDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_messiahTitleID"] = "弥赛亚",
@@ -5945,7 +5949,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         ["st_menu_technician_auto"] = "工兵系",
         ["st_menu_technician_breaching"] = "爆破系",
         ["st_menu_technician_sentry"] = "堡垒系",
-        ["st_menu_ghost_silencer"] = "Contract Killer",
+        ["st_menu_ghost_silencer"] = "杀手系",
         ["hud_instruct_mask_on"] = "按下 $BTN_USE_ITEM 戴上面具",
         ["hud_instruct_mask_on_alpha"] = "按下 $BTN_USE_ITEM 戴上面具",
 
@@ -6351,7 +6355,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         -- Body Expertise
         ["menu_body_expertise_beta_sc"] = "血花四溅",
         ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n其余所有不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害。\n\n对于本身可以穿甲的武器，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每击杀一名敌人就增加这些武器#{skill_color}#$skill_value_p2##的伤害，最多增加#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。",
-
+        -- 全头hud
+        ["hud_buff_body_expertise_primary_weapon"] = "Pri",
+        ["hud_buff_body_expertise_secondary_weapon"] = "Sec",
         -- }
         -- }
 
@@ -7136,7 +7142,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 
     if MetroLine_BodyExpert_Convert then
         LocalizationManager:add_localized_strings({
-            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，每停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后丢失#{skill_color}#$skill_value_Metro_reset_stack##的效果。"
+            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，每停止射击#{skill_color}#$skill_value_p1##秒后丢失#{skill_color}#$skill_value_Metro_lost_damage_stack##的效果。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，每停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后丢失#{skill_color}#$skill_value_Metro_reset_stack##的效果。"
         })
     end
 

@@ -6,15 +6,10 @@
 ——警告：Beardlib 5.0版本存在已知bug，会导致调整设置时闪退，请更新到5.0.1版本及以上或暂时保留4.88版本不要更新
 
 待办事宜：
-—— 爆头非队长单位额外增加-33%的伤害的这种描述问题需要修改
 —— 新增描述文本过多，部分文本未照顾到；近战武器描述暂且使用Deepseek直译，有待后续优化
-—— 全自动步枪加强事宜待定
-—— 机枪冲锋枪t4层数修改调整
-—— 步枪标记增伤的技能点消耗调整、穿甲调整
 —— 近战反击clk踢人加强
 —— 优化“移动速度降低40%，在你射击时”这种文本
 —— 汉化，尤其是技能树汉化和敌人名字汉化
-—— 其它：美联邦的四头fbi水军，现在叫精英兵，可以翻译成精英干员
 
 
 == 以下为版本更新更新日志 ==
@@ -23,7 +18,7 @@ v10.1（未完成）
 · 修正绝地潜兵2武器AR23的捡弹量
 · 给部分轻重型步枪（大多数为AK类）添加少量穿甲
 · 现在武器页面描述会自动生成并显示所有爆头倍率或物体伤害倍率不一般的情况
-· “血花四溅”伤害加成连续射击宽限时间增长<2秒→5秒>，全头现在变为每3秒只丢一层（目前暂且如此，还没有完全调整完成）
+· “血花四溅”的伤害加成和全头效果均改为倒计时结束后丢失层数而非直接失效或重置
 · “侦察先锋”技能加强：被标记的敌人3米开外就受到15%的伤害加成，然后随着距离增加伤害加成越来越高，30米时达到最大45%加成
 · 为Piglet榴弹发射器、Arbiter榴弹发射器、Basilisk 3GL榴弹发射器、Compact 40mm榴弹发射器添加最小伤害，并加强它们的爆炸衰减
 · 调整榴弹的爆炸伤害及其衰减，弹容量少的榴弹比起弹容量多的榴弹更容易造成更高的爆炸伤害
@@ -469,6 +464,7 @@ chas.lua
 pal.lua
 
 添加的文件：
-restoration-mod/assets/guis/textures/alphawipe_test.texture
-restoration-mod/lua/others/morale_boost.lua
-restoration-mod/update/*
+restoration-mod/assets/guis/textures/alphawipe_test.texture  --用于要害防护的特效显示
+restoration-mod/lua/others/morale_boost.lua  --用于春哥吼给自己也加速
+restoration-mod/update/*  --用于更新和更新检测
+restoration-mod/assets/guis/textures/pd2/skilltree/*  --用于新改全头的buff hud显示

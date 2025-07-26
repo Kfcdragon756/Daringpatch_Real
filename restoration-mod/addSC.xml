@@ -80,7 +80,16 @@
 	<texture			path="guis/textures/pd2/skilltree/info_grinder" force="false" load="false"/>
 	<texture			path="guis/textures/pd2/skilltree/info_infiltrator" force="false" load="false"/>
 	<texture			path="guis/textures/pd2/skilltree/info_sociopath" force="false" load="false"/>
+
+	<!-- ori Body Experitise -->
 	<texture			path="guis/textures/pd2/skilltree/info_body_expertise" force="false" load="false"/>
+
+	<!-- MetroLine Body Experitise -->
+	<texture			path="guis/textures/pd2/skilltree/info_body_expertise_kills_to_head_shot_1" force="false" load="false"/>
+	<texture			path="guis/textures/pd2/skilltree/info_body_expertise_kills_to_head_shot_2" force="false" load="false"/>
+	<texture			path="guis/textures/pd2/skilltree/info_body_expertise_fire_to_head_shot_1" force="false" load="false"/>
+	<texture			path="guis/textures/pd2/skilltree/info_body_expertise_fire_to_head_shot_2" force="false" load="false"/>
+
 	<texture			path="guis/textures/pd2/skilltree/info_long_dis_revive" force="false" load="false"/> <!-- inspire -->
 	<texture			path="guis/textures/pd2/skilltree/info_messiah" force="false" load="false"/>
 	<texture			path="guis/textures/pd2/skilltree/info_overkill_damage_multiplier" force="false" load="false"/>

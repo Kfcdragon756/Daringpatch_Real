@@ -535,7 +535,13 @@
 					<option type="bool" default_value="true" name="Info_grinder"/>
 					<option type="bool" default_value="true" name="Info_infiltrator"/>
 					<option type="bool" default_value="true" name="Info_sociopath"/>
-					<option type="bool" default_value="true" name="Info_body_expertise"/>
+
+					<option type="bool" default_value="true" name="Info_body_expertise"/> <!-- ori Body Experitise -->
+					<!-- MetroLine Body Experitise -->
+					<option type="bool" default_value="true" name="Info_body_expertise_kills_to_head_shot"/>
+					<option type="bool" default_value="true" name="Info_body_expertise_fire_to_head_shot"/>
+					<!-- /MetroLine Body Experitise/ -->
+
 					<option type="bool" default_value="true" name="Info_long_dis_revive"/> <!-- inspire -->
 					<option type="bool" default_value="true" name="Info_messiah"/>
 					<option type="bool" default_value="true" name="Info_overkill_damage_multiplier"/>

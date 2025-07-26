@@ -2846,17 +2846,26 @@ function PlayerStandard:_last_shot_t(t, dt)
 	local weapon = alive(self._equipped_unit) and self._equipped_unit:base()
 	local fire_mode = weapon and weapon:fire_mode()
 	if weapon then
+		local reset_delay_t = tweak_data.upgrades.automatic_kills_to_damage_reset_t or 1
 		if self._shooting and fire_mode == "auto" then
-			local reset_delay_t = tweak_data.upgrades.automatic_kills_to_damage_reset_t or 1
 			self._last_shooting_t = reset_delay_t
 		else
 			if self._last_shooting_t then
 				self._last_shooting_t = self._last_shooting_t - dt
 				if self._last_shooting_t < 0 then
-					self._last_shooting_t = nil
-					weapon._no_cheevo_kills_without_releasing_trigger = 0
+					-- 重置时间
+					self._last_shooting_t = reset_delay_t
+
+					-- 减少伤害加成
+					local dmg_lost = tweak_data.upgrades.automatic_kills_to_damage_lost or 1  --获取倒计时结束后减少多少伤害加成
+					local after_lost_dmg = weapon._no_cheevo_kills_without_releasing_trigger - dmg_lost  --伤害被减少后
+
+					weapon._no_cheevo_kills_without_releasing_trigger = math.max(after_lost_dmg, 0)  --确保伤害不会被减成负数
+					managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
+					managers.hud:set_stacks("body_expertise", weapon._no_cheevo_kills_without_releasing_trigger)
 				end
 			end
+			-- managers.mission._fading_debug_output:script().log(tostring(weapon._no_cheevo_kills_without_releasing_trigger).." - "..tostring(id).." - "..tostring(weapon._last_shooting_t), Color.yellow)
 		end
 	end
 
@@ -2873,6 +2882,11 @@ function PlayerStandard:_last_shot_t(t, dt)
 				f_weapon_base._kths_reset_t = automatic_kills_to_head_shot_reset_t
 				f_weapon_base._fths_reset_t = automatic_fire_to_head_shot_reset_t
 			else
+				local weapon_name = {
+					managers.localization:to_upper_text("hud_buff_body_expertise_secondary_weapon"),
+					managers.localization:to_upper_text("hud_buff_body_expertise_primary_weapon")
+				}
+
 				-- 击杀给全头
 				if f_weapon_base._kths_reset_t and f_weapon_base._kills_to_head_shot_stacks then
 					f_weapon_base._kths_reset_t = f_weapon_base._kths_reset_t - dt
@@ -2885,10 +2899,21 @@ function PlayerStandard:_last_shot_t(t, dt)
 						local when_timeout_the_dmg_lost = tweak_data.upgrades.automatic_kills_to_head_shot_damage_lost or 1  --获取倒计时结束后减少多少伤害加成
 						local after_lost_dmg = f_weapon_base._kills_to_head_shot_stacks - when_timeout_the_dmg_lost  --伤害被减少后
 
-						managers.mission._fading_debug_output:script().log("after "..after_lost_dmg)
-						managers.mission._fading_debug_output:script().log("stack "..f_weapon_base._kills_to_head_shot_stacks)
-
 						f_weapon_base._kills_to_head_shot_stacks = math.max(after_lost_dmg, f_weapon_base._automatic_kills_to_head_shot_min_stacks)  --确保伤害不会被减成负数
+						
+						if restoration.Options:GetValue("HUD/INFOHUD/Info_Hud") and restoration.Options:GetValue("HUD/INFOHUD/Info_body_expertise_kills_to_head_shot") then
+							if after_lost_dmg > f_weapon_base._automatic_kills_to_head_shot_min_stacks then
+								local name = "body_expertise_kills_to_head_shot_" .. tostring(id)
+								local new_stacks = (after_lost_dmg - f_weapon_base._automatic_kills_to_head_shot_min_stacks) * 10
+
+								managers.hud._skill_list:trigger_buff(name, automatic_kills_to_head_shot_reset_t)
+								managers.hud._skill_list:set_stacks(name, new_stacks)
+
+								local show_stacks = new_stacks / (when_timeout_the_dmg_lost*10)
+
+								managers.hud._skill_list._skill_panel:child(name .. "_stacks"):set_text(tostring(show_stacks .. "\n(" .. weapon_name[id] .. ")"))
+							end
+						end
 					end
 					-- managers.mission._fading_debug_output:script().log(tostring(f_weapon_base._kills_to_head_shot_stacks).." - "..tostring(id).." - "..tostring(f_weapon_base._kths_reset_t), Color.red)
 				end
@@ -2906,6 +2931,18 @@ function PlayerStandard:_last_shot_t(t, dt)
 						local after_lost_dmg = f_weapon_base._fire_to_head_shot_stacks - when_timeout_the_dmg_lost  --伤害被减少后
 
 						f_weapon_base._fire_to_head_shot_stacks = math.max(after_lost_dmg, f_weapon_base._automatic_fire_to_head_shot_min_stacks)  --确保伤害不会被减成负数
+						
+						if restoration.Options:GetValue("HUD/INFOHUD/Info_Hud") and restoration.Options:GetValue("HUD/INFOHUD/Info_body_expertise_fire_to_head_shot") then
+							if after_lost_dmg > f_weapon_base._automatic_fire_to_head_shot_min_stacks then
+								local name = "body_expertise_fire_to_head_shot_" .. tostring(id)
+								local new_stacks = (after_lost_dmg - f_weapon_base._automatic_fire_to_head_shot_min_stacks) * 10
+
+								managers.hud._skill_list:trigger_buff(name, automatic_fire_to_head_shot_reset_t)
+								managers.hud._skill_list:set_stacks(name, new_stacks)
+
+								managers.hud._skill_list._skill_panel:child(name .. "_stacks"):set_text(tostring(new_stacks .. " - " .. weapon_name[id]))
+							end
+						end					
 					end
 					-- managers.mission._fading_debug_output:script().log(tostring(f_weapon_base._fire_to_head_shot_stacks).." - "..tostring(id).." - "..tostring(f_weapon_base._fths_reset_t), Color.green)
 				end

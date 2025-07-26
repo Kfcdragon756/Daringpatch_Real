@@ -369,6 +369,36 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 	if self:gadget_overrides_weapon_functions() then
 		return self:gadget_function_override("_fire_raycast", self, user_unit, from_pos, direction, dmg_mul, shoot_player, spread_mul, autohit_mul, suppr_mul)
 	end
+
+	local function set_available_selections_dmg_hud(name, reset_t, stacks_name, min_stacks_name)
+		if restoration.Options:GetValue("HUD/INFOHUD/Info_Hud") and restoration.Options:GetValue("HUD/INFOHUD/Info_" .. name) then
+			local player_unit = managers.player:player_unit()
+			local weapon_name = {
+				managers.localization:to_upper_text("hud_buff_body_expertise_secondary_weapon"),
+				managers.localization:to_upper_text("hud_buff_body_expertise_primary_weapon")
+			}
+
+			for id, f_weapon in pairs(player_unit:inventory():available_selections()) do
+				local f_weapon_base = f_weapon.unit:base()
+				local stacks = f_weapon_base[stacks_name]
+				local min_stacks = f_weapon_base[min_stacks_name]
+				if f_weapon.unit == self._unit and stacks then
+					local buff_name = name .. "_" .. tostring(id)
+					
+					if stacks > min_stacks then
+						local new_stacks = (stacks - min_stacks) * 10
+						managers.hud._skill_list:trigger_buff(buff_name, reset_t)
+						managers.hud._skill_list:set_stacks(  buff_name, new_stacks)
+						local show_stacks = new_stacks / (tweak_data.upgrades.automatic_kills_to_head_shot_damage_lost*10)
+						managers.hud._skill_list._skill_panel:child(buff_name .. "_stacks"):set_text(tostring(show_stacks .. "\n(" .. weapon_name[id] .. ")"))
+					else
+						managers.hud._skill_list:destroy(buff_name)
+					end
+				end
+			end
+		end
+	end
+
 	local result = {}
 	local ray_distance = self:weapon_range()
 	local spread_x, spread_y = self:_get_spread(user_unit)
@@ -447,8 +477,13 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 	local damage = self:_get_current_damage(dmg_mul)
 	local is_hit = false
 	
-	if self:fire_mode() == "auto" and self._no_cheevo_kills_without_releasing_trigger > 0 then
-		managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
+	if self:fire_mode() == "auto" then
+		if self._no_cheevo_kills_without_releasing_trigger > 0 then
+			managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
+			managers.hud:set_stacks("body_expertise", self._no_cheevo_kills_without_releasing_trigger)
+		end
+
+		set_available_selections_dmg_hud("body_expertise_kills_to_head_shot", tweak_data.upgrades.automatic_kills_to_head_shot_reset_t, "_kills_to_head_shot_stacks", "_automatic_kills_to_head_shot_min_stacks")
 	end
 
 	for _, hit in ipairs(ray_hits) do
@@ -509,7 +544,8 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 					if track_body_expert then
 						self._no_cheevo_kills_without_releasing_trigger = math.min(self._no_cheevo_kills_without_releasing_trigger + 1, self._automatic_kills_to_damage_max_stacks)
 						managers.hud:start_buff("body_expertise", (tweak_data.upgrades.automatic_kills_to_damage_reset_t or 0))
-						managers.hud:set_stacks("body_expertise", (stacks == 0 and 1) or math.min(stacks + 1, self._automatic_kills_to_damage_max_stacks))
+						managers.hud:set_stacks("body_expertise", self._no_cheevo_kills_without_releasing_trigger)
+						-- managers.hud:set_stacks("body_expertise", (stacks == 0 and 1) or math.min(stacks + 1, self._automatic_kills_to_damage_max_stacks))
 					end
 
 					self:_check_kill_achievements(cop_kill_count, unit_base, unit_type, is_civilian, hit_through_wall, hit_through_shield)
@@ -519,7 +555,9 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 				if self._kills_to_head_shot_stacks then
 					if self:fire_mode() == "auto" and hit_result.type == "death" then
 						self._kills_to_head_shot_stacks = self._kills_to_head_shot_stacks + self._automatic_kills_to_head_shot_dmg_mult
-						self._kills_to_head_shot_stacks = math.min(self._kills_to_head_shot_stacks, self._automatic_kills_to_head_shot_max_stacks) 
+						self._kills_to_head_shot_stacks = math.min(self._kills_to_head_shot_stacks, self._automatic_kills_to_head_shot_max_stacks)
+						
+						set_available_selections_dmg_hud("body_expertise_kills_to_head_shot", tweak_data.upgrades.automatic_kills_to_head_shot_reset_t, "_kills_to_head_shot_stacks", "_automatic_kills_to_head_shot_min_stacks")
 					end
 				end
 				is_hit = true
@@ -536,6 +574,8 @@ function RaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_mul
 				self._fire_to_head_shot_stacks = self._fire_to_head_shot_stacks - self._automatic_fire_to_head_shot_punishment
 				self._fire_to_head_shot_stacks = math.max(self._fire_to_head_shot_stacks, self._automatic_fire_to_head_shot_min_stacks) 			
 			end
+
+			set_available_selections_dmg_hud("body_expertise_fire_to_head_shot", tweak_data.upgrades.automatic_fire_to_head_shot_reset_t, "_fire_to_head_shot_stacks", "_automatic_fire_to_head_shot_min_stacks")
 		end
 	end
 		self:_check_tango_achievements(cop_kill_count)

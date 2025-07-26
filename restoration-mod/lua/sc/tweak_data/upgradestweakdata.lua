@@ -994,11 +994,12 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Body Expertise aka Spray N' Pray --人体解构 此处修改，不跟进更新
 				self.values.player.ap_bullets = {0.5}
 				self.values.smg.ap_bullets = {1.0}
-				self.automatic_kills_to_damage_reset_t = 6 --delay to reset time (seconds)  --此处修改，原2
+				self.automatic_kills_to_damage_reset_t = 5 --delay to reset time (seconds)  --此处修改，原2
+				self.automatic_kills_to_damage_lost = 1 --when timeout the damage lost
 				self.values.smg.automatic_kills_to_damage = {
 					{
-						3, --stack limit
-						0.2 --dmg mult add
+						6, --stack limit
+						0.1 --dmg mult add
 					}
 				}
 
@@ -1021,17 +1022,17 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				}
 
 				--Metroline全头加回
-				self.automatic_kills_to_head_shot_reset_t = 3 --delay to reset time (seconds)
-				self.automatic_kills_to_head_shot_damage_lost = 0.1
+				self.automatic_kills_to_head_shot_reset_t = 3  --delay to reset time (seconds)
+				self.automatic_kills_to_head_shot_damage_lost = 0.05  --这个表示10% --when timeout the damage lost
 				self.values.smg.automatic_kills_to_head_shot = {
 					{
 						0.7,  --最高
 						0.4,  --最低
-						0.1  --每击杀一名敌人+
+						0.05  --每击杀一名敌人+
 					}
 				}
-				self.automatic_fire_to_head_shot_reset_t = 3 --delay to reset time (seconds)
-				self.automatic_fire_to_head_shot_damage_lost = 0.1
+				self.automatic_fire_to_head_shot_reset_t = 3  --delay to reset time (seconds)
+				self.automatic_fire_to_head_shot_damage_lost = 0.1  --这个表示10% --when timeout the damage lost
 				self.values.smg.automatic_fire_to_head_shot = {
 					{
 						0.8,  --最高
@@ -1043,11 +1044,12 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				if MetroLine_BodyExpert_Convert then
 					self.values.player.ap_bullets = {0.5}
 					self.values.smg.ap_bullets = {1.0}
-					self.automatic_kills_to_damage_reset_t = 5 --delay to reset time (seconds)
+					self.automatic_kills_to_damage_reset_t = 3  --delay to reset time (seconds)
+					self.automatic_kills_to_damage_lost = 1  --这个是层数 --when timeout the damage lost
 					self.values.smg.automatic_kills_to_damage = {
 						{
-							3, --stack limit
-							0.1--16667 --dmg mult add
+							6,  --stack limit
+							0.05  --原16667 --dmg mult add
 						}
 					}
 					self.skill_descs.single_shot_ammo_return = {
@@ -1056,6 +1058,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
 						skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
 						skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1]), -- Amount of stacks
+						skill_value_Metro_lost_damage_stack = tostring((self.automatic_kills_to_damage_lost) * (self.values.smg.automatic_kills_to_damage[1][2]) * 100).."%",
 						skill_value_Metro_base_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][2] * 100).."%",
 						skill_value_Metro_damage_increased = tostring(self.values.smg.automatic_kills_to_head_shot[1][3] * 100).."%",
 						skill_value_Metro_max_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][1] * 100).."%",
@@ -2215,6 +2218,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			skill_value_p1 = tostring(self.automatic_kills_to_damage_reset_t), -- delay to reset time for keeping buff active
 			skill_value_p2 = tostring(self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- Damage increase per stack
 			skill_value_p3 = tostring(self.values.smg.automatic_kills_to_damage[1][1] * self.values.smg.automatic_kills_to_damage[1][2] * 100).."%", -- ori Amount of stacks
+			skill_value_Metro_lost_damage_stack = tostring((self.automatic_kills_to_damage_lost) * (self.values.smg.automatic_kills_to_damage[1][2]) * 100).."%",
 			skill_value_Metro_base_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][2] * 100).."%",
 			skill_value_Metro_damage_increased = tostring(self.values.smg.automatic_kills_to_head_shot[1][3] * 100).."%",
 			skill_value_Metro_max_damage = tostring(self.values.smg.automatic_kills_to_head_shot[1][1] * 100).."%",
