@@ -16047,6 +16047,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			
 				if self.spike then --Gambyt's Spike Rifle
 					self.spike.warsaw = true
+					self.spike.newline_num = 1
 					self.spike.recategorize = { "heavy_ar" }
 					self.spike.is_bullpup = true
 					self.spike.has_description = false						
