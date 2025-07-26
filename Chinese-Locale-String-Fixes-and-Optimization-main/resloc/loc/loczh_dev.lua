@@ -2066,7 +2066,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_flint_sc_desc"] = "经典AK的现代理解版。因其强力的二连发速射模式一度被怀疑其ak身份。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- AK 5.45
         ["bm_w_ak74"] = "AK 5.45步枪",
-        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- CR 805
         ["bm_menu_sc_hajk_desc"] = "经典眼镜蛇枪管的枪中更年轻，现代化的小侄子。这一款有着更多开火模式，甚至有更多弹种选择...可没说你能得到这些。",
         -- CUSTOM 48 DAMAGE ARs

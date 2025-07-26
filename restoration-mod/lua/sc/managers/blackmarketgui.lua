@@ -5112,13 +5112,13 @@ function BlackMarketGui:update_info_text()
 
 				local newline = ((weapon_tweak and weapon_tweak.newline_num) and string.rep("\n", weapon_tweak.newline_num)) or ((not obj_mult_added and not hs_mult_added) and "\n\n") or "\n"
 				local piercing_desc = (only_th_armor and managers.localization:text("bm_daring_ap_desc_2")) or 
-                      (managers.localization:text("bm_daring_ap_desc_3") .. 
-                       ((th_shield_and_wall_and_enemy and "可##穿透盾牌、敌人和薄墙壁##。") or 
-                        (th_shield_and_enemy and "可##穿透盾牌和敌人##。") or 
-                        (th_shield_and_wall and "可##穿透盾牌和薄墙壁##。") or 
-                        (th_shield and "可##穿透盾牌##。") or 
-                        (th_wall and "可##穿透薄墙壁##。") or 
-                        (th_enemy and "可##穿透敌人##。")))
+										managers.localization:text("bm_daring_ap_desc_3") ..
+										(th_shield_and_wall_and_enemy and "可##穿透盾牌、敌人和薄墙壁##。" or
+										th_shield_and_enemy and "可##穿透盾牌和敌人##。" or
+										th_shield_and_wall and "可##穿透盾牌和薄墙壁##。" or
+										th_shield and "可##穿透盾牌##。" or
+										th_wall and "可##穿透薄墙壁##。" or
+										th_enemy and "可##穿透敌人##。" or "")
 
 				local real_ap_chance = string.format("%d%%", math.round(ap_chance*100))
 				--log("check ap_chance "..tostring(weapon_tweak.armor_piercing_chance))
