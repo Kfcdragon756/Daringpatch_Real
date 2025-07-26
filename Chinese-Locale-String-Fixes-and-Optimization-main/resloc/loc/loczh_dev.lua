@@ -2459,7 +2459,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         --["bm_daring_ap_desc_1"] = "可穿透护甲造成",
         ["bm_daring_ap_desc_2"] = "的伤害。",
         ["bm_daring_ap_desc_3"] = "的伤害并",
-        ["bm_ap25_armor_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#125%##的伤害。",
+        ["bm_ap25_armor_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
         ["bm_ap_armor_20_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",  --abandoned
         ["bm_ap_armor_25_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
         ["bm_ap_armor_50_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",  --tra fix?
