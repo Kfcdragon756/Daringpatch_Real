@@ -652,7 +652,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
 
 		if HD2OffensiveRedTrail then
-			HD2OffensiveRedTrail:spawn(table_get_from_data)
+			--HD2OffensiveRedTrail:spawn(table_get_from_data)  --没有执行的必要
 		elseif HD2OffensiveRedTrail_res then
 			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
 		else
