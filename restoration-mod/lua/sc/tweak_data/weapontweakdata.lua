@@ -10724,6 +10724,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--Commando 553
 						self.s552.desc_id = "bm_s552_sc_desc"
+						self.s552.has_daring_ap_desc = true  --此处添加
+						self.s552.armor_piercing_chance = 0.15  --此处添加
 						self.s552.has_description = true					
 						self.s552.fire_mode_data.fire_rate = 0.08571428571
 						self.s552.auto.fire_rate = 0.08571428571
@@ -11102,6 +11104,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							reload = 20
 						}
 						self.flint.stats_modifiers = nil
+						self.flint.hs_mult = 0.85 --此处添加
 						self.flint.panic_suppression_chance = 0.05
 						self.flint.timers.reload_empty = 3.01
 						self.flint.timers.reload_exit_empty = 0.94
@@ -11143,6 +11146,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							reload = 20
 						}
 						self.ak74.stats_modifiers = nil
+						self.ak74.hs_mult = 0.85  --此处添加
 						self.ak74.panic_suppression_chance = 0.05
 						self.ak74.reload_speed_multiplier = 1.2
 						self.ak74.timers.reload_empty = 3.67
@@ -11541,6 +11545,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.akm.timers.reload_exit_not_empty = 0.95
 						--Gold AK
 						self.akm_gold.bmp = 1000
+						self.akm_gold.armor_piercing_chance = 0.25  --此处添加
+						self.akm_gold.has_daring_ap_desc = true  --此处添加
 						self.akm_gold.desc_id = "bm_akm_gold_sc_desc"
 						self.akm_gold.has_description = true
 						self.akm_gold.kick = self.stat_info.kick_tables.moderate_right_kick
@@ -27349,7 +27355,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			end
 
 			-- 给一些步枪上穿甲
-			local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akm_gold, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.ak12--[[这个不是原版就存在的ak17，那个是flint]], self.ak5, self.ak5s, self.x_ak5s, self.tilt}
+			local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.flint, self.ak12--[[这个不是原版就存在的ak17，那个是flint]], self.ak5, self.ak5s, self.x_ak5s, self.tilt}
 			--local is_m4_all = {}
 
 			for _,v in ipairs(is_ak_all) do
