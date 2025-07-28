@@ -10965,6 +10965,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.ak5.armor_piercing_chance = 0.15 --此处添加
+						self.ak5.has_daring_ap_desc = true --此处添加
 						self.ak5.stats_modifiers = nil
 						self.ak5.timers.reload_empty = 3
 						self.ak5.timers.reload_exit_empty = 1.00
@@ -11103,6 +11105,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 4,
 							reload = 20
 						}
+						self.flint.armor_piercing_chance = 0.15 --此处添加
+						self.flint.has_daring_ap_desc = true --此处添加
 						self.flint.stats_modifiers = nil
 						self.flint.hs_mult = 0.85 --此处添加
 						self.flint.panic_suppression_chance = 0.05
@@ -11145,6 +11149,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.ak74.armor_piercing_chance = 0.15
+						self.ak74.has_daring_ap_desc = true
 						self.ak74.stats_modifiers = nil
 						self.ak74.hs_mult = 0.85  --此处添加
 						self.ak74.panic_suppression_chance = 0.05
@@ -11536,6 +11542,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.akm.armor_piercing_chance = 0.15 --此处添加
+						self.akm.has_daring_ap_desc = true --此处添加
 						self.akm.stats_modifiers = nil
 						self.akm.panic_suppression_chance = 0.05
 						self.akm.reload_speed_multiplier = 1.17
@@ -11631,6 +11639,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.groza.armor_piercing_chance = 0.15 --此处添加
+						self.groza.has_daring_ap_desc = true --此处添加
 						self.groza.stats_modifiers = nil
 						self.groza.reload_speed_multiplier = 1
 						if SystemFS:exists("assets/mod_overrides/Groza Animation Overhaul") then
@@ -11795,6 +11805,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.akmsu.armor_piercing_chance = 0.15 --此处添加
+						self.akmsu.has_daring_ap_desc = true --此处添加
 						self.akmsu.stats_modifiers = nil
 						self.akmsu.timers.reload_empty = 3.2
 						self.akmsu.timers.reload_exit_empty = 1.25
@@ -11847,6 +11859,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
+						self.x_akmsu.armor_piercing_chance = 0.15 --此处添加
+						self.x_akmsu.has_daring_ap_desc = true --此处添加
 						self.x_akmsu.stats_modifiers = nil
 						self.x_akmsu.reload_speed_multiplier = 0.7
 						self.x_akmsu.timers.reload_not_empty = 2.1
@@ -16089,6 +16103,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
+					self.spike.armor_piercing_chance = 0.15 --此处添加
+					self.spike.has_daring_ap_desc = true --此处添加
 					self.spike.stats_modifiers = nil
 					self.spike.rays = nil
 					self.spike.reload_speed_multiplier = 0.8
@@ -16467,6 +16483,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 1,
 					reload = 20
 				}
+				self.tilt.armor_piercing_chance = 0.15
+				self.tilt.has_daring_ap_desc = true
 				self.tilt.stats_modifiers = nil
 				self.tilt.object_damage_mult = 0.85
                 self.tilt.hs_mult = 0.85
@@ -18303,6 +18321,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 4,
 					reload = 20
 				}
+				self.ak12.armor_piercing_chance = 0.15 --此处添加
+				self.ak12.has_daring_ap_desc = true --此处添加
 				self.ak12.stats_modifiers = nil
 				self.ak12.panic_suppression_chance = 0.05
 				self.ak12.ignore_reload_objects = true --ignores the object hiding flag set via weaponbase in favor of playerstandard's
@@ -22686,6 +22706,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
+					self.akilo_2022.armor_piercing_chance = 0.15 --此处添加
+					self.akilo_2022.has_daring_ap_desc = true --此处添加
 					self.akilo_2022.stats_modifiers = nil
 					self.akilo_2022.reload_speed_multiplier = 1.45
 					self.akilo_2022.timers.reload_exit_empty = 0.8
@@ -22734,6 +22756,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
+					self.akilo105_2022.armor_piercing_chance = 0.15 --此处添加
+					self.akilo105_2022.has_daring_ap_desc = true --此处添加
 					self.akilo105_2022.stats_modifiers = nil
 					self.akilo105_2022.reload_speed_multiplier = 1.72
 					self.akilo105_2022.timers.reload_exit_empty = 0.8
@@ -23703,6 +23727,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					end_dist = 4800,
 					min_mult = 0.6
 				}
+				self.ar47.armor_piercing_chance = 0.15 --此处添加
+				self.ar47.has_daring_ap_desc = true --此处添加
 				self.ar47.stats = {
 					damage = 30,
 					spread = 77,
@@ -27354,8 +27380,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				end
 			end
 
-			-- 给一些步枪上穿甲
-			local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.flint, self.ak12--[[这个不是原版就存在的ak17，那个是flint]], self.ak5, self.ak5s, self.x_ak5s, self.tilt}
+			-- 给一些步枪上穿甲 --这套代码在某些电脑上好像不是很有用...所以还是以单独添加代替了。
+			--[[local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.flint, self.ak12, self.ak5, self.ak5s, self.x_ak5s, self.tilt} --ak17的id实际上是flint...
 			--local is_m4_all = {}
 
 			for _,v in ipairs(is_ak_all) do
@@ -27366,7 +27392,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					end
 					v.has_daring_ap_desc = true
 				end
-			end
+			end]]
 
 			if self.x_chinchilla then
 				self.x_chinchilla.AMMO_PICKUP = {self.x_chinchilla.AMMO_PICKUP[1] + 0.0050, self.x_chinchilla.AMMO_PICKUP[2] + 0.0054}
