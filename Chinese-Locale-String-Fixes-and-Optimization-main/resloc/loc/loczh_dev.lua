@@ -4,6 +4,7 @@ Day = os.date("%d")
 --rebalance part
 local MetroLine_BodyExpert_Convert = restoration and restoration.Options:GetValue("OTHER/MetroLineBodyExpertConvert")
 local Daring_Target_Enable = restoration and restoration.Options:GetValue("OTHER/DaringTagetingChange")
+local Counter_Strike_Revert = restoration and restoration.Options:GetValue("OTHER/CounterStrikeRevert")
 local ViNight_PECM = restoration and restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 
 local weapon_names = restoration and restoration.Options:GetValue("OTHER/WepNames") or 1
@@ -239,6 +240,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
         ["MetroLine_BodyExpert_Convert_desc"] = "给冲锋枪四阶的精通加回全头技能效果。\n由MetroLine支持。",
+		["Counter_Strike_Revert"] = "近战反击回调",
+		["Counter_Strike_Revert_desc"] = "回调近战反击的效果分配，节省你宝贵的技能点。\n由肯德基龙756支持。",
         ["ViNight_Weird_PECM"] = "完美PPECM",
         ["ViNight_Weird_PECM_desc"] = "一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
         ["RestorationModGCGPYPMMSACTitleID"] = "禁用星战武器", -- may need improved
@@ -6733,7 +6736,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         end
         if butt <= frame then
             LocalizationManager:add_localized_strings({
-                ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的肘击##了。\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+                ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的#{risk}#RIDER-KICK##并将其击倒。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的肘击##了。\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK#和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
                 ["bm_wskn_famas_hypno"] = "巴适之鹰",
                 ["menu_st_spec_23"] = "瑞典蠢驴",
                 ["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
@@ -7144,6 +7147,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         LocalizationManager:add_localized_strings({
             ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，每停止射击#{skill_color}#$skill_value_p1##秒后丢失#{skill_color}#$skill_value_Metro_lost_damage_stack##的效果。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，每停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后丢失#{skill_color}#$skill_value_Metro_reset_stack##的效果。"
         })
+    end
+	
+	if Counter_Strike_Revert then --近战反击，以及它的彩蛋文本...
+	
+		LocalizationManager:add_localized_strings({
+			["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击幻影特工的飞踢与冲刺踢并将其击倒，且可以反击盾兵的盾击##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：泰坦盾和冬队盾的盾击无法被反击##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+		})
+	
+		if not easterless then
+			local butt = math.rand(1)
+			local frame = 0.01
+			if Month == "4" and Day == "1" then
+				frame = 1
+			end
+			if butt <= frame then
+				LocalizationManager:add_localized_strings({
+					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击幻影特工的#{rick}#RIDER-KICK##与冲刺踢并将其击倒，且可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+				})
+			end
+		end
+		
     end
 
     --[[if ViNight_PECM then --我相信恢复的新代码会让这些数据自动填上去...

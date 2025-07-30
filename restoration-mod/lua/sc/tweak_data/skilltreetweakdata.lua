@@ -12,6 +12,7 @@ before dismissing it. I promise you it's still fun and in fact, you may find tha
 local sc_sttd = SkillTreeTweakData.init
 local per_pellet = true --restoration and restoration.Options:GetValue("OTHER/WeaponHandling/PerPelletShotguns") 
 local MetroLine_BodyExpert_Convert = restoration.Options:GetValue("OTHER/MetroLineBodyExpertConvert")
+local Counter_Strike_Revert = restoration.Options:GetValue("OTHER/CounterStrikeRevert")
 function SkillTreeTweakData:init(tweak_data)
 	sc_sttd(self, tweak_data)
 
@@ -1918,6 +1919,29 @@ function SkillTreeTweakData:init(tweak_data)
 					cost = self.costs.hightierpro
 				}
 			}
+
+			if Counter_Strike_Revert then  --近战反击恢复
+				self.skills.bloodthirst = {
+				["name_id"] = "menu_drop_soap_beta_sc",
+				["desc_id"] = "menu_drop_soap_beta_desc_sc",
+				["icon_xy"] = {4, 12},
+				[1] = {
+					upgrades = {
+						"player_counter_strike_spooc_sprint",
+						"player_counter_strike_spooc",
+						"player_spooc_damage_resist_1"						
+					},		
+					cost = self.costs.hightier
+				},
+				[2] = {
+					upgrades = {
+						"player_deflect_ranged",
+						"player_spooc_damage_resist_2"
+					},
+					cost = self.costs.hightierpro
+				}
+			}
+			end
 
 			--Pumping Iron--
 			self.skills.steroids = {

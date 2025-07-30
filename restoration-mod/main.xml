@@ -643,6 +643,9 @@
 				<option type="bool" default_value="false" 
 					title_id="ViNight_Weird_PECM" desc_id="ViNight_Weird_PECM_desc" name="ViNightWeirdPECM" 
 				/>
+				<option type="bool" default_value="true" 
+					title_id="Counter_Strike_Revert" desc_id="Counter_Strike_Revert_desc" name="CounterStrikeRevert" 
+				/>
 				<divider name="tod_divider" size="15"/>
 				<option type="multichoice" default_value="1" name="WepNames" values_tbl="restoration.wepnames"/>
 				<option type="bool" default_value="false" name="GCGPYPMMSACText"/>
