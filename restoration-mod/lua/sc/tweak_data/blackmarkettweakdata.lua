@@ -4747,7 +4747,9 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.fight.stats.charge_time = 0.9
 		self.melee_weapons.fight.stats.range = 160
 		self.melee_weapons.fight.stats.concealment = 30
-		self.melee_weapons.fight.counter_damage = 12
+		self.melee_weapons.fight.counter_damage = 24 --原本为12，此处修改
+		self.melee_weapons.fight.counter_aoe = true
+		self.melee_weapons.fight.aoe_damage = 10
 		--Ding Ding--
 		self.melee_weapons.boxing_gloves.info_id = "bm_melee_boxing_gloves_info"
 		self.melee_weapons.boxing_gloves.stats.cleave = 1

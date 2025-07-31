@@ -4037,3 +4037,19 @@ function CopDamage.MAD_3_ACHIEVEMENT(attack_data)
 		managers.job:set_memory("mad_3", false)
 	end
 end
+
+function CopDamage:knockdown_melee(aoe_damage) --空手道用的
+    local attack_data = {
+        damage = aoe_damage,  -- 伤害
+        damage_effect = 360,  -- 推动力
+        attacker_unit = managers.player:player_unit(),
+        attack_dir = Vector3(0, 1, 0),  -- 攻击方向
+        variant = "melee",
+        col_ray = {
+ 			position = self._unit:position(),
+			body = self._unit:body("body")
+        }
+    }
+
+	self:damage_melee(attack_data)
+end
