@@ -680,7 +680,6 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 				blt.xaudio.setup()
 				local source =  XAudio.UnitSource:new(unit_play, XAudio.Buffer:new(ogg_path))
 				source:set_volume(Volume_Sync)
-				LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
 			end
 		end
 	end
