@@ -6810,7 +6810,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_deck5_1_desc_sc"] = "使用非近战武器击杀一名敌人将为你储存#{skill_color}#$perk_value_1##点血量，储存血量的上限为#{risk}#$perk_value_2##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒#{important_1}#$perk_value_3##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有#{risk}#$perk_value_4##点临时虚血。",
         ["menu_deck5_3_desc_sc"] = "你的护甲恢复后，闪避条将会增加闪避点数的##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
         ["menu_deck5_5_desc_sc"] = "你每次杀敌的存血量及其上限都提高##$perk_value_1##。\n\n你初始携带的尸体袋数量增加##$perk_value_2##。",
-        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##$perk_value_1##的临时虚血。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##$perk_value_1##点临时虚血。\n\n你的闪避点数额外增加##$perk_value_2##。",
         ["menu_deck5_9_desc_sc"] = "当你有临时虚血时，你受到的对##血量##的伤害减少##$perk_value_1##且你的移动速度额外增加##$perk_value_2##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有##$perk_value_3##的血量减伤分数。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Muscle
