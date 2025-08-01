@@ -480,3 +480,4 @@ restoration-mod/assets/guis/textures/alphawipe_test.texture  --用于要害防�
 restoration-mod/lua/others/morale_boost.lua  --用于春哥吼给自己也加速
 restoration-mod/update/*  --用于更新和更新检测
 restoration-mod/assets/guis/textures/pd2/skilltree/*  --用于新改全头的buff hud显示
+restoration-mod/assets/oggs/haojing/szyf.ogg  --用于让邪恶绳之以法
