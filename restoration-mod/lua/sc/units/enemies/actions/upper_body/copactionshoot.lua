@@ -1600,12 +1600,34 @@ function CopActionShoot:anim_clbk_melee_strike()
 
 					--绳之以法！
 					if melee_tweak.counter_aoe then
+
+						-- AOE计算部分
 						local player_pos = managers.player:player_unit():position()
-						local enemies = World:find_units_quick("sphere", player_pos, 2000, managers.slot:get_mask("trip_mine_targets"))
+						local enemies = World:find_units_quick("sphere", player_pos, melee_tweak.aoe_range or 1500, managers.slot:get_mask("trip_mine_targets"))
 						local aoe_damage = melee_tweak.aoe_damage
 						for _, unit in ipairs(enemies) do
 							unit:character_damage():knockdown_melee(aoe_damage)
 						end
+
+						-- 昊京播放部分
+						local HaoJing_Enable = restoration and restoration.Options:GetValue("OTHER/HaoJing/DaringHaoJingEnable")
+						local Volume_Self = restoration and restoration.Options:GetValue("OTHER/HaoJing/SelfHaoJingVolume")
+
+						if HaoJing_Enable then
+							if melee_tweak.aoe_play_haojing then
+								local ogg_path
+								if SC and SC._path then
+									ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+								end
+								if ogg_path then
+									blt.xaudio.setup()
+									local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
+									source:set_volume(Volume_Self)
+									LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
+								end
+							end
+						end
+
 					end
 
 					counter_data.damage = melee_tweak.counter_damage * managers.player:get_melee_dmg_multiplier() * dmg_multiplier

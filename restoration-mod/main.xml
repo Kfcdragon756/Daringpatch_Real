@@ -634,18 +634,32 @@
 				<option type="bool" default_value="false" name="GOTTAGETAGRIP"/>
 				<option type="bool" default_value="false" name="GCGPYPMMSAC"/>
 				<divider name="tod_divider" size="15"/>
+
+				<!--Daring: our new stuffs start from here-->
+				<option_group name="HaoJing">
+					<option type="bool" default_value="false" 
+						title_id="Daring_HaoJing_Enable" desc_id="Daring_HaoJing_Enable_desc" name="DaringHaoJingEnable" 
+					/>
+					<option type="bool" default_value="true" 
+						title_id="Daring_HaoJing_Sync" desc_id="Daring_HaoJing_Sync_desc" name="DaringHaoJingSync" 
+					/>
+					<option type="number" default_value="0.4" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSelfHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSelfHaoJingVolumeOptionsButtonDescID" name="SelfHaoJingVolume"/>
+					<option type="number" default_value="0.3" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSyncHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSyncHaoJingVolumeOptionsButtonDescID" name="SyncHaoJingVolume"/>
+				</option_group>
 				<option type="bool" default_value="true" 
 					title_id="Daring_Tageting_Change" desc_id="Daring_Tageting_Change_desc" name="DaringTagetingChange" 
 				/>
 				<option type="bool" default_value="true" 
 					title_id="MetroLine_BodyExpert_Convert" desc_id="MetroLine_BodyExpert_Convert_desc" name="MetroLineBodyExpertConvert" 
 				/>
-				<option type="bool" default_value="false" 
-					title_id="ViNight_Weird_PECM" desc_id="ViNight_Weird_PECM_desc" name="ViNightWeirdPECM" 
-				/>
 				<option type="bool" default_value="true" 
 					title_id="Counter_Strike_Revert" desc_id="Counter_Strike_Revert_desc" name="CounterStrikeRevert" 
 				/>
+				<option type="bool" default_value="false" 
+					title_id="ViNight_Weird_PECM" desc_id="ViNight_Weird_PECM_desc" name="ViNightWeirdPECM" 
+				/>
+				<!--Daring: our new stuffs end here-->
+
 				<divider name="tod_divider" size="15"/>
 				<option type="multichoice" default_value="1" name="WepNames" values_tbl="restoration.wepnames"/>
 				<option type="bool" default_value="false" name="GCGPYPMMSACText"/>

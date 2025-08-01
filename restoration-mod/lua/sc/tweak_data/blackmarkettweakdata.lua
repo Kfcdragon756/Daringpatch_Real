@@ -4750,6 +4750,8 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.fight.counter_damage = 24 --原本为12，此处修改
 		self.melee_weapons.fight.counter_aoe = true
 		self.melee_weapons.fight.aoe_damage = 10
+		self.melee_weapons.fight.aoe_range = 1500
+		self.melee_weapons.fight.aoe_play_haojing = true
 		--Ding Ding--
 		self.melee_weapons.boxing_gloves.info_id = "bm_melee_boxing_gloves_info"
 		self.melee_weapons.boxing_gloves.stats.cleave = 1
@@ -5430,7 +5432,10 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.twins.stats.charge_time = 1.15
 		self.melee_weapons.twins.stats.range = 170
 		self.melee_weapons.twins.stats.concealment = 28
-		self.melee_weapons.twins.counter_damage = 6
+		self.melee_weapons.twins.counter_damage = 12  --原为6，此处修改
+		self.melee_weapons.twins.counter_aoe = true  --此处添加aoe反击伤害
+		self.melee_weapons.twins.aoe_damage = 6
+		self.melee_weapons.twins.aoe_range = 1000
 
 
 		--memed hard enough into the game--
@@ -6163,7 +6168,10 @@ Hooks:PostHook(BlackMarketTweakData, "init", "CustomMelee", function(self, tweak
 	self.melee_weapons.zweihander.stats.charge_bonus_range = 50
 	self.melee_weapons.zweihander.stats.concealment = 25
 	self.melee_weapons.zweihander.stats.speed_mult = 0.77
-	self.melee_weapons.zweihander.counter_damage = 18
+	self.melee_weapons.zweihander.counter_damage = 36  --原本为18，此处修改
+	self.melee_weapons.zweihander.counter_aoe = true  --此处添加aoe反击伤害
+	self.melee_weapons.zweihander.aoe_damage = 20
+	self.melee_weapons.zweihander.aoe_range = 2500
 
 	self.melee_weapons.broad.anim_attack_charged_vars = nil
 	self.melee_weapons.broad.anim_attack_charged_left_vars = nil

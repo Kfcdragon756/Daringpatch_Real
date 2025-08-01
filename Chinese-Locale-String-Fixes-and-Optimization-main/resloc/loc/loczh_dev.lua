@@ -18,6 +18,22 @@ local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMS
 -- ResMod english.json
 Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", function(loc)
     LocalizationManager:add_localized_strings({
+        --添加的设置文本--
+            --Hao Jing
+            ["RestorationModHaoJingOptionsButtonTitleID"] = "空手道昊京音效设置",
+            ["RestorationModHaoJingOptionsButtonDescID"] = "空手道反击触发时会播放昊京的“任何邪恶终将绳之以法”音效的设置调整。",
+            ["RestorationModSelfHaoJingVolumeOptionsButtonTitleID"] = "播放音量（自身）",
+            ["RestorationModSelfHaoJingVolumeOptionsButtonDescID"] = "自身触发反击时播放音效的音量调整。",
+            ["RestorationModSyncHaoJingVolumeOptionsButtonTitleID"] = "播放音量（别人）",
+            ["RestorationModSyncHaoJingVolumeOptionsButtonDescID"] = "其他玩家触发反击时播放音效的音量调整。",
+            ["Daring_HaoJing_Enable"] = "对自己启用",
+            ["Daring_HaoJing_Enable_desc"] = "勾选以在自己触发反击时播放音效。",
+            ["Daring_HaoJing_Sync"] = "启用玩家同步",
+            ["Daring_HaoJing_Sync_desc"] = "勾选以在其他玩家触发反击时于他们的位置播放音效。",
+            --肯德基龙的近战反击回调
+            ["Counter_Strike_Revert"] = "近战反击回调",
+		    ["Counter_Strike_Revert_desc"] = "回调近战反击的效果分配，节省你宝贵的技能点。\n由肯德基龙756支持。",
+
         --Advanced Movement Stuff
         ["advmov_dashcontrols"] = "侧闪设置",
         ["advmov_dashcontrols_1"] = "禁用侧闪",
@@ -240,10 +256,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
         ["MetroLine_BodyExpert_Convert_desc"] = "给冲锋枪四阶的精通加回全头技能效果。\n由MetroLine支持。",
-		["Counter_Strike_Revert"] = "近战反击回调",
-		["Counter_Strike_Revert_desc"] = "回调近战反击的效果分配，节省你宝贵的技能点。\n由肯德基龙756支持。",
         ["ViNight_Weird_PECM"] = "完美PPECM",
-        ["ViNight_Weird_PECM_desc"] = "一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
+        ["ViNight_Weird_PECM_desc"] = "多人游戏不建议使用。一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
         ["RestorationModGCGPYPMMSACTitleID"] = "禁用星战武器", -- may need improved
         ["RestorationModGCGPYPMMSACDescID"] = "关闭来自遥远银河系的武器配件及其机制。\n重启劫案生效。", -- may need improved
         ["RestorationModGCGPYPMMSACTextTitleID"] = "禁用彩蛋文本",
@@ -1186,8 +1200,6 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
 
         -- ///Stuff ripped from the various locale files we had ///
 
-        -- Halloween Dozer Sword
-        ["bm_melee_halloween_sword"] = "无头熊之剑",
         ["menu_l_global_value_halloween_sword"] = "这是一件Halloween 2013物品！",
 
         -- S&W .500
@@ -2555,12 +2567,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_wing_info"] = "配合伪装一起使用效果更佳。\n从背后攻击敌人造成#{skill_color}#4##倍伤害。", -- Wing Butterfly Knife
         ["bm_melee_switchblade_info"] = "暴力与致命是我的信条。\n从背后攻击敌人造成#{skill_color}#2##倍伤害。", -- Switchblade Knife
         ["bm_melee_chef_info"] = "不太确定能不能用来切超市的肉。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Psycho Knife
-        ["bm_melee_headless_sword_info"] = "梦魇打造的剑。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Headless Dozer Sword
-        ["bm_melee_goat_info"] = "\"它太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- im not gaj
+        --["bm_melee_headless_sword_info"] = "梦魇打造的剑。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Headless Dozer Sword
+        --["bm_melee_goat_info"] = "\"它太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- im not gaj
         ["bm_melee_great_info"] = "试着去刺击，但穿了个洞。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。", -- Great Sword
         ["bm_melee_freedom_info"] = "十三条红白相间的条纹，一个蓝色的长方形，五十颗白色五角星，一捻爱国主义，两杯自由，以及一根断掉的旗杆。#{heat_warm_color}#看啊——你有一把致命的武器##。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##", -- Great Sword
-        ["bm_melee_Binary_Blade"] = "二进制之剑",
-        ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。",
+        --["bm_melee_Binary_Blade"] = "二进制之剑",
+        --["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。",
         ["bm_melee_nin_info"] = "#{skill_color}#发射距离很短但几乎立刻命中的钉子##，击杀仍然计入近战击杀数。", -- Pounder
         ["bm_melee_thebestweapon_info"] = "##{heat_warm_color}##游戏中最好的武器##，没有之一。",
         ["bm_melee_iceaxe_info"] = "爆头伤害增加#{skill_color}#50%##。", -- Icepick
@@ -2582,8 +2594,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_toyknife_info_desc"] = "#{risk}#与玩具M16和玩具1911一起装备可以让你获得138x5的能力！##",
         -- tra       
         -- Melee Weapons
-        ["bm_melee_twins"] = "Sai", -- Plural form is still "sai"  --tra what is this
-        ["bm_melee_twins_info"] = "Once in a while, a victim of the Sai realize a little too late that it doesn't matter how blunt the weapons are.\nIn a matter of seconds they have disarmed you of your sharp ones.\n\nParrying an enemy attack deals #{skill_color}#60## melee damage to them. This can be increased with skills.",
+        ["bm_melee_twins"] = "十手钗", -- Plural form is still "sai" 
+        ["bm_melee_twins_info"] = "有时候，十手钗的受害者会在太晚时才意识到，这种武器是否锋利根本不重要。\n因为在短短几秒内，它就能让你失去手中那些锋利的武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#120##点伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#10##米内的敌人并对他们造成#{skill_color}#60##点基础伤害。",
 
 
         -- Toy Weapon
@@ -2809,7 +2821,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
 
         --Empty Palm Kata
-        ["bm_melee_fight_info"] = "似水吧，吾友。\n\n招架敌人攻击时对其造成#{skill_color}#120##近战伤害。可通过技能提升。",
+        ["bm_melee_fight_info"] = "形意如水，朋友。\n\n招架反击敌人攻击时对其造成#{skill_color}#240##点伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#15##米内的敌人并对他们造成#{skill_color}#100##点基础伤害。",
 
         --Katana
         ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
@@ -2828,11 +2840,17 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
         --Greatsword
         ["bm_melee_great_info"] = "#{item_stage_2}#\"试试突刺攻击，前方有洞\"##\n\n威廉·华莱士扬名的巨剑。\n六英尺寒锋藏于税吏人皮缝制的剑鞘。\n\n这才叫反抗权威！",
-        ["bm_melee_jebus_info"] = "光与#{item_stage_2}#暗##\n#{item_stage_2}#黑##与白\n#{stats_positive}#生##与#{important_1}#死##\n\n二元之剑没有中间地带，它将敌人#{important_1}#彻底关闭##",
-        ["bm_melee_headless_sword_info"] = "由噩梦锻铸之剑。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
-        ["bm_melee_titan_hammer_info"] = "由噩梦锻铸之锤。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
-        ["bm_melee_goat_info"] = "\"那东西实在太大，不能称为剑。厚重、粗犷又沉重，简直像堆生铁块。\"\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
-        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"格挡试试这个\"##\n\n巨型双手剑，更似长柄武器。\n\n招架敌人攻击时对其造成#{skill_color}#180##近战伤害。可通过技能提升。",
+        ["bm_melee_Binary_Blade"] = "二进制之剑",
+        ["bm_melee_jebus_info"] = "#{item_stage_2}#明暗双生##，#{stats_positive}#黑白两道##，#{important_1}#生死分明##！\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及！",
+        -- Halloween Dozer Sword
+        ["bm_melee_halloween_sword"] = "无头熊之剑",
+        ["bm_melee_headless_sword_info"] = "梦魇锻铸之剑。\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_titham"] = "无头熊之锤",
+        ["bm_melee_titan_hammer_info"] = "梦魇锻铸之锤。\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_goat_info"] = "\"它实在是太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_zweihander"] = "焰型巨剑",
+        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"有本事挡住这个\"##\n\n一柄巨大的双手剑，与其说是剑，不如称之为长柄武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#360##近战伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#25##米内的敌人并对他们造成#{skill_color}#200##点基础伤害。",
+        ["bm_melee_broad"] = "长剑",
         ["bm_melee_broad_info"] = "骑士的标志性武器。",
 
         --Buckler Shield
@@ -5579,7 +5597,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
             if shitpost or (not easterless and (big <= pistol)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_melee_great_info"] = "试着去刺击，但穿了个洞。\n\n攒累#{skill_color}#九成##之力，斩出一剑，剑尖即可深入#{skill_color}#半米##远方，视野也得以拓宽。",
-                    ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",
+                    ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。",--\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",
                     ["bm_sparrow_sc_desc"] = "\n我一定会回来的！",
                     ["bm_m16_sc_desc"] = "我给你一个弹夹，这样你就可以输出了。",
                     ["bm_w_x_type54"] = "十字杀双胞胎",
@@ -7148,8 +7166,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
             ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，每停止射击#{skill_color}#$skill_value_p1##秒后丢失#{skill_color}#$skill_value_Metro_lost_damage_stack##的效果。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，每停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后丢失#{skill_color}#$skill_value_Metro_reset_stack##的效果。"
         })
     end
-	
-	if Counter_Strike_Revert then --近战反击，以及它的彩蛋文本...
+
+    if Counter_Strike_Revert then --近战反击，以及它的彩蛋文本...
 	
 		LocalizationManager:add_localized_strings({
 			["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击幻影特工的飞踢与冲刺踢并将其击倒，且可以反击盾兵的盾击##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：泰坦盾和冬队盾的盾击无法被反击##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",

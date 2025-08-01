@@ -10722,10 +10722,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.amcar.reload_speed_multiplier = 0.975
 						self.amcar.panic_suppression_chance = 0.05
 
-					--Commando 553
+					--Commando 553  --此武器修改
 						self.s552.desc_id = "bm_s552_sc_desc"
 						self.s552.has_daring_ap_desc = true  --此处添加
-						self.s552.armor_piercing_chance = 0.15  --此处添加
+						self.s552.armor_piercing_chance = 0.20  --此处添加
 						self.s552.has_description = true					
 						self.s552.fire_mode_data.fire_rate = 0.08571428571
 						self.s552.auto.fire_rate = 0.08571428571
@@ -10746,19 +10746,19 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.s552.AMMO_MAX = 150
 						self.s552.supported = true
-						self.s552.ads_speed = 0.280
-						self.s552.damage_falloff = {
-							start_dist = 400,
-							end_dist = 4175,
-							min_mult = 0.3
+						self.s552.ads_speed = 0.265  --此处修改，原0.280
+						self.s552.damage_falloff = {  --此处修改
+							start_dist = 100,
+							end_dist = 4000,
+							min_mult = 0.25
 						}
 						self.s552.stats = {
-							damage = 20+10,
+							damage = 20+10,  --此处修改
 							spread = 86,
-							recoil = 77+7,
+							recoil = 77+7,  --此处修改
 							spread_moving = 6,
 							zoom = 1,
-							concealment = 26,
+							concealment = 26+1,  --此处修改
 							suppression = 10,
 							alert_size = 2,
 							extra_ammo = 101,
@@ -27431,7 +27431,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.rsh12.AMMO_PICKUP = {self.rsh12.AMMO_PICKUP[1] - 0.001, self.rsh12.AMMO_PICKUP[2] - 0.001}
 			end
 			if self.s552 then
-				self.s552.AMMO_PICKUP = {self.s552.AMMO_PICKUP[1] + 0.0275, self.s552.AMMO_PICKUP[2] + 0.03}
+				self.s552.AMMO_PICKUP = {self.s552.AMMO_PICKUP[1] + 0.025, self.s552.AMMO_PICKUP[2] + 0.0275}
 			end
 			if self.bessy then
 				self.bessy.AMMO_PICKUP = {self.bessy.AMMO_PICKUP[1] - 0.00065, self.bessy.AMMO_PICKUP[2] - 0.00065}

@@ -609,6 +609,13 @@ end
 -- LuaNetworking Receiver  --本来应该是治疗枪的同步，但是把该同步的都放在这了
 Global.Daring_heal_attch_check = Global.Daring_heal_attch_check or ''
 Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", function(sender, id, data)
+	local function ResMod_get_PeerUnit_by_PeerID(peer_id)
+		local peer = managers.network:session():peer(peer_id)
+		if peer then
+			return peer:unit()
+		end
+	end
+
     local table_get_from_data = {}
     if data then
         table_get_from_data = json.decode(data)
@@ -658,7 +665,24 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		else
 			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
 		end
+	-- 同步播放近战反击产生的昊京音效
+	elseif id == "HaoJing_Played" then
+		local HaoJing_Sync = restoration and restoration.Options:GetValue("OTHER/HaoJing/DaringHaoJingSync")
+		local Volume_Sync = restoration and restoration.Options:GetValue("OTHER/HaoJing/SyncHaoJingVolume")
 
+		if HaoJing_Sync then
+			local ogg_path
+			if SC and SC._path then
+				ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+			end
+			if ogg_path then
+				local unit_play = ResMod_get_PeerUnit_by_PeerID(sender)
+				blt.xaudio.setup()
+				local source =  XAudio.UnitSource:new(unit_play, XAudio.Buffer:new(ogg_path))
+				source:set_volume(Volume_Sync)
+				LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
+			end
+		end
 	end
 end)
 
