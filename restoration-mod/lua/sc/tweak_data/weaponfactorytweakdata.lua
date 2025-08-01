@@ -14363,8 +14363,11 @@ end)
 						"wpn_fps_upg_o_hamr",
 						"wpn_fps_upg_o_atibal",
 						"wpn_fps_upg_o_spot",
-						"wpn_fps_upg_o_bmg"
+						"wpn_fps_upg_o_bmg",
+						"wpn_fps_upg_o_acog"
 					}
+
+					--此处加回ACOG瞄具
 
 					for i, part_id in ipairs(attachment_list) do
 						table.insert(self.wpn_fps_snp_winchester.uses_parts, part_id)
