@@ -2560,10 +2560,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_2077tkata_info"] = "这是一把纳米高热刀，其极致精髓体现了传统日本刀剑的威力，没有任何附加功能，也未做任何修改，唯有灼热的钢铁之力。\n\n完全蓄力后攻击可点燃敌人，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
         --["bm_melee_buck_info"] = "对抗现代武器仍然十分有效。\n蓄力时减少#{skill_color}#25%##的远程伤害。", -- Buckler Shield
         --["bm_melee_briefcase_info"] = "不管里面装的什么，手提箱自身有着惊人的弹性。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。", -- Briefcase
-        ["bm_melee_pitch_info"] = "用力叉，再用力叉！\n\n蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- Randal Pitchfork
-        ["bm_melee_charge_info"] = "蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##",
-        ["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害。此属性受到相关技能影响。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- ROAMING FR-
-        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害。此属性受到相关技能影响。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- Kazaguruma
+        ["bm_melee_pitch_info"] = "用力叉，再用力叉！\n\n蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害，此伤害可通过技能和天赋提升。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- Randal Pitchfork
+        ["bm_melee_charge_info"] = "蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
+        --["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！杀戮吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- ROAMING FR-
+        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- Kazaguruma
         ["bm_melee_wing_info"] = "配合伪装一起使用效果更佳。\n从背后攻击敌人造成#{skill_color}#4##倍伤害。", -- Wing Butterfly Knife
         ["bm_melee_switchblade_info"] = "暴力与致命是我的信条。\n从背后攻击敌人造成#{skill_color}#2##倍伤害。", -- Switchblade Knife
         ["bm_melee_chef_info"] = "不太确定能不能用来切超市的肉。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Psycho Knife
@@ -2585,7 +2585,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_spoon_gold_info"] = "吃光抹净，再来一碗！ \n有#{skill_color}#50%##的几率造成#{heat_warm_color}#120##点燃烧伤害并干扰敌人#{skill_color}#3##秒。", -- Gold Spoon
         ["bm_melee_fire_info"] = "有#{skill_color}#50%##的几率造成#{heat_warm_color}#120##点燃烧伤害并干扰敌人#{skill_color}#3##秒。",
         ["bm_melee_cqc_info"] = "毒素会在#{skill_color}#3##秒内造成#{skill_color}#120##点伤害并在#{skill_color}#4##秒内每半秒都有#{skill_color}#50%##的概率干扰敌人。", -- Kunai, Syringe
-        ["bm_melee_fight_info"] = "形意如水，朋友。\n格挡敌人攻击时可以造成#{skill_color}#120##点伤害。此属性受到相关技能影响。", -- Empty Palm Kata
+        ["bm_melee_fight_info"] = "形意如水，朋友。\n招架敌人攻击时可以造成#{skill_color}#120##点伤害。此属性受到相关技能影响。", -- Empty Palm Kata
         ["bm_melee_slot_lever_info"] = "中头彩！\n#{skill_color}#5%##的几率造成#{skill_color}#10##倍伤害并击倒敌人。",
         ["bm_melee_specialist_info"] = "双份匕首，双倍快乐。\n连续攻击时，第一次攻击之后的每次攻击都是#{skill_color}#双倍伤害##。\n", -- Specialist Knives, Talons, Knuckle Daggers, Push Daggers
         ["bm_melee_cleaver_info"] = "上砍雪花盖顶，下砍老树盘根。\n爆头伤害减少#{skill_color}#50%##，对身体和其他部分的伤害增加#{skill_color}#50%##。",
@@ -2595,7 +2595,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- tra       
         -- Melee Weapons
         ["bm_melee_twins"] = "十手钗", -- Plural form is still "sai" 
-        ["bm_melee_twins_info"] = "有时候，十手钗的受害者会在太晚时才意识到，这种武器是否锋利根本不重要。\n因为在短短几秒内，它就能让你失去手中那些锋利的武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#120##点伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#10##米内的敌人并对他们造成#{skill_color}#60##点基础伤害。",
+        ["bm_melee_twins_info"] = "有时候，十手钗的受害者会在太晚时才意识到，这种武器是否锋利根本不重要。\n因为在短短几秒内，它就能让你失去手中那些锋利的武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#120##点伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#10##米内的敌人并对他们造成#{skill_color}#60##点基础伤害。",
 
 
         -- Toy Weapon
@@ -2821,7 +2821,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
 
         --Empty Palm Kata
-        ["bm_melee_fight_info"] = "形意如水，朋友。\n\n招架反击敌人攻击时对其造成#{skill_color}#240##点伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#15##米内的敌人并对他们造成#{skill_color}#100##点基础伤害。",
+        ["bm_melee_fight_info"] = "形意如水，朋友。\n\n招架反击敌人攻击时对其造成#{skill_color}#240##点伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#15##米内的敌人并对他们造成#{skill_color}#100##点基础伤害。",
 
         --Katana
         ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
@@ -2849,7 +2849,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_titan_hammer_info"] = "梦魇锻铸之锤。\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
         ["bm_melee_goat_info"] = "\"它实在是太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
         ["bm_melee_zweihander"] = "焰型巨剑",
-        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"有本事挡住这个\"##\n\n一柄巨大的双手剑，与其说是剑，不如称之为长柄武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#360##近战伤害，此伤害可通过技能(包括天赋通用牌组加成)提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#25##米内的敌人并对他们造成#{skill_color}#200##点基础伤害。",
+        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"有本事挡住这个\"##\n\n一柄巨大的双手剑，与其说是剑，不如称之为长柄武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#360##近战伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#25##米内的敌人并对他们造成#{skill_color}#200##点基础伤害。",
         ["bm_melee_broad"] = "长剑",
         ["bm_melee_broad_info"] = "骑士的标志性武器。",
 
@@ -2908,7 +2908,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_road_info"] = "拉斯汀独爱链鞭——这位老派痛苦器具的拥趸。\n\n此链鞭购于五金店（非偷窃），他认为如此重要的工具值得花钱。当它呼啸着抽过又一张面庞时，自携别致格调。",
 
         --ROAMING FROTHING MADNESS
-        ["bm_melee_cs_info"] = "撕裂，杀戮，至死方休。\n\n充能时每#{skill_color}#0.25##秒对前方目标造成#{skill_color}#30##点伤害（可随技能提升）。\n\n#{important_1}#无法招架敌人攻击。##",
+        ["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！杀戮吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
 
         --WHERE'S THE LEAK MA'AM?
         ["bm_melee_shock_info"] = "\"请您行个方便...\"",
@@ -2917,7 +2917,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_brick_info"] = "注意——这非普通电话，而是#{stat_maxed}#热线## #{skill_color}#8000X##，80年代通讯巅峰之作。\n\n喂，哪位？\n致电只为说...\n\n我恨你。",
 
         --OMG IT SPINS
-        ["bm_melee_ostry_info"] = "转起来吧——！\n\n充能时每#{skill_color}#0.18##秒对前方目标造成#{skill_color}#18##点伤害（可随技能提升）。\n\n#{important_1}#无法招架敌人攻击。##",
+        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
 
         --Pencil
         ["bm_melee_sword"] = "铅笔",
