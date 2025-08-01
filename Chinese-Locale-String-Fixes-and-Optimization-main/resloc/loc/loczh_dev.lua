@@ -2917,7 +2917,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_brick_info"] = "注意——这非普通电话，而是#{stat_maxed}#热线## #{skill_color}#8000X##，80年代通讯巅峰之作。\n\n喂，哪位？\n致电只为说...\n\n我恨你。",
 
         --OMG IT SPINS
-        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
+        ["bm_melee_ostry_info"] = "\n#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
 
         --Pencil
         ["bm_melee_sword"] = "铅笔",
