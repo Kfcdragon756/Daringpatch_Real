@@ -5597,7 +5597,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
             if shitpost or (not easterless and (big <= pistol)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_melee_great_info"] = "试着去刺击，但穿了个洞。\n\n攒累#{skill_color}#九成##之力，斩出一剑，剑尖即可深入#{skill_color}#半米##远方，视野也得以拓宽。",
-                    ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。",--\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",
+                    --["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。",--\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",  --移除
                     ["bm_sparrow_sc_desc"] = "\n我一定会回来的！",
                     ["bm_m16_sc_desc"] = "我给你一个弹夹，这样你就可以输出了。",
                     ["bm_w_x_type54"] = "十字杀双胞胎",
