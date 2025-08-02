@@ -4357,8 +4357,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
                     ["bm_w_shak12"] = "KS-12 Urban步枪",
                     ["bm_w_shak12_vks"] = "KSV-12 Urban步枪",
                     --HCAR
-                    ["bm_w_hcar"] = "Akron HC步枪",
-                    ["bm_w_hcar_bar"] = "Akron HC步枪",
+                    ["bm_w_hcar"] = "Akron HC重机枪",
+                    ["bm_w_hcar_bar"] = "Akron HC重机枪",  --tra check 这是啥？应该写步枪还是重机枪？？
 
                     --Custom DMRs
                         --MCX Spear
