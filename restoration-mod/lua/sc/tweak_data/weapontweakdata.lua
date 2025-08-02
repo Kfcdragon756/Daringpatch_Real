@@ -7347,7 +7347,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							min_mult = 0.26666
 						}
 						self.rsh12.stats = {
-							damage = 90,
+							damage = 120,
 							spread = 76,
 							recoil = 39,
 							spread_moving = 9,
@@ -27326,141 +27326,6 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			end
 
 			self:calculate_ammo_pickup(weap, id)
-	-- AMMO_PICKUP changes by Daring
-			if self.hk51b then
-				self.hk51b.AMMO_PICKUP = {self.hk51b.AMMO_PICKUP[1] + 0.01, self.hk51b.AMMO_PICKUP[2] + 0.01}  --0.01* = 0.7
-			end
-			if self.lewis then
-				self.lewis.AMMO_PICKUP = {self.lewis.AMMO_PICKUP[1] + 0.0042, self.lewis.AMMO_PICKUP[2] + 0.0042}  --0.01* = 2.2
-			end
-			if self.hcar then
-				self.hcar.AMMO_PICKUP = {self.hcar.AMMO_PICKUP[1] + 0.011, self.hcar.AMMO_PICKUP[2] + 0.012}  --0.01* = 0.8  3.3x1.01 = 10.6
-			end
-			if self.deagle then
-				self.deagle.AMMO_PICKUP = {self.deagle.AMMO_PICKUP[1] - 0.01, self.deagle.AMMO_PICKUP[2] - 0.01}
-			end
-			if self.x_deagle then
-				self.x_deagle.AMMO_PICKUP = {self.x_deagle.AMMO_PICKUP[1] - 0.001, self.x_deagle.AMMO_PICKUP[2] - 0.001}
-			end
-			if self.cssdeagle then
-				self.cssdeagle.AMMO_PICKUP = {self.cssdeagle.AMMO_PICKUP[1] - 0.0027, self.cssdeagle.AMMO_PICKUP[2] - 0.0028}
-			end
-			if self.coltds then
-				self.coltds.AMMO_PICKUP = {self.coltds.AMMO_PICKUP[1] - 0.001, self.coltds.AMMO_PICKUP[2] - 0.001}
-			end
-			if self.x_basset then
-				self.x_basset.AMMO_PICKUP = {self.x_basset.AMMO_PICKUP[1] + 0.015, self.x_basset.AMMO_PICKUP[2] + 0.015}
-			end
-
-
-			--myself    kfc:'76561198846150495'
-			--local get_steam_id = Steam:userid()
-			local hancan = {self.x_rage, self.x_chinchilla, self.x_model3, self.x_2006m, self.x_korth, self.new_raging_bull, self.model3, self.chinchilla, self.mateba, self.deckard, self.lapd, self.korth}
-			local hancan_160 = {self.x_2006m, self.x_chinchilla, self.mateba, self.deckard, self.lapd, self.chinchilla}
-			local hancan_180 = {self.x_korth, self.x_rage, self.x_model3, self.new_raging_bull, self.model3, self.korth}
-			for _,v in ipairs(hancan_180) do
-				if v then
-					v.AMMO_PICKUP = {v.AMMO_PICKUP[1] - 0.0052, v.AMMO_PICKUP[2] - 0.0052}
-					v.stats.damage = 90
-					v.armor_piercing_chance = 0.75
-					v.can_shoot_through_wall = true
-				end
-			end
-
-			if self.duke1911 then
-				self.duke1911.stats.damage = 90
-			end
-
-			for _,v in ipairs(hancan_160) do
-				if v then
-					v.AMMO_PICKUP = {v.AMMO_PICKUP[1] - 0.0047, v.AMMO_PICKUP[2] - 0.0047}
-					v.stats.damage = 120
-					v.armor_piercing_chance = 1.0
-					v.hs_mult = 0.67
-				end
-			end
-
-			-- 给一些步枪上穿甲 --这套代码在某些电脑上好像不是很有用...所以还是以单独添加代替了。
-			--[[local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.flint, self.ak12, self.ak5, self.ak5s, self.x_ak5s, self.tilt} --ak17的id实际上是flint...
-			--local is_m4_all = {}
-
-			for _,v in ipairs(is_ak_all) do
-				if v then
-					--log("check ap "..tostring(v.armor_piercing_chance))
-					if (not v.armor_piercing_chance) or (v.armor_piercing_chance <= 0) then
-						v.armor_piercing_chance = 0.15
-					end
-					v.has_daring_ap_desc = true
-				end
-			end]]
-
-			if self.x_chinchilla then
-				self.x_chinchilla.AMMO_PICKUP = {self.x_chinchilla.AMMO_PICKUP[1] + 0.0050, self.x_chinchilla.AMMO_PICKUP[2] + 0.0054}
-			end
-			if self.x_model3 then
-				self.x_model3.AMMO_PICKUP = {self.x_model3.AMMO_PICKUP[1] + 0.0035, self.x_model3.AMMO_PICKUP[2] + 0.0035}
-			end
-			if self.x_2006m then
-				self.x_2006m.AMMO_PICKUP = {self.x_2006m.AMMO_PICKUP[1] + 0.0075, self.x_2006m.AMMO_PICKUP[2] + 0.0075}
-			end
-			if self.corgi then
-				self.corgi.AMMO_PICKUP = {self.corgi.AMMO_PICKUP[1] + 0.002, self.corgi.AMMO_PICKUP[2] + 0.002}
-			end
-			if self.akm_nomag then
-				self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1] - 0.075, self.akm_nomag.AMMO_PICKUP[2] + 0.075}
-			end
-			if self.x_rage then
-				self.x_rage.AMMO_PICKUP = {self.x_rage.AMMO_PICKUP[1] + 0.003333, self.x_rage.AMMO_PICKUP[2] + 0.003333}  --0.01* = 1.8   +0.6
-			end
-			if self.x_korth then
-				self.x_korth.AMMO_PICKUP = {self.x_korth.AMMO_PICKUP[1] + 0.0035, self.x_korth.AMMO_PICKUP[2] + 0.0035}  --0.01* = 2.4
-			end
-			if self.new_raging_bull then
-				self.new_raging_bull.AMMO_PICKUP = {self.new_raging_bull.AMMO_PICKUP[1] + 0.002, self.new_raging_bull.AMMO_PICKUP[2] + 0.002}
-			end
-			if self.korth then
-				self.korth.AMMO_PICKUP = {self.korth.AMMO_PICKUP[1] + 0.0013, self.korth.AMMO_PICKUP[2] + 0.0013}  --0.005 0.8
-			end
-			if self.deckard then
-				self.deckard.AMMO_PICKUP = {self.deckard.AMMO_PICKUP[1] + 0.003, self.deckard.AMMO_PICKUP[2] + 0.003}
-			end
-			if self.duke1911 then
-				self.duke1911.AMMO_PICKUP = {self.duke1911.AMMO_PICKUP[1] - 0.001, self.duke1911.AMMO_PICKUP[2] - 0.001}
-			end
-			if self.rsh12 then
-				self.rsh12.AMMO_PICKUP = {self.rsh12.AMMO_PICKUP[1] - 0.001, self.rsh12.AMMO_PICKUP[2] - 0.001}
-			end
-			if self.s552 then
-				self.s552.AMMO_PICKUP = {self.s552.AMMO_PICKUP[1] + 0.025, self.s552.AMMO_PICKUP[2] + 0.0275}
-			end
-			if self.bessy then
-				self.bessy.AMMO_PICKUP = {self.bessy.AMMO_PICKUP[1] - 0.00065, self.bessy.AMMO_PICKUP[2] - 0.00065}
-			end
-			if self.fp45 then
-				self.fp45.AMMO_PICKUP = {self.fp45.AMMO_PICKUP[1] - 0.0045, self.fp45.AMMO_PICKUP[2] - 0.0045}
-			end
-			if self.ar23 then
-				self.ar23.AMMO_PICKUP = {self.ar23.AMMO_PICKUP[1] + 0.045, self.ar23.AMMO_PICKUP[2] + 0.045}
-			end
-			if self.spas12 then
-				self.spas12.AMMO_PICKUP = {self.spas12.AMMO_PICKUP[1] + 0.0017, self.spas12.AMMO_PICKUP[2] + 0.0017}
-			end
-			
-
-
-			--[[local auto_sniper = {self.qbu88, self.tti, self.sgs, self.rsass, self.iuhTTIPlus}
-			for _,v in ipairs(auto_sniper) do
-				v.AMMO_PICKUP = {v.AMMO_PICKUP[1] + 0.0025, v.AMMO_PICKUP[2] + 0.0025}
-			end
-
-			self.tti.AMMO_PICKUP = {self.tti.AMMO_PICKUP[1] + 0.5, self.tti.AMMO_PICKUP[2] + 0.5}--]]
-
-			--[[if get_steam_id and get_steam_id == '76561198145515866' then
-				for _,v in ipairs(hancan) do
-					v.AMMO_PICKUP = {v.AMMO_PICKUP[1] - 0.01, v.AMMO_PICKUP[2] - 0.01}
-					v.stats.damage = 80
-				end
-			end--]]
 
 			if weap.use_data and weap.use_data.selection_index == 5 then
 				weap.recategorize = { "unsupported" }
@@ -27475,6 +27340,126 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			end
 
 		end
+	end
+	--在这里重新做
+	if self.hk51b then  --Versteckt-51B轻机枪 9.1
+		self.hk51b.AMMO_PICKUP = {self.hk51b.AMMO_PICKUP[1]*1.1, self.hk51b.AMMO_PICKUP[2]*1.1}
+	end
+	if self.lewis then  --刘易斯重机枪 5.1
+		self.lewis.AMMO_PICKUP = {self.lewis.AMMO_PICKUP[1]*1.34, self.lewis.AMMO_PICKUP[2]*1.34}
+	end
+	if self.hcar then --Akron HC重机枪 6.6
+		self.hcar.AMMO_PICKUP = {self.hcar.AMMO_PICKUP[1]*1.32, self.hcar.AMMO_PICKUP[2]*1.32}
+	end
+	if self.deagle then  --沙漠之鹰  1.3
+		self.deagle.AMMO_PICKUP = {self.deagle.AMMO_PICKUP[1]*0.65, self.deagle.AMMO_PICKUP[2]*0.65}
+	end
+	if self.x_deagle then  --双持沙漠之鹰  2
+		self.x_deagle.AMMO_PICKUP = {self.x_deagle.AMMO_PICKUP[1]*0.87, self.x_deagle.AMMO_PICKUP[2]*0.87}
+	end
+	if self.cssdeagle then  --Night Hawk .50C CSS沙鹰 3.9
+		self.cssdeagle.AMMO_PICKUP = {self.cssdeagle.AMMO_PICKUP[1]*0.83, self.cssdeagle.AMMO_PICKUP[2]*0.83}
+	end
+	if self.coltds then  --Crosskill Investigator 重型手枪 4.7
+		self.coltds.AMMO_PICKUP = {self.coltds.AMMO_PICKUP[1]*0.985, self.coltds.AMMO_PICKUP[2]*0.985}
+	end
+	if self.x_basset then  --双持格林霰弹枪 4.1
+		self.x_basset.AMMO_PICKUP = {self.x_basset.AMMO_PICKUP[1]*1.215, self.x_basset.AMMO_PICKUP[2]*1.215}
+	end
+	------
+	--local get_steam_id = Steam:userid()
+	local hancan = {self.x_rage, self.x_chinchilla, self.x_model3, self.x_2006m, self.x_korth, self.new_raging_bull, self.model3, self.chinchilla, self.mateba, self.deckard, self.lapd, self.korth}
+	local hancan_160 = {self.x_2006m, self.x_chinchilla, self.mateba, self.deckard, self.lapd, self.chinchilla}
+	local hancan_180 = {self.x_korth, self.x_rage, self.x_model3, self.new_raging_bull, self.model3, self.korth}
+	for _,v in ipairs(hancan_180) do
+		if v then
+			v.AMMO_PICKUP = {v.AMMO_PICKUP[1]*0.72, v.AMMO_PICKUP[2]*0.75}
+			v.stats.damage = 90
+			v.armor_piercing_chance = 0.75
+			v.can_shoot_through_wall = true
+		end
+	end
+	
+	if self.duke1911 then
+		self.duke1911.stats.damage = 90
+	end
+	
+	for _,v in ipairs(hancan_160) do
+		if v then
+			v.AMMO_PICKUP = {v.AMMO_PICKUP[1]*0.77, v.AMMO_PICKUP[2]*0.85}
+			v.stats.damage = 120
+			v.armor_piercing_chance = 1.0
+			v.hs_mult = 0.67
+		end
+	end
+	
+	-- 给一些步枪上穿甲 --这套代码在某些电脑上好像不是很有用...所以还是以单独添加代替了。
+	--[[local is_ak_all = {self.ar47, self.groza, self.spike, self.akm, self.akmsu, self.x_akmsu, self.ak74, self.akilo105_2022, self.akilo_2022, self.flint, self.ak12, self.ak5, self.ak5s, self.x_ak5s, self.tilt} --ak17的id实际上是flint...
+	--local is_m4_all = {}
+	
+	for _,v in ipairs(is_ak_all) do
+		if v then
+			--log("check ap "..tostring(v.armor_piercing_chance))
+			if (not v.armor_piercing_chance) or (v.armor_piercing_chance <= 0) then
+				v.armor_piercing_chance = 0.15
+			end
+			v.has_daring_ap_desc = true
+		end
+	end]]
+	------
+	if self.x_chinchilla then  --双持Castigo重型左轮 3.6
+		self.x_chinchilla.AMMO_PICKUP = {self.x_chinchilla.AMMO_PICKUP[1]*1.12, self.x_chinchilla.AMMO_PICKUP[2]*1.15}
+	end
+	if self.x_model3 then  --双持Model 87s重型左轮 3.2
+		self.x_model3.AMMO_PICKUP = {self.x_model3.AMMO_PICKUP[1]*1.11, self.x_model3.AMMO_PICKUP[2]*1.11}
+	end
+	if self.x_2006m then --双持Matevers重型左轮 3.7
+		self.x_2006m.AMMO_PICKUP = {self.x_2006m.AMMO_PICKUP[1]*1.1563, self.x_2006m.AMMO_PICKUP[2]*1.1563}
+	end
+	if self.corgi then  --Union5.56 轻型步枪 9.2
+		self.corgi.AMMO_PICKUP = {self.corgi.AMMO_PICKUP[1]*1.0825, self.corgi.AMMO_PICKUP[2]*1.0825}
+	end
+	if self.akm_nomag then  --Early Access AK 0.6
+		self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1]*0.8, self.akm_nomag.AMMO_PICKUP[2]*1.65}
+	end
+	if self.x_rage then  --双持Bronco重型左轮 3.3
+		self.x_rage.AMMO_PICKUP = {self.x_rage.AMMO_PICKUP[1]*1.138, self.x_rage.AMMO_PICKUP[2]*1.138}
+	end
+	if self.x_korth then  --双持Kahn .357s重型左轮 3.2
+		self.x_korth.AMMO_PICKUP = {self.x_korth.AMMO_PICKUP[1]*1.1035, self.x_korth.AMMO_PICKUP[2]*1.1035}
+	end
+	if self.new_raging_bull then  --Bronco重型左轮 2.5
+		self.new_raging_bull.AMMO_PICKUP = {self.new_raging_bull.AMMO_PICKUP[1]*0.9925, self.new_raging_bull.AMMO_PICKUP[2]*0.9925}
+	end
+	if self.korth then  --Kahn .357s重型左轮 2.6
+		self.korth.AMMO_PICKUP = {self.korth.AMMO_PICKUP[1], self.korth.AMMO_PICKUP[2]}
+	end
+	if self.deckard then  --Deck-ARD重型手枪 3
+		self.deckard.AMMO_PICKUP = {self.deckard.AMMO_PICKUP[1]*1.05, self.deckard.AMMO_PICKUP[2]*1.05}
+	end
+	if self.duke1911 then  --Duke Nukem's 1911 3.3
+		self.duke1911.AMMO_PICKUP = {self.duke1911.AMMO_PICKUP[1]*0.925, self.duke1911.AMMO_PICKUP[2]*0.925}
+	end
+	if self.rsh12 then  --RUS-12重型左轮 2
+		self.rsh12.AMMO_PICKUP = {self.rsh12.AMMO_PICKUP[1], self.rsh12.AMMO_PICKUP[2]}
+	end
+	if self.swhiskey then  --MW2022 S&W Model 500重型左轮 原2.3
+		self.swhiskey.AMMO_PICKUP = {self.swhiskey.AMMO_PICKUP[1]*1.15, self.swhiskey.AMMO_PICKUP[2]*1.2}
+	end
+	if self.s552 then  --Commando 552轻型步枪 8.4
+		self.s552.AMMO_PICKUP = {self.s552.AMMO_PICKUP[1], self.s552.AMMO_PICKUP[2]*1.04}
+	end
+	if self.bessy then  --Flintlock Freddy 重型狙 火枪 0.5
+		self.bessy.AMMO_PICKUP = {self.bessy.AMMO_PICKUP[1], self.bessy.AMMO_PICKUP[2]}
+	end
+	if self.fp45 then  --FP-45 Liberator 重型手枪 0.2
+		self.fp45.AMMO_PICKUP = {self.fp45.AMMO_PICKUP[1]*0.3, self.fp45.AMMO_PICKUP[2]*0.3}
+	end
+	if self.ar23 then  --绝地潜兵解放者 4.4
+		self.ar23.AMMO_PICKUP = {self.ar23.AMMO_PICKUP[1]*2.3, self.ar23.AMMO_PICKUP[2]*2.8}
+	end
+	if self.spas12 then  --Predator自动霰弹枪 4.7
+		self.spas12.AMMO_PICKUP = {self.spas12.AMMO_PICKUP[1]*1.15, self.spas12.AMMO_PICKUP[2]*1.15}
 	end
 end)
 
