@@ -1,4 +1,5 @@
 local old_PlayerInventory = PlayerInventory.add_unit_by_factory_name
+local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 
 function PlayerInventory:add_unit_by_factory_name(...)
 	old_PlayerInventory(self, ...)
@@ -76,6 +77,81 @@ Hooks:PostHook(PlayerInventory, "set_visibility_state", "res_set_visibility_stat
 	end
 end)
 
+--此处添加，尝试用于同步是否有PPECM
+function PlayerInventory:sync_net_event(event_id, peer)
+	if self._unit:base().is_local_player then
+		return
+	end
+
+	local net_events = self._NET_EVENTS
+
+	if event_id == net_events.jammer_start then
+		self:_start_jammer_effect(nil, ViNight_PECM)
+	elseif event_id == net_events.jammer_stop then
+		local found_queued = self:_chk_remove_queued_jammer_effects("jamming")
+
+		if not found_queued then
+			self:_stop_jammer_effect()
+		end
+	elseif event_id == net_events.feedback_start then
+		self:_start_feedback_effect(nil, ViNight_PECM)
+	elseif event_id == net_events.feedback_stop then
+		local found_queued = self:_chk_remove_queued_jammer_effects("feedback")
+
+		if not found_queued then
+			self:_stop_feedback_effect()
+		end
+	end
+end
+
+function PlayerInventory:_start_jammer_effect(end_time, is_PPECM)
+	if self._jammer_data then
+		self:_chk_queue_jammer_effect("jamming")
+
+		return
+	end
+
+	end_time = end_time or self:get_jammer_time()
+
+	if is_PPECM then --此处添加逻辑检测是不是PPECM
+		end_time = 1.5
+	end
+
+	if end_time == 0 then
+		return false
+	end
+
+	end_time = TimerManager:game():time() + end_time
+	local key_str = tostring(self._unit:key())
+	self._jammer_data = {
+		effect = "jamming",
+		t = end_time,
+		sound = self._unit:sound_source():post_event("ecm_jammer_jam_signal"),
+		stop_jamming_callback_key = "PocketECMJamming" .. key_str
+	}
+	local affects_cameras, affects_pagers = self:get_jammer_affect()
+
+	managers.groupai:state():register_ecm_jammer(self._unit, {
+		call = true,
+		camera = affects_cameras,
+		pager = affects_pagers
+	})
+	managers.enemy:add_delayed_clbk(self._jammer_data.stop_jamming_callback_key, callback(self, self, "_clbk_stop_jammer_effect"), end_time)
+
+	local local_player = managers.player:player_unit()
+	local user_is_local_player = local_player and local_player:key() == self._unit:key()
+	local dodge = user_is_local_player and self._unit:base():upgrade_value("temporary", "pocket_ecm_kill_dodge")
+
+	if dodge then
+		self._jammer_data.dodge_kills = dodge[3]
+		self._jammer_data.dodge_listener_key = "PocketECMJammingDodge" .. key_str
+
+		managers.player:register_message(Message.OnEnemyKilled, self._jammer_data.dodge_listener_key, callback(self, self, "_jamming_kill_dodge"))
+	end
+
+	return true
+end
+
 function PlayerInventory:_start_feedback_effect(end_time)
 	if self._jammer_data then
 		self:_chk_queue_jammer_effect("feedback")
@@ -83,6 +159,10 @@ function PlayerInventory:_start_feedback_effect(end_time)
 	end
 
 	end_time = end_time or self:get_jammer_time()
+
+	if is_PPECM then  --此处添加逻辑检测是不是PPECM
+		end_time = 1.5
+	end
 
 	if end_time == 0 then
 		return false
