@@ -1488,6 +1488,9 @@ function ActionSpooc:anim_act_clbk(anim_act)
 
 	if spooc_res then
 		if spooc_res == "countered" then
+			local local_player = managers.player:player_unit() --添加对剑圣的近战反击伤害
+			local melee_entry = self._strike_unit == local_player and managers.blackmarket:equipped_melee_weapon() or self._strike_unit:base():melee_weapon()
+			local melee_tweak = tweak_data.blackmarket.melee_weapons[melee_entry]
 			self._blocks = {}
 
 			local from_pos = self._strike_unit:movement():m_head_pos()
@@ -1508,6 +1511,71 @@ function ActionSpooc:anim_act_clbk(anim_act)
 				name_id = self._strike_unit:base().is_local_player and managers.blackmarket:equipped_melee_weapon() or self._strike_unit:base().melee_weapon and self._strike_unit:base():melee_weapon() or nil
 			}
 
+			if melee_tweak.counter_damage then --检测反击伤害判定 反击伤害能吃加成
+				local dmg_multiplier = 1
+				local player_state = self._strike_unit:movement()._current_state
+				local t = Application:time()
+
+				dmg_multiplier = dmg_multiplier * managers.player:upgrade_value("player", "melee_damage_multiplier", 1)
+
+				if managers.player:has_category_upgrade("melee", "stacking_hit_damage_multiplier") then
+					player_state._state_data.stacking_dmg_mul = player_state._state_data.stacking_dmg_mul or {}
+					player_state._state_data.stacking_dmg_mul.melee = player_state._state_data.stacking_dmg_mul.melee or {nil, 0}
+					local stack = player_state._state_data.stacking_dmg_mul.melee
+					if stack[1] and t < stack[1] then
+						dmg_multiplier = dmg_multiplier * (1 + managers.player:upgrade_value("melee", "stacking_hit_damage_multiplier", 0) * stack[2])
+					else
+						stack[2] = 0
+					end
+					stack[1] = t + managers.player:upgrade_value(primary_category, "stacking_hit_expire_t", 1)
+					stack[2] = math.min(stack[2] + 1, tweak_data.upgrades.max_weapon_dmg_mul_stacks or 5)
+				end
+
+				local damage_health_ratio = managers.player:get_damage_health_ratio(self._strike_unit:character_damage():health_ratio(), "melee")
+				if damage_health_ratio > 0 then
+					dmg_multiplier = dmg_multiplier * (1 + managers.player:upgrade_value("player", "melee_damage_health_ratio_multiplier", 0) * damage_health_ratio)
+				end
+
+				if self._unit:character_damage().dead and not self._unit:character_damage():dead() and managers.enemy:is_enemy(self._unit) and not tweak_data.character[self._unit:base()._tweak_table].is_escort and managers.player:has_category_upgrade("temporary", "melee_life_leech") and not managers.player:has_activate_temporary_upgrade("temporary", "melee_life_leech") then
+					managers.player:activate_temporary_upgrade("temporary", "melee_life_leech")
+					self._unit:character_damage():restore_health(managers.player:temporary_upgrade_value("temporary", "melee_life_leech", 1))
+				end
+
+				--绳之以法！
+				if melee_tweak.counter_aoe then
+
+					-- AOE计算部分
+					local player_pos = managers.player:player_unit():position()
+					local enemies = World:find_units_quick("sphere", player_pos, melee_tweak.aoe_range or 1500, managers.slot:get_mask("trip_mine_targets"))
+					local aoe_damage = melee_tweak.aoe_damage
+					for _, unit in ipairs(enemies) do
+						unit:character_damage():knockdown_melee(aoe_damage)
+					end
+
+					-- 昊京播放部分
+					local HaoJing_Enable = restoration and restoration.Options:GetValue("OTHER/HaoJing/DaringHaoJingEnable")
+					local Volume_Self = restoration and restoration.Options:GetValue("OTHER/HaoJing/SelfHaoJingVolume")
+
+					if HaoJing_Enable then
+						if melee_tweak.aoe_play_haojing then
+							local ogg_path
+							if SC and SC._path then
+								ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+							end
+							if ogg_path then
+								blt.xaudio.setup()
+								local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
+								source:set_volume(Volume_Self)
+								LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
+							end
+						end
+					end
+
+				end
+
+				counter_data.damage = melee_tweak.counter_damage * managers.player:get_melee_dmg_multiplier() * dmg_multiplier
+			
+			end
 			self._unit:character_damage():damage_melee(counter_data)
 
 			return
