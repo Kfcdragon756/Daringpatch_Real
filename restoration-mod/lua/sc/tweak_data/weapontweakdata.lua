@@ -10562,7 +10562,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.shuno.desc_id = "bm_shuno_sc_desc"
 					self.shuno.CLIP_AMMO_MAX = 300
 					self.shuno.NR_CLIPS_MAX = 1
-					self.shuno.AMMO_MAX = 600
+					self.shuno.AMMO_MAX = 900
 					self.shuno.FIRE_MODE = "auto"
 					self.shuno.fire_mode_data = {}
 					self.shuno.fire_mode_data.fire_rate = 0.03
@@ -10617,7 +10617,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m134.desc_id = "bm_m134_sc_desc"	
 					self.m134.CLIP_AMMO_MAX = 400
 					self.m134.NR_CLIPS_MAX = 1
-					self.m134.AMMO_MAX = 400
+					self.m134.AMMO_MAX = 800
 					self.m134.FIRE_MODE = "auto"
 					self.m134.fire_mode_data = {}
 					self.m134.fire_mode_data.fire_rate = 0.03
@@ -27407,6 +27407,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		end
 	end]]
 	------
+	if self.m134 then  --Vulcan加特林 原13.4
+		self.m134.AMMO_PICKUP = {self.m134.AMMO_PICKUP[1]*1.125, self.m134.AMMO_PICKUP[2]*1.275}
+	end
 	if self.x_chinchilla then  --双持Castigo重型左轮 3.6
 		self.x_chinchilla.AMMO_PICKUP = {self.x_chinchilla.AMMO_PICKUP[1]*1.12, self.x_chinchilla.AMMO_PICKUP[2]*1.15}
 	end
