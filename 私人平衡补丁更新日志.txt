@@ -19,6 +19,7 @@ v10.20（未完成）
 · 稍微削弱Commando 552步枪的衰减始距、衰减末距、最小伤害、捡弹量，稍微加强灵活性、瞄准时间、穿甲伤害
 · 加强空手道、焰型巨剑、十手钗的近战反击伤害，并为其添加了近战反击时必定触发的aoe伤害，具体请见于新版描述
   （空手道可以触发一种昊京任何邪恶绳之以法的搞怪音效，默认关闭，需要在恢复MOD设置-其它设置中开启；另外默认音量可能不够理想，请自行在设置中尝试调节）
+· 现在使用有近战反击伤害的武器反击幻影特工的飞踢/冲刺踢可以对幻影特工造成伤害并触发aoe伤害（空手道的搞怪音效可以正常播放！）
 · 为第三方天赋“解放者”与“佣兵”进行调整适配并添加汉化文本
 ——解放者：额外增加10点闪避点数
 ——佣兵：
@@ -436,6 +437,9 @@ playermovement.lua（最底下添加了一个函数，关键词_for_myself）
 
 restoration-mod\lua\sc\units\enemies:
 copdamage.lua
+
+restoration-mod\lua\sc\units\enemies\spooc\actions\lower_body:
+actionspooc.lua （修改了剑圣踢人的部分，备注关键词--绳之以法！）
 
 restoration-mod\lua\sc\units\enemies\actions\upper_body:
 copactionshoot.lua（修改了空手道近战反击的部分，备注关键词--绳之以法！）
