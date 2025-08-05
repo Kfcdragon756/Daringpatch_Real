@@ -8,6 +8,15 @@ local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMS
 	local shitpost = restoration and restoration.Options:GetValue("OTHER/ForceEggs/BigMan")
 	local registeredloser = restoration and restoration.Options:GetValue("OTHER/ForceEggs/EmberMyBeloved")
 
+if ChinStringFixes and ChinStringFixes.settings and ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat ~= 1 then
+	easterless = true
+	eggplant = nil
+	my_wife = nil
+	bobcat = nil
+	shitpost = nil
+	registeredloser = nil
+end
+
 -- ResMod english.json
 Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_Init", function(loc)
 	LocalizationManager:add_localized_strings({
