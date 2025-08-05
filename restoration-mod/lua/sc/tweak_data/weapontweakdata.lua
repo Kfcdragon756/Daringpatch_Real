@@ -27462,11 +27462,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		self.spas12.AMMO_PICKUP = {self.spas12.AMMO_PICKUP[1]*1.15, self.spas12.AMMO_PICKUP[2]*1.15}
 	end
 
-	--这一坨是目前没有sweet_liberty标签和没弹匣AK的所有重突。 捡弹（除黄金AK）为7.1
+	--这一坨是目前没有sweet_liberty标签和没弹匣AK的所有重突。 捡弹（除黄金AK）为6.9
 	local is_heavy_ar = {"akmsu", "x_akmsu", "m16", "akm", "akm_gold", "groza", "l85a2", "tkb", "spike", "bdgr", "scarl", "m2", "duskmg", "stango44", "m4_usasoc", "t9fastburst", "malima", "hk_g56", "akilo_2022", "mcbravo", "ma40", "ar47", "modl", "ar2", "sickle", "bulldog"}
 	for _, wep_id in ipairs(is_heavy_ar) do
 		if self[wep_id] then
-			self[wep_id].AMMO_PICKUP = {self[wep_id].AMMO_PICKUP[1] * 1.1 , self[wep_id].AMMO_PICKUP[2] * 1.05}
+			self[wep_id].AMMO_PICKUP = {self[wep_id].AMMO_PICKUP[1] * 1.05 , self[wep_id].AMMO_PICKUP[2] * 1.1}
 		end
 	end
 

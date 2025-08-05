@@ -5,7 +5,7 @@ Day = os.date("%d")
 local MetroLine_BodyExpert_Convert = restoration and restoration.Options:GetValue("OTHER/MetroLineBodyExpertConvert")
 local Daring_Target_Enable = restoration and restoration.Options:GetValue("OTHER/DaringTagetingChange")
 local Counter_Strike_Revert = restoration and restoration.Options:GetValue("OTHER/CounterStrikeRevert")
-local ViNight_PECM = restoration and restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
+--local ViNight_PECM = restoration and restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 
 local weapon_names = restoration and restoration.Options:GetValue("OTHER/WepNames") or 1
 local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSAC")
@@ -256,8 +256,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
         ["MetroLine_BodyExpert_Convert_desc"] = "给冲锋枪四阶的精通加回全头技能效果。\n由MetroLine支持。",
-        ["ViNight_Weird_PECM"] = "完美PPECM",
-        ["ViNight_Weird_PECM_desc"] = "多人游戏不建议使用。一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
+        --["ViNight_Weird_PECM"] = "完美PPECM",
+        --["ViNight_Weird_PECM_desc"] = "多人游戏不建议使用。一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
         ["RestorationModGCGPYPMMSACTitleID"] = "禁用星战武器", -- may need improved
         ["RestorationModGCGPYPMMSACDescID"] = "关闭来自遥远银河系的武器配件及其机制。\n重启劫案生效。", -- may need improved
         ["RestorationModGCGPYPMMSACTextTitleID"] = "禁用彩蛋文本",
@@ -6955,7 +6955,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 
         -- Hacker--
 
-        ["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+        --["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+		["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
         ["menu_deck21_3_desc_sc"] = "你的闪避点数增加##$perk_value_1##。",
         ["menu_deck21_5_desc_sc"] = "便携式ECM干扰器的反馈生效时，击杀一名敌人将为你回复##$perk_value_1##点血量。",
         ["menu_deck21_7_desc_sc"] = "你的护甲回复速率增加##$perk_value_1##。\n\n你的闪避点数额外增加##$perk_value_2##。",
@@ -7055,7 +7056,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         -- Tag Team
         ["menu_deck20_mrwi_desc"] = "解锁#{skill_color}#电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的#{skill_color}#$perk_value_1##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复#{skill_color}#$perk_value_2##点血量，并且为你标记的队友回复#{skill_color}#$perk_value_3##点血量。\n\n电子烟的持续时间为#{skill_color}#$perk_value_4##秒，冷却时间为#{important_1}#$perk_value_5##秒。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
         -- Hacker
-        ["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+        --["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+		["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
         -- Leech
         ["menu_deck22_mrwi_desc"] = "解锁并装备#{skill_color}#水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复#{skill_color}#$perk_value_1##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每#{skill_color}#$perk_value_3##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀#{skill_color}#$perk_value_4##名敌人回复一格且免伤#{skill_color}#$perk_value_5##秒。\n\n水蛭安瓶能够持续#{skill_color}#$perk_value_2##秒钟并且有#{important_1}#$perk_value_6##秒冷却。\n\n你打包尸体和与人质互动的速度加快#{skill_color}#$perk_value_7##。",
 

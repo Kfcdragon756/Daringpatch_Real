@@ -655,9 +655,9 @@
 				<option type="bool" default_value="true" 
 					title_id="Counter_Strike_Revert" desc_id="Counter_Strike_Revert_desc" name="CounterStrikeRevert" 
 				/>
-				<option type="bool" default_value="false" 
+				<!--option type="bool" default_value="false" 
 					title_id="ViNight_Weird_PECM" desc_id="ViNight_Weird_PECM_desc" name="ViNightWeirdPECM" 
-				/>
+				/-->
 				<!--Daring: our new stuffs end here-->
 
 				<divider name="tod_divider" size="15"/>

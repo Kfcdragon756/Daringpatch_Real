@@ -9,7 +9,7 @@ Hooks:PostHook(BlackMarketTweakData, "_init_gloves", "ResGloves", function(self,
 	self.suit_default_gloves.suit_prison = "heist_default"
 end)
 
-local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
+--local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 
 Hooks:PostHook(BlackMarketTweakData, "_init_masks", "ResMaskFixes", function(self, tweak_data)	
 	self.masks.almirs_beard.offsets = {
@@ -1923,10 +1923,10 @@ function BlackMarketTweakData:_init_projectiles(tweak_data)
 
 	self.projectiles.pocket_ecm_jammer.max_amount = 1  --黑客pcm不要改动
 	self.projectiles.pocket_ecm_jammer.base_cooldown = 70
-	if ViNight_PECM then
+	--[[if ViNight_PECM then
 		self.projectiles.pocket_ecm_jammer.max_amount = 6
 		self.projectiles.pocket_ecm_jammer.base_cooldown = 25
-	end
+	end]]
 	
 	--Daring Frags Amount++
 	self.projectiles.frag.max_amount = (self.projectiles.frag.max_amount or 3) + 1

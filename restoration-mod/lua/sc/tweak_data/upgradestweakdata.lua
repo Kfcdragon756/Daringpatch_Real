@@ -13,7 +13,7 @@ local schinese = Idstring("schinese"):key() == SystemInfo:language():key()  --�
 
 local job = Global.level_data and Global.level_data.level_id
 local per_pellet = true --restoration and restoration.Options:GetValue("OTHER/WeaponHandling/PerPelletShotguns") 
-local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
+--local ViNight_PECM = restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 local MetroLine_BodyExpert_Convert = restoration.Options:GetValue("OTHER/MetroLineBodyExpertConvert")
 
 function UpgradesTweakData:_init_value_tables()
@@ -2889,7 +2889,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}	
 	
 	--Vinight's Hacker --魏医生的奇妙PCM
-	if ViNight_PECM then
+	--[[if ViNight_PECM then
 		self.values.player.pocket_ecm_jammer_base = {
 			{
 				cooldown_drain = 0.5,
@@ -2906,7 +2906,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		self.values.team.pocket_ecm_heal_on_kill = {
 			0.4
 		}
-	end
+	end]]
 
 	
 	
@@ -3496,7 +3496,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_5 = "60%", -- Proc chance on non-1st ticks of feedback. Not defined here
 		perk_value_6 = "60", -- CD of PECM. Not defined here
 		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain), -- CD reduction on kill
-		perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
+		--perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
 	}
 	self.specialization_descs[21][3] = {
 		perk_value_1 = tostring(self.values.player.passive_dodge_chance[1] * 100) -- Passive dodge increase
@@ -3709,7 +3709,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_5 = "60%", -- Proc chance on non-1st ticks of feedback. Not defined here
 		perk_value_6 = "60", -- CD of PECM. Not defined here
 		perk_value_7 = tostring(self.values.player.pocket_ecm_jammer_base[1].cooldown_drain), -- CD reduction on kill
-		perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
+		--perk_value_8 = (ViNight_PECM and "，最多有##6##次充能" or ""), --魏医生的奇妙PCM
 	}
 	self.multi_choice_specialization_descs[23][9][22] = { --Leech
 		perk_value_1 = tostring(self.values.player.copr_activate_bonus_health_ratio[2] * 100).."%", -- HP regen during activation
