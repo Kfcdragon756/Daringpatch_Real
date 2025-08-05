@@ -7001,8 +7001,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_deck23_5_2_short"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
         ["menu_deck23_5_3_desc"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
         ["menu_deck23_5_3_short"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
-        ["menu_deck23_5_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#5%##。",
-        ["menu_deck23_5_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#5%##。",
+        ["menu_deck23_5_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
 
         ["menu_deck23_7_desc"] = "当你的血量低于#{skill_color}#$perk_value_1##时，你会免疫对血量的伤害#{skill_color}#$perk_value_2##秒，每#{important_1}#$perk_value_3##秒只能触发一次。",
         ["menu_deck23_7_short"] = "当你的血量低于#{skill_color}#$perk_value_1##时，你会免疫对血量的伤害#{skill_color}#$perk_value_2##秒，每#{important_1}#$perk_value_3##秒只能触发一次。",
@@ -7140,18 +7140,34 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_deck_kmerc_3_desc_sc"] = "Stand strong and meet force with force! Gain ##1%## critical chance for every ##20## points of armor you have.\n\nYou gain ##10%## more armor.",
         ["menu_deck_kmerc_5_desc_sc"] = "When your health would become ##0##, it becomes ##1## instead and you gain ##2## seconds of invulnerability.\n\nYou cannot sprint while under the effects of this invulnerability.\nThis effect cannot occur again until you are restored to full health.\n\nYou gain an additional ##5%## more health.",
         ["menu_deck_kmerc_7_desc_sc"] = "The inner layer of your armor is lined with coagulant agents and hemostatic gel. After having armor for at least ##2## seconds, heal health equal to ##1%## of your max armor every ##5## seconds so long as you have armor.",--]]
-        ["menu_deck_kmerc_1_desc_sc"] = "Take greatly reduced damage from heavy hits to your health so that no single attack can kill you.\n\nYou gain ##5%## more health.",
-        ["menu_deck_kmerc_3_desc_sc"] = "You gain ##1%## reload speed and ##2%## weapon swap speed for every ##4## points armor you have.\n\nYou gain ##5%## more armor.",
-        ["menu_deck_kmerc_5_desc_sc"] = "When your health would become ##0##, it becomes ##1## instead and you gain ##2## seconds of invulnerability.\nYou cannot sprint while under the effects of this invulnerability.\nThis effect cannot occur again until you are restored to full health.\n\nYou gain an additional ##5%## more health.",
-        ["menu_deck_kmerc_7_desc_sc"] = "After having armor for at least ##2## seconds, heal health equal to ##1%## of your max armor every ##5## seconds so long as you have armor.",
-        ["menu_deck_kmerc_9_desc_sc"] = "Whenever you take damage to your health that leaves you at ##30%## health or less, regain ##50%## of that damage as armor.\nThis cannot occur more than once every ##1## second or from the same hit that triggers Walk It Off's (Card 5) invulnerability.",
+		["menu_deck_kmerc_title"] = "佣兵",
+		["menu_deck_kmerc_desc"] = "这位专家佣兵经过上万种的生存训练，更将上万种消灭敌军的诀窍校记于心。即便是在枪林弹雨之中，专家级别的佣兵也会凭借着可怕的毅力，坚持不懈的精神和强大的意志力杀出一条血路。生存是佣兵的第一法则：当一切结束后，尘埃落定之时，那上百万美元的报酬对一个死人来说又算什么呢？",
+		["menu_deck_kmerc_1"] = "伤痕累累",
+		["menu_deck_kmerc_3"] = "越战越勇",
+		["menu_deck_kmerc_5"] = "冷静片刻",
+		["menu_deck_kmerc_7"] = "一线希冀",
+		["menu_deck_kmerc_9"] = "至强一面",
+		["menu_deck_kmerc_1_desc_sc"] = "你受到对血量的重击伤害大幅减少，现在你所向披靡......\n\n你获得##5%##的额外血量。",
+		["menu_deck_kmerc_3_desc_sc"] = "你每有##4##点护甲值，就会获得##1%##的换弹速度加成与##2%##的武器切换速度加成。\n\n你获得##5%##的额外护甲。",
+		["menu_deck_kmerc_5_desc_sc"] = "当你的血量降低至##0##，它将会提升至##1##且你将获得##2##秒的无敌时间。\n你在无敌效果的持续时间内不能冲刺。\n该效果在你重新回复满血量之前都无法再次触发。\n\n你再获得##5%##的额外血量。",
+		["menu_deck_kmerc_7_desc_sc"] = "在获取护甲至少##2##秒后,只要你有护甲，你就会在每##5##秒获取相当于你最大护甲值的##1%##的治疗量。",
+		["menu_deck_kmerc_9_desc_sc"] = "当你受到的伤害使你的血量降低至你血量的##30%##或更低时，你将获取相当于上一击##50%##的伤害量的护甲值。\n该效果冷却##1##秒钟且不会与“冷静片刻”（卡牌5）的无敌效果同时触发。",
 
         -- OFFYERROCKER'S LIBERATOR PERK DECK
-        ["menu_deck_liberator_1_desc_sc"] = "Unlocks the ##Survival Syringe## for use in place of a throwable. Using the Survival Syringe will immediately restore ##15## stamina and restore ##0.5## points of health every second for ##4## seconds or until the player takes health damage.\nThe Survival Syringe has ##1## charge with a cooldown of ##30## seconds; each kill you perform will reduce the cooldown by ##1## second.",
-        ["menu_deck_liberator_3_desc_sc"] = "The health regen from the Survival Syringe now lasts for an additional ##2## seconds.\n\nWhen health regen from Survival Syringe is canceled, gain ##10%## damage resistance for the remaining time.",
-        ["menu_deck_liberator_5_desc_sc"] = "The Survival Syringe restores an additional ##15## stamina and restores an additional ##0.5## points of health every second.\n\nYour dodge is increased by ##5## points.",
-        ["menu_deck_liberator_7_desc_sc"] = "Your health is increased by ##10%##.\n\nThe health regen from Survival Syringe now lasts for an additional ##2## seconds.",
-        ["menu_deck_liberator_9_desc_sc"] = "The Survival Syringe now restores an additional ##1## point of health every second."
+		["bm_tachi"] = "Tachi-2B 急救注射器",
+		["bm_tachi_desc"] = "这些注射器含有强效药物和微型机器人的混合物。使用时，注射器里的机器人会进入身体，并迅速修复其注入点周围的任何受损组织。这些特殊变种的注射器还会暂时提升使用者的肾上腺素水平——尤其适合去找到一个不错的掩体，让机器人们得以发挥它们的作用。",
+		["menu_deck_liberator_title"] = "解放者",
+		["menu_deck_liberator_desc"] = "解放者有着悠久的历史，他们通常以数字文档的形式“回收”政府和企业的财物。由于缺乏斗争的经验，解放者时常需要停下来调整一下自己的状态，但是这并不妨碍他们继续与那些坐在钢铁王座之端的暴君作斗争。",
+		["menu_deck_liberator_1"] = "生存捷径",
+		["menu_deck_liberator_3"] = "预先干扰",
+		["menu_deck_liberator_5"] = "缺乏经验",
+		["menu_deck_liberator_7"] = "问题实体",
+		["menu_deck_liberator_9"] = "新兴力量",
+		["menu_deck_liberator_1_desc_sc"] = "解锁##急救注射器##以供你使用。注射器会使用你的投掷物栏。使用急救注射器将立即回复##15##点体力，并在接下来的##4##秒内每秒回复##0.5##点血量，玩家受到对血量的伤害将立即停止血量回复。\n注射器每##30##秒充能##1##次，每次击杀可以减少冷却时间##1##秒。\n\n你的闪避点数增加##5##。",
+		["menu_deck_liberator_3_desc_sc"] = "急救注射器的回血效果延长##2##秒，\n\n当回血效果被打断，在剩余的持续时间内，你将获得##10%##的伤害抗性。",
+		["menu_deck_liberator_5_desc_sc"] = "使用急救注射器将额外回复##15##点耐力且每秒的血量回复点数额外增加##0.5##。\n\n你的闪避点数额外增加##5##。",
+		["menu_deck_liberator_7_desc_sc"] = "你的血量提升##10%##。\n\n急救注射器的回血效果额外延长##2##秒。",
+		["menu_deck_liberator_9_desc_sc"] = "使用急救注射器时每秒的血量回复点数额外增加##1##。\n\n你的闪避点数再额外增加##5##。"
 
         --[[ Original Blank Perk Deck--
         ["menu_st_spec_0"] = "空白天赋",    
@@ -7183,7 +7199,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 			end
 			if butt <= frame then
 				LocalizationManager:add_localized_strings({
-					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击幻影特工的#{rick}#RIDER-KICK##与冲刺踢并将其击倒，且可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击##幻影特工的#{rick}#RIDER-KICK##与冲刺踢并将其击倒，且#{skill_color}#可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+					["bm_wskn_famas_hypno"] = "巴适之鹰",
+					["menu_st_spec_23"] = "瑞典蠢驴",
+					["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
+					["menu_difficulty_sm_wish"] = "钢铁之路",
+					["menu_risk_sm_wish"] = "钢铁之路，为那些掌控了秘密诀窍并寻求挑战的人而准备。"
 				})
 			end
 		end

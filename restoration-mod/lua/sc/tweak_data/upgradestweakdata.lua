@@ -2934,11 +2934,12 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.copr_risen_cooldown_add = 45
 
 	--Copycat
-	local health_boost = 0.05
-	local armor_boost = 0.0375
-	local dodge_boost = 0.0125
-	local crouch_speed_multiplier = 0.05
-	local carry_speed_multiplier = 0.05
+	--此处将各增益效果翻倍。
+	local health_boost = 0.05 * 2
+	local armor_boost = 0.0375 * 2
+	local dodge_boost = 0.0125 * 2
+	local crouch_speed_multiplier = 0.05 * 2
+	local carry_speed_multiplier = 0.05 * 2
 	self.values.player.mrwi_health_multiplier = {
 		1 + health_boost * 1,
 		1 + health_boost * 2,

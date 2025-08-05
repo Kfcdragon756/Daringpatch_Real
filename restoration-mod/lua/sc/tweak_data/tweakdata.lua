@@ -1514,7 +1514,8 @@ if BeardLib then
 					"player_tachi_restore_health_1",
 					"player_tachi_restore_stamina_1",
 					"player_tachi_hot_amount_1",
-					"player_tachi_hot_duration_1"
+					"player_tachi_hot_duration_1",
+					"player_passive_dodge_chance_1" --添加闪避点数
 				},
 				cost = 0,
 				icon_xy = {0, 0},
@@ -1526,7 +1527,7 @@ if BeardLib then
 			{
 				upgrades = {
 					"player_tachi_hot_duration_2",
-					"player_tachi_hot_cancelled_damage_resistance_consolation"
+					"player_tachi_hot_cancelled_damage_resistance_consolation",
 				},
 				cost = 0,
 				icon_xy = {1,0},
@@ -1539,7 +1540,7 @@ if BeardLib then
 				upgrades = {
 					"player_tachi_hot_amount_2",
 					"player_tachi_restore_stamina_2",
-					"player_passive_dodge_chance_1"
+					"player_passive_dodge_chance_2" --原来就有的闪避点数
 				},
 				cost = 0,
 				icon_xy = {2, 0},
@@ -1563,7 +1564,8 @@ if BeardLib then
 			deck8,
 			{
 				upgrades = {
-					"player_tachi_hot_amount_3"
+					"player_tachi_hot_amount_3",
+					"player_passive_dodge_chance_3" --再添加闪避点数
 				},
 				cost = 0,
 				icon_xy = {0,1},
