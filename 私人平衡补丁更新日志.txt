@@ -437,6 +437,9 @@ playermovement.lua（最底下添加了一个函数，关键词_for_myself）
 restoration-mod\lua\sc\units\enemies:
 copdamage.lua
 
+restoration-mod\lua\sc\units\enemies\spooc\actions\lower_body:
+actionspooc.lua （修改了剑圣踢人的部分，备注关键词--绳之以法！）
+
 restoration-mod\lua\sc\units\enemies\actions\upper_body:
 copactionshoot.lua（修改了空手道近战反击的部分，备注关键词--绳之以法！）
 
