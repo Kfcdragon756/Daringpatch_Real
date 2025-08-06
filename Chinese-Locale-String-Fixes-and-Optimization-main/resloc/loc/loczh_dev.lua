@@ -7134,6 +7134,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         --Strings for Lobby Player Info
 		["menu_st_spec_24"] = "白板",
 		["menu_st_spec_25"] = "先天异禀",
+        ["menu_st_spec_26"] = "佣兵",
+		["menu_st_spec_27"] = "解放者",
         -- MOD PERK DECKS
         -- OFFYERROCKER'S MERCENARY PERK DECK  --check
         --[[["menu_deck_kmerc_1_desc_sc"] = "Years of battle have made your skin tough. Take greatly reduced damage from heavy hits to your health so that ##no single attack can kill you##.\n\nYou gain ##5%## more health.",
