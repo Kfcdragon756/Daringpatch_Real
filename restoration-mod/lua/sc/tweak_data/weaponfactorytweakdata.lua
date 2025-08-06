@@ -10285,7 +10285,7 @@ end)
 							spread = -2 
     				    },
     				    internal_part = true,
-    				    dlc = "sc"
+    				    dlc = "daring"
     				}
 					self.wpn_fps_pis_rage.override.LR_mag_Daring = {
     				    stats = {
@@ -27534,6 +27534,41 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			end
 			self.wpn_fps_shot_thorhammer_npc.override = deep_clone(self.wpn_fps_shot_thorhammer.override)
 			self.wpn_fps_shot_thorhammer_npc.uses_parts = deep_clone(self.wpn_fps_shot_thorhammer.uses_parts)
+
+			--生化危机套件  --保留修改部分--[
+			self.parts.re_kit_Daring = {
+				pcs = {},
+				type = "exclusive_set",
+				name_id = "re_kit_Daring",
+				desc_id = "re_kit_Daring_desc",
+				a_obj = "a_body",
+				has_description = true,
+				alt_icon = "guis/dlcs/boost_in_lootdrop/textures/pd2/blackmarket/icons/mods/wpn_fps_upg_bonus_team_exp_money_p3_sc",
+				unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+				third_unit = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy",
+				supported = true,
+				keep_damage = true, --这样才能改伤害
+				dlc = "daring",
+				stats = {
+					damage = 120,
+					spread = -21
+				},
+				custom_stats = {
+					ammo_pickup_max_mul = 0.95,
+					ammo_pickup_min_mul = 0.95,
+					alt_ammo_pickup_max_mul = 0.95,
+					alt_ammo_pickup_min_mul = 0.95,
+					falloff_start_mult = 0.1,
+					falloff_end_mult = 0.6,
+					damage_min_mult = 0.1,
+					rays = 24,
+					rof_mult = 0.666667
+				}
+			}
+
+			table.insert(self.wpn_fps_shot_thorhammer.uses_parts, "re_kit_Daring")
+			--]
+
 		end
 
 		if self.parts.wpn_fps_smg_tribune32_stock_fool then

@@ -2521,6 +2521,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["loot_sc_ocp_desc"] = "这是一件RESTORATION大修的物品! (需要WEAPON COLOR PACK 3)",
         ["loot_sc_faco_desc"] = "这是一件RESTORATION大修的物品! (需要JIU FENG SMUGGLER PACK 1)",
 
+        -- Daring Stuff
+        ["loot_daring"] = "LR_Daring",
+        ["loot_daring_desc"] = "这是一件鹰姐添加或修改的物品！",
+
         ["menu_l_global_value_omnia"] = "OMNIA",
         ["menu_l_global_value_omnia_desc"] = "这是一件OMNIA的物品!",
 
@@ -3779,6 +3783,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
         ["bm_wp_upg_i_autousas"] = "Battlefield-Tested Internals",  --tra
         --Reinbeck M1
         ["bm_w_beck_desc"] = "在犯罪世界里最流行的霰弹枪又回来了，仍然在霰弹枪世界里拥有一席之地！最早在2011年的犯罪狂潮当中出现，这把霰弹枪被证明在近距离情况下非常可靠。",
+        --肯德基的Thors Hammer AW-02套件
+        ["re_kit_Daring"] = "生化危机套件",
+        ["re_kit_Daring_desc"] = "\n#{heat_warm_color}#我一直在此恭候您，温特斯先生。##",
 
         -- Modifiers-- --Let me know if I'm safe to move these up, like the other stuff--
         ["bm_menu_bonus_concealment_p1"] = "少量灵活性加成，少量稳定性减少",

@@ -20508,7 +20508,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.tactical_reload = 1
 				self.thorhammer.fire_mode_data.fire_rate = 0.5
 				self.thorhammer.CLIP_AMMO_MAX = 12
-				self.thorhammer.AMMO_MAX = 40
+				self.thorhammer.AMMO_MAX = 60  --此处修改，原40
 				self.thorhammer.kick = self.stat_info.kick_tables.right_recoil
 				self.thorhammer.kick_pattern = {
 					{0, self.stat_info.kick_tables.left_recoil},
@@ -20523,8 +20523,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.supported = true
 				self.thorhammer.ads_speed = 0.300
 				self.thorhammer.damage_falloff = {
-					start_dist = 200,
-					end_dist = 1900,
+					start_dist = 500,
+					end_dist = 2700,
 					min_mult = 0.1333
 				}
 				self.thorhammer.stats = {
@@ -27360,6 +27360,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		end
 	end
 	--在这里重新做
+	if self.thorhammer then  --肯德基的re Thors Hammer AW-02
+		self.thorhammer.AMMO_PICKUP = {self.thorhammer.AMMO_PICKUP[1]*0.95, self.thorhammer.AMMO_PICKUP[2]*0.95}
+	end
 	if self.hk51b then  --Versteckt-51B轻机枪 9.1
 		self.hk51b.AMMO_PICKUP = {self.hk51b.AMMO_PICKUP[1]*1.1, self.hk51b.AMMO_PICKUP[2]*1.1}
 	end

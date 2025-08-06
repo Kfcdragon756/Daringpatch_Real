@@ -6,7 +6,7 @@
 
 
 == 以下为版本更新更新日志 ==
-[v11]（未完成）
+[v11]
 --修复类--
 · 修复“佣兵”卡牌三无效的问题
 · 修复上个版本遗留的微小文本错误
@@ -20,10 +20,9 @@
 · 为一些武器的下挂榴弹添加更佳的衰减曲线、最小伤害等
 · 大幅增加非第三方加特林的备弹量，少量增加Vulkan转轮机枪的捡弹量
 · 回调近战反击至v10版本之前的效果（基础就能反击幻影特工各种踢和盾击）
+· 提高第三方武器Thor's Hammer AW-02的备弹和捡弹量，为其添加一个致敬原版生化危机属性特点的套件
 · 稍微削弱Commando 552步枪的衰减始距、衰减末距、最小伤害、捡弹量，稍微加强灵活性、瞄准时间、穿甲伤害
 · 为第三方天赋“佣兵”与“解放者”进行调整适配并添加汉化文本
-	——佣兵：
-	   ○ 
 	——解放者：
 	   ○ 额外增加10点闪避点数
 	   ○ 增加注射器的回血量
@@ -476,6 +475,8 @@ upgradestweakdata.lua
 weaponfactorytweakdata.lua
 weapontweakdata.lua
 skilltreetweakdata.lua
+lootdroptweakdata.lua（self.global_values.daring部分）
+dlctweakdata.lua（self.daring部分）
 
 restoration-mod\lua\sc\managers:
 menumanager.lua（最底下的LuaNetworking Receiver，还有吗？）
