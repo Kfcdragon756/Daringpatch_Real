@@ -7136,6 +7136,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["hud_hd2offensive_inbound"] = "即将抵达",
 	    ["hud_hd2offensive_impact"] = "下落中",
 	    ["hud_hd2offensive_ongoing"] = "进行中",
+        ["hud_hd2offensive_m"] = "m",
 
         --Strings for Lobby Player Info
 		["menu_st_spec_24"] = "白板",
