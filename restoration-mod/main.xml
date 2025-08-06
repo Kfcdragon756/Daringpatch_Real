@@ -456,6 +456,10 @@
     <AddFiles directory="assets">
     	<!-- Effect -->
 		<effect path="effects/particles/weapons/hd2offensive/hd2offensive_red_trail"/>
+		<texture path="guis/dlcs/pd2_dlc_hd2o/textures/pd2/hud/icons/bm_wpn_prj_hd2offensive_eagle_airstrike"/>
+		<texture path="guis/dlcs/pd2_dlc_hd2o/textures/pd2/hud/icons/bm_wpn_prj_hd2offensive_orbital_120mm"/>
+		<texture path="guis/dlcs/pd2_dlc_hd2o/textures/pd2/hud/icons/bm_wpn_prj_hd2offensive_orbital_precision"/>
+		<texture path="guis/dlcs/pd2_dlc_hd2o/textures/pd2/hud/icons/bm_wpn_prj_hd2offensive_orbital_gas"/>
     </AddFiles>
 
 	<!--///MOD SETTINGS\\\-->
