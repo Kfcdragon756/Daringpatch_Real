@@ -6215,7 +6215,7 @@ end)
 
 Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 
-	--MERCENARY DECK
+	--MERCENARY DECK  --佣兵
 		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.4
 		self.values.player.kmerc_swap_speed_per_max_armor = { 0.02 }
 		self.values.player.kmerc_reload_speed_per_max_armor = { 0.01 }
@@ -6263,7 +6263,7 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 			}
 		}
 
-	--LIBERATOR DECK
+	--LIBERATOR DECK  --解放者
 		self.values.player.tachi_base = {
 			{
 				cooldown_drain_per_kill = 1,
@@ -6278,7 +6278,7 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 			30
 		}
 		self.values.player.tachi_hot_cancelled_damage_resistance_consolation = {
-			0.1
+			0.15
 		}
 		self.values.player.tachi_hot_amount = {
 			0.5,
