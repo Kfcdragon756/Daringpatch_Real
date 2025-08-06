@@ -696,6 +696,9 @@ local root_path_result = BeardLib.Frameworks.Base._directory  --通过Beardlib�
 if root_path_result then
 	file_path = root_path_result .. "/Liberator Perk Deck/scripts/playeractiontachi.lua"  --获取解放者天赋的路径
 end
+if not file_path then
+	return
+end
 
 -- 要追加的内容
 local new_content = "\n\n"..[[
