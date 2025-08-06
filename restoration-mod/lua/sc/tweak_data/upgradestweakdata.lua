@@ -6281,7 +6281,7 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 			0.15
 		}
 		self.values.player.tachi_hot_amount = {
-			0.5,
+			0.05,
 			0.1,
 			0.15
 		}
