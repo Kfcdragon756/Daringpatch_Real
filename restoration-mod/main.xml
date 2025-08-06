@@ -644,8 +644,8 @@
 					<option type="bool" default_value="false" 
 						title_id="Daring_HaoJing_Enable" desc_id="Daring_HaoJing_Enable_desc" name="DaringHaoJingEnable" 
 					/>
-					<option type="number" default_value="10" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceOptionsButtonDescID" name="HaoJingChance"/>
-					<option type="number" default_value="30" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceCLKOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceCLKOptionsButtonDescID" name="HaoJingChanceCLK"/>
+					<option type="number" default_value="25" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceOptionsButtonDescID" name="HaoJingChance"/>
+					<option type="number" default_value="50" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceCLKOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceCLKOptionsButtonDescID" name="HaoJingChanceCLK"/>
 					<divider name="tod_divider" size="8"/>
 					<option type="bool" default_value="true" 
 						title_id="Daring_HaoJing_Sync" desc_id="Daring_HaoJing_Sync_desc" name="DaringHaoJingSync" 
