@@ -685,3 +685,136 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 	end
 end)
 
+-- 接下来的内容是为了修改第三方天赋“解放者”的运作方式以做适配
+if not Beardlib or not BeardLib.Utils or not BeardLib.Utils:FindMod("Liberator Perk Deck") then
+	return
+end
+
+-- 获取mod路径
+local file_path
+local root_path_result = BeardLib.Frameworks.Base._directory  --通过Beardlib获取mods路径
+if root_path_result then
+	file_path = root_path_result .. "/Liberator Perk Deck/scripts/playeractiontachi.lua"  --获取解放者天赋的路径
+end
+
+-- 要追加的内容
+local new_content = "\n\n"..[[
+if SC and ChinStringFixes then
+    PlayerAction.Tachi = {
+        Priority = 1,
+        Function = function()
+            local pm = managers.player
+            
+            local base_upgrade_data = pm:upgrade_value("player","tachi_base")
+            local timer = TimerManager:game()
+            local player = pm:local_player()
+            if not alive(player) then 
+                return
+            end
+            local dmg_ext = player:character_damage()
+            local start_t = timer:time()
+            local regen_interval = base_upgrade_data.regen_interval
+            local hot_amount = pm:upgrade_value("player","tachi_hot_amount",0)
+            local hot_duration = pm:upgrade_value("player","tachi_hot_duration",0)
+            local end_time = start_t + hot_duration
+            local has_dmg_resist = pm:has_category_upgrade("player","tachi_hot_cancelled_damage_resistance_consolation")
+            local dmg_resist = pm:upgrade_value("player","tachi_hot_cancelled_damage_resistance_consolation",0)
+
+            local function update_ability_radial()
+                local time_left = end_time - timer:time()
+
+                managers.hud:activate_teammate_ability_radial(HUDManager.PLAYER_PANEL, time_left, hot_duration)
+            end
+            
+            local has_taken_health_damage = false
+            local regen_first_hit_health = false
+            local hit_regen = 0
+            local cached_player_health = dmg_ext:get_real_health()
+            local function cb_on_damage()
+                if not has_taken_health_damage then
+                    local current_hp = dmg_ext:get_real_health()
+                    if current_hp < cached_player_health then
+                        has_taken_health_damage = true
+                        hit_regen = cached_player_health - current_hp
+                    else
+                        cached_player_health = current_hp
+                    end
+                end
+            end
+            dmg_ext._listener_holder:add(
+                "liberator_tachi_on_damage",
+                {
+                    "on_damage"
+                },
+                cb_on_damage
+            )
+            
+            local next_heal_t = start_t
+            
+            update_ability_radial()
+            while alive(player) and timer:time() < end_time do 
+            
+                local t = timer:time()
+                if t >= next_heal_t then 
+                    next_heal_t = next_heal_t + regen_interval
+                    if not has_taken_health_damage then
+                        dmg_ext:restore_health(hot_amount,true,false)
+                    elseif not regen_first_hit_health then
+                        dmg_ext:restore_health(hit_regen,true,false)
+                        regen_first_hit_health = true
+                    elseif has_dmg_resist then
+                        pm:set_property("tachi_damage_resistance",dmg_resist)
+                    end
+                end
+                coroutine.yield()
+            end
+            
+            
+            managers.hud:set_teammate_ability_radial(HUDManager.PLAYER_PANEL, {current=0,total=1})
+            dmg_ext._listener_holder:remove("liberator_tachi_on_damage")
+            pm:remove_property("tachi_damage_resistance")
+        end
+    }
+end
+]]
+
+-- 检测文件是否存在
+local function file_exists(path)
+    local file = io.open(path, "r")
+    if file then
+        file:close()
+        return
+    end
+    return
+end
+
+-- 如果文件不存在，则直接跳过
+if not file_exists(file_path) then
+    --log("Mod file not found: " .. file_path)
+    return
+end
+
+-- 读取文件内容
+local file = io.open(file_path, "r")
+if not file then
+    --log("Failed to open file for reading: " .. file_path)
+    return
+end
+
+local original_content = file:read("*a") -- 读取整个文件内容
+file:close()
+
+-- 检查文件尾部是否已有要添加的内容
+if original_content:sub(-#new_content) == new_content then
+    --log("check exist, no repeating")
+else
+    -- 追加内容到文件末尾
+    file = io.open(file_path, "a")
+    if not file then
+        --log("Failed to open file for writing: " .. file_path)
+        return
+    end
+    file:write(new_content)
+    file:close()
+    --log("suc added")
+end
