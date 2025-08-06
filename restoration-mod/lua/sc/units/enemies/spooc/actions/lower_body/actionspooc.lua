@@ -1545,7 +1545,8 @@ function ActionSpooc:anim_act_clbk(anim_act)
 				if melee_tweak.counter_aoe then
 
 					-- AOE计算部分
-					local player_pos = managers.player:player_unit():position()
+					local player_me = managers.player
+					local player_pos = player_me:player_unit():position()
 					local enemies = World:find_units_quick("sphere", player_pos, melee_tweak.aoe_range or 1500, managers.slot:get_mask("trip_mine_targets"))
 					local aoe_damage = melee_tweak.aoe_damage
 					for _, unit in ipairs(enemies) do
