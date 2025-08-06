@@ -17,6 +17,7 @@
 · 模仿者天赋的自选增益的增益量大幅增加
 · 少量增加了大多数重型突击步枪的捡弹率
 · 稍微提高防弹背心及以上护甲的破甲无敌帧
+· 为一些武器的下挂榴弹添加更佳的衰减曲线、最小伤害等
 · 大幅增加非第三方加特林的备弹量，少量增加Vulkan转轮机枪的捡弹量
 · 回调近战反击至v10版本之前的效果（基础就能反击幻影特工各种踢和盾击）
 · 稍微削弱Commando 552步枪的衰减始距、衰减末距、最小伤害、捡弹量，稍微加强灵活性、瞄准时间、穿甲伤害
@@ -34,6 +35,7 @@
 --其它--
 · 重新为连发者 1874步枪添加先进战斗光学瞄具
 · 删除了Vinight的PPECM（因同步上存在难以解决的问题）
+· 为HD2战备mod（HD2 Offensive (Stratagems)）提供同步支持，此mod下一个版本同样也会适配恢复mod
 
 v10.12
 · 修复几个步枪爆头减益未生效的问题
@@ -505,3 +507,5 @@ restoration-mod/lua/others/morale_boost.lua  --用于春哥吼给自己也加速
 restoration-mod/update/*  --用于更新和更新检测
 restoration-mod/assets/guis/textures/pd2/skilltree/*  --用于新改全头的buff hud显示
 restoration-mod/assets/oggs/haojing/szyf.ogg  --用于让邪恶绳之以法
+restoration-mod/assets/guis/dlcs/pd2_dlc_hd2o/textures/pd2/hud/icons/*  --用于HD2飞鹰轨道战备的同步（光束）
+restoration-mod/assets/effects/particles/weapons/hd2offensive/*  --用于HD2飞鹰轨道战备的同步（图标）
