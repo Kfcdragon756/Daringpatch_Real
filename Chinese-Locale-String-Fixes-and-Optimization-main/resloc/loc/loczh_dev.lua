@@ -7126,13 +7126,13 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 
         -- 飞鹰空袭、轨道战备等
         ["bm_wpn_prj_hd2offensive_eagle_airstrike"] = "“飞鹰”空袭",
-        ["bm_wpn_prj_hd2offensive_eagle_airstrike_desc"] = "发动无目标的榴弹火力网，进行小范围地毯式轰炸。\n\n将战备扔出去后，榴弹会排成一列垂直于你扔出时的朝向从空中落下。\n\n最大数量：#{skill_color}#3##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#60##秒",
+        ["bm_wpn_prj_hd2offensive_eagle_airstrike_desc"] = "发动无目标的榴弹火力网，进行小范围地毯式轰炸。\n\n将战备扔出去后，榴弹会排成一列垂直于你扔出时的朝向从空中落下。\n\n最大数量：#{skill_color}#4##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#180##秒",
         ["bm_wpn_prj_hd2offensive_orbital_120mm"] = "轨道120mm高爆弹火力网",
-        ["bm_wpn_prj_hd2offensive_orbital_120mm_desc"] = "向小范围区域齐射的火力打击，可以解决集中在一起的敌方单位并留下几滩火焰阻挡敌人的行动。",
+        ["bm_wpn_prj_hd2offensive_orbital_120mm_desc"] = "向小范围区域齐射的火力打击，可以解决集中在一起的敌方单位并留下几滩火焰阻挡敌人的行动。\n\n最大数量：#{skill_color}#1##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#360##秒\n持续时间：#{skill_color}#30##秒\n炮弹数量：#{skill_color}#20##个",
         ["bm_wpn_prj_hd2offensive_orbital_gas"] = "轨道毒气攻击",
-        ["bm_wpn_prj_hd2offensive_orbital_gas_desc"] = "释放多个腐蚀性气团的射弹，可以使敌人陷入呕吐状态以控制它们的行动并造成少量的持续性伤害。",
+        ["bm_wpn_prj_hd2offensive_orbital_gas_desc"] = "释放多个腐蚀性气团的射弹，可以使敌人陷入呕吐状态以控制它们的行动并造成少量的持续性伤害。\n\n最大数量：#{skill_color}#2##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#150##秒",
         ["bm_wpn_prj_hd2offensive_orbital_precision"] = "轨道精准攻击",
-        ["bm_wpn_prj_hd2offensive_orbital_precision_desc"] = "来自异次元的驱逐舰“阿特拉斯”轨道加农炮的一发精准攻击。",
+        ["bm_wpn_prj_hd2offensive_orbital_precision_desc"] = "来自异次元的驱逐舰“阿特拉斯”轨道加农炮的一发精准攻击。\n\n最大数量：#{skill_color}#1##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#30##秒",
         ["hud_hd2offensive_inbound"] = "即将抵达",
 	    ["hud_hd2offensive_impact"] = "下落中",
 	    ["hud_hd2offensive_ongoing"] = "进行中",
