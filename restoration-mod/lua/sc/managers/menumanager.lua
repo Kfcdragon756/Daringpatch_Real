@@ -686,7 +686,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 end)
 
 -- 接下来的内容是为了修改第三方天赋“解放者”的运作方式以做适配
-if not Beardlib or not BeardLib.Utils or not BeardLib.Utils:FindMod("Liberator Perk Deck") then
+if not BeardLib or not BeardLib.Utils or not BeardLib.Utils:FindMod("Liberator Perk Deck") then
 	return
 end
 
@@ -783,9 +783,9 @@ local function file_exists(path)
     local file = io.open(path, "r")
     if file then
         file:close()
-        return
+        return true
     end
-    return
+    return false
 end
 
 -- 如果文件不存在，则直接跳过
