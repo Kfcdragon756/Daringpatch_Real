@@ -11663,6 +11663,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							self.groza_underbarrel.reload_speed_multiplier = 0.66666
 						end
 						self.groza.reload_speed_multiplier = self.groza.reload_speed_multiplier * 0.86
+						self.groza.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+                        self.groza.min_exp_dmg = 30
+                        self.groza.hit_fix = 0.95  --exp_func]]
+						self.groza_underbarrel.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+                        self.groza_underbarrel.min_exp_dmg = 30
+                        self.groza_underbarrel.hit_fix = 0.95  --exp_func]]
 						self.groza_underbarrel.upgrade_blocks = {
 							weapon = {
 								"clip_ammo_increase"
@@ -12110,10 +12116,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.contraband.timers.reload_exit_empty = 0.725
 						self.contraband.timers.reload_exit_not_empty = 0.8
 						self.contraband.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.contraband.min_exp_dmg = 30
+						self.contraband.min_exp_dmg = 24
 						self.contraband.hit_fix = 0.95  --exp_func]]
 						self.contraband_m203.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.contraband_m203.min_exp_dmg = 30
+						self.contraband_m203.min_exp_dmg = 24
 						self.contraband_m203.hit_fix = 0.95  --exp_func]]
 						self.contraband_m203.upgrade_blocks = {
 							weapon = {
@@ -18725,6 +18731,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 4,
 					reload = 20
 				}
+				self.g3hk79.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+                self.g3hk79.min_exp_dmg = 24
+                self.g3hk79.hit_fix = 0.95  --exp_func]]
 				self.g3hk79.stats_modifiers = nil
 				self.g3hk79.panic_suppression_chance = 0.05
 				self.g3hk79.armor_piercing_chance = 0.5
@@ -26178,6 +26187,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				value = 9,
 				reload = 20
 			}
+			self.iuhTTIPlus.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+        	self.iuhTTIPlus.min_exp_dmg = 24
+            self.iuhTTIPlus.hit_fix = 0.95  --exp_func]]
 			self.iuhTTIPlus.armor_piercing_chance = 1
 			self.iuhTTIPlus.stats_modifiers = nil
 			self.iuhTTIPlus.panic_suppression_chance = 0.05
