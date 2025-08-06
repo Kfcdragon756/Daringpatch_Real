@@ -1440,8 +1440,8 @@ if BeardLib then
 				desc_id = "menu_deck_kmerc_3_desc_sc",
 				cost = 0,
 				upgrades = {
-					"player_kmerc_reload_speed_bonus_per_max_armor",
-					"player_kmerc_swap_speed_bonus_per_max_armor",
+					"player_kmerc_reload_speed_per_max_armor",
+					"player_kmerc_swap_speed_per_max_armor",
 					"player_tier_armor_multiplier_1"
 				},
 				texture_bundle_folder = "kmerc",
