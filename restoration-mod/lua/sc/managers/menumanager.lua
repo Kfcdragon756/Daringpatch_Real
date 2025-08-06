@@ -669,7 +669,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
 		
 		if HD2OffensiveHUD then
-			HD2OffensiveHUD:new(table_get_from_data)
+			--HD2OffensiveHUD:new(table_get_from_data)  --我又做了一次
 		elseif HD2OffensiveHUD_res then
 			HD2OffensiveHUD_res:new(table_get_from_data)
 		else
