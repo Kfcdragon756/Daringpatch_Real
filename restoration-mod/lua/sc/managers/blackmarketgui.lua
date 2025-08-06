@@ -1039,6 +1039,14 @@ function BlackMarketGui:_get_armor_stats(name)
 			local skill_value = (base * mod * skill - base_value) - mod_value
 			base_stats[stat.name] = {value = base_value + mod_value}
 			skill_stats[stat.name] = {value = skill_value}
+		elseif stat.name == "break_in" then
+			local base = 0
+			local mod = managers.player:body_armor_value("break_in", upgrade_level, 0)
+			local skill = 0
+			local base_value = (base + mod)*1000
+			local skill_value = (managers.skilltree:get_specialization_value("current_specialization") == 15 and (-(base_value*0.5))) or 0
+			base_stats[stat.name] = {value = base_value}
+			skill_stats[stat.name] = {value = skill_value}
 		end
 
 		skill_stats[stat.name].skill_in_effect = skill_stats[stat.name].skill_in_effect or skill_stats[stat.name].value ~= 0
@@ -3080,6 +3088,10 @@ function BlackMarketGui:_setup(is_start_page, component_data)
 				},
 				{
 					name = "stamina"
+				},
+				{
+					name = "break_in",
+					append = "ms"
 				}
 			}
 			local x = 0

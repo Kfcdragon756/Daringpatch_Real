@@ -643,8 +643,8 @@
 					<option type="bool" default_value="true" 
 						title_id="Daring_HaoJing_Sync" desc_id="Daring_HaoJing_Sync_desc" name="DaringHaoJingSync" 
 					/>
-					<option type="number" default_value="0.4" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSelfHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSelfHaoJingVolumeOptionsButtonDescID" name="SelfHaoJingVolume"/>
-					<option type="number" default_value="0.3" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSyncHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSyncHaoJingVolumeOptionsButtonDescID" name="SyncHaoJingVolume"/>
+					<option type="number" default_value="0.5" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSelfHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSelfHaoJingVolumeOptionsButtonDescID" name="SelfHaoJingVolume"/>
+					<option type="number" default_value="0.5" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSyncHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSyncHaoJingVolumeOptionsButtonDescID" name="SyncHaoJingVolume"/>
 				</option_group>
 				<option type="bool" default_value="true" 
 					title_id="Daring_Tageting_Change" desc_id="Daring_Tageting_Change_desc" name="DaringTagetingChange" 

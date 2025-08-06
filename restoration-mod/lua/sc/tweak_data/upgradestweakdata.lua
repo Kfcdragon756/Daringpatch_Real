@@ -483,12 +483,12 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 	self.values.player.body_armor.break_in = {  --破甲无敌帧
 		0,
-		0.10,
-		0.425,
-		0.375,
-		0.25,
-		0.30,
-		0.20
+		0.100,
+		0.450,
+		0.400,
+		0.285,
+		0.325,
+		0.225
 	}
 
 	--护甲效果
