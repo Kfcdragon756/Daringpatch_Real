@@ -6216,8 +6216,8 @@ end)
 Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 
 	--MERCENARY DECK
-		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.8
-		self.values.player.kmerc_swap_speed_per_max_armor = { 0.01 }
+		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.4
+		self.values.player.kmerc_swap_speed_per_max_armor = { 0.02 }
 		self.values.player.kmerc_reload_speed_per_max_armor = { 0.01 }
 
 		self.values.player.kmerc_crit_chance_per_max_armor = {
@@ -6243,6 +6243,25 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 			1.05,
 			1.10
 		}
+		--此处添加 恢复制作组瞎改变量导致功能失效...
+		self.definitions.player_kmerc_swap_speed_per_max_armor = {
+			name_id = "kmerc_3",
+			category = "feature",
+			upgrade = {
+				value = 1,
+				upgrade = "kmerc_swap_speed_per_max_armor",
+				category = "player"
+			}
+		}
+		self.definitions.player_kmerc_reload_speed_per_max_armor = {
+			name_id = "kmerc_3",
+			category = "feature",
+			upgrade = {
+				value = 1,
+				upgrade = "kmerc_reload_speed_per_max_armor",
+				category = "player"
+			}
+		}
 
 	--LIBERATOR DECK
 		self.values.player.tachi_base = {
@@ -6262,9 +6281,9 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 			0.1
 		}
 		self.values.player.tachi_hot_amount = {
-			0.025,
-			0.05,
-			0.1
+			0.5,
+			0.1,
+			0.15
 		}
 		
 		self.values.player.tachi_hot_duration = {
