@@ -7129,7 +7129,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["bm_wpn_prj_hd2offensive_orbital_gas_desc"] = "释放多个腐蚀性气团的射弹，可以使敌人陷入呕吐状态以控制它们的行动并造成少量的持续性伤害。",
         ["bm_wpn_prj_hd2offensive_orbital_precision"] = "轨道精准攻击",
         ["bm_wpn_prj_hd2offensive_orbital_precision_desc"] = "来自异次元的驱逐舰“阿特拉斯”轨道加农炮的一发精准攻击。",
-
+        ["hud_hd2offensive_inbound"] = "即将抵达",
+	    ["hud_hd2offensive_impact"] = "下落中",
+	    ["hud_hd2offensive_ongoing"] = "进行中",
 
         --Strings for Lobby Player Info
 		["menu_st_spec_24"] = "白板",

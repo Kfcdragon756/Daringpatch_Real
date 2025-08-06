@@ -12109,6 +12109,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.contraband.can_shoot_through_enemy = false
 						self.contraband.timers.reload_exit_empty = 0.725
 						self.contraband.timers.reload_exit_not_empty = 0.8
+						self.contraband.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+						self.contraband.min_exp_dmg = 30
+						self.contraband.hit_fix = 0.95  --exp_func]]
+						self.contraband_m203.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
+						self.contraband_m203.min_exp_dmg = 30
+						self.contraband_m203.hit_fix = 0.95  --exp_func]]
 						self.contraband_m203.upgrade_blocks = {
 							weapon = {
 								"clip_ammo_increase"
