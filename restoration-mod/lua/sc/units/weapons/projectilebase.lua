@@ -359,7 +359,7 @@ if not HD2OffensiveHUD then
 		self._panel:set_left(screen_pos.x - self._base_panel:w() / 2)
 		self._panel:set_bottom(screen_pos.y)
 
-		local distance = mvector3.distance(managers.player:player_unit():position(), self._position)
+		local distance = mvector3.distance(camera:position(), self._position)
 		local m_text = managers.localization:text("hud_hd2offensive_m")
 		self._distance:set_text(tostring(math.floor(distance / 100)) .. m_text)
 
