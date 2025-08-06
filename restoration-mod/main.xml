@@ -644,11 +644,14 @@
 					<option type="bool" default_value="false" 
 						title_id="Daring_HaoJing_Enable" desc_id="Daring_HaoJing_Enable_desc" name="DaringHaoJingEnable" 
 					/>
+					<option type="number" default_value="10" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceOptionsButtonDescID" name="HaoJingChance"/>
+					<option type="number" default_value="30" min="0" max="100" step="1" show_value="true" title_id="RestorationModHaoJingChanceCLKOptionsButtonTitleID" desc_id="RestorationModHaoJingChanceCLKOptionsButtonDescID" name="HaoJingChanceCLK"/>
+					<divider name="tod_divider" size="8"/>
 					<option type="bool" default_value="true" 
 						title_id="Daring_HaoJing_Sync" desc_id="Daring_HaoJing_Sync_desc" name="DaringHaoJingSync" 
 					/>
-					<option type="number" default_value="0.5" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSelfHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSelfHaoJingVolumeOptionsButtonDescID" name="SelfHaoJingVolume"/>
-					<option type="number" default_value="0.5" min="0" max="1" step="0.1" show_value="true" title_id="RestorationModSyncHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSyncHaoJingVolumeOptionsButtonDescID" name="SyncHaoJingVolume"/>
+					<option type="number" default_value="0.5" min="0" max="2" step="0.1" show_value="true" title_id="RestorationModSelfHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSelfHaoJingVolumeOptionsButtonDescID" name="SelfHaoJingVolume"/>
+					<option type="number" default_value="0.5" min="0" max="2" step="0.1" show_value="true" title_id="RestorationModSyncHaoJingVolumeOptionsButtonTitleID" desc_id="RestorationModSyncHaoJingVolumeOptionsButtonDescID" name="SyncHaoJingVolume"/>
 				</option_group>
 				<option type="bool" default_value="true" 
 					title_id="Daring_Tageting_Change" desc_id="Daring_Tageting_Change_desc" name="DaringTagetingChange" 

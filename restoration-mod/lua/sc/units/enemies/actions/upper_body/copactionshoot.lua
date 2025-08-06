@@ -1602,7 +1602,8 @@ function CopActionShoot:anim_clbk_melee_strike()
 					if melee_tweak.counter_aoe then
 
 						-- AOE计算部分
-						local player_pos = managers.player:player_unit():position()
+						local player_me = managers.player:player_unit()
+						local player_pos = player_me:position()
 						local enemies = World:find_units_quick("sphere", player_pos, melee_tweak.aoe_range or 1500, managers.slot:get_mask("trip_mine_targets"))
 						local aoe_damage = melee_tweak.aoe_damage
 						for _, unit in ipairs(enemies) do
@@ -1613,18 +1614,31 @@ function CopActionShoot:anim_clbk_melee_strike()
 						local HaoJing_Enable = restoration and restoration.Options:GetValue("OTHER/HaoJing/DaringHaoJingEnable")
 						local Volume_Self = restoration and restoration.Options:GetValue("OTHER/HaoJing/SelfHaoJingVolume")
 
+						player_me.HaoJing = player_me.HaoJing or 0
+
 						if HaoJing_Enable then
-							if melee_tweak.aoe_play_haojing then
-								local ogg_path
-								if SC and SC._path then
-									ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+							if player_me.HaoJing <= 0 then
+								if melee_tweak.aoe_play_haojing then
+									local random = math.random(0, 100)
+									local chance = restoration.Options:GetValue("OTHER/HaoJing/HaoJingChance")
+									if random < chance then
+										local ogg_path
+										if SC and SC._path then
+											ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+										end
+										if ogg_path then
+											blt.xaudio.setup()
+											local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
+											source:set_volume(Volume_Self)
+											LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
+											player_me.HaoJing = 2
+										end
+									else
+										player_me.HaoJing = player_me.HaoJing - 1
+									end
 								end
-								if ogg_path then
-									blt.xaudio.setup()
-									local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
-									source:set_volume(Volume_Self)
-									LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
-								end
+							else
+								player_me.HaoJing = player_me.HaoJing - 1
 							end
 						end
 

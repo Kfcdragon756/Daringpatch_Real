@@ -21,7 +21,11 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         --添加的设置文本--
             --Hao Jing
             ["RestorationModHaoJingOptionsButtonTitleID"] = "空手道昊京音效设置",
-            ["RestorationModHaoJingOptionsButtonDescID"] = "空手道反击触发时会播放昊京的“任何邪恶终将绳之以法”音效的设置调整。",
+            ["RestorationModHaoJingOptionsButtonDescID"] = "空手道反击触发时有概率播放昊京的“任何邪恶终将绳之以法”音效的设置调整。",
+            ["RestorationModHaoJingChanceOptionsButtonTitleID"] = "一般反击触发的概率（%）",
+            ["RestorationModHaoJingChanceOptionsButtonDescID"] = "反击近战攻击时触发音效的概率，以百分比表示。",
+            ["RestorationModHaoJingChanceCLKOptionsButtonTitleID"] = "反击CLK踢触发的概率（%）",
+            ["RestorationModHaoJingChanceCLKOptionsButtonDescID"] = "反击幻影特工飞踢跑踢总之就是各种踢时触发音效的概率，以百分比表示。",
             ["RestorationModSelfHaoJingVolumeOptionsButtonTitleID"] = "播放音量（自身）",
             ["RestorationModSelfHaoJingVolumeOptionsButtonDescID"] = "自身触发反击时播放音效的音量调整。",
             ["RestorationModSyncHaoJingVolumeOptionsButtonTitleID"] = "播放音量（别人）",

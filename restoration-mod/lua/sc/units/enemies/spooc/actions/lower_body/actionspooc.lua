@@ -1556,18 +1556,31 @@ function ActionSpooc:anim_act_clbk(anim_act)
 					local HaoJing_Enable = restoration and restoration.Options:GetValue("OTHER/HaoJing/DaringHaoJingEnable")
 					local Volume_Self = restoration and restoration.Options:GetValue("OTHER/HaoJing/SelfHaoJingVolume")
 
+					player_me.HaoJing_CLK = player_me.HaoJing_CLK or 0
+
 					if HaoJing_Enable then
-						if melee_tweak.aoe_play_haojing then
-							local ogg_path
-							if SC and SC._path then
-								ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+						if player_me.HaoJing_CLK <= 0 then
+							if melee_tweak.aoe_play_haojing then
+								local random = math.random(0, 100)
+								local chance = restoration.Options:GetValue("OTHER/HaoJing/HaoJingChanceCLK")
+								if random < chance then
+									local ogg_path
+									if SC and SC._path then
+										ogg_path = SC._path .. "assets/oggs/haojing/szyf.ogg"
+									end
+									if ogg_path then
+										blt.xaudio.setup()
+										local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
+										source:set_volume(Volume_Self)
+										LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
+										player_me.HaoJing_CLK = 2
+									end
+								else
+									player_me.HaoJing_CLK = player_me.HaoJing_CLK - 1
+								end
 							end
-							if ogg_path then
-								blt.xaudio.setup()
-								local source = XAudio.UnitSource:new(local_player, XAudio.Buffer:new(ogg_path))
-								source:set_volume(Volume_Self)
-								LuaNetworking:SendToPeers('HaoJing_Played', "HaoJing")  --发送同步
-							end
+						else
+							player_me.HaoJing_CLK = player_me.HaoJing_CLK - 1
 						end
 					end
 
