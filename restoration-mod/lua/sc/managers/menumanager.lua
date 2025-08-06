@@ -665,7 +665,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		else
 			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
 		end
-	elseif message == "sync_hd2offensive_hud" then
+	elseif id == "sync_hd2offensive_hud" then
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
 		
 		if HD2OffensiveHUD then
