@@ -290,6 +290,10 @@ function NewRaycastWeaponBase:conditional_accuracy_multiplier(current_state)
 			mul = mul * (self:second_sight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3.5)) or 1) )
 		end
 
+		if self:steelsight_spread_mult() then --雷神之锤瞄准扩散
+			mul = mul * (self:steelsight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3.5)) or 1) )
+		end
+
 		if not is_moving then
 			for _, category in ipairs(self:categories()) do
 				local stationary_spread = tweak_data[category] and tweak_data[category].ads_stationary_spread_mult or 1
@@ -321,6 +325,10 @@ function NewRaycastWeaponBase:second_sight_steelsight_mult()
 	end
 
 	return 1
+end
+
+function NewRaycastWeaponBase:steelsight_spread_mult() --调整雷神之锤的瞄准扩散
+	return self._ads_spread_mult
 end
 
 function NewRaycastWeaponBase:second_sight_spread_mult()
@@ -1103,6 +1111,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 		self._reload_empty_anim_multiplier = 1
 		self._reload_non_empty_anim_multiplier = 1
 
+		self._ads_spread_mult = 1
 		self._hipfire_mult = 1
 		self._ads_moving_mult = 1
 
@@ -1365,6 +1374,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			end
 			if stats.hip_mult then
 				self._hipfire_mult = self._hipfire_mult * stats.hip_mult
+			end
+			if stats.ads_spread_mult then --此处添加，修改雷神之锤的瞄准扩散
+				self._ads_spread_mult = self._ads_spread_mult * stats.ads_spread_mult
 			end
 			if stats.ads_moving_mult then
 				self._ads_moving_mult = self._ads_moving_mult * stats.ads_moving_mult
