@@ -328,7 +328,7 @@ function NewRaycastWeaponBase:second_sight_steelsight_mult()
 end
 
 function NewRaycastWeaponBase:steelsight_spread_mult() --调整雷神之锤的瞄准扩散
-	return self._ads_spread_mult
+	return self._ads_spread_mult or 1
 end
 
 function NewRaycastWeaponBase:second_sight_spread_mult()
