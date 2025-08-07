@@ -316,13 +316,15 @@ function DLCTweakData:init(...)
 			type_items = "weapon_mods",
 			item_entry = "LR_mag_Daring",
 			amount = 1
-		},
-		{
-			type_items = "weapon_mods",
-			item_entry = "re_kit_Daring",
-			amount = 1
 		}
 	}
+	if BeardLib and BeardLib.Utils and BeardLib.Utils:FindMod("RE8 Thorhammer") then
+		table.insert(self.daring.content.loot_drops, {
+    		type_items = "weapon_mods",
+    		item_entry = "re_kit_Daring",
+    		amount = 1
+		})
+	end
 	--到此结束
 
 	if SystemInfo:distribution() == Idstring("STEAM") then
