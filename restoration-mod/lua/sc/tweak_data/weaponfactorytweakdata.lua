@@ -27550,14 +27550,10 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				keep_damage = true, --这样才能改伤害
 				dlc = "daring",
 				stats = {
-					damage = 170,
+					damage = 120,
 					spread = -21
 				},
 				custom_stats = {
-					bullet_class_cus = "BuckShotPierceDaring", --穿甲需要它
-					armor_piercing_add = 1, --自带穿甲，毕竟它的实际属性挺烂还不能用鹿弹
-					ads_spread_mult = 60, --瞄准扩散更加厉害了！
-					hip_mult = 1.7, --腰射也是！
 					ammo_pickup_max_mul = 0.95,
 					ammo_pickup_min_mul = 0.95,
 					alt_ammo_pickup_max_mul = 0.95,
@@ -27565,18 +27561,9 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 					falloff_start_mult = 0.1,
 					falloff_end_mult = 0.6,
 					damage_min_mult = 0.1,
-					rays = 6,
+					rays = 24,
 					rof_mult = 0.666667
-				},
-				forbids = {
-					"wpn_fps_upg_a_slug",
-					"wpn_fps_upg_a_custom",
-					"wpn_fps_upg_a_custom_free",
-					"wpn_fps_upg_a_explosive",
-					"wpn_fps_upg_a_rip",
-					"wpn_fps_upg_a_piercing",
-					"wpn_fps_upg_a_dragons_breat",
-				},
+				}
 			}
 
 			table.insert(self.wpn_fps_shot_thorhammer.uses_parts, "re_kit_Daring")
