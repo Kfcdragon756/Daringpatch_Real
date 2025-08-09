@@ -2524,6 +2524,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- Daring Stuff
         ["loot_daring"] = "LR_Daring",
         ["loot_daring_desc"] = "这是一件鹰姐添加或修改的物品！",
+        ["loot_sbkfc"] = "啃必啥",  --预备用
+        ["loot_sbkfc_desc"] = "这是一件啃屎龙的物品，，，",
 
         ["menu_l_global_value_omnia"] = "OMNIA",
         ["menu_l_global_value_omnia_desc"] = "这是一件OMNIA的物品!",

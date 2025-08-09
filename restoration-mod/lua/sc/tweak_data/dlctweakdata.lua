@@ -318,6 +318,11 @@ function DLCTweakData:init(...)
 			amount = 1
 		}
 	}
+	--[[self.sbkfc = {}
+	self.sbkfc.free = true
+	self.sbkfc.content = {}
+	self.sbkfc.content.loot_global_value = "sbkfc"
+	self.sbkfc.content.loot_drops = {}--]]
 	if BeardLib and BeardLib.Utils and BeardLib.Utils:FindMod("RE8 Thorhammer") then
 		table.insert(self.daring.content.loot_drops, {
     		type_items = "weapon_mods",

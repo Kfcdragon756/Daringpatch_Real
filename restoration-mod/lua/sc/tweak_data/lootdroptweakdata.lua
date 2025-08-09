@@ -25,6 +25,7 @@ function LootDropTweakData:init(tweak_data)
     self.global_values.sc.category = "sc"
 
     --此处添加
+      --这是一件鹰姐的物品
     self.global_values.daring = {}
     self.global_values.daring.name_id = "loot_daring"
     self.global_values.daring.desc_id = "loot_daring_desc"
@@ -37,6 +38,19 @@ function LootDropTweakData:init(tweak_data)
     self.global_values.daring.track = false
     self.global_values.daring.sort_number = 30
     self.global_values.daring.category = "daring"
+      --这是sbkfc的物品
+      --[[self.global_values.sbkfc = {}
+      self.global_values.sbkfc.name_id = "loot_sbkfc"
+      self.global_values.sbkfc.desc_id = "loot_sbkfc_desc"
+      self.global_values.sbkfc.color = Color('8B4513')
+      self.global_values.sbkfc.dlc = false
+      self.global_values.sbkfc.chance = 0.84
+      self.global_values.sbkfc.value_multiplier = tweak_data:get_value("money_manager", "global_value_multipliers", "normal")
+      self.global_values.sbkfc.durability_multiplier = 1
+      self.global_values.sbkfc.drops = false
+      self.global_values.sbkfc.track = false
+      self.global_values.sbkfc.sort_number = 30
+      self.global_values.sbkfc.category = "sbkfc"--]]
     --到此结束
 
         self.global_values.sc_wcc = {}
