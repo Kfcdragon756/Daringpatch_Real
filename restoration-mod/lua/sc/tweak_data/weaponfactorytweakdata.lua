@@ -27550,19 +27550,19 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				keep_damage = true, --这样才能改伤害
 				dlc = "daring",
 				stats = {
-					damage = 120,
-					spread = -21
+					damage = 60,
+					spread = -15,
+					total_ammo_mod =  -100,
 				},
 				custom_stats = {
-					ammo_pickup_max_mul = 0.95,
-					ammo_pickup_min_mul = 0.95,
-					alt_ammo_pickup_max_mul = 0.95,
-					alt_ammo_pickup_min_mul = 0.95,
-					falloff_start_mult = 0.1,
-					falloff_end_mult = 0.6,
-					damage_min_mult = 0.1,
-					rays = 24,
-					rof_mult = 0.666667
+					ammo_pickup_max_mul = 0.78,
+					ammo_pickup_min_mul = 0.8,
+					alt_ammo_pickup_max_mul = 0.78,
+					alt_ammo_pickup_min_mul = 0.8,
+					falloff_start_mult = 0.6,
+					falloff_end_mult = 0.677,
+					damage_min_mult = 0.8,
+					rof_mult = 0.5
 				}
 			}
 

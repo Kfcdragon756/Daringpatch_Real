@@ -20506,7 +20506,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.damage_type = "shotgun_heavy"
 				self.thorhammer.damage_type_single_ray = "sniper"
 				self.thorhammer.tactical_reload = 1
-				self.thorhammer.fire_mode_data.fire_rate = 0.5
+				self.thorhammer.fire_mode_data.fire_rate = 0.375 --此处修改，让它有更好的射速使它在近距离更具优势
 				self.thorhammer.CLIP_AMMO_MAX = 12
 				self.thorhammer.AMMO_MAX = 60  --此处修改，原40
 				self.thorhammer.kick = self.stat_info.kick_tables.right_recoil
@@ -20519,21 +20519,21 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 				self.thorhammer.FIRE_MODE = "single"				
 				self.thorhammer.CAN_TOGGLE_FIREMODE = false
-				self.thorhammer.rays = 8
+				self.thorhammer.rays = 9 --此处修改
 				self.thorhammer.supported = true
 				self.thorhammer.ads_speed = 0.300
-				self.thorhammer.damage_falloff = {
-					start_dist = 500,
+				self.thorhammer.damage_falloff = { --此处修改
+					start_dist = 750,
 					end_dist = 2700,
-					min_mult = 0.1333
+					min_mult = 0.1
 				}
 				self.thorhammer.stats = {
 					damage = 180,
-					spread = 32,
-					recoil = 27,
+					spread = 38,
+					recoil = 60,
 					spread_moving = 7,
 					zoom = 1,
-					concealment = 21,
+					concealment = 20,
 					suppression = 8,
 					alert_size = 2,
 					extra_ammo = 101,

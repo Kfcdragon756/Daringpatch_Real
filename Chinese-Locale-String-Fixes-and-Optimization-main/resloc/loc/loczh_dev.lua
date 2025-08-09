@@ -5632,6 +5632,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
                 ["dialog_err_failed_joining_lobby"] = "你太菜了无法加入游戏。"
             })
         end
+		
+		--生化危机套组的另一个描述文本
+		local redfield = math.rand(1)
+		local ethan = 0.55
+		if redfield >= ethan then
+			LocalizationManager:add_localized_strings({
+				["re_kit_Daring_desc"] = "\n#{heat_warm_color}#你是当之无愧的英雄，雷德菲尔德。##\n",
+			})
+		end
+			
 end)
 
 local r = tweak_data.levels.ai_groups.russia -- LevelsTweakData.LevelType.Russia
@@ -7217,7 +7227,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
 			end
 			if butt <= frame then
 				LocalizationManager:add_localized_strings({
-					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击##幻影特工的#{rick}#RIDER-KICK##与冲刺踢并将其击倒，且#{skill_color}#可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击##幻影特工的#{risk}#RIDER-KICK##与冲刺踢并将其击倒，且#{skill_color}#可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
 					["bm_wskn_famas_hypno"] = "巴适之鹰",
 					["menu_st_spec_23"] = "瑞典蠢驴",
 					["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
