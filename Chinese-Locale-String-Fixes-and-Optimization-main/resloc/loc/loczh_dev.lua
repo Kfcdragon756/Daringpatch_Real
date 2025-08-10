@@ -1911,7 +1911,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["menu_l_global_value_rc_auto9_mememod"] = "这是奥姆尼消费品公司的财产！",
 
         --Malorian 3516
-        ["whydoyoucome"] = "这是一把独一无二的手枪，专门为摇滚男孩强尼银手制作。\n\n能#{skill_color}#穿透护甲和敌人##。",--对泰坦盾和熊面甲额外造成#{skill_color}#20%##的伤害。\n#{skill_color}#腰射子弹会在击中物体表面时反弹，瞄准射击可以穿透薄墙壁；\n枪托近战攻击会释放出一道短程火焰冲击波。##",
+        ["whydoyoucome"] = "这是一把独一无二的手枪，专门为摇滚男孩强尼银手制作。\n\n腰射时子弹还会发生#{skill_color}#跳弹##，瞄准时可#{skill_color}#穿透薄墙壁##。\n枪托近战攻击会释放出一道伤害很低的短程#{skill_color}#火焰冲击波##。\n能#{skill_color}#穿透护甲和敌人##。",
 
         -- Colt Detective
         ["bm_w_coltds"] = "Crosskill Investigator左轮手枪",
