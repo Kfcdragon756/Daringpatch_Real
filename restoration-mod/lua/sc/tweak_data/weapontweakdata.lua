@@ -21383,8 +21383,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.m4_usasoc.supported = true
 				self.m4_usasoc.ads_speed = 0.300
 				self.m4_usasoc.damage_falloff = {
-					start_dist = 1700,
-					end_dist = 6000,
+					start_dist = 1800,
+					end_dist = 6100,
 					min_mult = 0.4
 				}	
 				self.m4_usasoc.stats = {
@@ -23739,15 +23739,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ar47.ads_speed = 0.300
 				self.ar47.damage_falloff = {
 					start_dist = 2000,
-					end_dist = 4800,
-					min_mult = 0.6
+					end_dist = 4700,
+					min_mult = 0.8
 				}
 				self.ar47.armor_piercing_chance = 0.15 --此处添加
 				self.ar47.has_daring_ap_desc = true --此处添加
 				self.ar47.stats = {
 					damage = 30,
 					spread = 77,
-					recoil = 69,
+					recoil = 85,
 					zoom = 1,
 					concealment = 25,
 					suppression = 8,
