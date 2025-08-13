@@ -865,9 +865,9 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						2 --Ace
 					}
 					--Says health multiplier, but actually multiplies damage taken.
-					self.values.player.passive_convert_enemies_health_multiplier = {
+					self.values.player.passive_convert_enemies_health_multiplier = { --此处修改
 						0.4, --Basic
-						0.2 --Ace
+						0.3 --Ace
 					}					
 					--Basic
 						self.values.player.convert_enemies = {true}
@@ -1325,9 +1325,9 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 
 			--Engineering
 				--Basic
-					self.values.sentry_gun.armor_multiplier = {1.4}
+					self.values.sentry_gun.armor_multiplier = {1.8}
 				--Ace
-					self.values.sentry_gun.armor_multiplier2 = {1.6}
+					self.values.sentry_gun.armor_multiplier2 = {2.5}
 					
 					self.skill_descs.eco_sentry = {
 						skill_value_b1 = tostring(self.values.sentry_gun.armor_multiplier[1] % 1 * 100).."%", -- more sentry damage

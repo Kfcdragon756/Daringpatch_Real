@@ -6520,7 +6520,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Sentry Tower Defense--
         ["menu_tower_defense_beta_sc"] = "塔防机枪",
-        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#35%##\n(主副武器各17.5%)",
+        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#15%##\n(主副武器各7.5%)",
 
         -- Bulletproof--
         ["menu_iron_man_sc"] = "刀枪不入",

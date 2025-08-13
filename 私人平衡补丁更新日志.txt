@@ -8,7 +8,10 @@
 == 以下为版本更新更新日志 ==
 v11.02（未完成）
 · 为HD2战备HUD添加透明度避免挡视线
-· 
+· 调整AR47与LVAR的数据以做出明确区分
+· 增强变节敌人减伤技能
+· 降低步哨放置消耗的弹药，提高步哨的血量
+· 提高倒地时的血量
 
 v11.01
 · 对第三方武器Thor's Hammer AW-02的生化危机套件进行调整
@@ -485,6 +488,7 @@ weapontweakdata.lua
 skilltreetweakdata.lua
 lootdroptweakdata.lua（self.global_values.daring部分）
 dlctweakdata.lua（self.daring部分）
+playertweakdata.lua（增加倒地血量）
 
 restoration-mod\lua\sc\managers:
 menumanager.lua（最底下的LuaNetworking Receiver，还有吗？）

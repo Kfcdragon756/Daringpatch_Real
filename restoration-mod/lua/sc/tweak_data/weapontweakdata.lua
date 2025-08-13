@@ -14501,6 +14501,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.coach.timers.reload_not_empty = 1
 						self.coach.timers.reload_exit_not_empty = 1.65
 						self.coach.reload_speed_multiplier = 0.88
+						self.coach.swap_speed_multiplier = 1.1
 
 		--[[     SPECIALS     ]]--
 
