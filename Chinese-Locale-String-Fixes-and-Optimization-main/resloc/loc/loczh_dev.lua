@@ -6504,7 +6504,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Logistician
         ["menu_defense_up_beta_sc"] = "后勤干员",
-        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#$skill_value_p1##，你队友则加快#{skill_color}#$skill_value_p2##。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
+        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#$skill_value_p1##，你队友则加快#{skill_color}#$skill_value_p2##。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- Nerves of Steel--    
         ["menu_fast_fire_beta_sc"] = "钢铁意志",
@@ -6512,19 +6512,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Engineering
         ["menu_eco_sentry_beta_sc"] = "工程师",
-        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#$skill_value_p1##",
+        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#$skill_value_p1##。",
 
         -- Jack of all Trades
         ["menu_jack_of_all_trades_beta_sc"] = "万事通",
-        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##",
+        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换。\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##。",
 
         -- Sentry Tower Defense--
         ["menu_tower_defense_beta_sc"] = "塔防机枪",
-        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#15%##\n(主副武器各7.5%)",
+        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##。\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪。\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#15%##。",
 
         -- Bulletproof--
         ["menu_iron_man_sc"] = "刀枪不入",
-        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##\n#{important_1}#提示：对摔落伤害和自我伤害无效，也不能免疫幻影特工飞踢和泰瑟警察电击造成的倒地##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#$skill_value_p1##\n\n你的护甲恢复速度加快#{skill_color}#$skill_value_p2## $anarc_disable",
+        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##。\n#{important_1}#提示：对摔落伤害和自我伤害无效，也不能免疫幻影特工飞踢和泰瑟警察电击造成的倒地##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#$skill_value_p1##。\n\n你的护甲恢复速度加快#{skill_color}#$skill_value_p2##。 $anarc_disable",
 
         -- }
 
