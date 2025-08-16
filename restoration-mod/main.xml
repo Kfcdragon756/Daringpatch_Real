@@ -1,4 +1,4 @@
-<mod name="RestorationMod" global_key="restoration" core_class="Core.lua">
+<mod name="RestorationMod" global_key="restoration" core_class="Core.lua" priority="-500">
 	<!--///MOD CONFIG FILE\\\-->
     <Classes directory="classes">
 		<class file="callbacks.lua"/>
