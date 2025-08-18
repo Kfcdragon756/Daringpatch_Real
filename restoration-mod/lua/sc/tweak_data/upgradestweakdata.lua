@@ -502,8 +502,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		1
 	}
 	self.values.player.body_armor.liberty_saves_me.chance = {  --要害防护 aka.民主护佑
-		0.1,  --破甲
-		0.5   --免死
+		0.15,  --破甲
+		0.6   --免死
 	}
 
 	self.values.player.body_armor.throwable_add = {  --投掷物增加
@@ -551,7 +551,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 	self.values.player.body_armor.stability_increase.state = { --后坐力降低的护甲
 		1,  --移动时的武器稳定性倍率
-		1,  --原地站着不动时的武器稳定性倍率
+		1.1,  --原地站着不动时的武器稳定性倍率
 		1.2  --蹲伏时的武器稳定性倍率
 	}
 
@@ -613,13 +613,13 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		1.16
 	}
 	self.max_deflection = 0.60
-	self.values.player.body_armor.deflection = { --*increments of 0.05
+	self.values.player.body_armor.deflection = { --*increments of 0.05  --此处修改
 		0.00,
 		0.05,
-		0.10,
 		0.15,
-		0.20, --1 increment instead of 2
-		0.15, --subtract 1 increment instead of adding 1
+		0.25,
+		0.30, --1 increment instead of 2
+		0.20, --subtract 1 increment instead of adding 1
 		0.10 --subtract 1 increment instead of adding 2
 	}
 	self.values.player.body_armor.regen_delay = { --increments of 0.25

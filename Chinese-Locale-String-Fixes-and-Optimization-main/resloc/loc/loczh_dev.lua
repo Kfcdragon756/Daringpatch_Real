@@ -3486,7 +3486,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_medic_armor_first_aid"] = "[##急救强化##]\n此护甲内部集成了高效的药物输送系统，急救包的回血量增加##$first_aid_upgrade##点。",
         ["bm_menu_medic_armor_doctor_bag"] = "[##持久医疗##]\n此护甲内置了一个医疗支持系统，医疗箱的持续时间延长##$doctor_bag_time##秒，首次回血量增加##$doctor_bag_mult%##。",
         ["bm_menu_throwable_add"] = "[##隐蔽口袋##]\n此护甲因小巧轻便而允许你在衣服内侧藏有更多口袋，非天赋投掷物携带量增加##45%##，增加量最少##1##个，最多##4##个。", --（不与万事通作用）
-        ["bm_menu_stability_increase"] = "[##稳固射击##]\n此护甲采用了先进的支撑材料和可靠的设计，蹲伏时武器稳定性提高##$sta%##。",
+        ["bm_menu_stability_increase"] = "[##稳固射击##]\n此护甲采用了先进的支撑材料和可靠的设计，站定时武器稳定性提高##$real_standing%##，蹲伏时提高##$sta%##。",
 
         ["bm_menu_attack_speed"] = "攻击间隔",
         ["bm_menu_impact_delay"] = "攻击前摇",

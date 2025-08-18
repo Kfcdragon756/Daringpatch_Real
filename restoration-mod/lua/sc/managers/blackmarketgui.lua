@@ -5591,7 +5591,7 @@ function BlackMarketGui:update_info_text()
 			updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_throwable_add")
 		end
 		if (stability_increase and stability_increase == 1) then
-			updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_stability_increase", {sta = ((tweak_data.upgrades.values.player.body_armor.stability_increase.state[3])-1)*100})
+			updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_stability_increase", {real_standing = ((tweak_data.upgrades.values.player.body_armor.stability_increase.state[2])-1)*100,sta = ((tweak_data.upgrades.values.player.body_armor.stability_increase.state[3])-1)*100})
 		end
 		--[[if throwable_add and throwable_add == 1 then
 			updated_texts[4].text = updated_texts[4].text .. "\n" .. managers.localization:text("bm_menu_throwable_add")
