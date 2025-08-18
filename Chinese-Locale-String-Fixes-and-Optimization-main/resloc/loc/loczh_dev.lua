@@ -6689,7 +6689,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
 
         -- Mind Blown, formerly Explosive Headshot--
         ["menu_kilmer_sc"] = "脑\"洞\"大开",
-        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#$skill_value_b2##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#$skill_value_b1##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发，并且有#{important_1}#$skill_value_b5##秒的冷却时间。\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#$skill_value_b4##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪以#{skill_color}#单发射击##或#{skill_color}#速射模式##爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#$skill_value_p1##米\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，擦伤的伤害就额外增加#{skill_color}#$skill_value_p2##，最多额外增加#{skill_color}#$skill_value_p3##",
+        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#$skill_value_b2##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#$skill_value_b1##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发，并且有#{important_1}#$skill_value_b5##秒的冷却时间（冷却时间不应用于单次速射开火内的擦伤间隔）。\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#$skill_value_b4##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪以#{skill_color}#单发射击##或#{skill_color}#速射模式##爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#$skill_value_p1##米\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，擦伤的伤害就额外增加#{skill_color}#$skill_value_p2##，最多额外增加#{skill_color}#$skill_value_p3##",
 
         -- Ammo Efficiency--
         ["menu_single_shot_ammo_return_sc"] = "弹无虚发",
