@@ -33046,6 +33046,13 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			-- 	value = 0
 			-- }
 
+			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.supported = true --给LVAR的镜子一点倍率
+			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.stats = {
+				zoom = 8,
+				value = 6,
+			}
+			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.custom_stats = {}
+
 			self.wpn_fps_ass_m4_usasoc.override = self.wpn_fps_ass_m4_usasoc.override or {}
 			self.wpn_fps_ass_m4_usasoc.override.wpn_fps_upg_m4_s_standard = {
 				stats = {},
