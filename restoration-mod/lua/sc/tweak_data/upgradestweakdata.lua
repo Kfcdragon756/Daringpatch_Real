@@ -6216,7 +6216,7 @@ end)
 Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 
 	--MERCENARY DECK  --佣兵
-		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.4
+		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.5
 		self.values.player.kmerc_swap_speed_per_max_armor = { 0.02 }
 		self.values.player.kmerc_reload_speed_per_max_armor = { 0.01 }
 
