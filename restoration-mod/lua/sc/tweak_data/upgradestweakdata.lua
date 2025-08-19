@@ -1531,7 +1531,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						range_increment = 800
 					}
 				}
-				self.headshot_graze_proc_cd = 0.3
+				self.headshot_graze_proc_cd = 0.3  --此处修改，原0.5
 				self.values.player.headshot_no_falloff = {true}
 				self.headshot_no_falloff_cd = 0.0
 				
