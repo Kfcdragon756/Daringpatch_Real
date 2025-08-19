@@ -27361,6 +27361,25 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		end
 	end
 	--在这里重新做
+	---反器材狙---
+	if self.m200 then
+		self.m200.AMMO_PICKUP = {self.m200.AMMO_PICKUP[1]*1.3, self.m200.AMMO_PICKUP[2]*1.3}
+	end
+	if self.pd3_lynx then
+		self.pd3_lynx.AMMO_PICKUP = {self.pd3_lynx.AMMO_PICKUP[1]*1.2, self.pd3_lynx.AMMO_PICKUP[2]*1.25}
+	end
+	if self.m95 then
+		self.m95.AMMO_PICKUP = {self.m95.AMMO_PICKUP[1]*1.3, self.m95.AMMO_PICKUP[2]*1.3}
+	end
+	if self.amr2 then
+		self.amr2.AMMO_PICKUP = {self.amr2.AMMO_PICKUP[1]*1.3, self.amr2.AMMO_PICKUP[2]*1.3}
+	end
+	if self.srs99_s7 then
+		self.srs99_s7.AMMO_PICKUP = {self.srs99_s7.AMMO_PICKUP[1]*1.2, self.srs99_s7.AMMO_PICKUP[2]*1.25}
+	end
+	if self.m107cq then
+		self.m107cq.AMMO_PICKUP = {self.m107cq.AMMO_PICKUP[1]*1.25, self.m107cq.AMMO_PICKUP[2]*1.25}
+	end
 	-------------
 	if self.thorhammer then  --肯德基的re Thors Hammer AW-02
 		self.thorhammer.AMMO_PICKUP = {self.thorhammer.AMMO_PICKUP[1]*0.95, self.thorhammer.AMMO_PICKUP[2]*0.95}
@@ -27446,7 +27465,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		self.corgi.AMMO_PICKUP = {self.corgi.AMMO_PICKUP[1]*1.0825, self.corgi.AMMO_PICKUP[2]*1.0825}
 	end
 	if self.akm_nomag then  --Early Access AK 0.6
-		self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1]*0.9, self.akm_nomag.AMMO_PICKUP[2]*1.8}
+		self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1]*0.85, self.akm_nomag.AMMO_PICKUP[2]*1.8}
 	end
 	if self.x_rage then  --双持Bronco重型左轮 3.3
 		self.x_rage.AMMO_PICKUP = {self.x_rage.AMMO_PICKUP[1]*1.138, self.x_rage.AMMO_PICKUP[2]*1.138}
