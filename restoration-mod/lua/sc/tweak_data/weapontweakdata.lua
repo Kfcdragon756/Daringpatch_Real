@@ -16604,7 +16604,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.akm_nomag.armor_piercing_chance = 0.3  --此处添加
 				self.akm_nomag.recategorize = { "heavy_ar" }
 				self.akm_nomag.has_description = false
-				self.akm_nomag.AMMO_MAX = 30
+				self.akm_nomag.AMMO_MAX = 40
 				self.akm_nomag.fire_mode_data.fire_rate = 0.1
 				self.akm_nomag.kick = self.stat_info.kick_tables.moderate_right_kick
 				self.akm_nomag.kick_pattern = {
@@ -27361,6 +27361,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		end
 	end
 	--在这里重新做
+	-------------
 	if self.thorhammer then  --肯德基的re Thors Hammer AW-02
 		self.thorhammer.AMMO_PICKUP = {self.thorhammer.AMMO_PICKUP[1]*0.95, self.thorhammer.AMMO_PICKUP[2]*0.95}
 	end
@@ -27388,7 +27389,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	if self.x_basset then  --双持格林霰弹枪 4.1
 		self.x_basset.AMMO_PICKUP = {self.x_basset.AMMO_PICKUP[1]*1.215, self.x_basset.AMMO_PICKUP[2]*1.215}
 	end
-	------
+	-------------
 	--local get_steam_id = Steam:userid()
 	local hancan = {self.x_rage, self.x_chinchilla, self.x_model3, self.x_2006m, self.x_korth, self.new_raging_bull, self.model3, self.chinchilla, self.mateba, self.deckard, self.lapd, self.korth}
 	local hancan_160 = {self.x_2006m, self.x_chinchilla, self.mateba, self.deckard, self.lapd, self.chinchilla}
@@ -27445,7 +27446,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		self.corgi.AMMO_PICKUP = {self.corgi.AMMO_PICKUP[1]*1.0825, self.corgi.AMMO_PICKUP[2]*1.0825}
 	end
 	if self.akm_nomag then  --Early Access AK 0.6
-		self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1]*0.8, self.akm_nomag.AMMO_PICKUP[2]*1.65}
+		self.akm_nomag.AMMO_PICKUP = {self.akm_nomag.AMMO_PICKUP[1]*0.9, self.akm_nomag.AMMO_PICKUP[2]*1.8}
 	end
 	if self.x_rage then  --双持Bronco重型左轮 3.3
 		self.x_rage.AMMO_PICKUP = {self.x_rage.AMMO_PICKUP[1]*1.138, self.x_rage.AMMO_PICKUP[2]*1.138}
