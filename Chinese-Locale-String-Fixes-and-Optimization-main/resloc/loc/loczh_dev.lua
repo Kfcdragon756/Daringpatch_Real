@@ -2457,11 +2457,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_weapon_sms_bonus_info"] = "射击时的移动速度惩罚降低 ",  --check
         ["bm_menu_sms_info_cont"] = "射击时惩罚提升。",
         ["bm_menu_sms_info_cont_2"] = "受配件影响，射击时惩罚提升。",
-        ["bm_menu_sms_info_2"] = "  ，在你射击时。",
+        ["bm_menu_sms_info_2"] = "（射击时）。",
         ["bm_menu_weapon_slot_search_empty"] = "\n##未找到该内容的结果：## ##\"$search\"##",
         ["bm_menu_weapon_anim_warning"] = "#{important_1}#The animation swap this attachment provides does not sync with the reload timers!##",  --tra
-        ["bm_menu_stat_sms_info_2"] = " ，在你射击时。\n该惩罚受当前配件影响。",
-        ["bm_menu_weapon_movement_penalty_info_2"] = "，在你手持时",
+        ["bm_menu_stat_sms_info_2"] = "（射击时）。\n该惩罚受当前配件影响。",
+        ["bm_menu_weapon_movement_penalty_info_2"] = "（手持时）",
         ["bm_menu_weapon_slot_warning_1"] = "\n##//////////             无 法 使 用             //////////\n",
         ["bm_menu_weapon_slot_warning_2"] = "\n//////////             无 法 使 用             //////////##",
         ["bm_menu_weapon_slot_warning_primary"] = "该武器已被移动到主武器栏\n在劫案内以副手使用将会崩溃",
