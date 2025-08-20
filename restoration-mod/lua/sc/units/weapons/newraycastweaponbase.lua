@@ -2647,8 +2647,8 @@ function NewRaycastWeaponBase:check_highlight_unit(unit)
 	local unit_name_id = unit_base._tweak_table
 	local is_enemy_in_cool_state = managers.enemy and managers.enemy:is_enemy(unit) and not managers.groupai:state():enemy_weapons_hot()
 	local is_ignore_enemy = nil
-	local Holding_LightAR = managers.player and managers.player:equipped_weapon_unit():base():KFC_is_recategory("light_ar")
-	local Holding_HeavyAR = managers.player and managers.player:equipped_weapon_unit():base():KFC_is_recategory("heavy_ar")
+	local Holding_LightAR = managers.player and managers.player:equipped_weapon_unit():base():is_category("light_ar")
+	local Holding_HeavyAR = managers.player and managers.player:equipped_weapon_unit():base():is_category("heavy_ar")
 
 
 	--log("Daring_Target_Enable is "..Daring_Target_Enable)

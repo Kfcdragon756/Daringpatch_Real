@@ -26996,6 +26996,17 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					weap.object_damage_mult_single_ray = 4
 				end
 			end
+		
+			--在基本分类方式杀死recategorize之前，为轻重型突击步枪添加categories参数以便调用
+			-----
+			if table.contains(weap.recategorize, "light_ar") then
+				table.insert(weap.categories, "light_ar")
+			end
+
+			if table.contains(weap.recategorize, "heavy_ar") then
+				table.insert(weap.categories, "heavy_ar")
+			end
+			-----
 
 			if weap.damage_falloff and weap.damage_falloff.start_dist and weap.rays and weap.damage_type and not table.contains(weap.categories, "flamethrower") then
 				weap.alt_shotgunraycast = weap.alt_shotgunraycast or true
@@ -27576,6 +27587,8 @@ function WeaponTweakData:calculate_ammo_pickup(weapon, id)
 			shotgun_break = 1.07, --Heavy
 			shotgun_super = 1.10,
 		--assault_rifle = 1, 
+		light_ar = 1, --添加两个category参数以便编辑
+		heavy_ar = 1, --虽然可以从这里编辑重突捡弹，但是毕竟影响武器过多...
 			dmr_l = 0.9,
 			dmr_h = 0.9,
 			--snp = 1, 
