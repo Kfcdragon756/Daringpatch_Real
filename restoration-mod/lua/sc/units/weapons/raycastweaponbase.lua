@@ -176,7 +176,8 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data, weapon_unit)
 	local ai_vision_ids = Idstring("ai_vision")
 	local bulletproof_ids = Idstring("bulletproof")
 	local weap_base = weapon_unit and weapon_unit.base and weapon_unit:base()
-	local is_semi_snp = can_shoot_through_shield and weap_base and weap_base.categories and not weap_base:is_category("amr") and weap_base:is_category("semi_snp", "dmr_l", "dmr_h") 
+	--local is_semi_snp = can_shoot_through_shield and weap_base and weap_base.categories and not weap_base:is_category("amr") and weap_base:is_category("semi_snp", "dmr_l", "dmr_h") 
+	--这一行直接判断了玩家手里拿的是什么武器，参与了后续对于连狙穿盾的运算（被改造能穿盾的DMR也算），此处暂且先禁用了吧
 
 	--Just set this immediately.
 	local ray_hits = can_shoot_through_wall and World:raycast_wall("ray", from, to, "slot_mask", bullet_slotmask, "ignore_unit", ignore_unit, "thickness", 40, "thickness_mask", wall_mask)
@@ -192,7 +193,7 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data, weapon_unit)
 	for i, hit in ipairs(ray_hits) do
 		unit = hit.unit
 		u_key = unit:key()
-		local range = is_semi_snp and weap_base:get_damage_falloff(1, hit, managers.player:player_unit())
+		local range = is_semi_snp and weap_base:get_damage_falloff(1, hit, managers.player:player_unit()) --这里的get_damage_falloff()方法就是造成连狙有衰减的元凶，但是怎么回事呢？倘如直接删去这个方法/把它更改为数字，又会在之后穿盾的运算中崩溃...
 			local near_falloff_distance = range and weap_base.near_falloff_distance
 			local distance = range and hit.distance
 		if not units_hit[u_key] then
