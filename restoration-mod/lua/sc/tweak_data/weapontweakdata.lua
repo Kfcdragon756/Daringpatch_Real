@@ -14933,7 +14933,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.ray.weapon_movement_penalty = 1
 						self.ray.rms = 0.25
 						self.ray.panic_suppression_chance = 0.05
-						self.ray.stats_modifiers = {damage = 3}
+						self.ray.stats_modifiers = {damage = 10}  --此处修改，原3
 						self.ray.turret_instakill = true
 						self.ray.timers.reload_empty = 6
 						self.ray.timers.reload_not_empty = 6
@@ -15176,7 +15176,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.rpg7.weapon_movement_penalty = 1
 						self.rpg7.rms = 0.5
 						self.rpg7.panic_suppression_chance = 0.05
-						self.rpg7.stats_modifiers = {damage = 3}
+						self.rpg7.stats_modifiers = {damage = 10}  --此处修改，原3
 						self.rpg7.reload_speed_multiplier = 1.1
 						self.rpg7.turret_instakill = true
 						self.rpg7.timers.reload_empty = 4.1
