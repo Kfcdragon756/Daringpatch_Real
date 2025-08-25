@@ -2292,7 +2292,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.values.player.melee_damage_multiplier = {1.25, 1.5, 1.75, 2}
 	self.values.player.non_special_melee_multiplier = {1.25, 1.5, 1.75, 2}
 	
-	--Crew Chief
+	--Crew Chief  --领队
 	self.values.team.stamina.passive_multiplier = {
 		1.5,
 		1.3
@@ -2315,7 +2315,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.75
 	}	
 	
-	--Muscle
+	--Muscle --肌肉男
 	self.values.player.extra_revive_health = {0.35}  --此处修改，原0.25 --Bonus health % to add when getting up. Used by Muscle and Stoic.
 	self.values.player.panic_suppression = {
 		true
@@ -2331,7 +2331,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.25
 	}		
 
-	--Burglar
+	--Burglar  --窃贼
 	self.values.player.crouch_speed_multiplier_burglar = {
 		1.2
 	}	
@@ -2351,7 +2351,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.9
 	}
 
-	--Hitman
+	--Hitman  --杀手
 	self.values.player.store_temp_health = { 
 		{10.0, 3.0},
 		{15, 4.5}
@@ -2528,7 +2528,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.8
 	}
 
-	--Rogue 已修改
+	--Rogue --浪人 已修改
 	self.dodge_to_hot_data = {
 		armors_allowed = {"level_1", "level_2", "level_3", "level_4", "level_5", "level_6", "level_7"},
 		works_with_armor_kit = true,
@@ -2557,7 +2557,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		2 --Unused
 	}
 
-	--Gambler
+	--Gambler  --赌徒
  	self.loose_ammo_restore_health_values = {
  		cd = { --Cooldown (seconds)
  			8,

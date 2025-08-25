@@ -2444,6 +2444,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_weapon_obj_mult_1_op"] = "对熊面甲和泰坦盾的造成的伤害降低",
         ["bm_menu_weapon_obj_mult_2_op"] = "。",
 
+        -- 发射器爆炸衰减
+        ["bm_menu_weapon_exp_falloff_start"] = "爆炸伤害随爆炸半径衰减的速率：",
+        ["bm_menu_weapon_exp_falloff_linear"] = "##中##。",
+        ["bm_menu_weapon_exp_falloff_quad"] = "##小##。",
+        ["bm_menu_weapon_exp_falloff_quad_op"] = "##大##。",
+        ["bm_menu_weapon_exp_falloff_no_falloff"] = "##无衰减##。",
+        --[[
+        ["bm_menu_weapon_exp_falloff_linear"] = "#{skill_color}#中##。",
+        ["bm_menu_weapon_exp_falloff_quad"] = "#{stats_positive}#小##。",
+        ["bm_menu_weapon_exp_falloff_quad_op"] = "#{important_1}#大##。",
+        ["bm_menu_weapon_exp_falloff_no_falloff"] = "#{heat_warm_color}#无衰减##。",
+        --]]
+
         -- 爆头倍率跟物体伤害倍率相等时
         ["bm_menu_weapon_same_mult_1"] = "爆头倍率以及对熊面甲和泰坦盾造成的伤害都提高",
         ["bm_menu_weapon_same_mult_2"] = "。",

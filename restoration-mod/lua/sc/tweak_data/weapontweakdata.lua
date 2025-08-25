@@ -27371,7 +27371,41 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 		end
 	end
-	--在这里重新做
+	--在这里重新做  --捡弹修改
+	---火箭筒---
+	if self.rpg7 then
+		self.rpg7.AMMO_PICKUP = {self.rpg7.AMMO_PICKUP[1]*1.3, self.rpg7.AMMO_PICKUP[2]*1.3}
+		self.rpg7.exp_falloff_desc = true
+	end
+	if self.ray then
+		self.ray.AMMO_PICKUP = {self.ray.AMMO_PICKUP[1]*1.3, self.ray.AMMO_PICKUP[2]*1.3}
+		self.ray.exp_falloff_desc = true
+	end
+	---榴弹---
+	if self.china then
+		self.china.AMMO_PICKUP = {self.china.AMMO_PICKUP[1]*1.5, self.china.AMMO_PICKUP[2]*1.5}
+		self.china.exp_falloff_desc = true
+	end
+	if self.m32 then
+		self.m32.AMMO_PICKUP = {self.m32.AMMO_PICKUP[1]*1.5, self.m32.AMMO_PICKUP[2]*1.5}
+		self.m32.exp_falloff_desc = true
+	end
+	if self.gre_m79 then
+		self.gre_m79.AMMO_PICKUP = {self.gre_m79.AMMO_PICKUP[1]*1.4, self.gre_m79.AMMO_PICKUP[2]*1.4}
+		self.gre_m79.exp_falloff_desc = true
+	end
+	if self.arbiter then
+		self.arbiter.AMMO_PICKUP = {self.arbiter.AMMO_PICKUP[1]*1.4, self.arbiter.AMMO_PICKUP[2]*1.4}
+		self.arbiter.exp_falloff_desc = true
+	end
+	if self.slap then
+		self.slap.AMMO_PICKUP = {self.slap.AMMO_PICKUP[1]*1.4, self.slap.AMMO_PICKUP[2]*1.4}
+		self.slap.exp_falloff_desc = true
+	end
+	if self.ms3gl then
+		self.ms3gl.AMMO_PICKUP = {self.ms3gl.AMMO_PICKUP[1]*1.2, self.ms3gl.AMMO_PICKUP[2]*1.3}
+		self.ms3gl.exp_falloff_desc = true
+	end
 	---反器材狙---
 	if self.m200 then
 		self.m200.AMMO_PICKUP = {self.m200.AMMO_PICKUP[1]*1.3, self.m200.AMMO_PICKUP[2]*1.3}

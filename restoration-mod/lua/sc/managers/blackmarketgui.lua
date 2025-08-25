@@ -5105,6 +5105,34 @@ function BlackMarketGui:update_info_text()
 
 				end
 
+				-- 榴弹衰减曲线描述
+				local has_exp_falloff_desc = weapon_tweak and weapon_tweak.exp_falloff_desc
+				local exp_func_r = weapon_tweak and weapon_tweak.exp_func
+
+				if schinese then
+					if has_exp_falloff_desc and exp_func_r then
+						local exp_falloff_desc = ""
+						if exp_func_r == "linear" then
+							exp_falloff_desc = managers.localization:text("bm_menu_weapon_exp_falloff_linear")
+						elseif exp_func_r == "quad" then
+							exp_falloff_desc = managers.localization:text("bm_menu_weapon_exp_falloff_quad")
+						elseif exp_func_r == "quad_op" then
+							exp_falloff_desc = managers.localization:text("bm_menu_weapon_exp_falloff_quad_op")
+						elseif exp_func_r == "no_falloff" then
+							exp_falloff_desc = managers.localization:text("bm_menu_weapon_exp_falloff_no_falloff")
+						end
+						local exp_func_print = string.format("%s", exp_falloff_desc)
+						local exp_falloff_desc_start = managers.localization:text("bm_menu_weapon_exp_falloff_start")
+						if slot_data.global_value and slot_data.global_value ~= "normal" and updated_texts[4].text ~= "" or weapon_tweak.has_description or ap_desc or rays or obj_mult_added or hs_mult_added then
+							updated_texts[4].text = updated_texts[4].text .. "\n\n" .. exp_falloff_desc_start .. exp_func_print
+						else
+							updated_texts[4].text = updated_texts[4].text .. "\n" .. exp_falloff_desc_start .. exp_func_print
+						end
+						--文本中添加##xxx##即可改变对应的颜色，无需使用#{xx}#的格式
+						table.insert(updated_texts[4].resource_color, (exp_func_r == "linear" and tweak_data.screen_colors.skill_color or exp_func_r == "quad" and tweak_data.screen_colors.stats_positive or exp_func_r == "quad_op" and tweak_data.screen_colors.important_1 or exp_func_r == "no_falloff" and tweak_data.screen_colors.heat_warm_color or tweak_data.screen_colors.skill_color) )
+					end
+				end
+
 				-- 特定武器穿甲倍率
 				local shot_th_shield = weapon_tweak.can_shoot_through_shield                  --穿盾
 				local shot_th_wall = weapon_tweak.can_shoot_through_wall                      --穿墙
