@@ -241,8 +241,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
 
         ["RestorationModWEAPONSOptionsButtonTitleID"] = "Weapon Options",  --tra
         ["RestorationModWEAPONSOptionsButtonDescID"] = "Restoration Mod options for weapons, both for UI and in-game.",
-            ["RestorationModWeaponHandlingOptionsButtonTitleID"] = "++ Weapon Handling Options ++",
-            ["RestorationModWeaponHandlingOptionsButtonDescID"] = "Extra options regarding weapon handling.",
+            ["RestorationModWeaponHandlingOptionsButtonTitleID"] = "++ 武器手感设置 ++",
+            ["RestorationModWeaponHandlingOptionsButtonDescID"] = "在此可以调节一些与武器使用手感有关的额外设置。",
 
         ["RestorationModAltLastDownColorTitleID"] = "更改被逮捕前最后一次倒地的颜色",
         ["RestorationModAltLastDownColorDescID"] = "将被逮捕前最后一次倒地时角色边框的颜色设置为 color_sin_classic*.",
