@@ -1323,16 +1323,22 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						skill_value_p1 = tostring(self.values.player.interacting_damage_multiplier[1] * 100).."%" -- DR during interaction
 					}
 
-			--Engineering
+			--Engineering  --此处修改
 				--Basic
-					self.values.sentry_gun.armor_multiplier = {1.8}
+					self.values.sentry_gun.armor_multiplier = {1.7}
 				--Ace
-					self.values.sentry_gun.armor_multiplier2 = {2.5}
+					self.values.sentry_gun.armor_multiplier2 = {2.0}
 					
 					self.skill_descs.eco_sentry = {
 						skill_value_b1 = tostring(self.values.sentry_gun.armor_multiplier[1] % 1 * 100).."%", -- more sentry damage
 						skill_value_p1 = tostring(self.values.sentry_gun.armor_multiplier2[1] % 1 * 100).."%" -- more sentry HP
 					}
+					if schinese then
+						self.skill_descs.eco_sentry = {
+							skill_value_b1 = tostring((self.values.sentry_gun.armor_multiplier[1] - 1) * 100).."%", 
+							skill_value_p1 = tostring((self.values.sentry_gun.armor_multiplier2[1] - 1) * 100).."%" 
+						}
+					end
 		
 			--Jack of All Trades
 				--Basic
