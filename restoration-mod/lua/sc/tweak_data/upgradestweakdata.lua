@@ -866,8 +866,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 					}
 					--Says health multiplier, but actually multiplies damage taken.
 					self.values.player.passive_convert_enemies_health_multiplier = { --此处修改
-						0.4, --Basic
-						0.3 --Ace
+						0.35, --Basic
+						0.33 --Ace
 					}					
 					--Basic
 						self.values.player.convert_enemies = {true}
@@ -2418,9 +2418,9 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.melee_to_hot_data = {
 		armors_allowed = {"level_1", "level_2", "level_3", "level_4", "level_5", "level_6", "level_7"},
 		works_with_armor_kit = true,
-		tick_time = 0.5,
-		total_ticks = 10,
-		max_stacks = 5,
+		tick_time = 0.3,  --每多少秒回一次
+		total_ticks = 10,  --总共回几次
+		max_stacks = 4,  --最大层数
 		stacking_cooldown = 0.1,
 		add_stack_sources = {
 			bullet = false,
@@ -2438,7 +2438,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}
 
 	self.values.player.heal_over_time = {
-		0.1
+		0.15  --回多少血
 	}	
 
 	self.values.player.passive_dodge_chance = {
