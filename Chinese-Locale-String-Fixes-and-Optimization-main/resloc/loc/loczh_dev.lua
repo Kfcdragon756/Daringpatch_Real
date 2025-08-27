@@ -6890,15 +6890,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", funct
         ["menu_deck10_7"] = "狡诈灵药",
         ["menu_deck10_9"] = "满贯神药",
 
-        -- Infiltrator--
+        -- Infiltrator--  --渗透者
 
         ["menu_deck8_1_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害减少##$perk_value_2##。",
         ["menu_deck8_3_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害额外减少##$perk_value_2##。\n你的闪避点数增加##$perk_value_3##。",
         ["menu_deck8_5_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害再额外减少##$perk_value_2##。\n\n每次使用近战武器成功击中敌人都将在##$perk_value_4##秒内使你的近战武器伤害增加##$perk_value_3##，该效果可以叠加且最多叠加##$perk_value_5##次，打空失效。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
         ["menu_deck8_7_desc_sc"] = "近战武器击中敌人后，近战武器伤害加成在##$perk_value_2##秒内额外增加##$perk_value_1##，该效果可以叠加且最多叠加##$perk_value_3##次，打空失效。\n\n你的闪避点数额外增加##$perk_value_4##。",
-        ["menu_deck8_9_desc_sc"] = "每次使用近战武器成功击中敌人都将在##$perk_value_2##秒内使你的血量每秒回复##$perk_value_1##点，该效果可以叠加且最多叠加##$perk_value_3##次。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck8_9_desc_sc"] = "每次使用近战武器成功击中敌人都将在##$perk_value_2##秒内使你的血量每##$perk_value_zh_1##秒回复##$perk_value_1##点，该效果可以叠加且最多叠加##$perk_value_3##次。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
-        -- Sociopath--
+        -- Sociopath--  --反社会
 
         ["menu_deck9_1_sc"] = "非礼勿言",
         ["menu_deck9_1_desc_sc"] = "当你被##$perk_value_1##米内至少##3##名敌人包围时，你受到来自敌人的伤害减少##$perk_value_2##。",

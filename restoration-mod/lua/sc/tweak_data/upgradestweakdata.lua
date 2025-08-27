@@ -2408,8 +2408,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		1.25,
 		1.25
 	}
-	--infiltrator stuff
-	self.infiltrator_dr_range = 1200
+	--infiltrator stuff  --渗透者
+	self.infiltrator_dr_range = 1500  --此处修改，原1200
 	self.values.player.melee_stacking_heal = {true}
 	self.values.temporary.melee_life_leech = {
 		{0.08, 08}
@@ -2418,8 +2418,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.melee_to_hot_data = {
 		armors_allowed = {"level_1", "level_2", "level_3", "level_4", "level_5", "level_6", "level_7"},
 		works_with_armor_kit = true,
-		tick_time = 1,
-		total_ticks = 5,
+		tick_time = 0.5,
+		total_ticks = 10,
 		max_stacks = 5,
 		stacking_cooldown = 0.1,
 		add_stack_sources = {
@@ -2596,26 +2596,26 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	}}
 	self.loose_ammo_give_team_ratio = 0.35 --% of ammo given to team. --此处修改，原0.15
 
-	--Sociopath more like SocioBAD
+	--Sociopath more like SocioBAD  --反社会
 	self.values.player.killshot_regen_armor_bonus = {2}
 	self.values.player.killshot_close_regen_armor_bonus = { 
 		{
-			1.5, --armor regen
+			2.0, --armor regen  --此处修改，原1.5
 			2 --melee kill mult
 		}
 	}
-	self.values.player.killshot_close_panic_chance = {0.25}
+	self.values.player.killshot_close_panic_chance = {0.5}  --此处修改，原0.25
 	self.values.player.melee_kill_life_leech = {
-		0.05, --此处修改，原0.02
-		0.01 --Copycat, unused
+		0.15, --此处修改，原0.02
+		0.10 --Copycat, unused
 	}
 	self.values.player.melee_kill_stamina = {
-		0.2
+		0.35  --此处修改，原0.2
 	}
-	self.killshot_close_panic_range = 1600 --此处修改
+	self.killshot_close_panic_range = 1800 --此处修改
 	self.on_killshot_cooldown = 5
-	self.on_killshot_cooldown_reduction = 0.7 --此处修改
-	self.on_killshot_cooldown_reduction_melee = 1.5
+	self.on_killshot_cooldown_reduction = 1 --此处修改
+	self.on_killshot_cooldown_reduction_melee = 2  --此处修改，原1.5
 	
 	--hecu-- --之前给啥比喝醋的小礼物，请放心，我们不会利用这种代码整蛊任何其他玩家甚至危害他人安全。这段代码也理应被废弃。
 	--[[local get_steam_id = Steam:userid()
@@ -3174,7 +3174,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_1 = tostring((1 - self.values.player.perk_armor_regen_timer_multiplier[1]) * 100).."%" -- Armor regen buff
 	}
 	
-	--Infiltrator
+	--Infiltrator  --渗透者描述
 	self.specialization_descs[8][1] = {
 		perk_value_1 = tostring(self.infiltrator_dr_range / 100), -- Required range to activate DR
 		perk_value_2 = tostring((1 - self.values.temporary.dmg_dampener_close_contact[1][1]) * 100).."%" -- DR when enemy is close
@@ -3203,6 +3203,14 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_2 = tostring(self.melee_to_hot_data.total_ticks/self.melee_to_hot_data.tick_time), -- Duration of 1 stack
 		perk_value_3 = tostring(self.melee_to_hot_data.max_stacks) -- Max amount of stacks
 	}
+	if schinese then
+		self.specialization_descs[8][9] = {
+			perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- 每次的回血量
+			perk_value_2 = tostring(self.melee_to_hot_data.total_ticks*self.melee_to_hot_data.tick_time), -- 每层的持续时间
+			perk_value_3 = tostring(self.melee_to_hot_data.max_stacks), -- 总层数
+			perk_value_zh_1 = tostring(self.melee_to_hot_data.tick_time)  --每几秒触发一次
+		}
+	end
 	
 	--Sociopath
 	self.specialization_descs[9][1] = {
