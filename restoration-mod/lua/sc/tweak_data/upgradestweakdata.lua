@@ -2604,16 +2604,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			2 --melee kill mult
 		}
 	}
-	self.values.player.killshot_close_panic_chance = {0.5}  --此处修改，原0.25
+	self.values.player.killshot_close_panic_chance = {0.4}  --此处修改，原0.25
 	self.values.player.melee_kill_life_leech = {
-		0.15, --此处修改，原0.02
+		0.12, --此处修改，原0.02
 		0.10 --Copycat, unused
 	}
 	self.values.player.melee_kill_stamina = {
 		0.35  --此处修改，原0.2
 	}
 	self.killshot_close_panic_range = 1800 --此处修改
-	self.on_killshot_cooldown = 5
+	self.on_killshot_cooldown = 6
 	self.on_killshot_cooldown_reduction = 1 --此处修改
 	self.on_killshot_cooldown_reduction_melee = 2  --此处修改，原1.5
 	
