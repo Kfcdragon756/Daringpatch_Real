@@ -1401,6 +1401,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 				self._tactical_reload = nil
 				self:ammo_base()._tactical_reload = nil
 			end
+			if stats.special_damage_multiplier then --此处添加
+				self:weapon_tweak_data().special_damage_multiplier = (self:weapon_tweak_data().special_damage_multiplier or 1)  + stats.special_damage_multiplier
+			end
 
 			if not self:is_npc() then
 				if stats.sms then

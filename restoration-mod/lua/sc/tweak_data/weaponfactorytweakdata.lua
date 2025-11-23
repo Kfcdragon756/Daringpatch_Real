@@ -1147,7 +1147,7 @@ local grips = {
 					value = 9,
 					damage = -150,
 					--total_ammo_mod = -77,  --未跟进
-					spread = 5
+					spread = 10 --此处修改，原5
 				},
 				custom_stats = {
 					hip_mult = 0.5,  --未跟进0.8
@@ -1158,8 +1158,8 @@ local grips = {
 					ammo_pickup_min_mul = 0.8,
 					hs_mult = 2,
 					hs_mult_desc = true,
-					falloff_start_mult = 1.1,  --未跟进1
-					falloff_end_mult = 1.15,  --此处修改，原1.1
+					falloff_start_mult = 1.18,  --未跟进1
+					falloff_end_mult = 1.6,  --此处修改，原1.1
 					damage_min_mult = 10,  --未跟进5.3333333，之前为4.2
 					armor_piercing_add = 1,
 					rays = 12,		
@@ -1249,6 +1249,7 @@ local grips = {
 					ammo_pickup_min_mul = 1.1--[[0.85]] or 1,  --
 					falloff_start_mult = 2.2,  --原无此项
 					falloff_end_mult = 1.5,  --
+					natascha = 1600, --此处添加，原无此项
 					dot_data_name = "ammo_rip_heavy"
 				}
 			},
@@ -1371,7 +1372,7 @@ local grips = {
 					damage_min_mult = 0.2,
 					ignore_statistic = true,
 					bullet_class = "FlameBulletBase",
-					armor_piercing_add = 0.01,				
+					armor_piercing_add = 0.01,	
 					can_shoot_through_shield = false,
 					rays = 20,  --保留修改，原16
 					trail_effect = "",
@@ -1452,14 +1453,16 @@ local grips = {
 					damage = 60
 				},
 				custom_stats = {
-					bullet_class_cus = "BuckShotPierceDaring",  --保留修改，原无此项
+					-- bullet_class_cus = "BuckShotPierceDaring", 保留修改，原无此项 此处修改
 					hip_mult = 1.5,
-					armor_piercing_add = 0.8,  --保留修改，原无此项
-					falloff_start_mult = 1,  --未跟进，原1.2
+					-- armor_piercing_add = 0.8,  --保留修改，原无此项 此处修改
+					falloff_start_mult = 1.3,  --未跟进，原1.2
 					falloff_end_mult = 0.75,  --未跟进，原0.8
 					damage_min_mult = 0.83333,  --未跟进，原0.79999
 					ammo_pickup_max_mul = 0.875,  --未跟进，原0.75
 					ammo_pickup_min_mul = 0.875,  --
+					can_shoot_through_enemy_unlim = true, --此处添加
+					can_shoot_through_enemy = true, --此处添加
 					rays = 6
 				}	
 			},
@@ -1595,7 +1598,8 @@ local grips = {
 					falloff_start_mult = 1.3,
 					falloff_end_mult = 1.6,  --未跟进，原1.4
 					damage_min_mult = 1.111111,  --此处添加
-					ads_speed_mult = 1.075  --未跟进，原1.025
+					ads_speed_mult = 1.075,  --未跟进，原1.025
+					special_damage_multiplier = 2 --此处添加
 				}
 			},
 	
@@ -25704,6 +25708,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_ks23_barrel_short.supported = true
 				self.parts.wpn_fps_upg_ks23_barrel_short.stats = deep_clone(barrels.short_b3_stats)
 				self.parts.wpn_fps_upg_ks23_barrel_short.custom_stats = deep_clone(barrels.short_b3_stats)
+				self.parts.wpn_fps_upg_ks23_barrel_short.custom_stats.rof_mult = 1.25 --此处添加，原无此项
 		
 				self.parts.wpn_fps_upg_ks23_stock_pistolgrip.supported = true	
 				self.parts.wpn_fps_upg_ks23_stock_pistolgrip.stats = deep_clone(stocks.remove_fixed_stats)
