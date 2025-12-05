@@ -1362,11 +1362,12 @@ end
 --]]
 
 FlameBulletBase.VARIANT = "fire_bullet"
+FlameBulletBase.stop_on_impact = false --此处添加
 
 --Fire no longer memes on shields.
 function FlameBulletBase:bullet_slotmask()
 	return managers.slot:get_mask("bullet_impact_targets")
-end	
+end
 
 --Add shield knocking to FlameBulletBase
 function FlameBulletBase:on_collision(col_ray, weapon_unit, user_unit, damage, blank, no_sound)

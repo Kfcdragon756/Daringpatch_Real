@@ -14318,9 +14318,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.b682.supported = true
 						self.b682.ads_speed = 0.400
-						self.b682.damage_falloff = {
-							start_dist = 1000,
-							end_dist = 4000,
+						self.b682.damage_falloff = { --此处修改
+							start_dist = 1100,
+							end_dist = 4300,
 							min_mult = 0.3
 						}
 						self.b682.stats = {
@@ -14329,7 +14329,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							recoil = 39,
 							spread_moving = 6,
 							zoom = 1,
-							concealment = 22,
+							concealment = 23, --此处修改
 							suppression = 6,
 							alert_size = 2,
 							extra_ammo = 101,
@@ -14353,15 +14353,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.boot.AMMO_MAX = 40
 						self.boot.CLIP_AMMO_MAX = 6
 						self.boot.fire_mode_data.fire_rate = 1
-						self.boot.fire_rate_multiplier = 0.91667
+						self.boot.fire_rate_multiplier = 2.15552383 --此处修改
 						self.boot.rays = 9
 						self.boot.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.boot.kick = self.stat_info.kick_tables.right_kick
 						self.boot.supported = true
 						self.boot.ads_speed = 0.420
-						self.boot.damage_falloff = {
-							start_dist = 400,
-							end_dist = 2500,
+						self.boot.damage_falloff = { --此处修改
+							start_dist = 850,
+							end_dist = 2850,
 							min_mult = 0.3
 						}
 						self.boot.stats = {
@@ -15903,16 +15903,16 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.bs23.AMMO_MAX = 40
 					self.bs23.CLIP_AMMO_MAX = 3
 					self.bs23.reload_speed_multiplier = 1.3
-					self.bs23.fire_rate_multiplier = 1.20
+					self.bs23.fire_rate_multiplier = 1.75 --此处修改
 					self.bs23.fire_mode_data.fire_rate = 1.3
 					self.bs23.rays = 9
 					self.bs23.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 					self.bs23.kick = self.stat_info.kick_tables.right_kick
 					self.bs23.supported = true
 					self.bs23.ads_speed = 0.400
-					self.bs23.damage_falloff = {
-						start_dist = 800,
-						end_dist = 3600,
+					self.bs23.damage_falloff = { --此处修改
+						start_dist = 1000,
+						end_dist = 4200,
 						min_mult = 0.25
 					}
 					self.bs23.stats = {
@@ -17961,9 +17961,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.quadbarrel.fire_mode_data.fire_rate = 0.171428
 				self.quadbarrel.supported = true
 				self.quadbarrel.ads_speed = 0.420
-				self.quadbarrel.damage_falloff = {
-					start_dist = 500,
-					end_dist = 3000,
+				self.quadbarrel.damage_falloff = { --此处修改
+					start_dist = 1000,
+					end_dist = 3250,
 					min_mult = 0.25
 				}
 				self.quadbarrel.stats = {
@@ -17998,7 +17998,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ks23.damage_type_single_ray = "anti_materiel"
 				self.ks23.tactical_reload = 1
 				self.ks23.reload_speed_multiplier = 1.3
-				self.ks23.fire_rate_multiplier = 1.20
+				self.ks23.fire_rate_multiplier = 1.725 --此处修改
 				self.ks23.fire_mode_data.fire_rate = 1.3
 				self.ks23.rays = 9
 				self.ks23.AMMO_MAX = 40
@@ -18006,14 +18006,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ks23.kick = self.stat_info.kick_tables.vertical_kick
 				self.ks23.supported = true
 				self.ks23.ads_speed = 0.440
-				self.ks23.damage_falloff = {
-					start_dist = 800,
-					end_dist = 3600,
+				self.ks23.damage_falloff = { --此处修改
+					start_dist = 1000,
+					end_dist = 4200,
 					min_mult = 0.25
 				}
 				self.ks23.stats = {
 					damage = 240,
-					spread = 52,
+					spread = 80, --此处修改
 					recoil = 45,
 					spread_moving = 6,
 					zoom = 1,
@@ -21974,15 +21974,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.cp2077_guts.descope_on_fire_ignore_setting = true
 				self.cp2077_guts.hipfire_shake = true
 				self.cp2077_guts.supported = true
-				self.cp2077_guts.ads_speed = 0.400
+				self.cp2077_guts.ads_speed = 0.320 --此处修改
 				self.cp2077_guts.damage_falloff = {
 					start_dist = 800,
 					end_dist = 3000,
 					min_mult = 0.3333
 				}
-				self.cp2077_guts.stats = {
+				self.cp2077_guts.stats = { --此处修改
 					damage = 400,
-					spread = 16,
+					spread = 26,
 					recoil = 3,
 					spread_moving = 6,
 					zoom = 1,
@@ -26394,7 +26394,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				reload = 20
 			}
 			self.ashot.stats_modifiers = nil
-			self.ashot.reload_speed_multiplier = 1.25
+			self.ashot.reload_speed_multiplier = 1.325 --此处修改
 			self.ashot.panic_suppression_chance = 0.05
 			self.ashot.timers = deep_clone(self.new_raging_bull.timers)
 		end
@@ -27023,6 +27023,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					elseif weap.recategorize[1] == "break_shot" and not table.contains(weap.categories, "shotgun_break") then	
 						table.insert(weap.categories, "shotgun_break")
 						weap.ene_hs_mult = 0.8
+						weap.armor_piercing_chance = 0.8 --此处添加
 					end
 				end
 			end
@@ -27559,6 +27560,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self[wep_id].AMMO_PICKUP = {self[wep_id].AMMO_PICKUP[1] * 1.05 , self[wep_id].AMMO_PICKUP[2] * 1.1}
 		end
 	end
+
+	--给mosconi S/S霰弹枪的物体倍率加成。
+	self.huntsman.object_damage_mult = 1.25
 
 end)
 
