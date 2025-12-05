@@ -2626,7 +2626,7 @@ function NewRaycastWeaponBase:check_highlight_unit(unit)
 		return
 	end
 
-	if not self._can_highlight_with_skill and self:is_second_sight_on() then
+	if self:is_second_sight_on() and not self._can_highlight_with_skill and not self._can_highlight_with_perk then  --此处修改、修复
 		return
 	end
 
