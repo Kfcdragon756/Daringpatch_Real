@@ -27582,6 +27582,234 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 
 		end
 
+		if self.parts.wpn_fps_pis_m9butcool_body_std then --此处添加 SAMURAI EDGE
+		
+			self.parts.wpn_fps_pis_m9butcool_fm_single.stats = nil
+			self.parts.wpn_fps_pis_m9butcool_fm_single.custom_stats = nil
+
+			--BARRELS
+			self.parts.wpn_fps_pis_m9butcool_b_flush.supported = true --FLUSH BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_flush.stats = {
+				spread = -1,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_b_flush.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_b_thr.supported = true --THREADED BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_thr.stats = {
+				recoil = 2,
+				spread = -1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_b_thr.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_b_orig.supported = true --BLUED BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_orig.stats = {
+				recoil = -2,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_b_orig.custom_stats = nil
+
+			--MUZZLES
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.supported = true --BURTON MUZZLE V1
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.stats = {
+				spread = 1,
+				recoil = 2,
+				concealment = -2,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.a_obj = "a_ns_burton"
+			--self.parts.wpn_fps_pis_m9butcool_ns_v1.parent = "barrel"
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.supported = true --BURTON MUZZLE V2
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.stats = {
+				spread = -1,
+				recoil = 6,
+				concealment = -2,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.a_obj = "a_ns_burton"
+			--self.parts.wpn_fps_pis_m9butcool_ns_v2.parent = "barrel"
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_ns_aw01.supported = true --AW01 EXTENDED BARREL
+			self.parts.wpn_fps_pis_m9butcool_ns_aw01.stats = {
+				spread = 2,
+				concealment = -2,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_ns_aw01.custom_stats = {
+				falloff_start_mult = 1.13,
+				falloff_end_mult = 1.16,
+				muzzleflash = "effects/payday2/particles/weapons/9mm_auto_silence_fps"
+			}
+
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.supported = true --AW01 SUPPRESSOR
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.stats = deep_clone(muzzle_device.supp_c_stats)
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.custom_stats = deep_clone(muzzle_device.muzzle_c_custom_stats)
+
+			--EXTRA
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.supported = true --EXTRA RAIL
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.stats = {
+				recoil = 2,
+				concealment = -1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.forbids = {
+				"wpn_fps_pis_m9butcool_ns_aw01",
+				"wpn_fps_pis_m9butcool_body_a1",
+				"wpn_fps_pis_m9butcool_body_custom"
+			}
+
+			--FRAMES
+			self.parts.wpn_fps_pis_m9butcool_body_a1.supported = true --A1 FRAME
+			self.parts.wpn_fps_pis_m9butcool_body_a1.stats = {
+				recoil = -2,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_body_a1.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_body_a1.forbids = { "wpn_fps_pis_m9butcool_fl_aw01" }
+
+			self.parts.wpn_fps_pis_m9butcool_body_custom.supported = true --CUSTOM FRAME
+			self.parts.wpn_fps_pis_m9butcool_body_custom.stats = {
+				recoil = 2,
+				concealment = -1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_body_custom.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_body_custom.forbids = { 
+				"wpn_fps_upg_fl_pis_tlr1",
+				"wpn_fps_upg_fl_pis_crimson",
+				"wpn_fps_upg_fl_pis_m3x",
+				"wpn_fps_upg_fl_pis_x400v",
+				"wpn_fps_upg_fl_pis_laser"
+			}
+
+			--GRIPS
+			self.parts.wpn_fps_pis_m9butcool_g_burton.supported = true --BURTON GRIP V1
+			self.parts.wpn_fps_pis_m9butcool_g_burton.stats = {
+				recoil = 2,
+				concealment = -1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_g_burton.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.supported = true --BURTON GRIP V2
+			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.stats = {
+				spread = -2,
+				recoil = 2,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_g_orig.supported = true --PROTOTYPE GRIP
+			self.parts.wpn_fps_pis_m9butcool_g_orig.stats = {
+				recoil = -2,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_g_orig.custom_stats = nil
+
+			--HAMMER
+			self.parts.wpn_fps_pis_m9butcool_hmr_elite.supported = true --ELITE HAMMER
+			self.parts.wpn_fps_pis_m9butcool_hmr_elite.stats = {
+				spread = -1,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_hmr_elite.custom_stats = nil
+
+			--MAGAZINE
+			self.parts.wpn_fps_pis_m9butcool_m_ext.supported = true --EXTENDED MAG
+			self.parts.wpn_fps_pis_m9butcool_m_ext.stats = {
+				extra_ammo = 5,
+				concealment = -1,
+				reload = -4,
+				value = 8
+			}
+			self.parts.wpn_fps_pis_m9butcool_m_ext.custom_stats = nil
+
+			--SLIDES
+			self.parts.wpn_fps_pis_m9butcool_sl_blued.supported = true --BLUED SLIDE
+			self.parts.wpn_fps_pis_m9butcool_sl_blued.stats = {
+				recoil = 2,
+				concealment = -1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_sl_blued.custom_stats = nil
+
+			self.parts.wpn_fps_pis_m9butcool_sl_orig.supported = true --PROTOTYPE SLIDE
+			self.parts.wpn_fps_pis_m9butcool_sl_orig.stats = {
+				spread = -1,
+				concealment = 1,
+				value = 0
+			}
+			self.parts.wpn_fps_pis_m9butcool_sl_orig.custom_stats = nil
+
+			--SIGHT
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.supported = true --RAILED SIGHT
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.custom_stats = nil
+
+			--GADGETS
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.supported = true --AW01 FLASHLIGHT
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.stats = nil
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.custom_stats = nil
+
+			--CUSTOM
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.supported = true --BURST FIREMODE
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.stats = deep_clone(self.parts.wpn_fps_upg_i_93r.stats)
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats = deep_clone(self.parts.wpn_fps_upg_i_93r.custom_stats)
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.burst_fire.lock = true
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.info_lock_burst = true
+
+			--CONVERSION KITS
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.supported = true --.40 S&W CONVERSION KIT
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.keep_damage = true
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.stats = {
+				extra_ammo = -3,
+				damage = 6,
+				recoil = -2,
+				total_ammo_mod = -82,
+				value = 10
+			}
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.custom_stats = {
+				ammo_pickup_max_mul = 0.7674,
+				ammo_pickup_min_mul = 0.7674,
+				alt_ammo_pickup_max_mul = 0.7674,
+				alt_ammo_pickup_min_mul = 0.7674,
+				damage_min_mult = 1.2,
+				rof_mult = 0.76558960
+			}
+
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.supported = true --AW01 CONVERSION KIT
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.keep_damage = true
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.stats = {
+				extra_ammo = -6,
+				damage = 21,
+				recoil = -15,
+				total_ammo_mod = -188,
+				value = 10
+			}
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.custom_stats = {
+				ammo_pickup_max_mul = 0.5333,
+				ammo_pickup_min_mul = 0.5333,
+				alt_ammo_pickup_max_mul = 0.5333,
+				alt_ammo_pickup_min_mul = 0.5333,
+				rof_mult = 0.58845235
+			}
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.forbids = {
+				"wpn_fps_pis_m9butcool_m_ext"
+			}
+
+		end
+
 		if self.parts.wpn_fps_smg_tribune32_stock_fool then
 			self.parts.wpn_fps_smg_tribune32_flash_hider.stats = { value = 0}
 			self.parts.wpn_fps_smg_tribune32_flash_hider.custom_stats = nil

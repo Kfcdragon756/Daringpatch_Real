@@ -26805,6 +26805,56 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.cold.panic_suppression_chance = 0.05
 		end
 
+		if self.m9butcool then -- Samurai Edge 此处添加
+			self.m9butcool.recategorize = { "light_pis" }
+			self.m9butcool.categories = { "pistol" }
+			self.m9butcool.has_description = false
+			self.m9butcool.supported = true	
+			self.m9butcool.CLIP_AMMO_MAX = 15
+			self.m9butcool.AMMO_MAX = 75
+			self.m9butcool.single.fire_rate = 0.0882352
+			self.m9butcool.fire_mode_data.fire_rate = 0.0882352
+			self.m9butcool.kick = self.stat_info.kick_tables.even_recoil
+			self.m9butcool.sounds.fire = "beretta_fire"
+			self.m9butcool.kick_pattern = {
+				{0, self.stat_info.kick_tables.moderate_kick},
+				{4, self.stat_info.kick_tables.right_kick},
+				{7, self.stat_info.kick_tables.moderate_right_kick}
+			}
+			self.m9butcool.supported = true
+			self.m9butcool.ads_speed = 0.140
+			self.m9butcool.damage_falloff = {
+				start_dist = 1600,
+				end_dist = 3700,
+				min_mult = 0.25
+			}
+			self.m9butcool.stats = {
+				damage = 24,
+				spread = 65,
+				recoil = 80,
+				spread_moving = 5,
+				zoom = 1,
+				concealment = 30,
+				suppression = 11,
+				alert_size = 2,
+				extra_ammo = 101,
+				total_ammo_mod = 400,
+				value = 1,
+				reload = 20
+			}
+			self.m9butcool.stats_modifiers = nil
+			self.m9butcool.panic_suppression_chance = 0.05
+			self.m9butcool.reload_speed_multiplier = 1.13
+			self.m9butcool.timers.reload_exit_empty = 0.5
+			self.m9butcool.timers.reload_exit_not_empty = 0.65
+			self:SetupAttachmentPoint("m9butcool", {
+				name = "a_ns_burton",
+				base_a_obj = "a_ns",
+				position = Vector3(0, -11.6, 0.4),
+				rotation = Rotation(0, 0, 0)
+				}
+			)
+		end
 	--[[     DISABLED     ]]--
 	
 		--Akimbo CZ ACCUSHADOW
