@@ -26778,22 +26778,29 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.x_cold.supported = true
 		end		
 
-		if self.cold then --Gambyt's VMP Crosskill Protector
-			self.cold.use_data.selection_index = 5
-			self.cold.tactical_reload = 1											
+		if self.cold then --Gambyt's VMP Crosskill Protector --修改
+			--self.cold.use_data.selection_index = 5
+			self.cold.tactical_reload = 1
+			self.cold.recategorize = { "heavy_pis" }
+			self.cold.categories = { "pistol" }											
 			self.cold.fire_mode_data.fire_rate = 0.08571428571
 			self.cold.single.fire_rate = 0.08571428571
 			self.cold.CLIP_AMMO_MAX = 8
 			self.cold.AMMO_MAX = 40
 			self.cold.kick = self.stat_info.kick_tables.even_recoil
 			self.cold.supported = true
+			self.cold.damage_falloff = {
+				start_dist = 1300,
+				end_dist = 3500,
+				min_mult = 0.25
+			}
 			self.cold.stats = {
 				damage = 45,
 				spread = 91,
-				recoil = 83,
+				recoil = 75,
 				spread_moving = 5,
 				zoom = 1,
-				concealment = 26,
+				concealment = 28,
 				suppression = 8,
 				alert_size = 2,
 				extra_ammo = 101,
@@ -26803,6 +26810,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			}
 			self.cold.stats_modifiers = nil
 			self.cold.panic_suppression_chance = 0.05
+			self.cold.ads_speed = 0.145
+			self.cold.panic_suppression_chance = 0.05
+			self.cold.reload_speed_multiplier = 1.12
 		end
 
 		if self.m9butcool then -- Samurai Edge 此处添加

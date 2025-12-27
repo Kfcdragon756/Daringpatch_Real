@@ -33896,7 +33896,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 						self.parts.wpn_fps_pis_czech_sl_chrome.supported = true
 						self.parts.wpn_fps_pis_czech_sl_chrome.stats = { value = 3 }
 		
-					--Crosskill Classic
+					--Crosskill Classic --此处修改
 						--Wooden Grip
 						self.parts.wpn_fps_pis_cold_g_wood.supported = true
 						self.parts.wpn_fps_pis_cold_g_wood.stats = {
@@ -33909,20 +33909,20 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 							recoil = -2,
 							concealment = 1
 						}
-						--Equalizer Compensator
+						--Equalizer Compensator OBSOLETE
 						self.parts.wpn_fps_pis_cold_sl_comp1.supported = true
 						self.parts.wpn_fps_pis_cold_sl_comp1.stats = {
 							value = 7,
 							spread = -2,
-							recoil = 2
+							recoil = 2,
+							concealment = 1
 						}
 						--Stonecold Compensator
 						self.parts.wpn_fps_pis_cold_sl_comp2.supported = true
 						self.parts.wpn_fps_pis_cold_sl_comp2.stats = {
 							value = 4,
 							spread = 1,
-							recoil = -1,
-							concealment = -1
+							recoil = -2,
 						}
 						--Extended Magazine
 						self.parts.wpn_fps_pis_cold_m_extended.supported = true
@@ -33931,7 +33931,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 							concealment = -1,
 							extra_ammo = 4,		
 							reload = -3
-					}
+						}
 		
 					--Vendetta .38
 						--Extended Magazine

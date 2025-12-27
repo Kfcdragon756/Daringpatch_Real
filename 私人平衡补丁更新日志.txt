@@ -9,6 +9,7 @@
 v11.5（未完工）
 · 修复在使用Heisteye Target Marker时，次要瞄具无法标记任何目标的问题
 · 添加对第三方武器“Samurai Edge”的支持
+· 尝试对Vanilla Mod Pack（Legacy contents）的部分被禁用武器进行恢复
 · 对重喷的弹种进行进一步的调整：
 鹿弹：移除穿甲倍率，提高衰减始距并无限穿人。
 毒弹：必定击倒距玩家16m内的敌人。
