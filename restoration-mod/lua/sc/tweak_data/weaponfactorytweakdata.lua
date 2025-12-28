@@ -17847,7 +17847,82 @@ end)
 					}
 					
 					--Override Table
-					self.wpn_fps_sho_boot.override = {
+					self.wpn_fps_sho_boot.override = { --对州长的弹种进行定制性调整
+						wpn_fps_upg_a_slug = {
+							keep_damage = true,  --此处添加
+							stats = {
+								value = 10,
+								concealment = -2,  --未跟进，原-1
+								total_ammo_mod = -204, --恢复至204
+								damage = 0, --恢复至0
+								recoil = -20,
+								spread = 30,  --此处修改，原5
+								spread_multi = {1, 1},	
+								suppression = -1,
+								moving_spread = 0
+							},
+							custom_stats = {
+								muzzleflash = "effects/payday2/particles/weapons/762_auto_fps",												
+								rays = 1,
+								hip_mult = 2,
+								armor_piercing_add = 1,
+								--ene_hs_mult_add = 0.3,
+								ammo_pickup_max_mul = 0.7,  --此处修改，原0.7
+								ammo_pickup_min_mul = 0.75,  --此处修改，原0.7
+								can_shoot_through_enemy_unlim = true,
+								can_shoot_through_enemy = true,
+								can_shoot_through_shield = true,
+								can_shoot_through_wall = true,
+								can_shoot_through_titan_shield = true,
+								ap_desc = "bm_heavy_ap_no_mult_weapon_sc_desc",
+								falloff_start_mult = 1.3,
+								falloff_end_mult = 1.6,  --未跟进，原1.4
+								damage_min_mult = 1.111111,  --此处添加
+								ads_speed_mult = 1.075,  --未跟进，原1.025
+								special_damage_multiplier = 1.5 --降低对特种伤害
+							}
+						},
+						wpn_fps_upg_a_rip = {
+							stats = {
+								value = 9,
+								total_ammo_mod = -100,  --大幅度减少弹药量
+								damage = -100 * 1.5,  --未跟进，原60且没有*1.5
+								spread = - 30
+							},
+							custom_stats = {
+								trail_effect = "_dmc/effects/warsaw_trail",
+								muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_rip",
+								bullet_class = "PoisonBulletBase",
+								ammo_pickup_max_mul = 0.7--[[0.85]] or 1,  --
+								ammo_pickup_min_mul = 0.7--[[0.85]] or 1,  --
+								falloff_start_mult = 1.3, 
+								falloff_end_mult = 0.9,  --
+								natascha = 1400, --此处添加，原无此项
+								dot_data_name = "ammo_rip_heavy"
+							}
+						},
+						wpn_fps_upg_a_dragons_breath = {
+							stats = {
+								value = 9,
+								total_ammo_mod = 30 or 30,  --200* = +100%  --保留修改，原无此项
+								damage = -100  --未跟进，原-60，待查阅
+							},
+							custom_stats = {
+								ammo_pickup_max_mul = 0.9--[[0.95]] or 1,  --
+								ammo_pickup_min_mul = 0.9--[[0.95]] or 1,  --
+								falloff_start_mult = 1.2,
+								falloff_end_mult = 0.8,
+								damage_min_mult = 0.2,
+								ignore_statistic = true,
+								bullet_class = "FlameBulletBase",
+								armor_piercing_add = 0.01,	
+								can_shoot_through_shield = true, --此处修改
+								rays = 20,  --保留修改，原16
+								trail_effect = "",
+								muzzleflash = "effects/payday2/particles/weapons/shotgun/sho_muzzleflash_dragons_breath",
+								dot_data_name = "ammo_dragons_breath_heavy"
+							}
+						},
 						wpn_fps_upg_a_explosive = deep_clone(shot_ammo.a_explosive_semi_override)  --保留修改，原无此项
 					}	
 
