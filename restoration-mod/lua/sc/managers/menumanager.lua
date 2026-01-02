@@ -656,16 +656,24 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		end
 	-- HD2战备光束的同步
 	elseif id == "sync_hd2offensive_red_trail" then
+		if not table_get_from_data then
+			managers.mission._fading_debug_output:script().log("Crashed:sync_hd2offensive_red_trail", Color.red)
+			return
+		end
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
 
 		if HD2OffensiveRedTrail then
-			--HD2OffensiveRedTrail:spawn(table_get_from_data)  --没有执行的必要
+			--HD2OffensiveRedTrail:spawn(table_get_from_data)  --没有执行的必要，但注释不能少，避免混淆
 		elseif HD2OffensiveRedTrail_res then
 			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
 		else
 			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
 		end
 	elseif id == "sync_hd2offensive_hud" then
+		if not table_get_from_data then
+			managers.mission._fading_debug_output:script().log("Crashed:sync_hd2offensive_hud", Color.red)
+			return
+		end
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
 		
 		if HD2OffensiveHUD then
