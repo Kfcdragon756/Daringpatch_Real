@@ -8,6 +8,7 @@
 == 以下为版本更新更新日志 ==
 v11.5（未完工）
 · 修复在使用Heisteye Target Marker时，次要瞄具无法标记任何目标的问题
+· 修复偶尔在使用HD2战备时会导致其它玩家闪退的问题（待确认）
 · 添加对第三方武器“Samurai Edge”的支持
 · 尝试对Vanilla Mod Pack（Legacy contents）的部分被禁用武器进行恢复
 · 对重喷的弹种进行进一步的调整：
