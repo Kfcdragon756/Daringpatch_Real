@@ -49,6 +49,38 @@ function BlackMarketManager:equipped_armor_with_break_god_time(chk_player_state)
 	return self._defaults.armor, nil
 end
 
+function BlackMarketManager:equipped_armor_with_hp_grace(chk_player_state)
+	if chk_player_state and managers.player:current_state() == "civilian" then
+		return self._defaults.armor, nil
+	end
+	local armor
+	local god_time = nil
+	local god_time_tbl = tweak_data.upgrades.values.player.body_armor.hp_grace
+	for armor_id, data in pairs(tweak_data.blackmarket.armors) do
+		armor = Global.blackmarket_manager.armors[armor_id]
+		if armor.equipped and armor.unlocked and armor.owned then
+
+			local forced_armor = self:forced_armor()
+			if forced_armor then
+				for i = 2,7,1 do
+					if forced_armor == "level_"..i then
+						god_time = god_time_tbl[i]
+					end
+				end
+				return forced_armor, god_time
+			end
+
+			for i = 2,7,1 do
+				if armor_id == "level_"..i then
+					god_time = god_time_tbl[i]
+				end
+			end
+			return armor_id, god_time
+		end
+	end
+	return self._defaults.armor, nil
+end
+
 --fire rate multiplier blackmarket statchart stuff	
 --[[
 function BlackMarketManager:fire_rate_multiplier(name, categories, silencer, detection_risk, current_state, blueprint)

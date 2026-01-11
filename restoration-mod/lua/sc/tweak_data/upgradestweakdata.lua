@@ -491,6 +491,16 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		0.225
 	}
 
+	self.values.player.body_armor.hp_grace = {  --血量无敌帧
+		0,
+		0.150,
+		0.150,
+		0.200,
+		0.250,
+		0.150,
+		0.100
+	}
+
 	--护甲效果
 	self.values.player.body_armor.liberty_saves_me = {  --要害防护 aka.民主护佑
 		0,

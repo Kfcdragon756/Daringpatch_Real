@@ -336,7 +336,9 @@ function PlayerDamage:_apply_damage(attack_data, damage_info, variant, t)
 	end
 	
 	self._last_received_dmg = math.huge --As opposed to raw damage (attack_data.damage), just an idea to see if the game feels better without grace piercing
-	self._next_allowed_dmg_t = Application:digest_value(t + self._dmg_interval, true)
+	--血量无敌帧
+	local player_armor, armor_god_time = managers.blackmarket:equipped_armor_with_hp_grace()
+	self._next_allowed_dmg_t = (0 >= self:get_real_armor() and Application:digest_value(t + self._dmg_interval + armor_god_time, true) ) or Application:digest_value(t + self._dmg_interval, true)
 
 	--Perform overall damage reduction calcs.
 	--NOTE: Stoic damage delay and Deflection are handled in _calc_health_damage()
@@ -1896,10 +1898,12 @@ function PlayerDamage:_calc_armor_damage(attack_data)
 	if armor_god_time then
 		if self:get_real_armor() <= 0 and have_armor then
 		    have_armor = false
-			self._invulnerable = true
+			--[[self._invulnerable = true
 			DelayedCalls:Add("armor_break_godmode", (player_perk == 15 and (armor_god_time*0.5)) or armor_god_time, function()  --"1"表示无敌1秒
 			    self._invulnerable = false
-		    end)
+		    end)]]
+			local t = managers.player:player_timer():time()
+			self._next_allowed_dmg_t = (Application:digest_value((t + self._dmg_interval + ((player_perk == 15 and (armor_god_time * 0.5)) or armor_god_time)) , true) ) or Application:digest_value(t + self._dmg_interval, true)
 		elseif self:get_real_armor() > 0 then
 		    have_armor = true
 		end
