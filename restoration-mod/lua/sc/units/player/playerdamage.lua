@@ -338,7 +338,7 @@ function PlayerDamage:_apply_damage(attack_data, damage_info, variant, t)
 	self._last_received_dmg = math.huge --As opposed to raw damage (attack_data.damage), just an idea to see if the game feels better without grace piercing
 	--血量无敌帧
 	local player_armor, armor_god_time = managers.blackmarket:equipped_armor_with_hp_grace()
-	self._next_allowed_dmg_t = (0 >= self:get_real_armor() and Application:digest_value(t + self._dmg_interval + armor_god_time, true) ) or Application:digest_value(t + self._dmg_interval, true)
+	self._next_allowed_dmg_t = ((0 >= self:get_real_armor() and armor_god_time) and Application:digest_value(t + self._dmg_interval + armor_god_time, true) ) or Application:digest_value(t + self._dmg_interval, true)
 
 	--Perform overall damage reduction calcs.
 	--NOTE: Stoic damage delay and Deflection are handled in _calc_health_damage()
