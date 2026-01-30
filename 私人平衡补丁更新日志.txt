@@ -579,3 +579,6 @@ restoration-mod/assets/effects/particles/weapons/hd2offensive/*  --用于HD2飞�
 
 已知存在但因调整修改和失去影响的问题：
 ——“脑洞大开”专精中，“不受距离衰减影响”的效果对在衰减始距外无法穿盾的狙击枪不生效。
+
+给我们自己备注的注意事项：
+我们在补丁中添加了位于restoration-mod\lua\sc\network\base的matchmaking key，不作为更新内容，但需注意持续跟进
