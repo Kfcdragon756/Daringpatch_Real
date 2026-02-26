@@ -657,7 +657,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 	-- HD2战备光束的同步
 	elseif id == "sync_hd2offensive_red_trail" then
 		if not table_get_from_data then
-			managers.mission._fading_debug_output:script().log("Crashed:sync_hd2offensive_red_trail", Color.red)
+			managers.mission._fading_debug_output:script().log("Crashed:hd2_red_trail", Color.red)
 			return
 		end
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
@@ -669,6 +669,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		else
 			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
 		end
+	  -- hud部分
 	elseif id == "sync_hd2offensive_hud" then
 		if not table_get_from_data then
 			managers.mission._fading_debug_output:script().log("Crashed:sync_hd2offensive_hud", Color.red)
@@ -682,6 +683,29 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 			HD2OffensiveHUD_res:new(table_get_from_data)
 		else
 			managers.mission._fading_debug_output:script().log("HD2OffensiveHUD not found!", Color.red)
+		end
+	  -- 新版HD2战备mod有所修改
+	elseif message == "sync_hd2offensive_throw" then
+		if not table_get_from_data then
+			managers.mission._fading_debug_output:script().log("Crashed:hd2_red_trail_2", Color.red)
+			return
+		end
+
+		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
+
+		if HD2OffensiveRedTrail then
+			--HD2OffensiveRedTrail:spawn(table_get_from_data)  --没有执行的必要，但注释不能少，避免混淆
+		elseif HD2OffensiveRedTrail_res then
+			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
+		else
+			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!2", Color.red)
+		end
+		if HD2OffensiveHUD then
+			--HD2OffensiveHUD:new(table_get_from_data)  --我又做了一次
+		elseif HD2OffensiveHUD_res then
+			HD2OffensiveHUD_res:new(table_get_from_data)
+		else
+			managers.mission._fading_debug_output:script().log("HD2OffensiveHUD not found!2", Color.red)
 		end
 	-- 同步播放近战反击产生的昊京音效
 	elseif id == "HaoJing_Played" then

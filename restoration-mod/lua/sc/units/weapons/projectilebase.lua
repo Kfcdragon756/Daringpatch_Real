@@ -234,7 +234,7 @@ if not HD2OffensiveHUD then
 
 	function HD2OffensiveHUD_res:init(data)
 		--self._id = tostring(data.id)
-		self._id = "HD2OffensiveHUD" .. tostring(data.position) .. tostring(TimerManager:main():time())
+		self._id = "HD2oHUD" .. tostring(data.position) .. tostring(TimerManager:main():time())
 		self._position = data.position
 		self._left_time = data.time
 		self._duration = data.duration
