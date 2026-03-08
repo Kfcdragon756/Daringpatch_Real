@@ -206,7 +206,8 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResLevelTableInit", function(self, tw
 					"x_breech",
 					"ching",
 					"erma",
-					"sap"
+					"sap",
+					"funder_strike" --此处添加
 				}
 			},
 		l27 = {

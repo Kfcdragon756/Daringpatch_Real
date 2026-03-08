@@ -4215,7 +4215,8 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		melee_anim = {
 			'baton','oldbaton','detector','shovel','shillelagh','whiskey','morning','branding_iron','slot_lever','hammer','tenderizer','croupier_rake','shock',
 			'spatula','swagger','selfie','chac',
-			'iceaxe'
+			'iceaxe',
+			'funder_strike' --此处添加
 		}
 		for i, melee_id in ipairs(melee_anim) do
 			self.melee_weapons[melee_id].attack_pattern = "bm_melee_pattern_blunt"
@@ -4982,6 +4983,20 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 			self.melee_weapons.croupier_rake.stats.charge_time = 1.3
 			self.melee_weapons.croupier_rake.stats.range = 170
 			self.melee_weapons.croupier_rake.stats.concealment = 29
+			--We should stop meeting like this you know-- --此处添加 新电棍数据
+			self.melee_weapons.funder_strike.info_id = "bm_melee_funder_strike_info"
+			self.melee_weapons.funder_strike.stats.cleave = 1
+			self.melee_weapons.funder_strike.stats.raycasts = 10
+			self.melee_weapons.funder_strike.stats.raycasts_charge = 15
+			self.melee_weapons.funder_strike.stats.min_damage = 3
+			self.melee_weapons.funder_strike.stats.max_damage = 4.5
+			self.melee_weapons.funder_strike.stats.min_damage_effect = 5.0
+			self.melee_weapons.funder_strike.stats.max_damage_effect = 9.0
+			self.melee_weapons.funder_strike.stats.charge_time = 0.7
+			self.melee_weapons.funder_strike.stats.range = 170
+			self.melee_weapons.funder_strike.stats.concealment = 29
+			self.melee_weapons.funder_strike.tase_data = nil
+			self.melee_weapons.funder_strike.special_weapon = "taser"
 
 		--shillelelelelelagh--	
 		self.melee_weapons.shillelagh.info_id = "bm_melee_shillelagh_info"
