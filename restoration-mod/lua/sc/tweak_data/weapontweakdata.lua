@@ -27044,6 +27044,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						weap.object_damage_mult = 0.5
 					elseif table.contains(weap.recategorize, "heavy_shot") or table.contains(weap.recategorize, "break_shot") then
 						weap.object_damage_mult = 0.75
+						weap.has_daring_ap_desc = true --此处添加
 					end
 				end
 

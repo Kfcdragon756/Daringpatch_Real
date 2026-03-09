@@ -2130,7 +2130,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- CUSTOM 60 DAMAGE ARs
             --OSIPR
             ["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
-            ["bm_w_ar2_desc"] = "装甲核心标准脉冲来复枪，又称脉冲步枪或AR2，是一种由联合帝国制造的暗能突击步枪。",
+            ["bm_w_ar2_desc"] = "联合帝国科技的造物。\n在七小时的那场战役以后，它同时为不屈的自由意志与象征着极大压迫的装甲核心发声。\n它将会在这史无前例的战场上产生串联共振反应。",
         -- SCAR-L
         --["bm_w_scarl"] = "Eagle步枪",
         -- Valmet Rk.62
