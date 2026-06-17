@@ -507,9 +507,11 @@ V4.1
 restoration-mod:
 main.xml
 mod.txt
+addSC.xml
 
 restoration-mod\lua\sc\loc:
 coreloc.lua
+loc.lua
 
 restoration-mod\lua\sc\units\player:
 playerdamage.lua
@@ -533,7 +535,7 @@ newraycastweaponbase.lua
 ==[已删除]==incendiaryburstgrenade.lua
 \trip_mine\tripminebase.lua
 \equipment\sentrygundamage.lua（修改技能伤害计算方式）
-
+\equipment\sentrygunbase.lua
 
 restoration-mod\lua\sc\tweak_data:
 tweakdata.lua
@@ -559,6 +561,7 @@ crimespreemananger.lua
 snipergrazedamage.lua
 gameplaycentralmanager.lua
 groupaistatebesiege.lua（原文“if not _add_unit_type_to_spawn_task”/注释“--Don't increment to next value if a unit was invalidated.”处添加了一个“not”以实现v10.1中修复敌人生成上的问题）
+\menu\playerinventorygui.lua
 
 restoration-mod\lua\sc\utils:
 inventorydescription.lua
