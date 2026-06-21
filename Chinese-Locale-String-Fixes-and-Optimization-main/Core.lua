@@ -80,28 +80,150 @@ function ChinStringFixes:smart_divide(A, B, keep, method)
     end
 end
 
+--[[
+    【函数ChinStringFixes:containsChars的说明】
+    ！！该函数未经验证！！
 
-function ChinStringFixes:containsChars(str, chars, all)
+    用途：
+        检查str中是否匹配列表chars中的字符，完全匹配还是任意匹配
+
+    参数：
+        str   (string)  —— 要检查的目标字符串。
+        chars (table)   —— 字符列表，例如 {"a", "b", "c"}。
+        all   (boolean) —— 若为 true，则要求 chars 中所有字符都必须出现在 str 中；
+                           若为 false 或 nil，则只要出现任意一个字符即可。
+
+    返回值：
+        boolean —— 根据 all 的模式返回：
+                   * all = true  → 若全部字符都出现则返回 true，否则 false。
+                   * all = false → 若任意字符出现则返回 true，否则 false。
+]]
+-- UTF-8 安全的字符迭代器
+local function utf8_iter(str)
+    return string.gmatch(str, "[%z\1-\127\194-\244][\128-\191]*")
+end
+
+-- 判断是否为 ASCII 单字节字符（用于 O(n) 扫描优化）
+local function is_ascii_single_char(s)
+    return #s == 1 and string.byte(s) <= 0x7F
+end
+
+-- 主函数：UTF-8 安全 + 可选过滤空字符串
+function ChinStringFixes:containsChars(str, chars, all, filter_empty)
     local str_low = string.lower(str)
+
+    ----------------------------------------------------------------------
+    -- ① 预处理 chars：lower + 空字符串过滤（可选）
+    ----------------------------------------------------------------------
+    local processed = {}
+    for _, c in ipairs(chars) do
+        local s = string.lower(tostring(c))
+        if not (filter_empty and s == "") then
+            processed[#processed + 1] = s
+        end
+    end
+
+    ----------------------------------------------------------------------
+    -- ② 检查是否全部为 ASCII 单字节字符
+    ----------------------------------------------------------------------
+    local all_ascii_single = true
+    local ascii_set = {}
+
+    for _, s in ipairs(processed) do
+        if is_ascii_single_char(s) then
+            ascii_set[string.byte(s)] = true
+        else
+            all_ascii_single = false
+            break
+        end
+    end
+
+    ----------------------------------------------------------------------
+    -- ③ 如果全部是 ASCII 单字符 → 使用 O(n) 扫描（UTF-8 安全）
+    ----------------------------------------------------------------------
+    if all_ascii_single then
+        if all then
+            -- 需要全部字符出现
+            local found = {}
+            for ch in utf8_iter(str_low) do
+                local b = string.byte(ch)
+                if ascii_set[b] then
+                    found[b] = true
+                end
+            end
+            -- 检查是否全部出现
+            for b in pairs(ascii_set) do
+                if not found[b] then
+                    return false
+                end
+            end
+            return true
+        else
+            -- 任意出现即可
+            for ch in utf8_iter(str_low) do
+                if ascii_set[string.byte(ch)] then
+                    return true
+                end
+            end
+            return false
+        end
+    end
+
+    ----------------------------------------------------------------------
+    -- ④ 存在 UTF-8 多字符 → 构建 set（减少重复 lower）
+    ----------------------------------------------------------------------
+    local set = {}
+    for _, s in ipairs(processed) do
+        set[s] = true
+    end
+
+    ----------------------------------------------------------------------
+    -- ⑤ 多字符情况：使用 string.find + plain=true（UTF-8 安全）
+    ----------------------------------------------------------------------
     if all then
-        for _, char in ipairs(chars) do
-            local char_low = string.lower(char)
-            if not string.find(str_low, char_low, 1, true) then
+        for s in pairs(set) do
+            if not string.find(str_low, s, 1, true) then
                 return false
             end
         end
         return true
     else
-        for _, char in ipairs(chars) do
-            local char_low = string.lower(char)
-            if string.find(str_low, char_low) then
+        for s in pairs(set) do
+            if string.find(str_low, s, 1, true) then
                 return true
             end
         end
         return false
     end
 end
-CSF_containsChars = ChinStringFixes.containsChars
+--[[ 老函数备份
+function ChinStringFixes:containsChars(str, chars, all)
+    -- 预处理str和chars，全部转为小写
+    local str_low = string.lower(str)
+    local lowered = {}
+    for i, c in ipairs(chars) do
+        lowered[i] = string.lower(tostring(c))
+    end
+
+    if all then
+        -- 要求全部包含
+        for _, c in ipairs(lowered) do
+            if not string.find(str_low, c, 1, true) then
+                return false
+            end
+        end
+        return true
+    else
+        -- 任意包含
+        for _, c in ipairs(lowered) do
+            if string.find(str_low, c, 1, true) then
+                return true
+            end
+        end
+        return false
+    end
+end
+]]
 
 ChinStringFixes.start_time = ChinStringFixes.start_time or 0
 if Global then
@@ -138,26 +260,24 @@ function ChinStringFixes:number_to_chinese(n)
 end
 
 local schinese = Idstring("schinese"):key() == SystemInfo:language():key()
-function CSF_is_schinese()
+function ChinStringFixes:is_schinese()
     if not schinese and not CHNMOD_PATCH then
         return false
     else
         return true
     end
 end
---CSF_is_schinese = ChinStringFixes.is_schinese
 
-function CSF_is_enable()
+function ChinStringFixes:is_enable()
     if not ChinStringFixes or not ChinStringFixes.settings.Enable_String then
         return false
     else
         return true
     end
 end
---CSF_is_enable = ChinStringFixes.is_enable
 
 -- WIP function
-function CSF_create_a_simple_menu(title, message, button_text, can_cancle, options_number)
+function ChinStringFixes:create_a_simple_menu(title, message, button_text, can_cancle, options_number)
     local menu_options = {}
     if options_number >= 1 then
         menu_options[1] = {
@@ -169,12 +289,28 @@ function CSF_create_a_simple_menu(title, message, button_text, can_cancle, optio
     end
 end
 
+
+-- 新老函数和类的兼容层，让CSF_和ChinStringFixes:两者均可用
+local compat_map = {
+    CSF_containsChars = "containsChars",
+    CSF_is_schinese = "is_schinese",
+    CSF_is_enable = "is_enable",
+    CSF_create_a_simple_menu = "create_a_simple_menu"
+}
+for old, new in pairs(compat_map) do
+    _G[old] = function(...)
+        return ChinStringFixes[new](ChinStringFixes, ...)
+    end
+end
+
+
+
+-- 该部分用于自动识别和注入Mod_Support中对应的lua文件部分
 if not CSF_is_schinese() or not CSF_is_enable() or not ChinStringFixes.settings.Mod_Support then
     return
 end
 
--- log("Mod_Support running!")
-
+-- 主要功能部分
 local Mod_Support_Folder = file.GetDirectories(ChinStringFixes.mod_path .. "lua/Mod_Support")
 if Mod_Support_Folder then
     for _, v in pairs(Mod_Support_Folder) do
@@ -191,6 +327,9 @@ else
     log("ChinStringFixes ERROR : Mod Files are missing")
 end
 
+
+
+-- 以下为问候ovk全家的同步支持部分
 if OVKNMSL_PD3 then
     return
 end

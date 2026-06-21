@@ -51,6 +51,16 @@ if RequiredScript and RequiredScript == "lib/managers/localizationmanager" then
 
         LocalizationManager:add_localized_strings({
             -- vanilla st stuff
+            -- update no loc
+            bm_melee_funder_strike = "电击警棍",
+            bm_melee_funder_strike_info = "临时拼装的电击警棍，能在接触时使敌人触电。",
+            bm_msk_mega_richard_returns = "超凡理查德回归",
+            bm_msk_mega_richard_returns_desc = "在一个黑帮分子还能完好无损地行走的世间，唯有一人、一棒才是解决之道。$NL;由Nathan Steele饰演达拉斯，Nicolas饰演钱恩斯，休斯顿饰演霍斯顿，以及*磁带噪音*饰演夹克男的《超凡理查德：重返华盛顿》登场！",
+            menu_window_mode = "窗口化模式",
+            menu_window_mode_help = "选择视窗模式。\n全屏性能更佳；窗口化便于切屏操作；无边框窗口化全屏则二者兼得。",
+            menu_window_mode_windowed = "窗口化",
+            menu_window_mode_borderless = "无边框窗口化全屏",
+            menu_window_mode_fullscreen = "全屏",
             -- head above water --lol
             hud_h_watchdogs_stage2_mission6_hl = "挺过突袭",
             pln_cr2_104_03 = "劫匪们，最好快点开溜！他们为这次突击倾尽全力了！",
@@ -104,7 +114,7 @@ if RequiredScript and RequiredScript == "lib/managers/localizationmanager" then
             menu_bloodthirst_desc = "基础：##$basic##\n每次击杀都会使你下一次近战攻击伤害增加##100%##，最高为##1600%##。此效果会在使用近战击杀敌人后重置。\n\n注意：爆炸类武器和狙击步枪穿透一击多杀只算1次击杀，而狙击步枪通过连带伤害击杀多少名敌人就算多少次击杀。\n\n精通：##$pro##\n近战击杀敌人后，你会在##10##秒内获得##50%##装填速度加成。",
             --menu_hardware_expert_beta_desc = "基础：##$basic##\n修理钻机与电锯的速度增加##25%##，诡雷部署时间减少##20%##。部署钻机与电锯现在完全无声，保安和平民只有看到后才会警觉。\n\n注意：技能不影响OVE9000便携式电锯。\n\n精通：##$pro##\n钻机和电锯有##10%##几率在放置下来时变成自修钻机/电锯，自修钻机/电锯每次损坏时都会自动修复。",
             --menu_kick_starter_beta_desc = "基础：##$basic##\n你放置的钻机与电锯变成自修钻机/电锯的几率额外增加##20%##。\n\n精通：##$pro##\n使用近战攻击有##50%##的几率重启损坏的钻机或电锯。每次损坏时你只有一次机会。\n\n注意：技能不影响OVE9000便携式电锯。",
-            menu_ammo_reservoir_beta_desc = "基础：##$basic##\n任意玩家与你部署的弹药包互动后最多##5##秒内射击不会消耗子弹。\n该次互动补充子弹越多，效果持续时间越久。\n\n对消耗光弹药包内剩余弹药的那次互动，无论补充多少，玩家都会获得##15##秒的无限弹药时间。\n\n精通：##$pro##\n该效果最长持续时间增加##15##秒。\n\n对消耗光弹药包内剩余弹药的那次互动，无论补充多少，玩家都会获得##60##秒的无限弹药时间。",
+            menu_ammo_reservoir_beta_desc = "基础：##$basic##\n任意玩家与你部署的弹药包互动后最多##5##秒内射击不会消耗子弹。\n该次互动补充子弹越多，效果持续时间越久。\n\n对消耗光弹药包内剩余弹药的那次互动，至少会补充##1##发弹药，且无论补充多少，玩家都会获得##5##秒的无限弹药时间。\n\n精通：##$pro##\n该效果最长持续时间增加至##20##秒。\n\n对消耗光弹药包内剩余弹药的那次互动，会直接补满武器弹药，并使玩家获得##20##秒的无限弹药时间。",
             menu_black_marketeer_beta_desc = "基础：##$basic##\n场上有人质或你自己的变节警察，且你血量不满时，每##5##秒会恢复##1.5%##血量。\n\n精通：##$pro##\n场上有人质或你自己的变节警察，且你血量不满时，每##5##秒会恢复##4.5%##血量。",
             menu_joker_beta_desc = "基础：##$basic##\n你可以使一名非特种敌人变节并为你作战。\n潜入时无法使用，敌人投降后才可转化。\n\n你同时只能转化一名非特种敌人，且该变节敌人只能造成他原来##65%##的伤害。\n\n精通：##$pro##\n变节敌人现在可造成他原来##100%##的伤害。\n转化敌人所需时间减少##65%##。",
             menu_deck18_1_desc = "解锁投掷物烟雾弹。\n\n切换至其他天赋牌组会导致烟雾弹不可用。烟雾弹会替代你的当前投掷物，装备在你的投掷物栏位中，并且在需要时可以切换。\n\n在游戏中你可以按下投掷键##$BTN_ABILITY;##使用烟雾弹。\n\n烟雾弹被丢出后可以创造一片持续##10##秒的烟幕。站在烟幕中的友军会自动躲避掉##50%##射来的子弹。站在烟幕中的敌人会减少##50%##精准度。\n\n被丢出后，烟雾弹将立即进入##60##秒的冷却时间，不过烟雾散去后击杀敌人会使冷却减少##1##秒。",
@@ -169,6 +179,7 @@ if RequiredScript and RequiredScript == "lib/managers/localizationmanager" then
         local game_meme = math.rand(1)
         local game_meme_fun = 0.05
         local game_meme_fun_2 = 0.1
+        local game_meme_fun_otto = 0.05
 
         local meme_enable = nil
         if meme_enable then
@@ -185,6 +196,13 @@ if RequiredScript and RequiredScript == "lib/managers/localizationmanager" then
                     ["heist_deep"] = "OP觉醒",
                     ["heist_framing_frame_1_hl"] = "浮华之下",
                     ["heist_gallery"] = "浮华之下"
+                })
+            end
+            if game_meme <= game_meme_fun_otto then
+                LocalizationManager:add_localized_strings({
+                    -- otto
+                    ["bm_melee_funder_strike"] = "电棍",
+                    ["bm_melee_funder_strike_info"] = "过来给你爹捶捶背，能在接触时使敌人哇袄——"
                 })
             end
         end

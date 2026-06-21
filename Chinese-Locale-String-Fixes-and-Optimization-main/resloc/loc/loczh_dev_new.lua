@@ -4,7 +4,8 @@ Day = os.date("%d")
 --rebalance part
 local MetroLine_BodyExpert_Convert = restoration and restoration.Options:GetValue("OTHER/MetroLineBodyExpertConvert")
 local Daring_Target_Enable = restoration and restoration.Options:GetValue("OTHER/DaringTagetingChange")
-local ViNight_PECM = restoration and restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
+local Counter_Strike_Revert = restoration and restoration.Options:GetValue("OTHER/CounterStrikeRevert")
+--local ViNight_PECM = restoration and restoration.Options:GetValue("OTHER/ViNightWeirdPECM")
 
 local weapon_names = restoration and restoration.Options:GetValue("OTHER/WepNames") or 1
 local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSAC")
@@ -15,8 +16,48 @@ local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMS
     local registeredloser = restoration and restoration.Options:GetValue("OTHER/ForceEggs/EmberMyBeloved")
 -- Here's a NBSP: 
 -- ResMod english.json
-Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function(loc)
+Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", function(loc)
     LocalizationManager:add_localized_strings({
+        --添加的设置文本--
+            --Hao Jing
+            ["RestorationModHaoJingOptionsButtonTitleID"] = "空手道昊京音效设置",
+            ["RestorationModHaoJingOptionsButtonDescID"] = "空手道反击触发时有概率播放昊京的“任何邪恶终将绳之以法”音效的设置调整。",
+            ["RestorationModHaoJingChanceOptionsButtonTitleID"] = "一般反击触发的概率（%）",
+            ["RestorationModHaoJingChanceOptionsButtonDescID"] = "反击近战攻击时触发音效的概率，以百分比表示。",
+            ["RestorationModHaoJingChanceCLKOptionsButtonTitleID"] = "反击CLK踢触发的概率（%）",
+            ["RestorationModHaoJingChanceCLKOptionsButtonDescID"] = "反击幻影特工飞踢跑踢总之就是各种踢时触发音效的概率，以百分比表示。",
+            ["RestorationModSelfHaoJingVolumeOptionsButtonTitleID"] = "播放音量（自身）",
+            ["RestorationModSelfHaoJingVolumeOptionsButtonDescID"] = "自身触发反击时播放音效的音量调整。",
+            ["RestorationModSyncHaoJingVolumeOptionsButtonTitleID"] = "播放音量（别人）",
+            ["RestorationModSyncHaoJingVolumeOptionsButtonDescID"] = "其他玩家触发反击时播放音效的音量调整。",
+            ["Daring_HaoJing_Enable"] = "对自己启用",
+            ["Daring_HaoJing_Enable_desc"] = "勾选以在自己触发反击时播放音效。",
+            ["Daring_HaoJing_Sync"] = "启用玩家同步",
+            ["Daring_HaoJing_Sync_desc"] = "勾选以在其他玩家触发反击时于他们的位置播放音效。",
+            --肯德基龙的近战反击回调
+            ["Counter_Strike_Revert"] = "近战反击回调",
+		    ["Counter_Strike_Revert_desc"] = "回调近战反击的效果分配，节省你宝贵的技能点。\n由肯德基龙756支持。",
+
+        --Advanced Movement Stuff
+        ["advmov_dashcontrols"] = "侧闪设置",
+        ["advmov_dashcontrols_1"] = "禁用侧闪",
+        ["advmov_dashcontrols_2"] = "按键绑定触发",
+        ["advmov_dashcontrols_3"] = "双击移动键触发",
+        ["advmov_dashcontrols_4"] = "双击绑定键触发",
+        ["advmov_dash"] = "侧闪按键绑定",
+        ["advmov_dashcontrols_desc"] = "决定侧闪（左/右迅速侧移一小段距离）是通过按键绑定、双击还是两者兼有进行控制。\n注意：按键绑定需要安装 HoldTheKey 才能正常工作。默认值：4",
+
+        -- update no loc
+        ["bm_melee_funder_strike"] = "电击警棍",
+        ["bm_melee_funder_strike_info"] = "临时拼装的电击警棍。",
+        ["bm_msk_mega_richard_returns"] = "超凡理查德回归",
+        ["bm_msk_mega_richard_returns_desc"] = "在一个黑帮分子还能完好无损地行走的世间，唯有一人、一棒才是解决之道。$NL;由Nathan Steele饰演达拉斯，Nicolas饰演钱恩斯，休斯顿饰演霍斯顿，以及*磁带噪音*饰演夹克男的《超凡理查德：重返华盛顿》登场！",
+        ["menu_window_mode"] = "窗口化模式",
+        ["menu_window_mode_help"] = "选择视窗模式。\n全屏性能更佳；窗口化便于切屏操作；无边框窗口化全屏则二者兼得。",
+        ["menu_window_mode_windowed"] = "窗口化",
+        ["menu_window_mode_borderless"] = "无边框窗口化全屏",
+        ["menu_window_mode_fullscreen"] = "全屏",
+
         -- some vanilla and mod stuff
         ["menu_warp_health_init_desc"] = "突进后玩家将恢复##0##至##3##血量，具体取决于消耗的耐力值。每##5##秒最多只能恢复##50##血量。",
         ["bm_wp_upg_a_crossbow_explosion_desc"] = "带有爆炸效果的弩箭，接触目标时爆炸。\n\n爆炸伤害不受任何衰减影响。",
@@ -178,6 +219,10 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModInfo_sociopathDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_body_expertiseTitleID"] = "血花四溅", --人体解析
         ["RestorationModInfo_body_expertiseDescID"] = "开启或关闭对此技能的追踪",
+        ["RestorationModInfo_body_expertise_kills_to_head_shotTitleID"] = "血花四溅（全头部分1）", --全头
+        ["RestorationModInfo_body_expertise_kills_to_head_shotDescID"] = "开启或关闭对此技能的追踪",
+        ["RestorationModInfo_body_expertise_fire_to_head_shotTitleID"] = "血花四溅（全头部分2）", --全头
+        ["RestorationModInfo_body_expertise_fire_to_head_shotDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_long_dis_reviveTitleID"] = "领袖鼓舞",
         ["RestorationModInfo_long_dis_reviveDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_messiahTitleID"] = "弥赛亚",
@@ -204,6 +249,12 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModInfo_survive_one_hitDescID"] = "开启或关闭对此技能的追踪",
         ["RestorationModInfo_doctor_bag_health_regenTitleID"] = "医疗箱血量恢复",
         ["RestorationModInfo_doctor_bag_health_regenDescID"] = "开启或关闭对医疗箱血量恢复剩余时间的追踪",
+
+        ["RestorationModWEAPONSOptionsButtonTitleID"] = "Weapon Options",  --tra
+        ["RestorationModWEAPONSOptionsButtonDescID"] = "Restoration Mod options for weapons, both for UI and in-game.",
+            ["RestorationModWeaponHandlingOptionsButtonTitleID"] = "++ 武器手感设置 ++",
+            ["RestorationModWeaponHandlingOptionsButtonDescID"] = "在此可以调节一些与武器使用手感有关的额外设置。",
+
         ["RestorationModAltLastDownColorTitleID"] = "更改被逮捕前最后一次倒地的颜色",
         ["RestorationModAltLastDownColorDescID"] = "将被逮捕前最后一次倒地时角色边框的颜色设置为 color_sin_classic*.",
         ["RestorationModNoBleedoutTiltTitleID"] = "取消倒地视角的倾斜",
@@ -214,12 +265,14 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModADSTransitionStyleDescID"] = "改变你使用瞄准的动作风格。",
         ["KFCdragon_stable"] = "点射后坐力弱化",
         ["KFCdragon_stable_desc"] = "部分突击步枪前几枪的后坐力会被极大降低，便于你在点射时不需要过度压枪。\n由肯德基龙756支持。",
+		["KFCdragon_stable_test"] = "点射后坐力弱化测试",
+        ["KFCdragon_stable_test_desc"] = "新版本点射后坐力弱化的测试，加强了点射的射击次数。\n由肯德基龙756支持。",
         ["Daring_Tageting_Change"] = "允许自动标记精英单位",
         ["Daring_Tageting_Change_desc"] = "让诡雷感应模式和瞄准自动标记技能也可以标记精英单位和普通敌人。\n瞄准自动标记普通敌人仅适用于轻重型突击步枪，详见技能描述。由LR_Daring支持。",
         ["MetroLine_BodyExpert_Convert"] = "恢复全头",
         ["MetroLine_BodyExpert_Convert_desc"] = "给冲锋枪四阶的精通加回全头技能效果。\n由MetroLine支持。",
-        ["ViNight_Weird_PECM"] = "完美PPECM",
-        ["ViNight_Weird_PECM_desc"] = "一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
+        --["ViNight_Weird_PECM"] = "完美PPECM",
+        --["ViNight_Weird_PECM_desc"] = "多人游戏不建议使用。一种奇怪的PECM数值调整，勾选后重启以从天赋界面查看PECM数值的改动。\n源于Vi.Night的脑洞和需求，同步上存在已知BUG，短期暂不打算解决，建议房主多人游戏中不要启用。",
         ["RestorationModGCGPYPMMSACTitleID"] = "禁用星战武器", -- may need improved
         ["RestorationModGCGPYPMMSACDescID"] = "关闭来自遥远银河系的武器配件及其机制。\n重启劫案生效。", -- may need improved
         ["RestorationModGCGPYPMMSACTextTitleID"] = "禁用彩蛋文本",
@@ -238,6 +291,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
             ["RestorationModBigManDescID"] = "其它难以分类的梗。",
         ["RestorationModStaticAimTitleID"] = "瞄准时武器无变向",
         ["RestorationModStaticAimDescID"] = "勾选以关闭你在瞄准时，武器会随着你屏幕的移动而变向的效果，参考PDTH。会替换Viewmodel Movement的效果。\n重启以生效。警告：取消勾选将导致某些选项不可用。",
+        ["RestorationModBigScopeOffsetTitleID"] = "\"big Scope\" Viewmodel Offset",  --tra
+                ["RestorationModBigScopeOffsetDescID"] = "Slightly tilts and shifts hipfire viewmoodels to the right when using large optics to reduce visual obstructions.",
         ["RestorationModViewmodelMovementTitleID"] = "武器模型运动效果", -- tra
         ["RestorationModViewmodelMovementDescID"] = "在此设置你的武器模型在你视角移动时如何运动。\n瞄准时的效果会被\"瞄准时武器无变向\"设置覆盖。重启以生效。",
         ["vm_vanilla"] = "同原版",
@@ -250,6 +305,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModWpnCatDescID"] = "改变武器在购买菜单的分类方式。重启游戏生效。",
         ["RestorationModAutoDMRsTitleID"] = "DMR步枪全自动模式开局",
         ["RestorationModAutoDMRsDescID"] = "选择是否让所有可调节射击模式的精确射手步枪以全自动射击模式开局。",
+        ["RestorationModWpnFireDescopeTitleID"] = "Allow De-scope for certain weapons",--tra
+                ["RestorationModWpnFireDescopeDescID"] = "Toggle whether or not some weapons de-scope when shooting. NOTE: the de-scope is used to reduce clipping; some sight may clip if disabled. Setting is ignored on weapons that mention de-scope as a mechanic.",
         ["RestorationModSprintCancelTitleID"] = "紧急回避专精起跑打断换弹",
         ["RestorationModSprintCancelDescID"] = "选择在你专精了\"紧急回避\"技能后，跑步是否会打断换弹。\n勾选以打断换弹来应对按R召唤敌人的情况。",
         ["RestorationModSevenHoldTitleID"] = "轻按互动切换 (Press2Hold)",
@@ -263,7 +320,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModQueuedShootingExcludeTitleID"] = "单发辅助输入的武器限制",
         ["RestorationModQueuedShootingExcludeDescID"] = "只为高于此选项所设射速(RPM)的武器启用辅助输入。",
         ["RestorationModQueuedShootingMidBurstTitleID"] = "速射辅助输入",--Burstfire Mid-Burst Input Buffer",
-        ["RestorationModQueuedShootingMidBurstDescID"] = "Buffer fire inputs made *during* a burst.", --tra
+        ["RestorationModQueuedShootingMidBurstDescID"] = "Buffer fire inputs made *during* a burst. NOTE: Does not apply to auto-burst weapons.", --tra
         ["RestorationModQueuedShootingBurstExcludeTitleID"] = "Mid-Burst Input Buffer Limit",
         ["RestorationModQueuedShootingBurstExcludeDescID"] = "Limits the buffering of fire inputs made *during* a burst to weapons that have a burst delay *below* the value (ms) set by this option.",
         ["RestorationModNoADSRecoilAnimsTitleID"] = "取消瞄准后坐力动作",
@@ -271,7 +328,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModNoSwapOnReviveTitleID"] = "被救起时不强制切换武器",
         ["RestorationModNoSwapOnReviveDescID"] = "勾选以避免在“苟延残喘”技能未专精且使用主武器倒地时，\n被救起后强行切换出主武器。",
         ["RestorationModManualReloadsTitleID"] = "手动换弹",
-        ["RestorationModManualReloadsDescID"] = "禁止在弹匣打空时自动换弹。",
+        ["RestorationModManualReloadsDescID"] = "禁止在弹匣打空时自动换弹。 NOTE: Setting is ignored if the \"Reload Marathon\" mutator is active.",  --tra
         ["RestorationModSecondSightSprintTitleID"] = "使用冲刺按键切换次要瞄具",
         ["RestorationModSecondSightSprintDescID"] = "使用冲刺按键而不是附件按键来在瞄准时切换为次要瞄具。\n这将导致你无法在瞄准时即刻切换为奔跑状态。", -- try
         ["RestorationModAimDeploysBipodTitleID"] = "瞄准时自动用脚架",
@@ -282,8 +339,50 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModSeparateBowADSDescID"] = "勾选以关闭拉弓时强制进入瞄准状态。\n启用后，你的换弹按键将用于停止拉弓。",
         ["RestorationModClassicMoviesTitleID"] = "PD:TH经典界面",
         ["RestorationModClassicMoviesDescID"] = "选择是否在任务简报界面采用PD:TH的经典页面(仅适用于经典劫案)",
-        ["RestorationModPerPelletShotgunsTitleID"] = "Per-Pellet Shotgun Damage (WIP)", -- tra
+        ["RestorationModPerPelletShotgunsTitleID"] = "Per-Pellet Shotgun Damage (WIP)", -- tra  --seems to be abandoned
         ["RestorationModPerPelletShotgunsDescID"] = "Shotgun damage is calculated per pellet as opposed to the standard \"1 pellet = full damage, headshots prioritized\". Non-slug shotgun damage is increased to compesate for lower consistency. Requires restart.",
+
+
+        --tra
+        ["RestorationModPerformanceOptionsButtonTitleID"] = "++ Impact FX Settings ++",
+            ["RestorationModPerformanceOptionsButtonDescID"] = "Extra options that change the playback of impact effects",
+                ["RestorationModQueuedImpactFXLimitEnabledTitleID"] = "Enable 'Impact FX Queue Limit'",
+                ["RestorationModQueuedImpactFXLimitEnabledDescID"] = "Toggle if the below 'Impact FX Queue Limit' setting is enabled or not; only applies to queued impact FX.\nDisabled by default",
+                    ["RestorationModQueuedImpactFXLimitTitleID"] = "Impact FX Queue Limit",
+                    ["RestorationModQueuedImpactFXLimitDescID"] = "Limits the amount of impact effects that can be queued at once; Default is 24.\nHigh values can lead to playback delays while low values can lead to FX-less impacts.",
+
+                ["RestorationModQueuedImpactFXTypeTitleID"] = "Impact FX Playback",
+                ["RestorationModQueuedImpactFXTypeDescID"] = "Change how the impact effect queuing system works;\nHover over the buttons below to see a description of each type.",
+                    ["impactfx_type_default"] = "Vanilla/Hybrid",
+                    ["RestorationModQueuedImpactFXDEFAULTTitleID"] = "Vanilla/Hybrid - Hover for info",
+                    ["RestorationModQueuedImpactFXDEFAULTDescID"] = "Weapons with default multishot (i.e. shotguns) and Hornet ammo Launchers use 'Immediate' FX playback;\nAll other weapons use 'Queued' FX playback.",
+                    ["impactfx_type_immediate"] = "All Immediate",
+                    ["RestorationModQueuedImpactFXIMMEDIATETitleID"] = "IMMEDIATE - Hover for info",
+                    ["RestorationModQueuedImpactFXIMMEDIATEDescID"] = "Impact FX are played immediately\nComes at the risk of performance drops if too many are set to play at once.",
+                    ["impactfx_type_queued"] = "All Queued",
+                    ["RestorationModQueuedImpactFXQUEUEDTitleID"] = " QUEUED - Hover for info",
+                    ["RestorationModQueuedImpactFXQUEUEDDescID"] = "Impact FX are queued for squential playback\nLower risk of performance drops at the risk of FX playback being delayed if many are queued quickly.",
+
+
+        ["RestorationModOtherModsTitleID"] = "===其它模组的设置===",
+        ["RestorationModOtherModsDescID"] = "其它恢复支持的模组的额外设置。",
+            ["RestorationModAdVMovResOptOptionsButtonTitleID"] = "\"Advanced Movement Standalone\"的设置",
+            ["RestorationModAdVMovResOptOptionsButtonDescID"] = "针对Solo Queue Pixy的\"Advanced Movement Standalone\"提供的额外设置。",
+                ["RestorationModAdvMovBackstepTitleID"] = "Dash backwards on forward-only inputs",
+                ["RestorationModAdvMovBackstepDescID"] = "Enable forward-only inputs to dash backwards.\nDash即侧闪。",
+                ["RestorationModAdvMovDashScreenEffectAlphaTitleID"] = "侧闪屏幕效果强度",
+                ["RestorationModAdvMovDashScreenEffectAlphaDescID"] = "设置侧闪时的屏幕效果透明度，设为0以禁用。\n默认值：0.8",
+                ["RestorationModAdvMovSlideScreenEffectAlphaTitleID"] = "滑行屏幕效果强度",
+                ["RestorationModAdvMovSlideScreenEffectAlphaDescID"] = "设置滑行/滑铲时的屏幕效果透明度，设为0以禁用。\n默认值：0.8",
+                ["RestorationModDisableAdvMovTFTitleID"] = "禁用蹬墙跑酷",
+                ["RestorationModDisableAdvMovTFDescID"] = "禁用蹬墙跳、滑墙跑的功能。",
+                ["RestorationModAdvMovMeleeTitleID"] = "近战踢击的行为选项",
+                ["RestorationModAdvMovMeleeDescID"] = "设置在跑跳、滑行、侧闪等行为进行时，碰撞到敌人的踢击行为如何生效。",
+                    ["resmod_advmov_melee_on"] = "默认",
+                    ["resmod_advmov_melee_loud_only"] = "仅强袭生效",
+                    ["resmod_advmov_melee_off"] = "禁用",
+        ["bm_melee_advmov"] = "踢击",  --kick近战？
+
 
         -- not anymore?(non-note)
         ["RestorationModQuietRainTitleID"] = "减轻雨声",
@@ -379,6 +478,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModCloakerTurnDescID"] = "开启或关闭幻影特工飞踢你时，你的视角自动转向它的效果。",
         ["RestorationModDisableMutatorColorsTitleID"] = "Disable Mutator Assault Banner Colors", --tra
         ["RestorationModDisableMutatorColorsDescID"] = "Disable the color change to the Assault Banner when using mutators (仅用于Vanilla HUD).",            
+        ["RestorationModDisableSoloBoonsTitleID"] = "Disable Solo Boons",
+        ["RestorationModDisableSoloBoonsDescID"] = "Disable the additional boons the player receives in solo play (Crime.net offline).",
         ["RestorationModRestoreHitFlashTitleID"] = "恢复Mod受击闪屏",
         ["RestorationModRestoreHitFlashDescID"] = "启用或禁用恢复Mod的受击闪屏",
         ["RestorationModBotsNoDropTitleID"] = "禁用Bot队友丢包",
@@ -442,7 +543,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["restoration_level_data_escape_garage"] = "撤离！",
         ["restoration_level_data_escape_overpass_night"] = "撤离！",
         ["restoration_level_data_safehouse"] = "中午12:00 , 安全屋",
-        ["restoration_level_data_arm_fac"] = "早晨9:30 , 港口",
+        ["restoration_level_data_arm_fac"] = "晚上9:30 , 港口",
         ["restoration_level_data_arm_par"] = "下午2:25 , 市中心",
         ["restoration_level_data_arm_hcm"] = "下午2:15 , 市中心",
         ["restoration_level_data_arm_cro"] = "中午12:55 , 麦卡丝街与詹姆斯街的交叉口",
@@ -534,6 +635,10 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["restoration_level_data_holly"] = "下午5:00 , 洛杉矶-卢卡斯的庄园",
         ["restoration_level_data_lvl_friday"] = "下午5:00 , 大型购物中心",
         ["restoration_level_data_skm_nightmare_lvl"] = "一家洗衣店？你是来洗脱你的罪恶的吗？",
+        ["restoration_level_data_bluewave"] = "TIME CLASSIFIED, Aurelian Warehouse",  --tra
+        ["restoration_level_data_secret_stash"] = "6:00 PM, The District - Abandoned Building",
+        ["restoration_level_data_bridge"] = "10:45 PM, Green Bridge - Southbound",
+        ["restoration_level_data_four_stores_remixed"] = "1:20 PM, Storefronts",
 
         -- custom heists
         ["restoration_level_data_flatline_lvl"] = "10:26 PM, Больница им. Н.И. Пирогова",
@@ -629,10 +734,12 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["heist_contact_akashic_description"] = "曾在赫克特·莫拉莱斯手下工作的高级中尉，尼古拉斯·\"尼可\"·雷内现在指挥着锡那罗亚贩毒集团在美国的残部。\n他们数量较少，因此规模更大的哥伦比亚贩毒集团不愿帮助他们，也不愿改善同CRIMNET的关系。\n\n于是尼可拉拢了在东海岸活动的各种小规模帮派并同CRIMENET结盟，他会提供他的资源以换取CRIME.NET的服务。",
 
         ["bm_msk_shatter_true"] = "刺眼火花",
-        ["bm_msk_shatter_true_desc"] = "只被人们隐晦提及的传奇面具。\n\n当然了，这只是件复制品。\n\n原品实在是过于珍贵，以至于我认为这件复制品就足以满足你的收藏欲望。\n\n凤凰，重生的象征，无法真正死亡的永生之物。若是将其抹杀，它将火光与烈焰中给予反击。",
+        ["bm_msk_shatter_true_desc"] = "只被人们隐晦提及的传奇面具。\n\n当然了，这只是件复制品。\n\n原品实在是过于珍贵，以至于我认为这件复制品就足以满足你的收藏欲望。\n\n凤凰，重生的象征，无法真正死亡的永生之物。若是试图将其抹杀，它将在火光与烈焰中给予反击。",
 
         ["menu_l_global_value_veritas"] = "恢复MOD",
         ["menu_l_global_value_veritas_desc"] = "这是一件恢复MOD物品！",
+
+        ["menu_l_global_value_helldivers2_mod"] = "这是一件来自超级地球的物品！",
 
         ["menu_alex_1_zipline"] = "运包滑索",
 
@@ -644,7 +751,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["menu_asset_wet_boat_desc"] = "购买一个额外的运包与撤离快艇",
 
         ["bm_msk_canada"] = "冰球炼狱",
-        ["bm_msk_canada_desc"] = "不要留下任何东西——即使大军压境了也不行！当你对此有所追求的时候，你必须为之而战。（即便条子的进攻如铝热炸弹一般势不可挡）",
+        ["bm_msk_canada_desc"] = "不要落下任何战利品——即使大军压境了也不行！当你真的对此有所追求的时候，即便条子的进攻如铝热炸弹一般势不可挡，你也必须为之而战。",
         ["bm_msk_jsr"] = "涂鸦女士",
         ["bm_msk_jsr_desc"] = "由一位真正的艺术家制作。清理涂鸦就像烧掉一本书，对吧？\n\n艺术就是艺术，尊重它。",
         ["bm_msk_jsrf"] = "涂鸦先生",
@@ -671,14 +778,17 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["bm_msk_voodoo_mask_desc"] = "这个面具于遭受过轰炸的丛林废墟中找到，它经受住了大屠杀和自然界的考验，现在它以预兆为人所知。\n\n在你最需要它的时候它很可能找到你，给你带来好运以度过灾厄。不过，仔细想想——代价是什么呢？",
 
         ["bm_msk_f1"] = "X1头盔",
-        ["bm_msk_f1_desc"] = "当沿着高速公路与拥挤街道疾驰而过时，确保你做好了防护。\n\n它可能保护你免于严重摔伤——但肯定不是子弹。",
+        ["bm_msk_f1_desc"] = "当沿着高速公路与拥挤街道疾驰而过时，确保你做好了防护。\n\n它可能可以保护你免于严重摔伤——但肯定无法挡住子弹。",
         ["bm_msk_f1_b"] = "X1头盔（纯净版）",
-        ["bm_msk_f1_b_desc"] = "当沿着高速公路与拥挤街道疾驰而过时，确保你做好了防护。\n\n它可能保护你免于严重摔伤——但肯定不是子弹。\n\n这是一个和一堆花哨摩托一起在扣留所被发现的，没有那些品牌贴纸贴着的头盔的复制品。\n\n把这个放在手边，你有可能会自己骑摩托。",
+        ["bm_msk_f1_b_desc"] = "当沿着高速公路与拥挤街道疾驰而过时，确保你做好了防护。\n\n它可能可以保护你免于严重摔伤——但肯定无法挡住子弹。\n\n这是一个和一堆花哨摩托一起在扣留所被发现的，没有那些品牌贴纸贴着的头盔的复制品。\n\n把这个放在手边，你有可能会自己骑摩托。",
         ["bm_msk_sweettooth"] = "甜蜜之牙",
         ["bm_msk_sweettooth_desc"] = "蜜牙，真名马库斯·\"尖针\"·凯恩，一个来自变态金属电子游戏系列的角色。蜜牙因做一个驾驶冰淇凌战斗卡车的杀手小丑而出名。\n\n据说他曾从一个精神病院逃出来。现在他过着犯罪的生活。",
 
-        ["bm_msk_wolf_stone"] = "铁心沃尔夫",
+        ["bm_msk_wolf_stone"] = "铁心沃尔夫",  --tra
         ["bm_msk_wolf_stone_desc"] = "沃尔夫最初的面具源自于他第一次犯罪时实施他最喜欢的媒体上的犯罪行为。这个灵感来源于电子游戏\"急速劫掠\"的面具被认为在一次抢劫中丢失。\n\n在团伙早期干了一些合约后，这个面具再次出现并被贝恩的一个联系人带到了安全屋。\n\n这个面具原本的图案已经随着时间部分磨损，也许反映了沃尔夫精神稳定的下降。",
+
+        ["bm_msk_thespian"] = "Thespian",  --tra
+        ["bm_msk_thespian_desc"] = "Thespian is a superhuman solider of fortune. In the future, space marines like Thespian protect the world of mankind and its space colonies from forces of evil\n\nHis helmet is a popular gift in the criminal underworld and is given to thieves, thugs and career criminals who show their loyalty and patience to the syndicate.",
 
         ["bm_msk_dallas_aged"] = "远古达拉斯",
         ["bm_msk_dallas_aged_desc"] = "你和你的团队在猎宝奇兵的诡异埃及宝箱中找到的这些面具。宝箱在随后的运输中被截获，里面剩下的东西被交给你们。\n\n关于这些面具的事情…很不寻常。没有关于它们来自哪里的情报。\n\n胡狼推测这可能就是个笑话，或者是某种吓跑四人组的尝试。\n\n不过你又能知道啥呢？它们看起来非常，非常古老。",
@@ -750,13 +860,13 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["bm_msk_chains_halloween_desc"] = "作为一名雇佣兵，你会见到许多痛苦，以及死亡。即使你觉得自己刀枪不入、无人能挡…有时它也会挥之不去地缠着你。\n\n在2008年10月的一个明朗愉快的雪天下午，钱恩斯正在睡懒觉。他刚刚为黑水完成了一项暗杀工作，干了难活、拿了报酬、开了个舒适的酒店房间来睡觉。\n\n这么多年来他第一次做了噩梦，他想不起来是什么了，但他记得他半睡半醒鬼压床，一个更似骷髅而非人类的人影紧盯着他，可他却动弹不得。\n\n自那天之后，每次当他举枪杀人，接下来的那个夜晚就会躁动不安、糟糕可怕。\n\n最后，他不得不说：\"够了。\"他金盆洗手，看心理医生，吃药来治疗。那一年的生活是那么的美好…\n\n就在一年后的2009年10月31日，黑水确信那个不干了去修复自己生活的人会泄密、试图重伤公司，他们不能让那发生。\n\n钱恩斯被逼开始犯罪生活以保护自己，再一次成为一个斗士。\n\n但是这一次呢？和之前完全不同。噩梦和睡眠瘫痪没有再找上门。他不是为了伤害他人而伤害他人。\n\n这次，他是为了保护自己。",
 
         ["bm_msk_dallas_halloween"] = "怪物倒影",
-        ["bm_msk_dallas_halloween_desc"] = "花了这么多年伪造身份、编织谎言、虚构故事，你开始失去真实的自己。\n\n你开始不断切换身份，从你的朋友、爱人和炮友那里学来特点和怪癖。也许它们开始融合在一起，你感觉自己就是个缝合怪。\n\n达拉斯在十月的一个清晨醒来，走向镜子——染成了丑陋的金色的头发和胡乱刮的胡子、一套沾了不安噩梦的汗水的俗气西装、在周末喝了一顿又一顿酒后的头痛欲裂。\n\n他凝视着镜中的自己，感觉自己更像是弗兰肯斯坦的怪物而非一个人：就是一堆零七碎八足以在犯罪道路上进一步发展的拼凑起来的东西。\n\n那是一个转折点，但是有时他仍止不住地感觉到部分灵魂本不属于他。",
+        ["bm_msk_dallas_halloween_desc"] = "花了这么多年伪造身份、编织谎言、虚构故事，你开始失去真实的自己。\n\n你开始不断切换身份，从你的朋友、爱人和炮友那里学来特点和怪癖。也许它们开始融合在一起，你感觉自己就是个缝合怪。\n\n达拉斯在十月的一个清晨醒来，走向镜子——染成了丑陋金色的头发和拉碴的胡子、一套沾染了可怖噩梦和汗水的俗气西装、在周末喝了一顿又一顿酒后的头痛欲裂。\n\n他凝视着镜中的自己，感觉自己更像是弗兰肯斯坦的怪物而非一个人：就是一堆零七碎八足以在犯罪道路上进一步发展的拼凑起来的东西。\n\n那是一个转折点，但是有时他仍止不住地感觉到部分灵魂本不属于他。",
 
         ["bm_msk_hoxton_halloween"] = "万圣节之梦",
         ["bm_msk_hoxton_halloween_desc"] = "霍斯顿的万圣节记忆之一是十月份和他的亲戚去美国旅行，把去纽约看作一种特殊的短途旅行。\n\n他从来不是狂热的糖果爱好者，但他却酷爱亲戚家派对上的南瓜派。\n\n当他在聚会大厅外的门厅闲逛时，他看到了一个巨大的金库大门，各种珠宝财富正在被推进去。\n\n自此，他总是热衷于在假日里席卷各地。",
 
         ["bm_msk_wolf_halloween"] = "恶魔尖啸",
-        ["bm_msk_wolf_halloween_desc"] = "在2010年一个寒冷的10月夜晚，沃尔夫还在从公司倒闭的财政余波中恢复过来。\n\n他独自躺在汽车旅馆里，想起了他的家人，想起了他如何辜负了他们，以及怎么再也见不到他们——在他最后的生命之柱离他而去后全世界抛弃了他。\n\n为了筹到足够的钱重新开始成家立业而花光了所有积蓄前往美国后，他被现实所击垮。\n\n来往奔波于朋友、汽车旅馆和收容所几周后，他收到了几个星期以来第一个重要的电话。\n\n合作关系结束了，\"我不再看好这件事了。\"\n\n也许有一个崭新的开始。\n\n也许有一个新的职业来追求。",
+        ["bm_msk_wolf_halloween_desc"] = "在2010年一个寒冷的10月夜晚，沃尔夫还在从公司倒闭的财政余波中恢复过来。\n\n他独自躺在汽车旅馆里，想起了他的家人，想起了他如何辜负了他们，以及怎么再也见不到他们——在他最后的生命之柱离他而去后全世界都抛弃了他。\n\n为了筹到足够的钱重新开始成家立业而花光了所有积蓄前往美国后，他仍被现实所击垮。\n\n来回奔波于朋友、汽车旅馆和收容所几周后，他收到了几个星期以来第一个重要的电话。\n\n合作关系结束了，\"我不再看好这件事了。\"\n\n此刻，也许是一个崭新的开始，亦或有了一个新的职业来追求吧。",
 
         ["pattern_jkl_patt01_title"] = "豺狼",
         ["pattern_jkl_patt02_title"] = "陪伴",
@@ -796,10 +906,14 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModPONRTracksDescID"] = "选择当任务即将失败开始时专业劫案的音乐。",
         ["RestorationModMusicShuffleTitleID"] = "音乐切换",
         ["RestorationModMusicShuffleDescID"] = "突击结束后切换音乐。",
+        ["RestorationModOldEconomyTitleID"] = "Old Economy (Beta)",
+        ["RestorationModOldEconomyDescID"] = "Enables the old economy from pre update 11.",
         ["RestorationModScaleTitleID"] = "HUD缩放",
         ["RestorationModScaleDescID"] = "调整HUD缩放。可能需要重新开始劫案才能生效。",
         ["RestorationModSizeOnScreenTitleID"] = "HUD屏幕中大小",
         ["RestorationModSizeOnScreenDescID"] = "调整HUD于屏幕中大小。可能需要重新开始劫案才能生效。",
+        ["RestorationModScreenEffectAlphaTitleID"] = "Screen Effect Strength",
+        ["RestorationModScreenEffectAlphaDescID"] = "Set the transparency of the screen effect when hit with slowdown or knockback. Default: 1",
         ["RestorationModTeammateTitleID"] = "alpha队友面板",
         ["RestorationModTeammateDescID"] = "开启或关闭显示你与你的小队的统计数据的alpha队友面板。",
         ["RestorationModHeistTimerTitleID"] = "alpha劫案计时器",
@@ -842,10 +956,16 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["RestorationModPocoCrimenetAlignSortDescID"] = "按照难度对齐排序CRIMENET。",
         ["RestorationModPocoCrimenetScaleTitleID"] = "Poco CRIMENET尺寸",
         ["RestorationModPocoCrimenetScaleDescID"] = "允许您设置CRIMENET尺寸。",
+        ["RestorationModBriefingFontSizeTitleID"] = "Loadout Menu Briefing Font Size",
+        ["RestorationModBriefingFontSizeDescID"] = "Allows you to set the font size of the loadout menu briefing.",
         ["RestorationModVoiceIconTitleID"] = "语音聊天图标",
         ["RestorationModVoiceIconDescID"] = "当玩家使用游戏内语音聊天时显示。",
+        ["RestorationModNewsFeedStyleTitleID"] = "Alpha Newsfeed Style",
+        ["RestorationModNewsFeedStyleDescID"] = "Allows you to choose to show both newsfeed and newheists box or just the newsfeed.",
         ["alpha_assault"] = "早期Alpha类型",
         ["beta_assault"] = "Alpha类型",
+        ["show_both"] = "默认",  --check
+        ["show_classic_newsfeed"] = "经典",
 
         ["RestorationModDodgeDisplayTitleID"] = "闪避条显示方式",
         ["RestorationModDodgeDisplayDescID"] = "选择显示闪避条的最大上限为多少。重启劫案以应用更改。",
@@ -901,16 +1021,18 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         ["heist_int_dock_burn_brief"] = "没时间详细计划了，他们要把额外的主服务器运走了。\n司机会把一辆载着全副武装的小丑的卡车停到他们的门口。",
         ["heist_wetwork_burn_name"] = "火上眉梢",
         ["heist_wetwork_burn_brief"] = "好了，我们就要到现场了。你曾经来过这里，但这次我们要一路杀进去。\n也许还有些值钱的东西留在附近，但那是次要的。\n\n留意任何能帮你知道那些关着的集装箱里有什么的东西，摄像头、集装箱边上的东西、白板等等。",
-        ["wwburn_01"] = "做好准备",
-        ["wwburn_01_desc"] = "一旦到了仓库前门，黑水会到处都是，所以准备好你的枪。",
-        ["wwburn_02"] = "找到服务器",
-        ["wwburn_02_desc"] = "找到三个装有主服务器的集装箱。",
+        ["wwburn_01"] = "FIND THE CAMERA FEED ACCESS",  --tra
+        ["wwburn_01_desc"] = "Find a computer with security access. You'll use it to locate the servers.",
+        ["wwburn_02"] = "运走服务器",  --check
+        ["wwburn_02_desc"] = "使用摄像头找到三个装有主服务器的集装箱，将服务器运走。",
         ["wwburn_03"] = "烧掉备份",
         ["wwburn_03_desc"] = "烧掉和主服务器在同一个集装箱的主服务器备份。",
         ["wwburn_04"] = "可以撤离",
         ["wwburn_04_desc"] = "撤离，或者运走更多的战利品。",
 
         ["wwburn_serverpku"] = "运走",
+        ["wwburn_whiteboard"] = "Possible Clue",  --tra
+        ["wwburn_laptop"] = "Camera Access",
         ["wwburn_gaspku"] = "搜集",
         ["wwburn_defend"] = "守卫",
         ["wwburn_container"] = "集装箱",
@@ -992,7 +1114,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
         -- ["ene_law"] = "执法人员",
         -- ["ene_law_desc"] = "敌对单位",
 
-        ["ch_vs_desc"] = "使用指定的$weapon 击杀 $count 个 $eneType。使用近战武器不计入在内。",
+        ["ch_vs_desc"] = "使用指定的 $weapon 击杀 $count 个 $eneType。使用近战武器不计入在内。",
         ["ch_vs_head_shots_desc"] = "使用指定的 $weapon 爆头击杀 $count 个 $eneType。",
         ["ch_vs"] = "$weapon VS. $eneType $no",
         ["ch_vs_head_shots"] = "$weapon VS. $eneType 爆头 $no",
@@ -1052,6 +1174,33 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
 
         ["ch_melee_test"] = "Cloak and Dagger",
         ["ch_melee_test_desc"] = "Kill Captain Autumn using only your fists", --tra
+        ["ch_pro_job_test"] = "Not Even The Army Could Stop Us",
+        ["ch_pro_job_test_desc"] = "Complete Firestarter Pro Job on Mayhem or above",
+        ["ch_summers_test"] = "Old Gens Are Better",
+        ["ch_summers_test_desc"] = "Kill Captain Summers with only using the Mk.1 Flamethrower",
+        ["ch_winters_test"] = "Injustice Served",
+        ["ch_winters_test_desc"] = "Kill Captain Winters while he holding shield with only using Switchblade or Wing Butterfly Knife",
+        ["ch_spring_test"] = "Mine's Bigger Than Yours",
+        ["ch_spring_test_desc"] = "Kill Captain Spring with only using Vulcan Minigun or XL 5.56 Microgun",
+
+        ["ch_pdth_style_fwb"] = "Old School: First World Bank",
+        ["ch_pdth_style_fwb_desc"] = "Complete First World Bank on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_heat"] = "Old School: Heat Street",
+        ["ch_pdth_style_heat_desc"] = "Complete Heat Street on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_panic"] = "Old School: Panic Room",
+        ["ch_pdth_style_panic_desc"] = "Complete Panic Room on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_bridge"] = "Old School: Green Bridge",
+        ["ch_pdth_style_bridge_desc"] = "Complete Green Bridge on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_diamond"] = "Old School: Diamond Heist",
+        ["ch_pdth_style_diamond_desc"] = "Complete Diamond Heist on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_slaughterhouse"] = "Old School: Slaughterhouse",
+        ["ch_pdth_style_slaughterhouse_desc"] = "Complete Slaughterhouse on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_counterfeit"] = "Old School: Counterfeit",
+        ["ch_pdth_style_counterfeit_desc"] = "Complete Counterfeit on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_undercover"] = "Old School: Undercover",
+        ["ch_pdth_style_undercover_desc"] = "Complete Undercover on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH",
+        ["ch_pdth_style_nomercy"] = "Old School: No Mercy",
+        ["ch_pdth_style_nomercy_desc"] = "Complete No Mercy on OVERKILL difficuly or above, wearing Two-piece Suit or LBV, having no skills, using Innatae or Tabula Rasa perk decks, Weapon Butt melee and weapons from PD:TH ",
 
         ["test_net"] = "Fast.Net",
         ["menu_test"] = "",
@@ -1066,8 +1215,6 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
 
         -- ///Stuff ripped from the various locale files we had ///
 
-        -- Halloween Dozer Sword
-        ["bm_melee_halloween_sword"] = "无头熊之剑",
         ["menu_l_global_value_halloween_sword"] = "这是一件Halloween 2013物品！",
 
         -- S&W .500
@@ -1258,7 +1405,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization", function
 
 end)
 
-Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
+Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
     LocalizationManager:add_localized_strings({
         ["bm_sc_blank"] = "", -- assumedly this is a debug thing, but I'm not going to touch it--
 
@@ -1365,6 +1512,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- Bernetti--
         ["bm_wp_upg_i_93r"] = "Bernetti 93R改装套件",
         ["bm_wp_upg_i_93r_desc"] = "为武器增加射速为每分钟1100发的#{risk}#三连发速射模式##，以更高后坐力为代价换取更高输出。",
+        --Glock
+        ["bm_wp_upg_i_csglock"] = "T-Side Burst Kit",  --tra
+        ["bm_wp_upg_i_csglock_desc"] = "#{risk}#Adds a fire selector##, permitting this weapon to switch to a #{skill_color}#1200 RPM 3-round burst## setting, at the cost of a lower semi-auto fire rate.",
+        --AK12
+        ["bm_wp_upg_i_abakan"] = "Abakan Kit",
+        ["bm_wp_upg_i_abakan_desc"] = "Allows this weapon to fire a #{risk}#hyperburst## with each trigger pull at the cost of a slower base fire rate.",
 
         -- 10-0
         ["bm_wp_upg_i_tekna"] = "Tekna速射改装套件",
@@ -1374,6 +1527,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- AMR16--
         ["bm_wp_upg_i_m16a2"] = "AMR-16 A4型改装套件",
         ["bm_wp_upg_i_m16a2_desc"] = "A4型改装将使枪械的理论射速提高至每分钟950发，但相对应的，枪械只能使用半自动与#{risk}#三连发速射模式##。",
+        --G3A3--
+        ["bm_wp_upg_i_g3"] = "SG-3 Kit",
+        ["bm_wp_upg_i_g3_desc"] = "Adds a 4-position fire selector, granting the weapon a #{skill_color}#3-round burst## setting.",
 
         -- Bernetti Auto--
         ["bm_wp_upg_i_b93o"] = "Bernetti OVERKILL改装套件",
@@ -1406,10 +1562,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_upg_a_custom_desc"] = "发射更少量但更大号的共#{important_1}#6##发自制弹丸以牺牲#{important_1}#弹丸密度和有效射程##来换取#{skill_color}#高额伤害##。\n\n此弹种能在命中敌人护甲时以强大的冲击力仍造成#{skill_color}#80%##的伤害，可与其它穿甲伤害叠加至最高#{skill_color}#100%##。",
         ["bm_wp_upg_a_custom_4_desc"] = "发射更少量但更大号的共#{important_1}#4##发自制弹丸以牺牲#{important_1}#弹丸密度和有效射程##来换取#{skill_color}#高额伤害##。\n\n此弹种能在命中敌人护甲时以强大的冲击力仍造成#{skill_color}#80%##的伤害，可与其它穿甲伤害叠加至最高#{skill_color}#100%##。",  --where is it?
         ["bm_menu_buck_daring"] = "#{skill_color}#命中敌人护甲时以强大的冲击力仍造成85%的伤害##",
-        ["bm_wp_upg_a_dragons_breath_auto_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#15%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#90##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小且只能点燃衰减末距内的敌人##。",
-        ["bm_wp_upg_a_dragons_breath_semi_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#40%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#120##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小且只能点燃衰减末距内的敌人##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
-        ["bm_wp_upg_a_dragons_breath_pump_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#60%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#180##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小且只能点燃衰减末距内的敌人##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
-        ["bm_wp_upg_a_dragons_breath_heavy_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#80%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#240##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小且只能点燃衰减末距内的敌人##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
+        ["bm_wp_upg_a_dragons_breath_auto_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#15%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#90##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小##。",
+        ["bm_wp_upg_a_dragons_breath_semi_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#40%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#120##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
+        ["bm_wp_upg_a_dragons_breath_pump_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#60%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#180##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
+        ["bm_wp_upg_a_dragons_breath_heavy_desc_sc"] = "发射一些用镁片制成的燃烧弹丸，可以#{skill_color}#烧穿敌人护甲##，并有最高#{skill_color}#80%##的概率#{heat_warm_color}#点燃敌人##，在#{skill_color}#2##秒内造成#{skill_color}#240##点伤害，并有几率晕眩敌人。\n#{risk}#点燃几率随距离增加而减小##。",--\n\n#{important_1}#任何攻击都不再被计为一般实弹的攻击##",
         ["bm_wp_upg_a_rip_auto_desc_sc"] = "发射一些#{stats_positive}#剧毒的##铅弹，在#{skill_color}#1##秒内造成#{stats_positive}#180##点伤害，并有#{skill_color}#一定##几率眩晕敌人。\n\n#{risk}#毒弹的效果随伤害衰减而减小##。",
         ["bm_wp_upg_a_rip_semi_desc_sc"] = "发射一些#{stats_positive}#剧毒的##铅弹，在#{skill_color}#1.2##秒内造成#{stats_positive}#200##点伤害，并有#{skill_color}#一定##几率眩晕敌人。\n\n#{risk}#毒弹的效果随伤害衰减而减小##。",
         ["bm_wp_upg_a_rip_pump_desc_sc"] = "发射一些#{stats_positive}#剧毒的##铅弹，在#{skill_color}#2##秒内造成#{stats_positive}#300##点伤害，并有#{skill_color}#很大##几率眩晕敌人。\n\n#{risk}#毒弹的效果随伤害衰减而减小##。",
@@ -1444,6 +1600,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_upg_suppressor"] = "使你的武器#{skill_color}#消音##并#{risk}#降低敌人在被你瞄准时进行躲避的概率##。",
         ["bm_wp_upg_suppressor_warn"] = "使你的武器#{skill_color}#消音##并#{risk}#降低敌人在被你瞄准时进行躲避的概率##。\n\n#{important_1}#可能会阻挡瞄具的视野##",
 
+        --AR-15 Mods
+        ["bm_wp_upg_s_saintvictor_hera"] = "Killer Instinct Stock",  --tra
         ["bm_wp_upg_vintage_fal_sc"] = "背背弹匣",  --Ridgeback Mag
         ["bm_wp_upg_vintage_sc"] = "复古弹匣",
         ["bm_wp_upg_mil_sc"] = "军标弹匣",
@@ -1456,12 +1614,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_upg_quad2_desc"] = "",
         ["bm_wp_upg_vintage_desc"] = "",
 
+        ["bm_wp_upg_o_m4_irons_dmc"] = "CAR-4翻折式机械瞄具",  
+        ["bm_wp_upg_o_ozark_irons_dmc"] = "ZR翻折式机械瞄具",  
+        ["bm_wp_upg_o_dd_irons_dmc"] = "多功能固定式机械瞄具",  
+        ["bm_wp_upg_o_ecp_irons_dmc"] = "机械瞄具", 
+
         -- Scorpion (get in-game-name later)--
         ["bm_wp_scorpion_m_extended_sc"] = "并联弹匣",
         ["bm_sc_scorpion_double_mag"] = "", -- Unsure what this one is?--
 
         -- RPK--
         ["bm_wp_rpk_m_ban_sc"] = "特制弹\"钾\"",
+        ["bm_wp_ak_m_drum"] = "弹鼓",
+        ["bm_wp_upg_i_rpk74"] = "AK 5.45套件",
 
         -- Saw--
         ["bm_ap_saw_sc_desc"] = "#{skill_color}#破甲锯片##。\n\n可以从敌人掉落的弹药盒中获取锯片弹药。",
@@ -1472,36 +1637,43 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- Weapon Sights--  not anymore?
         -- ["bm_wp_upg_o_leupold_desc_sc"] = "开镜时自动标记特殊敌人，潜入时则会标记警卫。", --I believe all sights/objects with this effect call this same line, rather than having a unique one. Will need to be decoupled later when we add zoom to all of the sight descriptions.
 
-        -- Generic Optic Zoom Descriptions--
-        ["bm_wp_upg_o_1_1"] = "反射式瞄具。\n#{risk}#1.1倍放大倍率##",
-        ["bm_wp_upg_o_1_1_health"] = "此反射式瞄具能#{skill_color}#显示被瞄准的敌人的血量##。\n#{risk}#1.1倍放大倍率##",
+        --Generic Optic Zoom Descriptions--  --tra
+        ["bm_wp_upg_o_1_1"] = "红点瞄准镜。\n#{risk}#1.1倍放大倍率##",  --原反射式瞄具
+        ["bm_wp_upg_o_1_1_health"] = "此红点瞄准镜能#{skill_color}#显示被瞄准的敌人的血量##。\n#{risk}#1.1倍放大倍率##",
+        ["bm_wp_upg_o_1_1_ammo"] = "Red dot sight that #{skill_color}#displays the weapon's current ammo count##.\n#{risk}#1.1x magnification.##",  
+        ["bm_wp_upg_o_1_1_generic"] = "#{risk}#1.1x magnification.##",
         ["bm_wp_upg_o_1_2"] = "红点瞄准镜。\n#{risk}#1.2倍放大倍率##",
         ["bm_wp_upg_o_1_5"] = "全息瞄准镜。\n#{risk}#1.5倍放大倍率##",
         ["bm_wp_upg_o_1_5_pris"] = "棱镜瞄准具\n#{risk}#1.5倍放大倍率##",
         ["bm_wp_upg_o_1_5_scope"] = "低功率瞄准仪.\n#{risk}#1.5倍放大倍率##",
         ["bm_wp_upg_o_1_8"] = "红点瞄准镜。\n#{risk}#1.8倍放大倍率##",
+        ["bm_wp_upg_o_1_8_laser"] = "Red dot sight with a built-in laser sight.\n#{risk}#1.8x magnification.##\n\nToggle the laser on/off by pressing #{skill_color}#$BTN_GADGET.##",
         -- ["bm_wp_upg_o_1_8_irons"] = "带有次要铁瞄镜的红点瞄准具。\n#{risk}#1-1.8倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_2"] = "低功率瞄准仪。\n#{risk}#2倍放大倍率##",
+        ["bm_wp_upg_o_2_szholot"] = "Thermal holographic sight.\n#{risk}#2x magnification.##\n#{skill_color}#Automatically marks## guards, elites and special enemies when you aim at them.\n\n#{risk}#NOTE: Guards can only be marked during stealth.##",
         ["bm_wp_upg_o_2_5"] = "低功率瞄准仪。\n#{risk}#2.5倍放大倍率##",
         ["bm_wp_upg_o_3"] = "中距瞄准仪。\n#{risk}#3倍放大倍率##",
         ["bm_wp_upg_o_3_range"] = "内置#{skill_color}#测距仪##的中距瞄准器。\n#{risk}#3倍放大倍率##",
-        ["bm_wp_upg_o_3_rds"] = "顶部装有反射次瞄具的中距瞄准仪。\n#{risk}#1.1-3倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
+        ["bm_wp_upg_o_3_rds"] = "顶部装有红点次瞄具的中距瞄准仪。\n#{risk}#1.1-3倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_3_4"] = "中距瞄准仪。\n#{risk}#3.4倍放大倍率##",
         ["bm_wp_upg_o_3_5"] = "中距瞄准仪。\n#{risk}#3.5倍放大倍率##",
+        ["bm_wp_upg_o_3_7"] = "中距瞄准仪。\n#{risk}#3.7x倍放大倍率##",
         ["bm_wp_upg_o_4"] = "中距瞄准仪。\n#{risk}#4倍放大倍率##",
         ["bm_wp_upg_o_4_cod"] = "中距瞄准仪。\n哪儿来的#{skill_color}#威力加成##？\n#{risk}#4倍放大倍率##",
         -- ["bm_wp_upg_o_4_default"] = "该武器的默认瞄镜。\n#{risk}#4倍放大倍率##\n\n#{item_stage_2}#这个瞄准镜不能被移除，但可以被其它瞄准镜替换##。",
         ["bm_wp_upg_o_4_range"] = "内置#{skill_color}#测距仪##的中距瞄准器。\n#{risk}#4倍放大倍率##",
         ["bm_wp_upg_o_4_irons"] = "带有次要铁瞄镜的红点瞄准具。\n#{risk}#1-4倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
-        ["bm_wp_upg_o_4_rds"] = "带有整合型反射次瞄具的中距瞄准仪。\n#{risk}#1.1-4倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
+        ["bm_wp_upg_o_4_rds"] = "带有整合型红点次瞄具的中距瞄准仪。\n#{risk}#1.1-4倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_4_rds_mount"] = "顶部装有反射次瞄具的中距瞄准仪。\n#{risk}#1.1-4倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_4_vari"] = "变焦瞄准镜。\n#{risk}#4-8倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_4_valentine"] = "\"我为你们准备了个活儿！\"\n\n可调节缩放瞄具。\n#{risk}#4-8倍放大倍率##\n\n瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和次要瞄具之间切换。",
         ["bm_wp_upg_o_4_valentine_x"] = "杂鱼，杂鱼！\n阿米诺斯，草拟吗憋！\n我一点也不在乎，我一点也不在意！\n我才不会关心呢，哼！",
         ["bm_wp_upg_o_5"] = "长距瞄准仪。\n#{risk}#5倍放大倍率##",
         ["bm_wp_upg_o_5_range"] = "内置#{skill_color}#测距仪##的长距瞄准器。\n#{risk}#5倍放大倍率##",
+        ["bm_wp_upg_o_5_vari"] = "Variable zoom scope.\n#{risk}#5-8x magnification.##\n\nPress #{skill_color}#$BTN_GADGET## while aiming to switch between zoom levels.",
         ["bm_wp_upg_o_6"] = "长距瞄准仪。\n#{risk}#6倍放大倍率##",
         ["bm_wp_upg_o_6_range"] = "内置#{skill_color}#测距仪##的长距瞄准器。\n#{risk}#6倍放大倍率##",
+        ["bm_wp_upg_o_6_rds_mount"] = "Long-range scope with a top-mounted red-dot sight.\n#{risk}#1.1-6x magnification.##",
         ["bm_wp_upg_o_8"] = "长距瞄准仪。\n#{risk}#8倍放大倍率##",
         ["bm_wp_upg_o_8_range"] = "内置#{skill_color}#测距仪##的长距瞄准器。\n#{risk}#8倍放大倍率##",
 
@@ -1513,7 +1685,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wpn_fps_upg_o_hamr"] = "Trigonom SCRW瞄具", -- try Trigonom SCRW Scope
 
         ["bm_wp_upg_o_shortdot_dmc"] = "短点瞄具",
-        ["bm_wp_upg_o_5_default"] = "长距瞄准仪。\n这就是默认的狙击镜，装备后可修改准星样式。\n#{skill_color}#5倍放大倍率##",
+        ["bm_wp_upg_o_5_default"] = "长距瞄准仪。\n这就是默认的狙击镜，装备后可修改准星样式。\n#{risk}#5倍放大倍率##",
 
         ["bm_wp_upg_fl_flashlight"] = "按下#{skill_color}#$BTN_GADGET##以开关手电筒。",
         ["bm_wp_upg_fl_laser"] = "按下#{skill_color}#$BTN_GADGET##以开关镭射。",
@@ -1522,9 +1694,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_upg_fl_second_sight_warning"] = "\n\n#{important_1}#装备次要瞄具后，你不能在瞄准时开关此附件。##",
 
         ["bm_wp_upg_o_angled_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角铁瞄之间切换。",
-        ["bm_wp_upg_o_angled_1_1_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角反射瞄具之间切换。\n#{skill_color}#1.1倍放大倍率##",
+        ["bm_wp_upg_o_angled_1_1_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角红点瞄具之间切换。\n#{skill_color}#1.1倍放大倍率##",
         ["bm_wp_upg_o_angled_1_2_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角红点瞄具之间切换。\n#{skill_color}#1.2倍放大倍率##",
-        ["bm_wp_upg_o_angled_laser_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角激光瞄准之间切换。\n\n#{risk}#非常建议使用一个镭射配件##", -- VMP Point Shoot Laser
+        ["bm_wp_upg_o_angled_laser_desc"] = "Press #{skill_color}#$BTN_GADGET## while aiming to switch between aiming down your sights and #{risk}#point shooting.##\nWhile point shooting you aim #{skill_color}#25%## faster and the movement speed reduction while aiming is reduced by #{skill_color}#50%## in exchange for a #{important_1}#large reduction in aimed accuracy.##\n\n#{risk}#The use of a laser gadget is highly recommended, whenever possible.##", 
+        --["bm_wp_upg_o_angled_laser_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 在主瞄具和斜角激光瞄准之间切换。\n\n#{risk}#非常建议使用一个镭射配件##", -- VMP Point Shoot Laser  --check --tra
+        ["bm_wp_upg_o_angled_aim_desc"] = "Press #{skill_color}#$BTN_GADGET## while aiming to switch between standard and canted aiming.##", --VMP Point Shoot Laser
 
         ["bm_wp_upg_o_magnifier_desc"] = "瞄准时按下 #{skill_color}#$BTN_GADGET## 来升起/放下瞄具放大镜。\n#{risk}#3倍放大倍率##",
 
@@ -1571,6 +1745,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- ["bm_w_socom_desc"] = "Jackal的专属武器，经典.45 ACP口径与时尚设计的完美结合。",  
 
         -- Legendary Skins--
+        ["bm_menu_legendary"] = "Weapon Skin Set",  --tra
         ["bm_menu_sc_legendary_ak"] = "弗拉德的母国",
         ["bm_menu_sc_legendary_flamethrower"] = "龙之领主",
         ["bm_menu_sc_legendary_deagle"] = "生财之道",
@@ -1599,9 +1774,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["dr_wei_MR_saw"] = "治疗锯片",
         ["dr_wei_MR_saw_desc"] = "一种魔法锯片使你能够#{skill_color}#对着队友锯来为他们提供治疗##（不限距离），每次攻击可以提供#{stats_positive}#0.8-2.4##点治疗量。\n\n#{important_1}#只对玩家队友有效。##\n\n#{heat_warm_color}#所有玩家必须更新到恢复Mod私人平衡补丁(V5)才能让此配件生效##",
 
+
         -- Gecko Pistol
-        ["bm_tranq_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
-        ["bm_tranq_x_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
+        --弃用["bm_tranq_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
+        --弃用["bm_tranq_x_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
+        ["bm_tranq_maxim_sc_desc"] = "The world's first commercially available #{skill_color}#integrally suppressed## semi-auto pistol, good handling and concealability tie in well with debilitating tranquilizer rounds.\n\n#{stats_positive}#Deals 60 damage over 2 seconds with tranquilizer rounds.##\n#{risk}#Duration diminishes over range.##",
+        ["bm_tranq_maxim_auto_sc_desc"] = "A pair of the world's first commercially available #{skill_color}#integrally suppressed## semi-auto pistols, good handling and concealability tie in well with debilitating tranquilizer rounds.\n\n#{stats_positive}#Deals 30 damage over 1 second with tranquilizer rounds.##\n#{risk}#Duration diminishes over range.##",
+
+        ["bm_tranq_x_maxim_sc_desc"] = "A pair of the world's first commercially available #{skill_color}#integrally suppressed## semi-auto pistol, good handling and concealability tie in well with debilitating tranquilizer rounds.\n\n#{stats_positive}#Deals 60 damage over 2 seconds with tranquilizer rounds.##\n#{risk}#Duration diminishes over range.##",
+        
+
         -- Igor (APS)
         ["bm_stech_sc_desc"] = "由于这款冲锋手枪相对更重，射速也更慢使其不幸失宠。它的笨重使其以隐蔽性为代价换来了更好的可控性。",
         ["bm_x_stech_sc_desc"] = "由于这款冲锋手枪相对更重，射速也更慢使其不幸失宠。它们的笨重使其以隐蔽性为代价换来了更好的可控性。",
@@ -1653,7 +1835,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- LEO
         ["bm_hs2000_sc_desc"] = "国际刑警组织特工、狡猾的克罗地亚警察和国际犯罪分子都发现这种袖珍爆破手十分有效。",
         -- 5/7 pistol
-        ["bm_lemming_sc_desc"] = "高威力与大容量的结合。如果有人能吃了20枪没事，你可能不应该向他射击。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
+        ["bm_lemming_sc_desc"] = "高威力与大容量的结合。如果有人能吃了20枪没事，你可能不应该向他射击。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。
         -- socom deez nuts--
         ["bm_w_socom_desc"] = "豺狼的配枪选择。一款设计新潮，使用.45ACP子弹的可靠、强力的手枪。",
         -- Crosskill
@@ -1682,13 +1864,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- Deagle
         ["bm_deagle_sc_desc"] = "还有什么拿着这个半自动法杖需要说的吗？只需要挥向坏蛋们大喊：\"崩！沙卡拉卡！\"\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",
         ["bm_x_deagle_sc_desc"] = "实实在在地把这双持手腕毁灭者带进战场的人是十足的疯子。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",
+        --Kahn .357
+        ["bm_korth_r8"] = "#{skill_color}#爆头非队长单位可额外造成100%的伤害。##",
         -- duke1911
         --["bm_w_duke1911_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
         -- deckard
-        ["bm_w_deckard_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_w_deckard_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- Matever 2006m
-        ["bm_2006m_sc_desc"] = "小批生产的稀少设计型。一种射程内花式打出.38子弹的方式。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
-        ["bm_x_2006m_sc_desc"] = "双持这俩枪体现的纯正坏蛋因子要远远超过为了双持要做的准备工作。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_2006m_sc_desc"] = "小批生产的稀少设计型。一种射程内花式打出.38子弹的方式。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
+        ["bm_x_2006m_sc_desc"] = "双持这俩枪体现的纯正坏蛋因子要远远超过为了双持要做的准备工作。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- FP45
         ["bm_fp45_sc_desc"] = "能够#{skill_color}#穿透护甲，盾牌，泰坦盾牌，薄墙壁以及多个敌人##。\n\n其冲击力能对泰坦盾和熊面甲额外造成#{skill_color}#500%##的伤害。",  --520%
         -- Frenchman Model 87
@@ -1698,8 +1882,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_rage_sc_desc"] = "威力十足的短距离手炮。\n对面排排站，嘎嘎吃子弹。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
         ["bm_x_rage_sc_desc"] = "既不好用也不实用，但你就是忍不住想在抢银行的时候掏这俩枪出来干条子。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
         -- Castigo  [240
-        ["bm_chinchilla_sc_desc"] = "强大，精准，有型。便于突破特区里更持久的敌人。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
-        ["bm_x_chinchilla_sc_desc"] = "一个刺客需要确保它的目标能够毙命，两把这枪能够保证这点。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##，爆头倍率降低#{important_1}#33%##。",
+        ["bm_chinchilla_sc_desc"] = "强大，精准，有型。便于突破特区里更持久的敌人。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
+        ["bm_x_chinchilla_sc_desc"] = "一个刺客需要确保它的目标能够毙命，两把这枪能够保证这点。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害并可#{skill_color}#穿透敌人##。",--爆头倍率降低#{important_1}#33%##。",
         -- RUS-12
         ["bm_rsh12_sc_desc"] = "单持口径口水战中毋庸置疑的终结语。\n\"汝等舌战可休矣！\"\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",--对泰坦盾和熊面甲额外造成#{skill_color}#100%##的伤害。",
         -- Chunky 1911 
@@ -1724,6 +1908,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         --M2019 Blaster
         ["thatgun_desc"] = "这就是那把枪！\n\n哪把？就...那把！\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",
 
+        --Px4 Storm
+        ["bm_wp_wpn_fps_upg_px4_barrel_sd"] = "SD Long Barrel",  --tra
+        --Zippy
+        ["bm_zippy_sc_desc"] = "The ultimate weapon, in ejection failures and misfires. You'll be lucky to get two shots out of this thing without blowing off your fingers.",
+
         --Auto-9
         ["bm_wp_rc_auto9_cartoon"] = "动画特技追踪器",
         ["bm_wp_rc_auto9_cartoon_desc"] = "仿佛回到了1998年！\n\n#{skill_color}#为武器开火射出的子弹添加光效##。",
@@ -1733,7 +1922,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["menu_l_global_value_rc_auto9_mememod"] = "这是奥姆尼消费品公司的财产！",
 
         --Malorian 3516
-        ["whydoyoucome"] = "这是一把独一无二的手枪，专门为摇滚男孩强尼银手制作。\n\n能#{skill_color}#穿透护甲和敌人##。",--对泰坦盾和熊面甲额外造成#{skill_color}#20%##的伤害。\n#{skill_color}#腰射子弹会在击中物体表面时反弹，瞄准射击可以穿透薄墙壁；\n枪托近战攻击会释放出一道短程火焰冲击波。##",
+        ["whydoyoucome"] = "这是一把独一无二的手枪，专门为摇滚男孩强尼银手制作。\n\n腰射时子弹还会发生#{skill_color}#跳弹##，瞄准时可#{skill_color}#穿透薄墙壁##。\n枪托近战攻击会释放出一道伤害很低的短程#{skill_color}#火焰冲击波##。\n能#{skill_color}#穿透护甲和敌人##。",
 
         -- Colt Detective
         ["bm_w_coltds"] = "Crosskill Investigator左轮手枪",
@@ -1747,17 +1936,18 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["halo_scope_2_desc"] = "使你能够对接面具和装配的#{skill_color}#智联##瞄具。\n#{risk}#2倍放大倍率。##",
         -- SIG P320
         -- ["bm_w_papa320"] = "M19", --not sure what it is
-        ["bm_wp_wpn_fps_pis_papa320_magazine_ext2"] = "32发装弹匣", -- tra
+        --MW2019 P320
+        ["bm_wp_wpn_fps_pis_papa320_magazine_ext2"] = "32发装弹匣", 
 
         -- Kobus 90--
         ["bm_w_p90"] = "Project-90冲锋枪",
-        ["bm_p90_sc_desc"] = "又称斗牛犬冲锋枪，同时是SpecOps-7冲锋枪的竞争对手，由于外形经常被评价为未来感十足的空间枪。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
+        ["bm_p90_sc_desc"] = "又称斗牛犬冲锋枪，同时是SpecOps-7冲锋枪的竞争对手，由于外形经常被评价为未来感十足的空间枪。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。
         ["bm_wp_p90_body_p90_tan"] = "棕褐枪身",
         ["bm_wp_90_body_boxy"] = "OMNIA突击框架",
         ["bm_wp_90_body_boxy_desc"] = "从一个老旧的OMNIA仓库废址里找回的，这个框架无论对性能还是手感都没有影响，不过它体现的块状美使得它适合被拥有。",
         -- Spec Ops
         ["bm_w_mp7"] = "SpecOps-7冲锋枪",
-        ["bm_mp7_sc_desc"] = "一款轻型冲锋枪，同时是Project-90冲锋枪的竞争对手。并不像某些人期待的那样具备下挂榴弹。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
+        ["bm_mp7_sc_desc"] = "一款轻型冲锋枪，同时是Project-90冲锋枪的竞争对手。并不像某些人期待的那样具备下挂榴弹。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
         -- Compact-5/MP5
         ["bm_w_mp5"] = "Compact-5冲锋枪",
         ["bm_mp5_sc_desc"] = "Gewehr-3的小妹妹。\n射击快速，精准同时操控简单，你还指望冲锋枪能比这更好吗？",
@@ -1765,28 +1955,45 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_sterling_b_e11"] = "爆能E-11枪管",
         ["bm_wp_sterling_b_e11_desc_sc"] = "来自遥远银河的科技将这把枪转化为发射等离子光束以及使用充能弹夹。\n\n充能冷却: #{item_stage_2}#1.4##秒\n充能速率: #{skill_color}#6##发/秒 (过热时减半)\n过热惩罚: #{item_stage_2}#2##秒",
         -- Uzi
-        ["bm_uzi_sc_desc"] = "慢下来开火的时候，Uzi是一款可靠，操控简单的冲锋枪，使得它依然能拿来碰一碰，尤其是能将它转变为.41 AE时。",
+        ["bm_uzi_sc_desc"] = "慢下来开火的时候，Uzi是一款可靠，操控简单的冲锋枪，使得它依然能拿来碰一碰。",
         -- Heather
-        ["bm_sr2_sc_desc"] = "使用一种专门的9×21mm子弹，Heather冲锋枪是俄罗斯对Project-90冲锋枪和SpecOps-7冲锋枪的回应。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#50%##的伤害。",
+        ["bm_sr2_sc_desc"] = "使用一种专门的9×21mm子弹，Heather冲锋枪是俄罗斯对Project-90冲锋枪和SpecOps-7冲锋枪的回应。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#50%##的伤害。",
         -- Chicago Typewriter
         ["bm_thompson_sc_desc"] = "堂堂正正大弹鼓，即便是你也能撂倒敌人时一展雄风。",
         -- MP40
         ["bm_erma_sc_desc"] = "一把在二战期间广泛应用于步兵的相当可靠的冲锋枪，别把弹夹当握把咯。",
 
         -- CUSTOM SMGs
+        ["bm_w_geasy9_desc_grom"] = "Full-auto submachine gun. Great mobility and handling. Moderate damage, range, and rate of fire.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
+        ["bm_wp_wpn_fps_smg_geasy9_ammo_grom_desc"] = "Deals #{skill_color}#75%## of this weapon's damage through body armor and headshots deal #{skill_color}#25%## more damage to non-captain enemies.##",
+
+        ["bm_w_r31_desc"] = "Full-auto submachine gun. Very slow rate of fire with high damage. Good handling and mobility",
+        ["bm_wp_wpn_fps_smg_r31_b_highcal"] = "Short Barrel",
+        ["bm_wp_wpn_fps_smg_r31_b_int"] = "Binary Mod",
+        ["bm_wp_wpn_fps_smg_r31_b_int_desc"] = "Converts this weapon to fire in #{risk}#2-round bursts## at an #{skill_color}#increased fire rate.##",
+
         ["bm_w_m7caseless"] = "Misriah Armory M7 SMG",  --tra
         ["bm_w_m7caseless_supp"] = "Misriah Armory M7S SMG",
         ["bm_w_x_m7caseless"] = "Dual M7 SMGs",
         ["bm_w_x_m7caseless_supp"] = "Dual M7S SMGs",
         -- AR57
         ["bm_w_alpha57_prim"] = "FSS飓风冲锋枪",
-        ["bm_w_alpha57_prim_desc"] = "FSS飓风以直接伤害和停止力的牺牲为代价换取了高强的弹容量、稳定性和有效射程，对付一众弱防护型目标出类拔萃，但对付厚重的大型目标则效果不佳。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
+        ["bm_w_alpha57_prim_desc"] = "FSS飓风以直接伤害和停止力的牺牲为代价换取了高强的弹容量、稳定性和有效射程，对付一众弱防护型目标出类拔萃，但对付厚重的大型目标则效果不佳。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
         -- LWRC
         ["bm_w_smg45"] = "FT Striker .45冲锋枪",
         ["bm_w_smg45_desc"] = "\"Jackal\" AMP-45冲锋枪的美式复制品。",
         -- Typhoon
         ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon 冲锋枪",
         ["bm_w_crysis3_typhoon_desc"] = "\"#{heat_warm_color}#至简至纯，思言万千。##\"\n\n运用#{risk}#枪管叠载##技术，这个十管冲锋枪以伤害为代价换取了惊人的速度倾泻子弹。\n\n辅助射击以进入#{skill_color}#齐射模式##一次发射#{skill_color}#10##发子弹。",
+        --Fang 45
+        ["bm_w_fang45_desc"] = "#{skill_color}#Fire rate is increased by 33% for the first 5 shots of every reload.##",
+        --KSP 45
+        ["bm_w_ksp45_desc_sc"] = "3-round burst submachine gun. High damage with moderate range. Burst fire spread is less efficient at long range.",
+        --LC10
+        ["bm_w_lc10_desc_sc"] = "Full-auto submachine gun. Well rounded with excellent damage range and good accuracy. Moderate damage with an impressive muzzle velocity and a high fire rate.",
+        --REDACTED
+        ["bm_w_redacted_desc_sc"] = "#{stats_positive}#REDACTED##\n\n#{risk}#This weapon shoots in 2-round auto-bursts when fired from the hip and shoots in semi-auto when fired while aiming down the sights.##",
+
 
         -- AA12
         ["bm_aa12_sc_desc"] = "全自动弹鼓供弹霰弹枪。适合给人留下持久印象。",
@@ -1827,7 +2034,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_wpn_fps_upg_quadbarrel_ammo_buckshot_med_desc"] = "适合中距离的弹种。\n单发弹丸数量降低至#{important_1}#6##颗。",
         ["bm_wp_wpn_fps_upg_quadbarrel_ammo_slug_desc"] = "强力的钢弹头，长距离作战十分有效\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
         --REBECCA CYBERPUNK
-        ["bm_w_rebecca_desc"] = "尽管有些不太可控，但它引发的血腥浩劫无可撼动。",
+        ["bm_w_rebecca_desc"] = "尽管有些不太可控，但它引发的血腥浩劫无可撼动。\n#{risk}#Shooting imparts knockback on yourself and temporarily knocks you out of aiming.##",  --tra
         -- MP153
         ["bm_w_mp153"] = "Argos I 霰弹枪",
         -- Widowmaker TX
@@ -1846,13 +2053,13 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- G36
         ["bm_g36_sc_desc"] = "“最佳塑料制步枪奖”的又一竞争选手。",
         ["bm_wp_upg_i_m8a1"] = "M8速射套件",
-        ["bm_wp_upg_i_m8a1_desc"] = "锁定武器的射击模式为#{risk}#四连发速射模式##并获得更高的射速和额外的弹容量。",
+        ["bm_wp_upg_i_m8a1_desc"] = "锁定武器的射击模式为#{risk}#四连发速射模式##并获得更高的射速和额外的弹容量，#{important_1}#cannot accept magazines that alter capacity.##",  --tra 这段内容可替换
         -- VHS/Lion's Roar
         ["bm_vhs_sc_desc"] = "宣称在适合的人手上表现优异，因而难于操控。\n\n据说在战斗中寄宿着龙吼的力量。",
         ["LR_mag_Daring"] = "空间优化",
         ["LR_mag_Daring_desc"] = "#{risk}#“不...我的弹容量...不！！！！”\nO-V-E-R-K-I-L-L\n看起来熟悉吗？这样的场景，此时此刻正在全华盛顿各地上演，下一个可能就是你。除非你做出人生中最重要的选择，证明你拥有追求膜法的潜力和决心。\n加入背背乐园的行列把！##",
         ["bm_wp_upg_i_swordfish"] = "剑鱼速射套件",
-        ["bm_wp_upg_i_swordfish_desc"] = "锁定武器的射击模式为#{risk}#五连发速射模式##并获得更高的射速和额外的弹容量。",
+        ["bm_wp_upg_i_swordfish_desc"] = "锁定武器的射击模式为#{risk}#五连发速射模式##并获得更高的射速和额外的弹容量，#{important_1}#cannot accept magazines that alter capacity.##",  --tra
         -- Olympic/Para
         ["bm_w_olympic"] = "Para-23步枪",
         ["bm_menu_sc_olympic_desc"] = "大到离谱以至于以全自动方式射出步枪弹的手枪。这把枪因其打子弹方式这点存在生存危机。",
@@ -1886,16 +2093,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_aug_sc_desc"] = "经典无托式步枪。非常适合用来打坏蛋。",
         ["bm_wp_upg_b_hbar"] = "重型枪管",
         -- AK17
-        ["bm_flint_sc_desc"] = "经典AK的现代理解版。因其强力的二连发速射模式一度被怀疑其ak身份。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_flint_sc_desc"] = "经典AK的现代理解版。因其强力的二连发速射模式一度被怀疑其ak身份。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- AK 5.45
         ["bm_w_ak74"] = "AK 5.45步枪",
-        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_ak74_sc_desc"] = "和它那些打7.62子弹的集美不同，这把枪在致命性上毫不逊色。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- CR 805
         ["bm_menu_sc_hajk_desc"] = "经典眼镜蛇枪管的枪中更年轻，现代化的小侄子。这一款有着更多开火模式，甚至有更多弹种选择...可没说你能得到这些。",
         -- CUSTOM 48 DAMAGE ARs
         -- AN-94/92
         ["bm_w_tilt"] = "KVK-99步枪",
-        ["bm_tilt_sc_desc"] = "扣动板机打出的前两发子弹是#{skill_color}#三倍射速##。\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
+        ["bm_tilt_sc_desc"] = "扣动板机打出的前两发子弹是#{skill_color}#三倍射速##。\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#15%##。",
         -- HK G36
         ["bm_w_hkg36"] = "SG36K步枪",
 
@@ -1910,7 +2117,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_w_akm"] = "AK 7.62步枪",
         ["bm_akm_sc_desc"] = "当防弹衣在特区开始逐渐流行时，这把枪将是个随身携带的好东西。\n\n是世界各地叛军和疯狂政府的首选。",
         ["bm_w_akm_gold"] = "黄金AK 7.62步枪",
-        ["bm_akm_gold_sc_desc"] = "什么是劫匪，墨西哥毒枭和自大的独裁者的共同点呢？当然是对镀金ak的迷恋。\n#{risk}#真金制作，价格不菲，收藏佳品。##\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#33%##。 ",
+        ["bm_akm_gold_sc_desc"] = "什么是劫匪，墨西哥毒枭和自大的独裁者的共同点呢？当然是对镀金ak的迷恋。\n#{risk}#真金制作，价格不菲，收藏佳品。##\n",--\n\n爆头倍率以及对熊面甲和泰坦盾的伤害都降低#{important_1}#33%##。 ",
         -- Queen's Wrath
         ["bm_l85a2_sc_desc"] = "即便这枪晚节不保，这把枪依然以其精准度在所有自动步枪中脱颖而出。\n\n依旧是人体工程学噩梦。",
         -- KETCHUPKNOB--
@@ -1936,9 +2143,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
             ["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
             ["bm_w_ar2_desc"] = "装甲核心标准脉冲来复枪，又称脉冲步枪或AR2，是一种由联合帝国制造的暗能突击步枪。",
         -- SCAR-L
-        ["bm_w_scarl"] = "Eagle步枪",
+        --["bm_w_scarl"] = "Eagle步枪",
         -- Valmet Rk.62
-        ["bm_w_rk62"] = "Velmer步枪",
+        --["bm_w_rk62"] = "Velmer步枪",
         -- NV4
         ["bm_nova4_sc_desc"] = "一款全自动步枪。中等射速增加了稳定来提供一流的精准。适合中长距离打击。",
         ["bm_wp_wpn_fps_ass_nova4_flatline_desc"] = "获得以下加成：\n#{heat_warm_color}#精确##：\n#{skill_color}#无伤害衰减##但#{important_1}#降低射速##。\n#{item_stage_2}#专注##：\n#{skill_color}#提高##精准度。",
@@ -1953,6 +2160,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_w_t9fastburst"] = "CARV.2",
         ["bm_wp_upg_i_g11"] = "K1 Internals",
         ["bm_wp_upg_i_g11_desc"] = "Increases the burst fire rate to #{skill_color}#2100 RPM## and #{skill_color}#unlocks the fire selector.##",
+        --MW2023 STG-44 (FUCK YOU, SLEDGEHAMMER)
+        ["bm_w_stango44"] = "\"STG-44\"",
+        ["bm_wp_wpn_fps_ass_stango44_magazine_40"] = "30 Round Magazine",
+        --HD2 AR-23
+        ["bm_w_ar23_carbine"] = "AR-23A Liberator Carbine",
+        ["bm_wp_ck_penetrator_desc"] = "A compact version of the Liberator designed for increased viability in close quarters. Has an #{skill_color}#increased fire rate## at the cost of #{important_1}#higher spread.##",
+        ["bm_w_ar23_penetrator"] = "AR-23P Liberator Penetrator",
+        ["bm_wp_ck_penetrator_desc"] = "A variant of the AR-23 designed to #{skill_color}#penetrate armor.##",
+        ["bm_w_ar23_concussive"] = "AR-23C Liberator Concussive",
+        ["bm_wp_ck_concussive_desc"] = "A variant of the AR-23 featuring #{skill_color}#concussive rounds## and a modified red-dot sight.\n#{skill_color}#Concussive rounds stagger enemies up to 20 meters away.##\n#{risk}#Stagger range cannot be modified and burst-fire is removed.##",
+        --Bo6 XM4
+        ["bm_wp_wpn_fps_ass_coslo723_mode_burst_desc"] = "#{risk}#Exchange full-auto for a 3-round auto-burst.##\n\nBursts will #{skill_color}#auto-cycle## so long as the trigger is held.",
+
         -- AR-18
         ["bm_w_ar18"] = "CAR-18",
 
@@ -1980,7 +2200,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_par_sc_desc"] = "相对KSP-90更重，通常架设在载具上的机枪弟妹。用机动性换来了更大的口径。",
 
         ["bm_hk51b_sc_desc"] = "Aftermarket conversion of the Brenner-21, shrinking this MG down to Compact-5 sizes and increasing its rate of fire even further than the Brenner's.",  --tra
-        
+        ["bm_wp_hk51b_magazine_belt_60"] = "60 Round Belt",
+        ["bm_wp_hk51b_magazine_belt_80"] = "80 Round Belt",
+
         -- Buzzsaw/Mg42
         ["bm_w_mg42"] = "Buzzsaw-42重机枪",
         ["bm_wolf_brigade_sc_desc"] = "#{heat_warm_color}#我们不是人模狗样，\n我们是人中之狼。##\n\n#{skill_color}#这把武器的腰射比一般武器表现更好：\n精准+\n稳定+##",
@@ -2000,7 +2222,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
 
         -- Custom MGs
         --Stoner 63 (LMG)
-        ["bm_wp_wpn_fps_lmg_stoner63a_quickdraw_01"] = "Speed Tape", --tra
+        --Madsen MG
+        ["bm_wp_wpn_fps_lmg_madsen_mg_xmag"] = "40 Round Mag",  --tra
+        --Stoner 63 (LMG)
+        ["bm_wp_wpn_fps_lmg_stoner63a_quickdraw_01"] = "Speed Tape",
         ["bm_wp_wpn_fps_lmg_stoner63a_mixhandle_01"] = "Dropshot Wrap",
         ["bm_wp_wpn_fps_lmg_stoner63a_handle_01"] = "Field Tape",
         ["bm_wp_wpn_fps_lmg_stoner63a_handle_02"] = "SASR Jungle Grip",
@@ -2018,6 +2243,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_wpn_fps_lmg_gatling_gun_body_desc"] = "转轮预热所需时间增加#{important_1}#30%##。",
         ["bm_wp_wpn_fps_lmg_canton_body_desc"] = "有#{skill_color}#80%##的几率#{heat_warm_color}#点燃敌人##，在#{skill_color}#4##秒内造成#{skill_color}#60##点伤害。\n#{risk}#点燃几率随距离增加而减小且只能点燃衰减末距内的敌人；\n造成的伤害均被计为燃烧伤害。##",
 
+        --MW2019 PKM
+        ["bm_wp_wpn_fps_lmg_pkilo_xmag"] = "Brown Ammo Box",
+        ["bm_wp_wpn_fps_lmg_pkilo_xmag_large"] = "Black Ammo Box",
+
         -- Galant--
         ["bm_galant_sc_desc"] = "经典二战作战步枪。可靠，精准，换弹迅速。\n\n空仓换弹速度更快并且可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
         -- M308
@@ -2029,12 +2258,13 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- SCAR
         ["bm_scar_sc_desc"] = "未来的战斗步枪。依托着在手感和弹道伤害上有着良好的平衡，在美国海军陆战队和特种力量中应用广泛。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
         ["bm_scar_ap25_sc_desc"] = "未来的战斗步枪。依托着在手感和弹道伤害上有着良好的平衡，在美国海军陆战队和特种力量中应用广泛。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
-        ["bm_scarl_sc_desc"] = "未来的战斗步枪......不，虽然它在民用市场很受欢迎，但军队认为他们不需要另一把5.56步枪。",
+        ["bm_scarl_sc_desc"] = "未来的战斗步枪......吗？虽然它在民用市场很受欢迎，但军队认为他们不需要另一把5.56步枪。",
+        ["bm_scarhamr_sc_desc"] = "未来的全自动战斗步枪......吗？",
         -- G3
         ["bm_w_g3"] = "Gewehr-3步枪",
         ["bm_g3_sc_desc"] = "作为Compact-5和Brenner-21的大姐头，这把枪的精准度可与狙击枪一较高下。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",
         ["bm_g3_ap25_sc_desc"] = "作为Compact-5和Brenner-21的大姐头，这把枪的精准度可与狙击枪一较高下。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人##。",
-        ["bm_g3_sg1_sc_desc"] = "作为Compact-5和Brenner-21的大姐头，这把枪的精准度可与狙击枪一较高下。\n\n可#{skill_color}#穿透护甲、敌人、盾牌和薄墙壁##。",
+        ["bm_g3_sg1_sc_desc"] = "作为Compact-5和Brenner-21的大姐头，这把枪的精准度可与狙击枪一较高下。\n\n可#{skill_color}#穿透护甲、敌人、薄墙壁以及衰减始距内的盾牌##。",
         -- Little Friend
         ["bm_w_contraband"] = "Bigger Friend 7.62步枪",
         ["bm_m203_weapon_sc_desc_pc"] = "疤面煞星私人款\"小伙伴\"AMR-16的大姐头。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。\n按下 #{skill_color}#$BTN_BIPOD## 切换到下挂榴弹发射器。",
@@ -2047,14 +2277,17 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- ASS VAL
         -- ["bm_w_asval"] = "Valkyria",
         ["bm_asval_sc_desc"] = "选择小型步枪弹也许会让你在枪手中沦为泛泛之众，但如果说你选这把枪...\n\n#{skill_color}#完全消音##并且#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",
-        -- Galil
+        ["bm_asval_spp_sc_desc"] = "Tiny rifle bullets might do for your run of the mill gunfighter, but others might go for this gun.\n\nComes #{skill_color}#integrally suppressed## and 能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
+        ["bm_wp_upg_i_asval_spp"] = "Valkyria SPP-ecial",  --tra
+        ["bm_wp_upg_i_asval_spp_desc"] = "Upgraged internals mixed with specialized armor piercing ammo that can 能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
+        --Galil
         ["bm_w_galil"] = "Defender 7.62步枪",
         ["bm_galil_sc_desc"] = "一款在芬兰设计的基础上模仿来的步枪，并且本身也是经典款AK的衍生品。模仿是最真诚的恭维。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
         ["bm_galil_ap25_sc_desc"] = "一款在芬兰设计的基础上模仿来的步枪，并且本身也是经典款AK的衍生品。模仿是最真诚的恭维。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害。",
         ["bm_galil_556_sc_desc"] = "一款在芬兰设计的基础上模仿来的步枪，并且本身也是经典款AK的衍生品。模仿是最真诚的恭维。",
         -- KS12
         ["bm_shak12_sc_desc"] = "一款故意凸显其强大无比的12.7x55mm弹筒的无托式设计战斗步枪。极其紧凑的包装蕴含极其凶残的屠杀。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",
-        ["bm_shak12_sc_oden_desc"] = "一款故意凸显其强大无比的12.7x55mm弹筒的无托式设计战斗步枪。极其紧凑的包装蕴含极其凶残的屠杀。\n\n可#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_shak12_sc_oden_desc"] = "一款故意凸显其强大无比的12.7x55mm弹筒的无托式设计战斗步枪。极其紧凑的包装蕴含极其凶残的屠杀。\n\n可#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         -- ShAK-12
         ["bm_wp_shak12_body_vks"] = "\"VISha\"枪托",
         ["bm_wp_shak12_body_vks_ap_desc"] = "装载大威力弹#{skill_color}#允许达到全面护甲穿透和穿盾能力##。 枪托和枪闩用了更敦实的材料加固使 #{important_1}#射速降低##。",
@@ -2063,6 +2296,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_hcar_sc_desc"] = "一把经典二战机枪的现代版本。",--\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
 
         -- Custom DMRs
+        --SKS  --tra
+        ["bm_wp_wpn_fps_ass_sks_mags_reload"] = "Equalize the speed of non-empty and empty reloads; #{skill_color}#non-empty reloads are much faster and allow for one in the chamber## while #{important_1}#empty reloads are slower.##",
         --BOCW EM2
         ["bm_w_t9british"] = "EM2步枪",  --tra
         ["bm_wp_wpn_fps_ass_t9british_xmag_01"] = "30 Rnd",
@@ -2073,7 +2308,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_wpn_fps_ass_t9british_magazine_mix_02"] = "Salvo 30 Rnd Fast Mag",
         -- MCX Spear
         ["bm_w_mcx_spear"] = "Signature M7步枪",
-        ["bm_mcx_spear_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#33%##的伤害。",
+        ["bm_mcx_spear_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#33%##的伤害。",
+        ["bm_ngsierra_sc_desc"] = "Uses a unique recoil mitigation system to control its 6.8x51mm TCVM plastic cartridge.\n\n#{skill_color}#Deals 75% of its damage through body armor, can pierce enemies.##",  --tra
         ["bm_w_g3hk79"] = "Gewehr-A3 GL79步枪",
         ["bm_g3hk79_sc_desc_pc"] = "Gewehr-3步枪的改版，可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。\n\n装有#{skill_color}#下挂榴弹发射器##，按#{skill_color}#$BTN_BIPOD##切换到下挂榴弹发射器。",
         -- ["bm_g3hk79_sc_desc"] = "Gewehr-3步枪的改版，装有#{skill_color}#下挂榴弹发射器##。\n\n按#{skill_color}#$BTN_BIPOD##切换到下挂榴弹发射器。",
@@ -2087,21 +2323,26 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- SIERRA .458
         ["bm_w_sierra458"] = "Sierra .458步枪",
         ["bm_w_sierra458_sc_desc"] = "钱恩斯作为团队中的武器大师，研发了一种高伤害高射速的Tecci战术步枪替代品，以应对紧急情况。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",
-        ["bm_w_sierra458_beo_desc"] = "钱恩斯作为团队中的武器大师，研发了一种高伤害高射速的Tecci战术步枪替代品，以应对紧急情况。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_w_sierra458_beo_desc"] = "钱恩斯作为团队中的武器大师，研发了一种高伤害高射速的Tecci战术步枪替代品，以应对紧急情况。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         ["bm_wp_wpn_fps_snp_sierra458_m_bush_desc"] = "将.458 SOCOM子弹换成#{stats_positive}#沾染毒药##的.450 Bushmaster子弹，命中时#{skill_color}#眩晕敌人##并在#{skill_color}#4##秒内造成#{stats_positive}#120##点伤害。\n\n但#{important_1}#不再能穿透敌人##",
         ["bm_w_sierra458_ivy_desc"] = "钱恩斯作为团队中的武器大师，研发了一种高伤害高射速的Tecci战术步枪替代品，以应对紧急情况。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#80%##的伤害并可#{skill_color}#穿透薄墙壁##。\n命中后使敌人#{stats_positive}#中毒##。", -- tra fix
+        ["bm_w_bulldog_desc"] = "Some kind of happiness is measured out in taking down enemies with the Bulldog.\n\n#{risk}#This weapon shoots in full-auto when fired from the hip and shoots in bursts when fired while aiming down the sights.##",
+        --RMC2  --tra
+        ["bm_w_rmary2"] = "Goblin Mk2",
+        ["bm_wp_chf_50_desc"] = "#{skill_color}#Headshots ignore damage falloff.##",
+        ["bm_w_rmary2_desc"] = "Proof of concept prototype designed by a Royal Military College Duntroon cadet.\n\n#{skill_color}#Deals 75% of its damage through body armor and can pierce multiple enemies.##",
 
         -- MSR
         ["bm_msr_sc_desc"] = "美国军方钦定的狙击枪。良好的精准度，操控性，甚至隐蔽性使得它成为令人满意的多用途狙击步枪。\n\n能够#{skill_colo穿透敌人，护甲，盾牌以及薄墙壁r}#穿透敌人，护甲，盾牌以及薄墙壁##。",
         -- R700
         ["bm_r700_sc_desc"] = "响尾蛇的老前任。良好的精准度，操控性，甚至有着比他后辈更远的射程。缺点呢？稀烂的五发弹夹。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
         -- QBU88
-        ["bm_qbu88_sc_desc"] = "从东欧集团得到灵感而做出的无托狙击枪，和大多数一样，适合用来强加你的意志给别人。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_qbu88_sc_desc"] = "从东欧集团得到灵感而做出的无托狙击枪，和大多数一样，适合用来强加你的意志给别人。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         -- Winchester 1874
         ["bm_winchester1874_sc_desc"] = "打下了美国西部的枪。热兵器中的圣遗物，但并不意味着其致死性不足，只因它强力的.44-40供弹。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。\n辅助射击允许以#{important_1}#更高的后坐力##和#{important_1}#更短的有效射程##为代价进行#{skill_color}#射速更高##的速射。",
         -- TTI(TTY)
         ["bm_w_tti"] = "Tecci .308狙击步枪",
-        ["bm_tti_sc_desc"] = "威克的私人武器之一。据说网上有个地方有他练习这把枪莫桑比克射击法的片段。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_tti_sc_desc"] = "威克的私人武器之一。据说网上有个地方有他练习这把枪莫桑比克射击法的片段。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         -- Icky Vicky
         ["bm_w_victor"] = "SA北极星狙击步枪",
         -- ["bm_victor_sc_desc"] = "\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
@@ -2113,11 +2354,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_awp_cs_dragon"] = "AWP | 巨龙传说",  --name?
         ["bm_awp_cs"] = "AWP狙击步枪",  --name?
         ["bm_wp_upg_bazooka"] = "巨龙传说原皮套件",
-        ["bm_wp_upg_bazooka_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。",
-        ["bm_bazooka_sc_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
+        ["bm_wp_upg_bazooka_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",  --tra  可替换
+        ["bm_bazooka_sc_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
         -- WA2000
         ["bm_w_wa2000"] = "Lebensauger .300狙击步枪",
-        ["bm_wa2000_sc_desc"] = "这个最负盛名的枪世上只做了几百把；一把专适合顶尖杀手的狙击步枪。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_wa2000_sc_desc"] = "这个最负盛名的枪世上只做了几百把；一把专适合顶尖杀手的狙击步枪。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         -- Rangerhitter
         ["bm_w_sbl"] = "Rangehitter MK2狙击步枪", -- It's not a Beretta gun so "Rangehitter" is the stand-in/fake name for the IRL manufacturer "Marlin"
         ["bm_sbl_sc_desc"] = "二十世纪的杠杆设计使其相对十九世纪能供应更大号的枪弹。期待你这边的.45-70子弹带来额外的乐趣和额外的死仔吧。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。\n辅助射击允许以#{important_1}#更高的后坐力##和#{important_1}#更短的有效射程##为代价进行#{skill_color}#射速更高##的速射。",
@@ -2127,7 +2368,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- Model 70
         ["bm_model70_sc_desc"] = "神枪手的神枪。早期由Repeater-1874的同一批设计师手下做出的栓动式设计。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
         -- SVD
-        ["bm_siltstone_sc_desc"] = "AK家族的高威力半自动狙击步枪。像许多东方武器一样声名显赫。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_siltstone_sc_desc"] = "AK家族的高威力半自动狙击步枪。像许多东方武器一样声名显赫。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
 
         -- Mosin--
         ["bm_mosin_sc_desc"] = "当你食不果腹而仍需一把枪时，这把廉价又经典的栓动式步枪便应召而来。\n\n这把枪一次装填#{skill_color}#5##颗子弹，并且能够#{skill_color}#穿透敌人、护甲、盾牌以及薄墙壁##。",
@@ -2143,21 +2384,21 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_bessy_sc_desc"] = "一支拥有良好组织性的民兵对于自由国家的安全保障是必不可少的。因此，人民拥有和携带武器的权利不可侵犯。\n\n对特殊敌人造成的伤害额外增加#{skill_color}#250%##。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
         -- Thanatos--
         ["bm_w_m95"] = "Thanatos .50 cal 反器材狙击步枪",
-        ["bm_m95_sc_desc"] = "被用于对小型载具作战的反器材步枪。把它用到生物目标的人几乎都是战犯。\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
+        ["bm_m95_sc_desc"] = "被用于对小型载具作战的反器材步枪。把它用到生物目标的人几乎都是战犯。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
         -- Custom Snipers
         ["bm_w_pd3_lynx"] = "HET-5红狐 反器材狙击步枪",
-        ["bm_w_pd3_lynx_desc"] = "这是一把来自匈牙利的反器材狙击步枪，采用了往复式枪管以减轻.50 BMG带来的后座力。\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
+        ["bm_w_pd3_lynx_desc"] = "这是一把来自匈牙利的反器材狙击步枪，采用了往复式枪管以减轻.50 BMG带来的后座力。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
         ["menu_l_global_value_pd3_lynx_mod"] = "这是一件PAYDAY3的物品！",
         ["bm_w_m107cq"] = "Mors .50 cal反器材狙击步枪",
-        ["bm_m107cq_sc_desc"] = "如果Thanatos跟不上进度，那么Mors能如你所愿让他们死无全尸。\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
+        ["bm_m107cq_sc_desc"] = "如果Thanatos跟不上进度，那么Mors能如你所愿让他们死无全尸。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
         ["bm_w_m200"] = "TF-141反器材狙击步枪",
-        ["bm_m200_sc_desc"] = "为那些想要愉悦的做到楼梯间360度不开镜单杀的人设计。\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
+        ["bm_m200_sc_desc"] = "为那些想要愉悦的做到楼梯间360度不开镜单杀的人设计。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n#{risk}#提示：完全瞄准时爆头以直接击杀泰坦盾；腰射则会破盾##",
         -- S7
-        ["bm_w_srs99_s7_desc"] = "我在你的未来预见了爆头，斯巴达！\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
-        ["bm_w_srs99_s7_flexfire_desc"] = "我在你的未来预见了爆头，斯巴达！\n\n爆头额外造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌和薄墙壁##。",
-        ["flexfire_desc"] = "#{important_1}#无法再穿透泰坦盾牌##。",
+        ["bm_w_srs99_s7_desc"] = "我在你的未来预见了爆头，斯巴达！\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
+        ["bm_w_srs99_s7_flexfire_desc"] = "我在你的未来预见了爆头，斯巴达！\n\n能够#{skill_color}#穿透护甲，敌人，盾牌和薄墙壁##。",
+        ["flexfire_desc"] = "#{important_1}#瞄准放大倍率缩小到固定的3倍。\n#{important_1}#无法再穿透泰坦盾牌##。",
         ["oracle_scope"] = "神谕-科技连结瞄准镜",
-        ["oracle_scope_desc"] = "用于更改默认#{skill_color}#全知全智##瞄镜的准星。\n#{risk}#5倍放大倍率##",
+        ["oracle_scope_desc"] = "用于更改默认#{skill_color}#全知全智##瞄镜的准星。\n#{risk}#5-10倍放大倍率##",
         -- Marlin 1894
         ["bm_w_m1894"] = "Mare's Leg 狙击步枪",
         -- SPX Centerfire
@@ -2170,7 +2411,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         -- L115
         ["bm_w_l115"] = "AIM 90M狙击步枪",
         -- Highly Modified CAR-4
-        ["bm_hmcar_sc_desc"] = "在被执法人员逐步淘汰掉之前，你成功地偷到了装满这些套件的箱子。\n\n发射能够#{skill_color}#穿透敌人，护甲，盾牌和薄墙壁##的#{stat_maxed}#泰坦狙击弹##；辅助射击能够改为#{skill_color}#双倍弹药消耗和威力##的同时提供#{skill_color}#穿透泰坦盾##能力的#{event_color}#全火力狙击弹##。\n\n提示：武器开火使用#{skill_color}#连发##和#{skill_color}#齐射##模式，但可以吃#{ghost_color}#擦伤##",--\n\n#{important_1}#该武器无法触发脑洞大开（擦伤）技能##",
+        ["bm_hmcar_sc_desc"] = "在被执法人员逐步淘汰掉之前，你成功地偷到了装满这些套件的箱子。\n\n发射能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##的#{stat_maxed}#泰坦狙击弹##；辅助射击能够改为#{skill_color}#双倍弹药消耗和威力##的同时提供#{skill_color}#穿透泰坦盾##能力的#{event_color}#全火力狙击弹##。\n\n提示：武器开火使用#{skill_color}#连发##和#{skill_color}#齐射##模式，但可以吃#{ghost_color}#擦伤##\n",--\n\n#{important_1}#该武器无法触发脑洞大开（擦伤）技能##",
         ["bm_wp_hmcar_hd_kit"] = "32位-8K超高清套件",
         ["bm_wp_hmcar_hd_kit_desc"] = "Application has crashed: C++ exception\nCould not load texture because IDirect3D9::CreateTexture call failed.\nDirect3D could not allocate sufficient memory to complete the call.\n\n\n\n\n\n\n ",
 
@@ -2181,16 +2422,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wp_avelyn_override_desc"] = "一种极其稀有的#{skill_color}#速射##弓弩。\n通过精巧的射击让你能连续射出#{skill_color}#3##发箭矢。\n\n可以#{skill_color}#穿透护甲##",
 
         -- GL40     
-        ["bm_w_gre_m79_sc_desc"] = "咚了个砰！\n\n按下 #{skill_color}#$BTN_GADGET## 切换到折叠瞄具。\n\n该瞄具视野限制在#{skill_color}#30m##内。",
+        ["bm_w_gre_m79_sc_desc"] = "咚了个砰！\n\n按下 #{skill_color}#$BTN_GADGET## 切换到折叠瞄具。\n\n该瞄具视野限制在#{skill_color}#30m##内。\n",
         -- 3GL
         ["bm_ms3gl_sc_desc"] = "发射通过黑科技自制的集束40mm榴弹，可以造成快速后续冲击伤害。\n\n辅助射击允许一次性#{skill_color}#射出三发榴弹##。",
         -- ["bm_ms3gl_sc_desc"] = "Fires custom 40mm rounds superposed in a single chamber. Uses electric primers to fire, allowing for rapid follow-ups in a compact package.\n\nAlt-fire #{skill_color}#fires a burst of 3 grenades.##",
         -- PIGLET/M32
         ["bm_m32_sc_desc"] = "变身成为一个\"#{risk}#战斗机器##\"，告诉你的敌人们，没有魔法少女会来保护他们和他们的队友免受这个6发转轮榴弹的伤害。",
         -- China Puff
-        ["bm_w_china_sc_desc"] = "\"哇哦，这儿可真是个可怕的地方！\"\n\n按下 #{skill_color}#$BTN_GADGET## 切换到折叠瞄具。\n\n该瞄具视野限制在#{skill_color}#30m##内。",
+        ["bm_w_china_sc_desc"] = "\"哇哦，这儿可真是个可怕的地方！\"\n\n按下 #{skill_color}#$BTN_GADGET## 切换到折叠瞄具。\n\n该瞄具视野限制在#{skill_color}#30m##内。\n",
         -- COMMANDO 101/M202 FLASH
-        ["bm_ray_sc_desc"] = "这个四联装#{heat_warm_color}#燃烧火箭##使你成为\"#{risk}#死神##\"。\n\n火箭爆炸后#{heat_warm_color}#留下持续地火##，并且直接爆炸伤害可以#{skill_color}#秒杀敌人炮塔##。\n\n由于火箭弹非常笨重，#{important_1}#换弹时移速极大幅度下降##。",
+        ["bm_ray_sc_desc"] = "这个四联装#{heat_warm_color}#燃烧火箭##使你成为\"#{risk}#死神##\"。\n\n火箭爆炸后#{heat_warm_color}#留下持续地火##。直接爆炸伤害可以#{skill_color}#秒杀敌人炮塔##，并且对非泰坦单位的熊能多造成#{skill_color}#500%##的伤害。\n\n由于火箭弹非常笨重，#{important_1}#换弹时移速极大幅度下降##。",
 
         -- M4/CAR-4
         ["bm_menu_sc_m4_desc"] = "可靠，紧凑，且致命。在现代部队广泛使用的5.56mm步枪。",
@@ -2201,18 +2442,50 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_menu_weapon_multishot_3"] = "点伤害。",
         ["bm_menu_weapon_ene_hs_mult_sub"] = "对敌人的基础爆头倍率减少至",
         ["bm_menu_weapon_ene_hs_mult_add"] = "对敌人的基础爆头倍率增加至",
+
+        -- 爆头倍率
         ["bm_menu_weapon_hs_mult_1"] = "爆头非队长单位可额外造成",
         ["bm_menu_weapon_hs_mult_2"] = "的伤害。",
+        ["bm_menu_weapon_hs_mult_1_op"] = "爆头非队长单位造成的伤害降低",
+        ["bm_menu_weapon_hs_mult_2_op"] = "。",
+
+        -- 物体伤害倍率
+        ["bm_menu_weapon_obj_mult_1"] = "对熊面甲和泰坦盾可额外造成",
+        ["bm_menu_weapon_obj_mult_2"] = "的伤害。",
+        ["bm_menu_weapon_obj_mult_1_op"] = "对熊面甲和泰坦盾的造成的伤害降低",
+        ["bm_menu_weapon_obj_mult_2_op"] = "。",
+
+        -- 发射器爆炸衰减
+        ["bm_menu_weapon_exp_falloff_start"] = "爆炸伤害随爆炸半径衰减的速率：",
+        ["bm_menu_weapon_exp_falloff_linear"] = "##中##。",
+        ["bm_menu_weapon_exp_falloff_quad"] = "##小##。",
+        ["bm_menu_weapon_exp_falloff_quad_op"] = "##大##。",
+        ["bm_menu_weapon_exp_falloff_no_falloff"] = "##无衰减##。",
+        --[[
+        ["bm_menu_weapon_exp_falloff_linear"] = "#{skill_color}#中##。",
+        ["bm_menu_weapon_exp_falloff_quad"] = "#{stats_positive}#小##。",
+        ["bm_menu_weapon_exp_falloff_quad_op"] = "#{important_1}#大##。",
+        ["bm_menu_weapon_exp_falloff_no_falloff"] = "#{heat_warm_color}#无衰减##。",
+        --]]
+
+        -- 爆头倍率跟物体伤害倍率相等时
+        ["bm_menu_weapon_same_mult_1"] = "爆头倍率以及对熊面甲和泰坦盾造成的伤害都提高",
+        ["bm_menu_weapon_same_mult_2"] = "。",
+        ["bm_menu_weapon_same_mult_1_op"] = "爆头倍率以及对熊面甲和泰坦盾造成的伤害都降低",
+        ["bm_menu_weapon_same_mult_2_op"] = "。",
+        
         ["bm_menu_weapon_ene_hs_mult_end"] = "",
-        ["bm_menu_weapon_exp_no_hs_info"] = "使用了#{risk}#高爆弹药##，#{risk}#直击伤害和爆炸伤害分开计算##。",
+        ["bm_menu_weapon_exp_no_hs_info"] = "使用了#{risk}#高爆弹药##，#{skill_color}#直接命中会多造成50%的判定为子弹的伤害##。",
         ["bm_menu_weapon_movement_penalty_info"] = "移动速度降低 ",
         ["bm_menu_weapon_movement_bonus_info"] = "移动速度提升 ",
+        ["bm_menu_weapon_sms_bonus_info"] = "射击时的移动速度惩罚降低 ",  --check
         ["bm_menu_sms_info_cont"] = "射击时惩罚提升。",
         ["bm_menu_sms_info_cont_2"] = "受配件影响，射击时惩罚提升。",
-        ["bm_menu_sms_info_2"] = "  ，在你射击时。",
+        ["bm_menu_sms_info_2"] = "（射击时）。",
         ["bm_menu_weapon_slot_search_empty"] = "\n##未找到该内容的结果：## ##\"$search\"##",
-        ["bm_menu_stat_sms_info_2"] = " ，在你射击时。\n该惩罚受当前配件影响。",
-        ["bm_menu_weapon_movement_penalty_info_2"] = "，在你手持时",
+        ["bm_menu_weapon_anim_warning"] = "#{important_1}#The animation swap this attachment provides does not sync with the reload timers!##",  --tra
+        ["bm_menu_stat_sms_info_2"] = "（射击时）。\n该惩罚受当前配件影响。",
+        ["bm_menu_weapon_movement_penalty_info_2"] = "（手持时）",
         ["bm_menu_weapon_slot_warning_1"] = "\n##//////////             无 法 使 用             //////////\n",
         ["bm_menu_weapon_slot_warning_2"] = "\n//////////             无 法 使 用             //////////##",
         ["bm_menu_weapon_slot_warning_primary"] = "该武器已被移动到主武器栏\n在劫案内以副手使用将会崩溃",
@@ -2224,33 +2497,39 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_slamfire_generic_desc"] = "辅助射击允许快速连点以用#{skill_color}#更快的射速##进行速射，代价是#{important_1}#后坐力和子弹散射更大##并且#{important_1}#无法右键瞄准##。",
         ["bm_rapidfire_generic_desc"] = "Can be #{skill_color}#rapid-fired for an increased fire rate## at the cost of #{important_1}#more recoil and reduced effective range.##", -- tra
         ["bm_ap_weapon_sc_desc"] = "能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。",
+        ["bm_ap_weapon_semi_sc_desc"] = "能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
         ["bm_ap_armor_weapon_sc_desc"] = "能够#{skill_color}#穿透护甲##。",
-        ["bm_ap25_armor_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#125%##的伤害。",
-        ["bm_ap_armor_20_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
+        --["bm_daring_ap_desc_1"] = "可穿透护甲造成",
+        ["bm_daring_ap_desc_2"] = "的伤害。",
+        ["bm_daring_ap_desc_3"] = "的伤害并",
+        ["bm_ap25_armor_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
+        ["bm_ap_armor_20_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",  --abandoned
+        ["bm_ap_armor_25_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害。",
         ["bm_ap_armor_50_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害并可#{skill_color}#穿透敌人##。",  --tra fix?
-        ["bm_ap_armor_80_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
-        ["bm_pdw_gen_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
-        ["bm_heavy_ap_weapon_sc_desc"] = "爆头多造成#{skill_color}#100%##伤害。\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
+        ["bm_ap_armor_75_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",
+        ["bm_ap_armor_80_weapon_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害并可#{skill_color}#穿透敌人和薄墙壁##。",--abandoned
+        ["bm_pdw_gen_sc_desc"] = "可#{skill_color}#穿透护甲##造成#{skill_color}#75%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#66%##的伤害。",
+        ["bm_heavy_ap_weapon_sc_desc"] = "能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",  --check --新版删除了“爆头非队长类敌人多造成#{skill_color}#100%##伤害。\n”
         ["bm_heavy_ap_no_mult_weapon_sc_desc"] = "能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
 
         ["bm_bow_sc_desc"] = "轻按#{skill_color}#$BTN_FIRE##以快速射击，但#{important_1}#伤害减半##且#{important_1}#下垂更快##。\n按住#{skill_color}#$BTN_FIRE##以拉弓，然后松开以射击。\n弓拉的越满，伤害和箭的飞行速度越高。\n\n按下#{skill_color}#$BTN_AIM##停止拉弓。\n\n箭矢可以#{skill_color}#捡起回收##。\n能够#{skill_color}#穿透护甲##。",
-        ["bm_bow_exp_sc_desc"] = "轻按#{skill_color}#$BTN_FIRE##以快速射击，但#{important_1}#伤害减半##且#{important_1}#下垂更快##。\n按住#{skill_color}#$BTN_FIRE##以拉弓，然后松开以射击。\n弓拉的越满，箭的飞行速度越高。\n\n按下#{skill_color}#$BTN_AIM##停止拉弓。\n\n箭矢在#{skill_color}#撞击时爆炸##，#{risk}#直击伤害和爆炸伤害分开计算##。",
+        ["bm_bow_exp_sc_desc"] = "轻按#{skill_color}#$BTN_FIRE##以快速射击，但#{important_1}#伤害减半##且#{important_1}#下垂更快##。\n按住#{skill_color}#$BTN_FIRE##以拉弓，然后松开以射击。\n弓拉的越满，箭的飞行速度越高。\n\n按下#{skill_color}#$BTN_AIM##停止拉弓。\n\n箭矢在#{skill_color}#撞击时爆炸##，#{risk}#直接命中会多造成50%的判定为子弹的伤害##。",  --check --原版没改，估计是漏了吧
         ["bm_w_bow_exp_desc"] = "发射在撞击时#{risk}#爆炸##伤害半径#{skill_color}#2##米内所有敌人的箭矢。\n\n#{important_1}#箭矢的飞行速度降低，且无法回收##",
         ["bm_w_bow_light_poison_desc"] = "发射沾有#{stats_positive}#剧毒##的箭矢，在#{skill_color}#6##秒内造成#{stats_positive}#180##点伤害并有概率眩晕敌人。\n\n#{important_1}#箭矢的飞行速度略微降低##",
         ["bm_w_bow_heavy_poison_desc"] = "发射沾有#{stats_positive}#剧毒##的箭矢，在#{skill_color}#8##秒内造成#{stats_positive}#240##点伤害并有概率眩晕敌人。\n\n#{important_1}#箭矢的飞行速度略微降低##",
 
         ["bm_xbow_sc_desc"] = "弩箭可以#{skill_color}#捡起回收##。\n\n能够#{skill_color}#穿透护甲##。",
-        ["bm_xbow_exp_sc_desc"] = "弩箭在#{skill_color}#撞击时爆炸##，#{risk}#直击伤害和爆炸伤害分开计算##。",
+        ["bm_xbow_exp_sc_desc"] = "弩箭在#{skill_color}#撞击时爆炸##，#{risk}#直接命中会多造成50%的判定为子弹的伤害##。",
         ["bm_w_xbow_exp_desc"] = "发射在撞击时#{risk}#爆炸##伤害半径#{skill_color}#2##米内所有敌人的弩箭。\n\n#{important_1}#弩箭的飞行速度降低，且无法回收##",
         ["bm_w_xbow_light_poison_desc"] = "发射沾有#{stats_positive}#剧毒##的弩箭，在#{skill_color}#6##秒内造成#{stats_positive}#180##点伤害并有概率眩晕敌人。\n\n#{important_1}#弩箭的飞行速度略微降低##",
         ["bm_w_xbow_heavy_poison_desc"] = "发射沾有#{stats_positive}#剧毒##的弩箭，在#{skill_color}#8##秒内造成#{stats_positive}#240##点伤害并有概率眩晕敌人。\n\n#{important_1}#弩箭的飞行速度略微降低##",
 
         ["bm_airbow_sc_desc"] = "箭矢可以#{skill_color}#捡起回收##。\n\n能够#{skill_color}#穿透护甲##。",
-        ["bm_airbow_exp_sc_desc"] = "箭矢在#{skill_color}#撞击时爆炸##，#{risk}#直击伤害和爆炸伤害分开计算##。",
+        ["bm_airbow_exp_sc_desc"] = "箭矢在#{skill_color}#撞击时爆炸##，#{risk}#直接命中会多造成50%的判定为子弹的伤害##。",
         ["bm_w_airbow_poison_desc"] = "发射沾有#{stats_positive}#剧毒##的弩箭，在#{skill_color}#4##秒内造成#{stats_positive}#120##点伤害并有概率眩晕敌人。\n\n#{important_1}#弩箭的飞行速度略微降低##",
 
-        ["bm_40mm_weapon_sc_desc"] = "按下 $BTN_GADGET 切换到折叠瞄具。\n\n该瞄具视野限制在30m内。",
-        ["bm_rocket_launcher_sc_desc"] = "该武器造成的爆炸伤害能够#{skill_color}#秒杀敌人炮塔##。\n\n由于火箭弹非常笨重，#{important_1}#装弹时移速大幅度下降##。",
+        ["bm_40mm_weapon_sc_desc"] = "按下 $BTN_GADGET 切换到折叠瞄具。\n\n该瞄具视野限制在30m内。\n",
+        ["bm_rocket_launcher_sc_desc"] = "该武器造成的爆炸伤害能够#{skill_color}#秒杀敌人炮塔##，并且对非泰坦单位的熊能多造成#{skill_color}#500%##的伤害。\n\n由于火箭弹非常笨重，#{important_1}#装弹时移速大幅度下降##。",
         ["bm_quake_shotgun_sc_desc"] = "一次射击两个枪管，弹丸数量也翻倍。",
         ["bm_hx25_buck_sc_desc"] = "发射散布广的12颗弹丸。\n\n只受榴弹相关技能加成。",
         ["bm_auto_generated_sc_desc"] = "该武器属性为随机生成，可能无法被改装到一个完美平衡的状态。",
@@ -2258,7 +2537,6 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_auto_generated_sap_sc_desc"] = "该武器属性为随机生成，可能无法被改装到一个完美平衡的状态。\n\n可以#{skill_color}#穿透护甲，盾牌，泰坦盾牌及薄墙壁##。",
         ["bm_auto_generated_lmg_sc_desc"] = "该武器属性为随机生成，可能无法被改装到一个完美平衡的状态。\n\n装备该武器时，你的移速会减慢##25%##。",
         ["bm_auto_generated_mod_sc_desc"] = "该配件的属性将暂时被移除，直至自制配件的属性生成完毕。", -- The stats on this attachment have been removed until automatic custom attachment stat generation is finished.
-        -- ["bm_tranq_maxim_sc_desc"] = "使用镇静子弹随时间对敌人造成伤害并且是消音的。",
 
         -- Overhaul Content Indicators--
         ["loot_sc"] = "Restoration Overhaul",
@@ -2266,6 +2544,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["loot_sc_wcc_desc"] = "这是一件RESTORATION大修的物品! (需要WEAPON COLOR PACK 2)",
         ["loot_sc_ocp_desc"] = "这是一件RESTORATION大修的物品! (需要WEAPON COLOR PACK 3)",
         ["loot_sc_faco_desc"] = "这是一件RESTORATION大修的物品! (需要JIU FENG SMUGGLER PACK 1)",
+
+        -- Daring Stuff
+        ["loot_daring"] = "LR_Daring",
+        ["loot_daring_desc"] = "这是一件鹰姐添加或修改的物品！",
+        ["loot_sbkfc"] = "啃必啥",  --预备用
+        ["loot_sbkfc_desc"] = "这是一件啃屎龙的物品，，，",
 
         ["menu_l_global_value_omnia"] = "OMNIA",
         ["menu_l_global_value_omnia_desc"] = "这是一件OMNIA的物品!",
@@ -2287,7 +2571,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["menu_pistol_carbine"] = "卡宾手枪",
         ["menu_battle_rifle"] = "战斗步枪",
 
+
         -- Melee weapon descriptions (don't forget to call them in blackmarkettweakdata, not weapontweakdata) --
+
+        --之前就存在的
         ["bm_melee_swing_arc_1"] = "有#{skill_color}#较宽##的攻击范围。",
         ["bm_melee_swing_arc_2"] = "有#{skill_color}#很宽##的攻击范围。",
         ["bm_melee_swing_arc_3"] = "有#{skill_color}#宽广##的攻击范围。",
@@ -2305,21 +2592,21 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_melee_raiden_info"] = "你的手中并无\"#{risk}#正义之器##\"。\n\n完全蓄力时出刀速度加快#{skill_color}#50%##，允许快速进行后续挥砍。",
         ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全蓄力时出刀速度加快#{skill_color}#50%##，允许快速进行后续挥砍。",
         ["bm_melee_2077tkata_info"] = "这是一把纳米高热刀，其极致精髓体现了传统日本刀剑的威力，没有任何附加功能，也未做任何修改，唯有灼热的钢铁之力。\n\n完全蓄力后攻击可点燃敌人，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
-        ["bm_melee_buck_info"] = "对抗现代武器仍然十分有效。\n蓄力时减少#{skill_color}#25%##的远程伤害。", -- Buckler Shield
-        ["bm_melee_briefcase_info"] = "不管里面装的什么，手提箱自身有着惊人的弹性。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。", -- Briefcase
-        ["bm_melee_pitch_info"] = "用力叉，再用力叉！\n\n蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- Randal Pitchfork
-        ["bm_melee_charge_info"] = "蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法格挡敌人攻击##",
-        ["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害。此属性受到相关技能影响。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- ROAMING FR-
-        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害。此属性受到相关技能影响。\n\n#{important_1}#任何时候都无法格挡敌人攻击##", -- Kazaguruma
+        --["bm_melee_buck_info"] = "对抗现代武器仍然十分有效。\n蓄力时减少#{skill_color}#25%##的远程伤害。", -- Buckler Shield
+        --["bm_melee_briefcase_info"] = "不管里面装的什么，手提箱自身有着惊人的弹性。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。", -- Briefcase
+        ["bm_melee_pitch_info"] = "用力叉，再用力叉！\n\n蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害，此伤害可通过技能和天赋提升。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- Randal Pitchfork
+        ["bm_melee_charge_info"] = "蓄力向前冲锋对前方目标造成每#{skill_color}#0.4##秒#{skill_color}#45##点伤害。此属性受到相关技能影响。\n\n冲锋击中敌人时消耗#{important_1}#15%##的耐力；致命一击只消耗#{ghost_color}#10%##。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
+        --["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！杀戮吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- ROAMING FR-
+        ["bm_melee_ostry_info"] = "#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##", -- Kazaguruma
         ["bm_melee_wing_info"] = "配合伪装一起使用效果更佳。\n从背后攻击敌人造成#{skill_color}#4##倍伤害。", -- Wing Butterfly Knife
         ["bm_melee_switchblade_info"] = "暴力与致命是我的信条。\n从背后攻击敌人造成#{skill_color}#2##倍伤害。", -- Switchblade Knife
         ["bm_melee_chef_info"] = "不太确定能不能用来切超市的肉。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Psycho Knife
-        ["bm_melee_headless_sword_info"] = "梦魇打造的剑。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Headless Dozer Sword
-        ["bm_melee_goat_info"] = "\"它太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- im not gaj
+        --["bm_melee_headless_sword_info"] = "梦魇打造的剑。\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- Headless Dozer Sword
+        --["bm_melee_goat_info"] = "\"它太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。", -- im not gaj
         ["bm_melee_great_info"] = "试着去刺击，但穿了个洞。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。", -- Great Sword
         ["bm_melee_freedom_info"] = "十三条红白相间的条纹，一个蓝色的长方形，五十颗白色五角星，一捻爱国主义，两杯自由，以及一根断掉的旗杆。#{heat_warm_color}#看啊——你有一把致命的武器##。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##", -- Great Sword
-        ["bm_melee_Binary_Blade"] = "二进制之剑",
-        ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。",
+        --["bm_melee_Binary_Blade"] = "二进制之剑",
+        --["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n蓄力达到至少#{skill_color}#90%##时进行刺击，使攻击距离提高#{skill_color}#0.5m##。",
         ["bm_melee_nin_info"] = "#{skill_color}#发射距离很短但几乎立刻命中的钉子##，击杀仍然计入近战击杀数。", -- Pounder
         ["bm_melee_thebestweapon_info"] = "##{heat_warm_color}##游戏中最好的武器##，没有之一。",
         ["bm_melee_iceaxe_info"] = "爆头伤害增加#{skill_color}#50%##。", -- Icepick
@@ -2332,7 +2619,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_melee_spoon_gold_info"] = "吃光抹净，再来一碗！ \n有#{skill_color}#50%##的几率造成#{heat_warm_color}#120##点燃烧伤害并干扰敌人#{skill_color}#3##秒。", -- Gold Spoon
         ["bm_melee_fire_info"] = "有#{skill_color}#50%##的几率造成#{heat_warm_color}#120##点燃烧伤害并干扰敌人#{skill_color}#3##秒。",
         ["bm_melee_cqc_info"] = "毒素会在#{skill_color}#3##秒内造成#{skill_color}#120##点伤害并在#{skill_color}#4##秒内每半秒都有#{skill_color}#50%##的概率干扰敌人。", -- Kunai, Syringe
-        ["bm_melee_fight_info"] = "形意如水，朋友。\n格挡敌人攻击时可以造成#{skill_color}#120##点伤害。此属性受到相关技能影响。", -- Empty Palm Kata
+        ["bm_melee_fight_info"] = "形意如水，朋友。\n招架敌人攻击时可以造成#{skill_color}#120##点伤害。此属性受到相关技能影响。", -- Empty Palm Kata
         ["bm_melee_slot_lever_info"] = "中头彩！\n#{skill_color}#5%##的几率造成#{skill_color}#10##倍伤害并击倒敌人。",
         ["bm_melee_specialist_info"] = "双份匕首，双倍快乐。\n连续攻击时，第一次攻击之后的每次攻击都是#{skill_color}#双倍伤害##。\n", -- Specialist Knives, Talons, Knuckle Daggers, Push Daggers
         ["bm_melee_cleaver_info"] = "上砍雪花盖顶，下砍老树盘根。\n爆头伤害减少#{skill_color}#50%##，对身体和其他部分的伤害增加#{skill_color}#50%##。",
@@ -2341,7 +2628,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_melee_toyknife_info_desc"] = "#{risk}#与玩具M16和玩具1911一起装备可以让你获得138x5的能力！##",
         -- tra       
         -- Melee Weapons
-        ["bm_melee_twins"] = "Sai", -- Plural form is still "sai"  --tra what is this
+        ["bm_melee_twins"] = "十手钗", -- Plural form is still "sai" 
+        ["bm_melee_twins_info"] = "有时候，十手钗的受害者会在太晚时才意识到，这种武器是否锋利根本不重要。\n因为在短短几秒内，它就能让你失去手中那些锋利的武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#120##点伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#10##米内的敌人并对他们造成#{skill_color}#60##点基础伤害。",
 
 
         -- Toy Weapon
@@ -2350,24 +2638,670 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_w_toy1911"] = "玩具1911",
         ["bm_w_toy1911_desc"] = "\n#{risk}#与玩具M16和玩具刀一起装备可以让你获得138x5的能力！##",
 
-        -- CUSTOM MELEE WEAPONS
+        -- CUSTOM MELEE WEAPONS --
         ["bm_melee_toyknife"] = "玩具刀",
         ["bm_melee_qaxe"] = "Quake之斧", --Quake是一个老游戏，steam商店id为2210
         ["bm_melee_murasama"] = "高频村雨刀",  --游戏《合金装备崛起：复仇》中出现的一把太刀类武器
         ["bm_melee_dragon_slayer"] = "屠龙者",  --?
         ["bm_melee_therkatana"] = "热能武士刀",  --赛博朋克2077
         ["bm_melee_nepgearbutterfly"] = "CSGO蝴蝶刀",
+
+        --WHERE IS TITANFALL YOU FUCKS
         ["bm_melee_revenant_heirloom"] = "亡灵弯刀",
-        ["bm_melee_revenant_heirloom_info"] = "轻微蓄力下武器会使用末端进行快速刺击。\n\n至少进行#{skill_color}#25%##的蓄力后，武器会进行横扫斩击。",
+        --["bm_melee_revenant_heirloom_info"] = "轻微蓄力下武器会使用末端进行快速刺击。\n\n至少进行#{skill_color}#25%##的蓄力后，武器会进行横扫斩击。",  --老的
+        ["bm_melee_revenant_heirloom_info"] = "#{important_1}#\"You don't want to see this up close, skin bag.\"##",
+
         ["bm_melee_megumins_staff"] = "惠惠的法杖",
         ["bm_melee_megumins_staff_info"] = "完全蓄力后会释放一个#{heat_warm_color}#超强的爆炸##！！\n爆炸可以施于#{skill_color}#50##米内任意物体表面或目标身体上，#{risk}#无法施于空中##。\n\n#{important_1}#蓄力速度不受技能影响。\n随着蓄力时长增加，你的视觉会崩坏、耐力会减少、移动会变缓。\n成功发出爆炸后你会无视任何技能天赋效果直接倒地。##",
         ["menu_l_global_value_megumins_staff"] = "为美好的世界献上爆炸吧！",
 
+        --fishe
+        ["bm_melee_holy_mackerel_info"] = "#{item_stage_2}#Level 42 Fish##\n\nGetting hit by a fish has got to be humiliating.",
+
         ["bm_menu_weapon_bayonet_header"] = "刺刀加成：",
+        ["bm_menu_weapon_bayonet_secondary_header"] = "STATS FROM SECONDARY:",
         ["bm_menu_weapon_bayonet_damage"] = "\n  额外伤害：##+",
         ["bm_menu_weapon_bayonet_damage_base"] = "\n  —基础加成：##",
         ["bm_menu_weapon_bayonet_damage_skill"] = "\n  —技能加成：##+",
         ["bm_menu_weapon_bayonet_range"] = "\n  额外距离：##+",
+
+
+
+        -- Deepseek
+                ["bm_melee_pattern_knife"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+
+                ["bm_melee_pattern_knife2"] = "发动横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_clean"、"melee_grip" 和 "melee_agave"
+
+                ["bm_melee_pattern_ballistic"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫及下劈攻击。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_poker"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+
+                ["bm_melee_pattern_boxcutter"] = "发动横扫攻击。", -- 同样适用于 "melee_catch" 和 "melee_road"
+
+                ["bm_melee_pattern_shield"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+
+                ["bm_melee_pattern_briefcase"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发下劈攻击。", -- 修正拼写 briefcase
+
+                ["bm_melee_pattern_blunt"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。", -- 同样适用于 "melee_brick"、"melee_happy" 和 "melee_cleaver"
+                ["bm_melee_pattern_blunt_90"] = "发动下劈攻击，或充能至少#{skill_color}#90%##触发横扫攻击。",
+
+                ["bm_melee_pattern_beardy"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。侧移会影响充能攻击方向。",
+
+                ["bm_melee_pattern_axe"] = "发动下劈攻击。", -- 同样适用于 "melee_psycho" 和 "melee_pickaxe"
+
+                ["bm_melee_pattern_cutter"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+
+                ["bm_melee_pattern_great"] = "发动下劈攻击，侧移触发横扫攻击，或充能至少#{skill_color}#90%##触发延伸攻击距离的刺击。侧移可改变攻击方向。",
+                ["bm_melee_pattern_great_no_stab"] = "发动下劈攻击或侧移触发横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_cs"
+
+                ["bm_melee_pattern_katana"] = "发动斜劈攻击，或侧移触发横扫攻击。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_fist"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发勾拳。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_boxing"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发左勾拳或右上勾拳。侧移可改变攻击方向。",
+
+                ["bm_melee_pattern_tiger"] = "发动右刺拳攻击，或充能至少#{skill_color}#50%##触发左上勾拳或右勾拳。侧移会影响充能攻击方向。",
+
+                ["bm_melee_pattern_jab"] = "发动快速刺击。", -- 适用于仅含中心攻击判定的武器，如 "melee_pitchfork"、"melee_wing" 和 "melee_fight"
+
+        --URSA/USMC KA-BAR
+        ["bm_melee_kabar_info"] = "URSA战刀是自1942年沿用至今的耐用型格斗/多功能刀，坚不可摧。\n\n博伊刀身，锯齿刃口，实用至上。\n\n经典之作。",
+
+        --Krieger
+        ["bm_melee_kampfmesser_info"] = "德国联邦国防军制式战刀。该系列刀具严格遵循ISO标准制造，切削性能显著提升。\n\n近身格斗的优质选择。",
+
+        --Berger
+        ["bm_melee_gerber_info"] = "博格战术折刀配备回形刀尖，是广受欢迎的战术刀具。轻量化高科技材质造就了这把迅捷致命的利器。",
+
+        --Lambo
+        ["bm_melee_rambo_info"] = "重型博伊刀身的生存刀。其长度、锯齿刀背与中心刀尖设计，在荒野求生与近身搏斗中同样出色。",
+
+        --Tomahawk
+        ["bm_melee_tomahawk_info"] = "当分秒必争之际，你无暇纠结是否带对了劫案工具。\n无论门后或金库中暗藏何物，你需要一件如持械劫匪般专注果决的利器。",
+
+        --Becker Machete
+        ["bm_melee_becker_info"] = "专精劈砍、锤击、撬锁的多功能砍刀。\n无论是撬起顽固铰链、破拆门窗、砸碎展示柜，还是切断警用束线带，它都同样高效。",
+
+        --Baton
+        ["bm_melee_baton_info"] = "当前执法部门配备的最精密战术冲击武器。\n经顶尖联邦特勤队实测，其坚固性堪称无懈可击。",
+        ["bm_melee_happy_info"] = "乔伊的私人警棍——当代码失效时的最终解决方案。",
+
+        --Shovel
+        ["bm_melee_shovel_info"] = "K.L.A.S.铲适用于各类休闲用途。\n亦可作为凶器——以刃口劈骨断肉，或以平面将可怜虫锤入早墓。",
+
+        --MONEY MONEY MONEY
+        ["bm_melee_moneybundle_info"] = "大-把-大-把-的-钱！\n这念起来是什么？\n海量钞票！\n\n大概吧。\n\n亮出来！",
+
+        --Fists
+        ["bm_melee_fists_info"] = "你非拳击手，但仍能挥出漂亮重拳。\n只需力量、速度与时机把控，顷刻间便能击出致命一击。",
+
+        --& Knuckles
+        ["bm_melee_brass_knuckles_info"] = "指虎类武器已风行全球数百年。\n通过将冲击力集中于更硬更小的区域，它能显著提升组织破坏效率。力道够猛时，甚至能击碎骨骼。",
+
+        --Lucille
+        ["bm_melee_barbedwire_info"] = "我这烂人可没什么来世... 而我却在这儿... 跟根该死的棒球棍说话！\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Bayonet
+        ["bm_melee_bayonet_info"] = "坚固刺刀，本应装在步枪前端捅穿敌人躯干。\n\n但这想法太合理了。你肯定会把它当普通刀子用，对吧？",
+
+        --Bullseye
+        ["bm_melee_bullseye_info"] = "说实话我不知该作何评价——除非是疯子，否则没人会带这玩意儿打架吧？\n它是用来劈柴露营的，可不是抢银行的。\n\n对吧？",
+
+        --X46
+        ["bm_melee_x46_info"] = "X46采用局部锯齿博伊刀型设计，单块6英寸镀层A2钢锻造，配假刃刀尖。\n集成护手与破窗锥柄。\n多功能战地设计使其在战场与紧急情况下同样实用。",
+
+        --Gunther
+        ["bm_melee_dingdong_info"] = "大锤。\n攻城槌。\n撬棍。\n三者皆是劫匪快速破门的必备工具。\n叮咚锤将这三种功能紧密整合，如团队般无间协作。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Batshit insane
+        ["bm_melee_bat_info"] = "一根纯粹的棒球棍。\n\n本为运动设计，你却要拿它干更阴险的勾当。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Machete
+        ["bm_melee_machete_info"] = "你嗜好伤人，所以才用这把肮脏旧砍刀。\n裂开的伤口、粗暴斩断的肢体、敌人凄厉的惨叫，都是你的动力源泉。\n\n堪称残忍劫匪的终极武器。",
+
+        --Fireaxe
+        ["bm_melee_fireaxe_info"] = "你是否以伤人为乐？\n\n若果真如此，还有什么比用救生工具施暴更美妙！让受害者从你燃火的瞳孔中见证，你如何用一记快劈将他们从你自己手中'拯救'出来。",
+
+        --Briefcase
+        ["bm_melee_briefcase_info"] = "无论内藏何物，公文包本身惊人地坚固。\n\n蓄力时减少#{skill_color}#40%##的远程伤害。",
+        ["bm_melee_toast"] = "阿米尔的吐司",
+        ["bm_melee_toast_info"] = "饿了吗？\n\n蓄力时减少#{skill_color}#40%##的远程伤害。",
+
+        --KA-BAR Tanto
+        ["bm_melee_kabar_tanto_info"] = "受亚洲影响的短刀刀型，厚重刀尖专精穿刺。此刀为最严苛的任务而生。",
+
+        --UberHaxorNova
+        ["bm_melee_toothbrush_info"] = "塑料牙刷磨尖制成的临时刺刀，随时准备扎入下一个受害者的躯体。",
+
+        --Psycho Knife
+        ["bm_melee_chef_info"] = "不确定这刀是否切过超市的肉。\n\n完全充能攻击使#{skill_color}#12##米半径内敌人陷入恐慌。",
+
+        --Trench Knife
+        ["bm_melee_fairbair_info"] = "英国突击队钟爱的战壕刀，擅长造成撕裂伤。这款经典刀具至今仍在生产使用。",
+
+        --Swag
+        ["bm_melee_swagger_info"] = "发号施令、提升形象或单纯执行体罚！权杖是任何自重领袖的必备配饰。'血胆老将'曾随身携带，甚至在内藏了暗刃。",
+
+        --FREEDOM ISN'T FREE
+        ["bm_melee_freedom_info"] = "十三道红白相间的条纹，左上角蓝色矩形，五十颗白色小五角星，一撮爱国情怀，两杯自由精神，再加一根折断的旗杆。\n\n瞧——你得到了一件致命武器。",
+
+        --Hammer
+        ["bm_melee_hammer_info"] = "\"木匠之悦\"是夹克最爱的锤子。这把锤子是向讨厌之人施加重击的完美工具。\n\n锤子通常用于钉钉子、装配零件、锻造金属和拆解物品——这些功能夹克都不太在乎。",
+
+        --OVERKILL Boxing Gloves
+        ["bm_melee_boxing_gloves_info"] = "我没听到铃响。\n\n使用OVERKILL拳套击杀敌人可#{skill_color}#立即恢复耐力值。##",
+
+        --A stick of lies
+        ["bm_melee_shillelagh_info"] = "橡木棍的真实起源难以考证。谁能确定人类第一次捡起粗棍爆头的时刻？而橡木棍的演化也并未超越本质。有人珍视黑刺李木，也有人往棍头灌熔铅。\n\n归根结底，它终究是根能敲碎头骨的沉重凶棍。",
+
+        --Bottle
+        ["bm_melee_whiskey_info"] = "一瓶威士忌需通过诸多法规审核才能称为苏格兰威士忌。但瓶身硬度并非必要条件——这对邦妮无关紧要，空荡荡的里弗敦格伦酒瓶就是她最爱的近战武器。\n\n毋庸置疑，它让敌人因错误的原因头痛欲裂。",
+
+        --Dragan's Cleaver
+        ["bm_melee_meat_cleaver_info"] = "剁肉刀主要用于切割肉类与骨头，但其威力在于锤击式重劈，能撕裂最坚韧的肌体。此类刀具自古便被用于屠宰牲畜与人类。\n\n你将进行前者操作。\n\n爆头伤害降低#{important_1}#50%##，但提升对躯干与肢体的整体伤害。",
+
+        --Poker
+        ["bm_melee_poker_info"] = "带尖头的长铁棒本是拨弄余烬的器具，却也是制造混乱与极致痛苦的完美工具。\n\n若不信，向酒保点一杯'爱德华二世'便知。",
+
+        --Tenderizer
+        ["bm_melee_tenderizer_info"] = "虽设计初衷是软化坚韧肉排，但事实证明它同样擅长软化顽固条子。\n\n搭配荷兰酱风味更佳。",
+
+        --Fork
+        ["bm_melee_fork_info"] = "一车保龄球与一车死亡 bulldozer 有何区别？你没法用叉妈卸下一车保龄球。\n\n建议佐以胡椒调味。",
+
+        --Speng Bib
+        ["bm_melee_spatula_info"] = "双功能近战武器——既可拍扁条子铺满街道，亦可供他人铲走残骸。\n\n这次请多备张纸巾。",
+
+        --PIPPA NO
+        ["bm_melee_mining_pick_info"] = "山里可有金子！我们说的'山'其实是牙齿。但无论矿山或牙齿，没有什么比挥舞生铁尖镐更能快速掘金。\n\n爆头伤害提升#{skill_color}#50%##。",
+
+        --Ebay Seller
+        ["bm_melee_scalper_info"] = "对胜者而言，它是战争、权力与征服的象征。\n\n对败者而言，它代表一次极其糟糕的发型。",
+
+        --NAOW THIS IS A KNOIFE
+        ["bm_melee_bowie_info"] = "九英寸回形战斗钢刃。起源可溯至古典海盗时代，但真正令其声名大噪的是卡罗尔郡血斗（与十二名浴血壮汉）。",
+
+        --MY BRAND
+        ["bm_melee_branding_iron_info"] = "此物本用于在厚牛皮上烙标识记，但烧红的烙铁对付警官的细皮嫩肉更为有效。",
+
+        --Mic
+        ["bm_melee_microphone_info"] = "\"请对着麦克风清晰发言。\"",
+
+        --Mic Stand
+        ["bm_melee_micstand_info"] = "不妨连支架一起物尽其用。",
+
+        --Nighty Night
+        ["bm_melee_oldbaton_info"] = "#{stats_positive}#\"安全词是'警察暴力'！\"##",
+
+        --Metal Detector
+        ["bm_melee_detector_info"] = "你大概该让这玩意儿保持关机状态。",
+
+        --Croupier Rake
+        ["bm_melee_croupier_rake_info"] = "专为揽入钞票设计的工具？简直为劫匪量身打造！让那些讨厌的条子见识为何庄家永胜。",
+
+        --Switchblade Knife
+        ["bm_melee_switchblade_info"] = "为暴力而生，致命如左轮——这就是弹簧刀！\n\n背后攻击造成#{skill_color}#200%##伤害。",
+
+        --Slot Lever
+        ["bm_melee_slot_lever_info"] = "给我中头奖！\n\n有#{skill_color}#5%##几率造成#{skill_color}#10倍##伤害并击倒目标。",
+
+        --ZAP ZAP MOTHERFUCKER
+        ["bm_melee_taser_info"] = "向嚣张的电击枪实施甜蜜复仇。\n\n完全充能时触碰目标可触电并打断动作。",
+
+        --Kunai
+        ["bm_melee_cqc_info"] = "剧毒苦无只需一击便能放倒最强敌手。\n\n内含异域毒素，造成#{stats_positive}#120##点毒伤，并在#{skill_color}#4##秒内每#{skill_color}#0.5##秒进行#{skill_color}#50%##几率打断。",
+
+        --Tekko-Kagi
+        ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+        --Empty Palm Kata
+        ["bm_melee_fight_info"] = "形意如水，朋友。\n\n招架反击敌人攻击时对其造成#{skill_color}#240##点伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#15##米内的敌人并对他们造成#{skill_color}#100##点基础伤害。",
+
+        --Katana
+        ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_raiden_info"] = "在你手中，这绝非#{important_1}#\"正义之器\"##。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
+        ["bm_melee_2077tkata_info"] = "纳米加热刀锋。\n武士刀最纯粹的精髓，无附加，无改装，唯有炽热钢刃。\n\n完全充能攻击#{heat_warm_color}#点燃敌人##，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
+
+        --Ayy L-Maul
+        ["bm_melee_alien_maul_info"] = "纪念Alienware Alpha发布的战锤。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Beardy
+        ["bm_melee_beardy_info"] = "维京人从异教北境的黑暗森林崛起，自冰岛至伊斯坦布尔留下血腥毁灭之路。\n他们的武器正是双手持握的宽刃战斧。",
+
+        --Morningstar
+        ["bm_melee_morning_info"] = "若尖刺的深创未能致命，钝头的毁灭性冲击必将补刀。\n此武器曾在中世纪战场留下遍地残躯。\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Greatsword
+        ["bm_melee_great_info"] = "#{item_stage_2}#\"试试突刺攻击，前方有洞\"##\n\n威廉·华莱士扬名的巨剑。\n六英尺寒锋藏于税吏人皮缝制的剑鞘。\n\n这才叫反抗权威！",
+        ["bm_melee_Binary_Blade"] = "二进制之剑",
+        ["bm_melee_jebus_info"] = "#{item_stage_2}#明暗双生##，#{stats_positive}#黑白两道##，#{important_1}#生死分明##！\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及！",
+        -- Halloween Dozer Sword
+        ["bm_melee_halloween_sword"] = "无头熊之剑",
+        ["bm_melee_headless_sword_info"] = "梦魇锻铸之剑。\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_titham"] = "无头熊之锤",
+        ["bm_melee_titan_hammer_info"] = "梦魇锻铸之锤。\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_goat_info"] = "\"它实在是太大了，以至于不能称之为剑。巨大、厚实、沉重而又粗野。的确，它就好像一堆生铁。\"\n\n完全蓄力时命中敌人会在附近#{skill_color}#12##米内#{skill_color}#散播恐慌##。",
+        ["bm_melee_zweihander"] = "焰型巨剑",
+        ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"有本事挡住这个\"##\n\n一柄巨大的双手剑，与其说是剑，不如称之为长柄武器。\n\n招架反击敌人攻击时对其造成#{skill_color}#360##近战伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#25##米内的敌人并对他们造成#{skill_color}#200##点基础伤害。",
+        ["bm_melee_broad"] = "长剑",
+        ["bm_melee_broad_info"] = "骑士的标志性武器。",
+
+        --Buckler Shield
+        ["bm_melee_buck_info"] = "在行家手中，小圆盾既是防具亦是凶器。\n缚于前臂猛击敌人，其力道足以震飞对方马裤。\n\n蓄力时减少#{skill_color}#25%##的远程伤害。",
+
+        --Bolt cutters
+        ["bm_melee_cutters_info"] = "你偏好的连环杀手需要的不仅是斧头、小刀或剃刀手套。\n他们需要断线钳悄无声息地进入你认为锁闭的区域。\n\n进入你自以为安全的所在...",
+
+        --Natsumi
+        ["bm_melee_boxcutter_info"] = "看似实用工具，但这把刀既能切开真空密封的坚固包装箱，也必能破开条子裹着的任何护甲。",
+
+        --Selfie
+        ["bm_melee_selfie_info"] = "如霍斯顿所言：\"看那个举自拍杆的蠢货。真是傻缺。不过应该挺结实。知道吗，我该抢过来抽他脸。去去就回...\"",
+
+        --Lara
+        ["bm_melee_iceaxe_info"] = "攀越天使瀑布湿滑岩壁时，你需要能凿入硬岩的工具；在华盛顿抢银行时，你需要能凿穿警盔的利器。\n\n爆头伤害提升#{skill_color}#50%##。",
+        ["bm_melee_iceaxe_gen_info"] = "爆头伤害提升#{skill_color}#50%##。",
+
+        --Dive
+        ["bm_melee_pugio_info"] = "至简至强。无论割喉断命，还是解救缠网海豚，它使命必达。当您踏浪而来时，胯侧此刃尽显锋芒。",
+
+        --Gator
+        ["bm_melee_gator_info"] = "据说人类断食可活三周，断水能撑三日，但在险境中若无利刃傍身，三小时都难以为继。",
+
+
+        --Pitch fork
+        ["bm_melee_pitch_info"] = "双叉戟、三叉戟有何区别？本质都是草叉。既然波塞冬与路西法都用得，我们亦然。\n\n向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+        ["bm_melee_number_3_info"] = "\"若你愿为理想杀戮，必已准备好为之赴死！\"\n\n向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+        ["bm_melee_charge_info"] = "向前冲刺将发动冲锋，每#{skill_color}#0.4##秒对前方目标造成#{skill_color}#45##点伤害（可随技能提升）。\n\n冲锋中击中敌人消耗#{important_1}#15%##最大耐力；击杀返还#{skill_color}#10%##。\n\n#{important_1}#无法招架敌人攻击（包括非冲锋状态）##",
+
+        --BONK
+        ["bm_melee_scoutknife_info"] = "莫让锈迹斑驳的外表蒙蔽双眼。刀终归是刀——有人说老刀如陈酿（大概没人真这么说过）。试试便知，万物皆会流血。",
+
+        --Shears
+        ["bm_melee_shawn_info"] = "可知剪羊毛亦是运动？或许我们该创新运动：剪条子？不行？为何？罢了... 随你使用便是...",
+
+        --Crook
+        ["bm_melee_stick"] = "牧羊杖",
+        ["bm_melee_stick_info"] = "劫案漫长疲惫？欲显智者风范？或想砸烂警脸？牧羊杖皆可胜任。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+
+        --Pounder Nailgun
+        ["bm_melee_nin_info"] = "狼最爱的'重击者'钉枪。\n\n当人们问及名称，狼总会纠正为'玩笑者'（Punder），随即咆哮：\"正中靶心！\"\n\n发射射程短且瞬发的钉子，仍计为近战击杀。",
+        ["bm_melee_thebestweapon_info"] = "#{stats_positive}#游戏最强武器。##",
+
+        --Ballistic Knives
+        ["bm_melee_ballistic_info"] = "吉米绝非'少即是多'的信徒，故携此双生专家战刃。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+        --ALSO ZAP ZAP MOTHERFUCKER
+        ["bm_melee_zeus_info"] = "自制电击指虎，完全充能时触碰目标可触电并打断动作。",
+
+        --Wing Butterfly Knife
+        ["bm_melee_wing_info"] = "与伪装套件绝配！\n\n背后攻击造成#{skill_color}#400%##伤害。",
+
+        --PICKLE
+        ["bm_melee_road_info"] = "拉斯汀独爱链鞭——这位老派痛苦器具的拥趸。\n\n此链鞭购于五金店（非偷窃），他认为如此重要的工具值得花钱。当它呼啸着抽过又一张面庞时，自携别致格调。",
+
+        --ROAMING FROTHING MADNESS
+        ["bm_melee_cs_info"] = "#{heat_warm_color}#撕裂吧！杀戮吧！毁灭吧！##\n\n蓄力时对你面前的敌人每#{skill_color}#0.25##秒造成#{skill_color}#30##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
+
+        --WHERE'S THE LEAK MA'AM?
+        ["bm_melee_shock_info"] = "\"请您行个方便...\"",
+
+        --YOU KNOW WHEN THAT HOTLINE RING
+        ["bm_melee_brick_info"] = "注意——这非普通电话，而是#{stat_maxed}#热线## #{skill_color}#8000X##，80年代通讯巅峰之作。\n\n喂，哪位？\n致电只为说...\n\n我恨你。",
+
+        --OMG IT SPINS
+        ["bm_melee_ostry_info"] = "\n#{heat_warm_color}#车专 口阿 车专 口阿 车专##\n\n蓄力时对你面前的敌人每#{skill_color}#0.18##秒造成#{skill_color}#18##点伤害，此伤害可通过技能和天赋提升。\n\n#{important_1}#任何时候都无法招架敌人攻击##",
+
+        --Pencil
+        ["bm_melee_sword"] = "铅笔",
+        ["bm_melee_sword_info"] = "\"约翰是专注、执着、意志如钢之人... 这些品质你鲜少具备。\n\n我曾见他在酒吧用铅笔杀三人...\n\n用他妈的一支铅笔。\"",
+
+        --Russian Machete
+        ["bm_melee_oxide_info"] = "突破性设计造就可靠近战武器。需在茂密丛林发挥砍刀功能，亦需在营地胜任刀具工作，还要处理驻军劳务。\n\n适用于坠机飞行员、野战士兵等需优质野战刀者。",
+
+        --Another Machete
+        ["bm_melee_agave_info"] = "对毒枭而言，夺命不仅是杀戮——更是威慑。需在目击者心中烙下印记。桑格雷斯的砍刀由此登场。携此凶器者，多半疯狂到真会使用。\n\n桑格雷斯命名其刀为'行刑者'——名器相配。",
+
+        --Alabama Razor
+        ["bm_melee_clean_info"] = "给条子们来次极致净剃体验。\n\n造成#{skill_color}#120##点流血伤害，持续#{skill_color}#3##秒。",
+
+        --Kento's Tanto
+        ["bm_melee_ohwell_info"] = "与武士刀并列，短刀是所有武士的核心装备。\n\n此刀属健斗所有，然其来源成谜。",
+
+        --Spoon
+        ["bm_melee_spoon_info"] = "不过一勺的量，对吧？\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        --Gold Spoon
+        ["bm_melee_spoon_gold_info"] = "吃干抹净！吃干抹净！\n\n#{skill_color}#50%##几率造成#{heat_warm_color}#120##点火焰伤害并#{skill_color}#打断##敌人，持续#{skill_color}#3##秒。",
+        ["bm_melee_fire_info"] = "#{skill_color}#50%##几率造成#{heat_warm_color}#120##点火焰伤害并#{skill_color}#打断##敌人，持续#{skill_color}#3##秒。",
+
+        --ADOBE FALSH(LITE)
+        ["bm_melee_aziz_info"] = "\"我并非真要建避难所，但买了成吨罐头和饮水，还有这崭新闪光灯。因当世界陷入黑暗，你需光源支撑——否则活不过一小时。我保证！\"",
+
+        --Chac
+        ["bm_melee_chac_info"] = "执此沙锤踏节而舞，来场字面意义的颅骨摇摆。",
+
+        --Sap
+        ["bm_melee_sap_info"] = "皮拍乃绅士之兵。\n\n轻拍敌首便能放倒目标。公爵挥击时兼具优雅与暴戾，时常用力过猛造成额外伤害。\n\n故而慎用——或不必。",
+
+        --Hockey Stick
+        ["bm_melee_hockey_info"] = "精工木制球棍。既能将冰球击入网窝，亦能狠狠砸碎满口白齿。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续打击。",
+
+        --Ruler
+        ["bm_melee_meter_info"] = "本双头巨尺乃吾辈最大之作。莫被尺寸迷惑——此非凡量器毫无笨拙之态。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续打击。",
+
+        --Hooked
+        ["bm_melee_catch_info"] = "钩乃可靠工具，绝非火箭科学。原木握柄配刚钩看似朴素，却注定掀起腥风血雨。\n\n用途仅受限于你扭曲的想象：钩穿敌喉或拖拽残躯？\n\n锋芒所向，携凶入场。",
+
+        --Syringe
+        ["bm_melee_watson_info"] = "\"只疼一下就好，好吗？\"\n\n内含未知合剂，造成#{stats_positive}#120##点毒伤，并在#{skill_color}#4##秒内每#{skill_color}#0.5##秒进行#{skill_color}#50%##几率打断。",
+
+        --That oinky sploinky
+        ["bm_melee_piggy_hammer_info"] = "呼噜。\n\n对特殊与精英敌人伤害提升#{skill_color}#100%##，成功命中时触发以下#{risk}#随机效果##之一：\n-#{skill_color}#12%##几率造成#{important_1}#流血##\n-#{skill_color}#7%##几率#{ghost_color}#电击麻痹##\n-#{skill_color}#5%##几率造成#{stats_positive}#中毒##\n-#{skill_color}#1%##几率#{risk}#即死##", --Piggu
+
+        --Knuckle Daggers, Push Daggers
+        ["bm_melee_specialist_info"] = "双倍刃锋，双倍欢愉。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+
+
+
+        --[[新的 --tra
+                ["bm_melee_pattern_knife"] = "Attack with quick jabs or charge up by at least #{skill_color}#50%## for wider swings.",
+
+                ["bm_melee_pattern_knife2"] = "Attack with wide swings. Strafing influences attack direction.", --Also works with "melee_clean", "melee_grip" and "melee_agave"
+
+                ["bm_melee_pattern_ballistic"] = "Attack with quick jabs or charge up by at least #{skill_color}#50%## for wide swings and downward strikes. Strafing influences attack direction.",
+                ["bm_melee_pattern_poker"] = "Attack with downward strikes or charge up by at least #{skill_color}#50%## to perform range extending jabs.",
+
+                ["bm_melee_pattern_boxcutter"] = "Attack with wide swings.", --Also works with "melee_catch" and "melee_road"
+
+                ["bm_melee_pattern_shield"] = "Attack with forward strikes or charge up by at least #{skill_color}#50%## for wide swings.",
+
+                ["bm_melee_pattern_briefcsae"] = "Attack with forward strikes or charge up by at least #{skill_color}#50%## for downward swings.",
+
+                ["bm_melee_pattern_blunt"] = "Attack with downward strikes or charge up by at least #{skill_color}#50%## for wide swings.", --Also works with "melee_brick", "melee_happy" and "melee_cleaver"
+                    ["bm_melee_pattern_blunt_90"] = "Attack with downward strikes or charge up by at least #{skill_color}#90%## for wide swings.",
+
+                ["bm_melee_pattern_beardy"] = "Attack with downward strikes or charge up by at least #{skill_color}#50%## for wide swings. Strafing influences charged attack direction.",
+
+                ["bm_melee_pattern_axe"] = "Attack with downward strikes.", --Also works with "melee_psycho" and "melee_pickaxe"
+
+                ["bm_melee_pattern_cutter"] = "Attack with downward strikes or charge up by at least #{skill_color}#50%## to perform range extending jabs.",
+
+                ["bm_melee_pattern_great"] = "Attack with downward strikes, strafe for wide swings or charge up by at least #{skill_color}#90%## to perform range extending jabs. Strafing influences attack direction.",
+                    ["bm_melee_pattern_great_no_stab"] = "Attack with downward strikes or strafe for wide swings. Strafing influences attack direction.", -- Also works for "melee_cs"
+
+                ["bm_melee_pattern_katana"] = "Attack with diagonal strikes or strafe for wide swings. Strafing influences attack direction.",
+
+                ["bm_melee_pattern_fist"] = "Attack with quick jabs or charge up by at least #{skill_color}#50%## to perform a hook. Strafing influences attack direction.",
+
+                ["bm_melee_pattern_boxing"] = "Attack with quick jabs or charge up by at least #{skill_color}#50%## to perform a left hook or a right uppercut. Strafing influences attack direction.",
+
+                ["bm_melee_pattern_tiger"] = "Attack with right jabs or charge up by at least #{skill_color}#50%## to perform a left uppercut or a right hook. Strafing influences charged attack direction.",
+
+                ["bm_melee_pattern_jab"] = "Attack with quick jabs.", --For anything that basically only has centered hitboxes like "melee_pitchfork", "melee_wing" and "melee_fight"
+
+        --URSA/USMC KA-BAR
+        ["bm_melee_kabar_info"] = "The URSA Knife is a hard wearing, indestructible fighting/utility knife dating back to 1942.\n\nBowie blade, serrated edge, no nonsense.\n\nA Classic.",
+        --Krieger
+        ["bm_melee_kampfmesser_info"] = "The official combat knife of the German Bundeswehr Armed Forces. This series of knives are manufactured to exacting ISO standards with substantially improved cutting edge capacity.\n\nGood choice for CQC.",
+        --Berger
+        ["bm_melee_gerber_info"] = "The Berger Combat Knife is a popular tactical knife with a folding clip point blade. Compact, light and high-tech materials makes for a fast and dangerous tool.",
+        --Lambo
+        ["bm_melee_rambo_info"] = "A survival knife with a heavy bowie blade. The length, sawtooth spine and centered tip works just as well in the wilderness as it does in close combat.",
+
+        --Tomahawk
+        ["bm_melee_tomahawk_info"] = "When you're in a situation where time is of the essence, you can't waste time wondering if you have the right tool for the heist.\nNo matter what's on the other side of that door or vault, you want a tool with the same single-minded determination as the robber wielding it.",
+        --Becker Machete
+        ["bm_melee_becker_info"] = "A specialized machete that smashes, bashes, prys, hammers and cuts.\nIt is equally powerful at lifting stubborn hinge pins, prying open doors or windows, and hammering out display cases as it is efficient at cutting police cable ties.",
+        --Baton
+        ["bm_melee_baton_info"] = "The most tactically sophisticated impact weapon currently available to law enforcement.\nTested by the most elite federal teams, it has proven itself virtually indestructible.",
+            ["bm_melee_happy_info"] = "Joy's personal baton, for when code isn't enough.",
+        --Shovel
+        ["bm_melee_shovel_info"] = "The K.L.A.S. can be used for a variety of recreational purposes.\nIt can also be used as a weapon - use the edges and you'll be cutting through flesh and bone or use the flat to bludgeon some poor S.O.B. into an early grave.",
+
+        --MONEY MONEY MONEY
+        ["bm_melee_moneybundle_info"] = "L-O-D-S OF E-M-O-N-E\nWhat's that spell?\nLOADSAMONEY!\n\nProb'ly.\n\nWOP IT OUT!",
+        --Fists
+        ["bm_melee_fists_info"] = "You're no boxer, but you can still throw a pretty good punch.\nAll it takes is some strength, speed and timing and you'll land a striking blow in no time.",
+        --& Knuckles
+        ["bm_melee_brass_knuckles_info"] = "Knuckle style weapons have been used all over the world for hundreds of years.\nBrass knuckles concentrate the punch's force by directing it towards a harder and smaller area, increasing the chanecs of tissue disruption. Hit hard enough and you'll even fracture some bones.",
+
+        --Lucille
+        ["bm_melee_barbedwire_info"] = "There's no afterlife waiting for my sorry ass... and I'm just here... talking to a fucking baseball bat!\n\nDeals #{skill_color}#120## bleed damage over #{skill_color}#3## seconds.",
+
+        --Bayonet
+        ["bm_melee_bayonet_info"] = "A rugged bayonet, meant for mounting on the end of your rifle and thrusting it into the bodies of your foes.\n\nDoing that makes sense though. You'll just use it like a regular knife, won't you?",
+        --Bullseye
+        ["bm_melee_bullseye_info"] = "I don't even know what to say to be honest - this is not something you would bring to a fight unless you were some kind of psycho, right?\nI mean, this is intended for chopping logs and going camping, not robbing banks.\n\nRight?",
+        --X46
+        ["bm_melee_x46_info"] = "The X46 is a single 6\" piece of coated A2 steel in a partially serrated bowie blade configuration with a false top edge.\nIntergrated guard and glass breaker pommel tip.\nThe multi-purpose field design of this knife makes it as useful on the battlefield as it is in an emergency.",
+        --Gunther
+        ["bm_melee_dingdong_info"] = "A sledgehammer.\nA battering ram.\nA pry bar.\nAll three are essential breaching tools for heisters who need to get through doors quickly.\nThe Ding Dong combines these three tools into one package as tight as the crew.\n\nFully charged attacks come out #{skill_color}#25%## faster, allowing for a faster follow-up strike.",
+
+        --Batshit insane
+        ["bm_melee_bat_info"] = "A baseball bat, no more, no less.\n\nMeant for use in sport, you'll be using it for something much more sinister.\n\nFully charged attacks come out #{skill_color}#25%## faster, allowing for a faster follow-up strike.",
+        --Machete
+        ["bm_melee_machete_info"] = "You like hurting people, that's why you use this dirty, old machete.\nGaping wounds, crudely hacked-off limbs and the blood curdling screams of your enemies keep you going.\n\nTruly the weapon of a cruel, cruel heister.",
+        --Fireaxe
+        ["bm_melee_fireaxe_info"] = "Do you like hurting other people?\n\nIf you do, what better way to do it than with something intended to save lives! Show your victims the fire in your eyes as you save them from yourself in one quick chop.",
+        --Briefcase
+        ["bm_melee_briefcase_info"] = "Whatever may be inside, the briefcase itself is shockingly resilient.\n\nReduces incoming ranged damage by #{skill_color}#10%## while charging.",
+            --Toasty
+            ["bm_melee_toast"] = "Almir's Toast",
+            ["bm_melee_toast_info"] = "Are ya hungry?\n\nReduces incoming ranged damage by #{skill_color}#10%## while charging.",
+
+        --KA-BAR Tanto
+        ["bm_melee_kabar_tanto_info"] = "The Tanto blade shape, of Asian influence, has a thick pointed blade that's good for penetration. This knife is designed for the toughest of tasks.",
+
+        --UberHaxorNova
+        ["bm_melee_toothbrush_info"] = "A small plastic toothbrush, sharpened into a make-shift shiv, ready to be driven into your next victim.",
+
+        --Psycho Knife
+        --["bm_melee_chef_info"] = "Whether you're an angry heister or a psycho bank robber, this hot-forged, laser sharpened chef knife in fine, stainless molybdenum steel will serve you for years.\n\nBy the way, did you know that the traditional chef's knife was originally intended to slice and disjoint large cuts of flesh?\n\nFully charged hits spread panic in a #{skill_color}#12## meter radius around you.",
+        ["bm_melee_chef_info"] = "Not sure if this was used for chopping meat from the supermarket.\n\nFully charged hits spread panic in a #{skill_color}#12## meter radius around you.",
+
+        --Trench Knife
+        ["bm_melee_fairbair_info"] = "A favorite among British Commandos, the Trench Knife is great at inflicting slashing cuts. A very popular knife, it remains in use and production today.",
+        --Swag
+        ["bm_melee_swagger_info"] = "Issue commands, improve your public image or simply use it to administer corporeal punishment! The Swagger Stick is a must have accessory for any self-respecting leader. Old Blood and Guts carried one and his even had a hidden blade.",
+        --FREEDOM ISN'T FREE
+        ["bm_melee_freedom_info"] = "Thirteen stripes of red alternating with white, a blue rectangle in the canton, fifty small, white, five-pointed stars, a pinch of patriotism, two cups of freedom and a broken flag pole.\n\nVoilà - you have yourself a deadly weapon.",
+        ["bm_melee_hammer_info"] = "The \"Carpenter’s Delight\" is Jacket’s favorite hammer. The hammer is the perfect tool to deliver blunt blows to people you don’t like.\n\nThe most common uses for hammers are to drive nails, fit parts, forge metal, and break apart objects, none of which Jacket cares for particularly much.",
+
+        --OVERKILL Boxing Gloves
+        ["bm_melee_boxing_gloves_info"] = "I didn't hear no bell.\n\nKills performed with the OVERKILL Boxing Gloves #{skill_color}#instantly refill your stamina.##",
+
+        --A stick of lies
+        ["bm_melee_shillelagh_info"] = "It's hard to determine the true origins of the shillelagh. How can you pinpoint the first time someone picked up a stout stick and brained someone else with it? And the shillelagh really hasn't evolved too much beyond that. Some prize blackthorn wood, while some might fill the head with molten lead.\n\nAt the end of the day, it really is just a bloody heavy stick that cracks skulls.",
+
+        --Bottle
+        ["bm_melee_whiskey_info"] = "There are several rules and regulations that a bottle of whiskey has to go through in order to be called a scotch whiskey. Having a hard bottle isn’t necessarily one of them, but that matters little to Bonnie, who sees an empty Rivertown Glen bottle as her favorite melee weapon.\n\nNeedless to say, it gives her enemies headaches for all the wrong reasons.",
+
+        --Dragan's Cleaver
+        ["bm_melee_meat_cleaver_info"] = "The cleaver is a kind of knife primarily used for cutting through meat and bone, but rather than using precise cuts the cleaver delivers powerful hammer-like blows that rend even the most durable flesh. Cleavers have a long history of butchering human beings as well as livestock.\n\nYou'll be doing the former.\n\nDeals #{important_1}#50%## less headshot damage in exchange for increased overall effectiveness against the body and limbs.",
+
+        --Poker
+        ["bm_melee_poker_info"] = "A long piece of iron with a pointy end is a fine implement for tending to smoldering embers, but it is also the perfect implement for causing havoc and extreme discomfort.\n\nIf you don’t believe us, ask your server for an ‘Edward II’.",
+        --Tenderizer
+        ["bm_melee_tenderizer_info"] = "While it was mainly designed for softening and flattening tough strips of steak, it has also proven useful for softening and flattening tough strips of cop.\n\nGoes great with a light hollandaise.",
+        --Fork
+        ["bm_melee_fork_info"] = "What’s the difference between a truckload of bowling balls and a truckload of dead dozers? You can’t unload a truckload of bowling balls with the Motherforker.\n\nEnjoy with pepper seasoning.",
+        --Speng Bib
+        ["bm_melee_spatula_info"] = "A melee weapon with a dual purpose – use it to smear a cop all across the road, and then let others use it to scoop up their remains.\n\nTake an extra napkin for this one.",
+
+        --PIPPA NO
+        ["bm_melee_mining_pick_info"] = "There's gold in 'dem 'der hills! And by hills we mean teeth. But, hills or teeth, nothing digs the gold out faster than a swinging spike of pig iron.\n\nDeals #{skill_color}#50%## more headshot damage.",
+        --Ebay Seller
+        ["bm_melee_scalper_info"] = "For the victor, it is the symbol of war, of power and of dominance.\n\nFor the loser, it is the symbol of a really, really bad haircut.",
+        --NAOW THIS IS A KNOIFE
+        ["bm_melee_bowie_info"] = "Nine inches of clip-point fighting steel. It's origins lie in the age of the classic pirate, but it was the famous Brawl of Carroll County (and a dozen bloodied men) that brought it wide-spread fame",
+        --MY BRAND
+        ["bm_melee_branding_iron_info"] = "It may have been designed to mark the thick hides of cattle for identification, but fire-heated iron is even more effective against the soft flesh of a deputy or marshall.",
+
+        --Mic
+        ["bm_melee_microphone_info"] = "\"Please speak clearly into the microphone.\"",
+        --Mic Stand
+        ["bm_melee_micstand_info"] = "Might as well use the stand the microphone came with.",
+        --Nighty Night
+        ["bm_melee_oldbaton_info"] = "#{stats_positive}#\"THE SAFEWORD IS 'POLICE BRUTALITY'!\"##",
+        --Metal Detector
+        ["bm_melee_detector_info"] = "You should probably leave this thing turned off.",
+
+        --Croupier Rake
+        ["bm_melee_croupier_rake_info"] = "An item for the sole use of pulling currency in? Perfect for you heisters! Show those pesky cops exactly why the house always wins.",
+        --Switchblade Knife
+        ["bm_melee_switchblade_info"] = "Designed for violence, deadly as a revolver - that's the switchblade!\n\nDeals #{skill_color}#200%## damage when attacking enemies from behind.",
+        --Slot Lever
+        ["bm_melee_slot_lever_info"] = "GIMME A JACKPOT!\n\nHas a #{skill_color}#5%## chance to deal #{skill_color}#10x## times the damage and knockdown.",
+        --ZAP ZAP MOTHERFUCKER
+        ["bm_melee_taser_info"] = "Exact sweet, electifiying revenge againsts those smug Tasers.\n\nElectrocutes and interrupts targets on touch when fully charged.",
+
+        --Kunai
+        ["bm_melee_cqc_info"] = "Even the mightiest of opponents will fall when touched a single time by this poison dipped Kunai Knife.\n\nContains an exotic poison that deals #{stats_positive}#120## poison damage and carries a #{skill_color}#50%## chance to interrupt every #{skill_color}#0.5## seconds over #{skill_color}#4## seconds.",
+
+        --Tekko-Kagi
+        ["bm_melee_tiger_info"] = "Originally used to scale walls and trees, these sharp claws swiftly turned into weapons when whoever wielded them was discovered.\n\nMelee attacks deal #{skill_color}#2x## damage every hit after the first while drawn.",
+        --Empty Palm Kata
+        ["bm_melee_fight_info"] = "Be water, my friend.\n\nParrying an enemy attack deals #{skill_color}#120## melee damage to them. This can be increased with skills.",
+        --Katana
+        ["bm_melee_katana_info"] = "The Shinsakuto-Katana is a masterpiece, but also freshly forged. It has not tasted blood and has no real heritage or history. It is simply waiting for a wielder with which to create that.\n\nFully charged attacks come out #{skill_color}#50%## faster, allowing for a faster follow-up slash.",
+            ["bm_melee_raiden_info"] = "This is no #{important_1}#\"tool of justice\"## in your hands.\n\nFully charged attacks come out #{skill_color}#50%## faster, allowing for a faster follow-up slash.",
+            ["bm_melee_thejobissnotyours_info"] = "This isn't even your sword.\n\nFully charged attacks come out #{skill_color}#50%## faster, allowing for a faster follow-up slash.",
+            ["bm_melee_2077tkata_info"] = "Nano filament heated blade.\nThe purest essence of a katana, no add-ons, no modifications, only ripping hot steel.\n\nFully charged attacks #{heat_warm_color}#set enemies on fire,## dealing #{heat_warm_color}#120## fire damage over #{skill_color}#3## seconds.",
+
+        --Ayy L-Maul
+        ["bm_melee_alien_maul_info"] = "A hammer made to commemorate the launch of the Alienware Alpha.\n\nFully charged attacks come out #{skill_color}#25%## faster, allowing for a faster follow-up strike.",
+
+        --Beardy
+        ["bm_melee_beardy_info"] = "The Vikings emerged from the dark forests of the pagan North, and left a bloody trail of destruction from Iceland to Istanbul.\nTheir weapon was the two-handed bearded axe.",
+        --Morningstar
+        ["bm_melee_morning_info"] = "If the deep punctures from the spikes don't kill you, the catastrophic trauma from the blunt head certainly will.\nThis weapon left a swathe of mangled bodies on the medieval battlefield.\n\nDeals #{skill_color}#120## bleed damage over #{skill_color}#3## seconds.",
+        --Greatsword
+        ["bm_melee_great_info"] = "#{item_stage_2}#\"Try thrusting attack, but hole.\"##\n\nThe sword made famous by William Wallace.\nSix feet of razor-sharp steel, it was carried in a scabbard made from the skin of a tax-man.\n\nHow's that for sticking it to the authorities?",
+            --Jebus
+            ["bm_melee_jebus_info"] = "Light and #{item_stage_2}#dark##\n#{item_stage_2}#Black## and white.\n#{stats_positive}#Life## and #{important_1}#death##\n\nThe Binary Sword holds no middle ground as it turns your opponents #{important_1}#OFF##",
+            --Headless Dozer Sword
+            ["bm_melee_headless_sword_info"] = "A sword forged from nightmares.\n\nFully charged hits spread panic in a #{skill_color}#12## meter radius around you.",
+                --Headless Dozer Hammer
+                ["bm_melee_titham"] = "Headless Bulldozer's Hammer",
+                ["bm_melee_titan_hammer_info"] = "A hammer forged from nightmares.\n\nFully charged hits spread panic in a #{skill_color}#12## meter radius around you.",
+                --im not gaj
+                ["bm_melee_goat_info"] = "\"It was too big to be called a sword. Massive, thick, heavy, and far too rough. Indeed, it was like a heap of raw iron.\"\n\nFully charged hits spread panic in a #{skill_color}#12## meter radius around you.",
+            --Wt ring u got bithc?
+            ["bm_melee_zweihander"] = "Flammenschwert",
+            ["bm_melee_zweihander_info"] = "#{heat_warm_color}#\"Parry this.\"##\n\nA massive two-handed blade that's more akin to a polearm than a sword.\n\nParrying an enemy attack deals #{skill_color}#180## melee damage to them. This can be increased with skills.",
+            ["bm_melee_broad"] = "Longsword",
+            ["bm_melee_broad_info"] = "The signature weapon of knights.",
+        --Buckler Shield
+        ["bm_melee_buck_info"] = "In the right hands, the Buckler Shield was as much a weapon as a means of defense.\nWorn on the forearm, it could be slammed into an enemy with enough force to knock them out of their breeches.\n\nReduces incoming ranged damage by #{skill_color}#10%## while charging.",
+
+        --Bolt cutters
+        ["bm_melee_cutters_info"] = "Your favorite serial killers need more than just an axe, a knife or a glove with razor fingers.\nThey need bolt cutters to quietly get into those places you thought were locked.\n\nWhere you thought you were safe...",
+
+        --Natsumi
+        ["bm_melee_boxcutter_info"] = "It may seem like a utilitarian tool but if this blade can cut through the tough-bastard vacuum-sealed plastic of packaging crates, it can deal with anything the cops might wrap themselves in.",
+
+        --Selfie
+        ["bm_melee_selfie_info"] = "As Hoxton said, \"look at that fucking berk with the selfie-stick. What a bellend. I bet it's strong, though. Y'know, I should take it off him and twat him with it. Back in a mo...\"",
+        --Lara
+        ["bm_melee_iceaxe_info"] = "When you're scaling the slick cliffs beneath Angel Falls, you need something that can gouge into the hard rock. When you're robbing banks in D.C., you need something that can gouge into the helmets of cops.\n\nDeals #{skill_color}#50%## more headshot damage.",
+            ["bm_melee_iceaxe_gen_info"] = "Deals #{skill_color}#50%## more headshot damage.",
+        --Dive
+        ["bm_melee_pugio_info"] = "Simple and strong. Whether you're cutting throats, or cutting dolphins free of tangling fishing nets, it gets the job done. And it looks badass on your hip when you come swaggering out of the surf.",
+        --Gator
+        ["bm_melee_gator_info"] = "They say you can last three weeks without food, and three days without water, but in a hostile environment you won't last three hours without a good blade at your side.",
+
+        --Pitch fork
+        ["bm_melee_pitch_info"] = "Bidents, tridents, who cares? They're basically pitch forks. If Poseidon and Lucifer can use them, so can we.\n\nSprinting forwards starts a sprint charge that deals #{skill_color}#45## damage every #{skill_color}#0.4## seconds to targets in front of you. This can be increased with skills.\n\nHitting an enemy while sprint charging drains #{important_1}#15%## of your max stamina; a killing blow gives back #{skill_color}#10%.##\n\n#{important_1}#You cannot parry enemy attacks, even when not sprint charging.##",
+            ["bm_melee_number_3_info"] = "\"If you would kill for your ideals, then surely you are ready to die for them!\"\n\nSprinting forwards starts a sprint charge that deals #{skill_color}#45## damage every #{skill_color}#0.4## seconds to targets in front of you. This can be increased with skills.\n\nHitting an enemy while sprint charging drains #{important_1}#15%## of your max stamina; a killing blow gives back #{skill_color}#10%.##\n\n#{important_1}#You cannot parry enemy attacks, even when not sprint charging.##",
+            ["bm_melee_charge_info"] = "Sprinting forwards starts a sprint charge that deals #{skill_color}#45## damage every #{skill_color}#0.4## seconds to targets in front of you. This can be increased with skills.\n\nHitting an enemy while sprint charging drains #{important_1}#15%## of your max stamina; a killing blow gives back #{skill_color}#10%.##\n\n#{important_1}#You cannot parry enemy attacks, even when not sprint charging.##",
+        --BONK
+        ["bm_melee_scoutknife_info"] = "Don't let the rusty and worn appearance turn you off. A knife is always a knife - and some say an old knife ages just like a good wine (no one has probably ever said that). Try it out and you'll see things will bleed.",
+        --Shears
+        ["bm_melee_shawn_info"] = "Did you know that Sheep shearing is considered a sport? Maybe we should invent a new sport: cop shearing? No? Why not? Whatever... use them however you see fit, I guess...",
+        --Crook
+        ["bm_melee_stick"] = "Shepherd's Crook",
+        ["bm_melee_stick_info"] = "Tired after a long heist? Want to look old and wise? Maybe smash a cop's face in? The Shepherd's cane can do it all.\n\nFully charged attacks come out #{skill_color}#25%## faster, allowing for a faster follow-up strike.",
+
+        --Pounder Nailgun
+        ["bm_melee_nin_info"] = "The Pounder, Wolf's favorite nailgun. \n\nWhen people ask about the name, Wolf is quick to correct it to \"The Punder\" and as they say that he screams: \"Nailed it!\"\n\nFires nails which have a short effective range and instant travel. Still counts as a melee kill.",
+            ["bm_melee_thebestweapon_info"] = "#{stats_positive}#The best weapon in the game.##",
+
+        --Ballistic Knives
+        ["bm_melee_ballistic_info"] = "Jimmy isn't the kind of guy that thinks less is more, which is why he has a twin set of Specialist knives.\n\nMelee attacks deal #{skill_color}#2x## damage every hit after the first while drawn.",
+
+        --ALSO ZAP ZAP MOTHERFUCKER
+        ["bm_melee_zeus_info"] = "A pair of homebrew electric knuckle dusters that electrocutes and interrupts targets on touch when fully charged.",
+
+        --Wing Butterfly Knife
+        ["bm_melee_wing_info"] = "Goes great with a disguise kit!\n\nDeals #{skill_color}#400%## damage when attacking enemies from behind.",
+
+        --PICKLE
+        ["bm_melee_road_info"] = "The Chain Whip is Rust's melee weapon of choice, being a fan of old school pain-inducing instruments.\nThe actual Chain Whip itself was bought, not stolen, by Rust at a hardware store. He felt that a tool this important was worth paying for. It provides a certain classy touch to the whooshing sound it makes as it's whipping across yet another face.",
+
+        --ROAMING FROTHING MADNESS
+        ["bm_melee_cs_info"] = "Rip and tear, until it is done.\n\nDeals #{skill_color}#30## damage every #{skill_color}#0.25## seconds to targets in front of you while charging. This can be increased with skills.\n\n#{important_1}#Cannot parry enemy attacks.##",
+
+        --WHERE'S THE LEAK MA'AM?
+        ["bm_melee_shock_info"] = "\"Would you kindly...\"",
+
+        --YOU KNOW WHEN THAT HOTLINE RING
+        ["bm_melee_brick_info"] = "Make no mistake - this isn't just any phone, this is the #{stat_maxed}#HOTLINE## #{skill_color}#8000X##, the height of communication in the 80's.\n\nHello, who's there?\nI just called to say...\n\nI hate you.",
+
+        --OMG IT SPINS
+        ["bm_melee_ostry_info"] = "Spiiiiiiiiiin.\n\nDeals #{skill_color}#18## damage every #{skill_color}#0.18## seconds to targets in front of you while charging. This can be increased with skills.\n\n#{important_1}#Cannot parry enemy attacks.##",
+
+        --Pencil
+        ["bm_melee_sword"] = "Pencil",
+        ["bm_melee_sword_info"] = "\"John is a man of focus, commitment, sheer will... something you know very little about.\n\nI once saw him kill three men in a bar... with a pencil...\n\nWith a fucking pencil.\"",
+
+        --Russian Machete
+        ["bm_melee_oxide_info"] = "Groundbreaking design creates a trusty melee weapon.  It needed to be able to do machete work for the heavy vegetation areas as well as knife work for the camp. It also needed handle garrison labor.\nThe tool could be used for down pilots, field soldiers, and anyone else who needed a good field knife.",
+
+        --Another Machete
+        ["bm_melee_agave_info"] = "To take a life as a sicario is not only about killing - it's about intimidation. Something that leaves a print inside those who witness the mayhem. That's where Sangres' machete comes into play. Someone carrying something as deadly as a machete is probably insane enough to use it too.\n\nSangres named his machete \"El Verdugo\" - a fitting name for a fitting tool.",
+
+        --Alabama Razor
+        ["bm_melee_clean_info"] = "Give the cops that extra clean shave they need.\n\nDeals #{skill_color}#120## bleed damage over #{skill_color}#3## seconds.",
+
+        --Kento's Tanto
+        ["bm_melee_ohwell_info"] = "Along with the katana, the tanto was a staple of all samurai.\n\nThis belonged to Kento, though where he aquired from it is unknown.",
+
+        --Spoon
+        ["bm_melee_spoon_info"] = "Only a spoonful, right?\n\nFully charged attacks come out #{skill_color}#25%## faster, allowing for a faster follow-up strike.",
+        --Gold Spoon
+        ["bm_melee_spoon_gold_info"] = "Eat 'em up, Eat 'em up, Eat 'em up, Eat 'em up! \n\nHas a #{skill_color}#50%## chance to deal #{heat_warm_color}#120## fire damage and interrupt enemies over #{skill_color}#3## seconds.",
+            ["bm_melee_fire_info"] = "Has a #{skill_color}#50%## chance to deal #{heat_warm_color}#120## fire damage and interrupt enemies over #{skill_color}#3## seconds.",
+
+        --ADOBE FALSH(LITE)
+        ["bm_melee_aziz_info"] = "\"I’m not really building a shelter, but I buyed like a ton of cans and some water now and also this brand new flash light. Cause when the world goes dark, you gotta have some kind light or you’ll be dead with in the hour. I promise you that!\"",
+
+        --Chac
+        ["bm_melee_chac_info"] = "Get into the rhythm with this maraca and shake up some skulls, literally.",
+
+        --Sap
+        ["bm_melee_sap_info"] = "The Leather Sap is a gentleman's weapon.\n\nA simple pat on the head and your foe goes down. Duke wields the Leather Sap with a certain grace and brutality that that sometimes goes overboard and inflicts more damage than needed.\n\nSo wield with caution - or not.",
+
+        --Hockey Stick
+        ["bm_melee_hockey_info"] = "A beautifully fashioned length of wood. Perfectly suited for smashing a puck into the net, and smashing the fuck out of teeth.\n\nFully charged attacks come out #{skill_color}#50%## faster, allowing for a faster follow-up strike.",
+
+        --Ruler
+        ["bm_melee_meter_info"] = "Our two handed great ruler is the biggest ruler we make. But don't let its size fool you, as there's nothing awkward or clumsy about this awesome ruler.\n\nFully charged attacks come out #{skill_color}#50%## faster, allowing for a faster follow-up strike.",
+
+        --Hooked
+        ["bm_melee_catch_info"] = "The Hook is a reliable tool and frankly its not rocket science. That raw wooden handle with a strong metal hook seems plain and simple enough, right? The Hook will guarantee to cause much mess.\n\nIt’s use is only limited by your own twisted imagination in how to get your enemies hooked. Impaling your opponents in the mouth or snagging their bodies? \n\nStay sharp, bring something nasty to the fight.",
+
+        --Syringe
+        ["bm_melee_watson_info"] = "\"It'll only hurt for a second, okay?\"\n\nContains an unknown concoction that deals #{stats_positive}#120## poison damage and carries a #{skill_color}#50%## chance to interrupt every #{skill_color}#0.5## seconds over #{skill_color}#4## seconds.",
+
+        --That oinky sploinky
+        ["bm_melee_piggy_hammer_info"] = "Oink.\n\nDeals #{skill_color}#100%## more damage to special and elite enemies and has a chance to deal one of the following #{risk}#random effects## upon a successful strike:\n-#{skill_color}#12%## chance to inflict #{important_1}#bleed##\n-#{skill_color}#7%## chance to #{ghost_color}#tase##\n-#{skill_color}#5%## chance to inflict #{stats_positive}#poison##\n-#{skill_color}#1%## chance to #{risk}#insta-kill##", --Piggu
+
+        --Knuckle Daggers, Push Daggers
+        ["bm_melee_specialist_info"] = "Twice the blades, twice the fun.\n\nMelee attacks deal #{skill_color}#2x## damage every hit after the first while drawn.",
+
+        --]]
+
 
         -- We assets now--
         ["menu_asset_dinner_safe"] = "保险箱",
@@ -2534,9 +3468,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wskn_resmod_camo"] = "Camo Gold",
         ["bm_wskn_resmod_camo2"] = "Haze Gold",
         ["bm_wskn_resmod_digital"] = "Digital Gold",
-        ["bm_wskn_resmod_splinter"] = "Splinter Gold",
+        ["bm_wskn_resmod_splinter"] = "Narva Gold",
         ["bm_wskn_resmod_urban"] = "Urban Gold",
         ["bm_wskn_resmod_dioxide"] = "Carbon Gold",
+        ["bm_wskn_resmod_rat"] = "Splinter Gold",
+        ["bm_wskn_resmod_ratdark"] = "Splinter Dark Gold",
+        ["bm_wskn_resmod_rocker"] = "Static Gold",
+        ["bm_wskn_resmod_shocker"] = "Static Dark Gold",
+        ["bm_wskn_resmod_whitefire"] = "Flame Gold",
+        ["bm_wskn_resmod_blackfire"] = "Flame Dark Gold",
         ["bm_wskn_resmod_topography"] = "Topography Gold",
         ["bm_wskn_resmod_2019"] = "Warfare Gold",
         ["bm_wskn_resmod_llenn"] = "Pink Devil",
@@ -2544,6 +3484,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_wskn_resmod_sugarhoneyicetea"] = "Zebra Gold",
         ["bm_wskn_resmod_blackzebra"] = "Black Zebra Gold",
         ["bm_wskn_resmod_charlotte"] = "Web Gold",
+        ["bm_wskn_resmod_joker"] = "Laugh on Gold",
+        ["bm_wskn_resmod_jokerw"] = "Laugh on White",
 
         ["menu_weapon_color_index_11"] = "Metal + Sights",
         ["menu_weapon_color_index_12"] = "Metal + Magazine",
@@ -2558,6 +3500,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_menu_deflection"] = "血量减伤分数",
         ["bm_menu_regen_time"] = "回复所需时间",
         ["bm_menu_swap_speed"] = "切枪时间",
+        --["bm_menu_magazine"] = "Capacity",
         ["bm_menu_standing_range"] = "衰减始距",
         ["bm_menu_moving_range"] = "衰减末距",
         ["bm_menu_break_in"] = "破甲无敌帧",
@@ -2567,14 +3510,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_menu_medic_armor_first_aid"] = "[##急救强化##]\n此护甲内部集成了高效的药物输送系统，急救包的回血量增加##$first_aid_upgrade##点。",
         ["bm_menu_medic_armor_doctor_bag"] = "[##持久医疗##]\n此护甲内置了一个医疗支持系统，医疗箱的持续时间延长##$doctor_bag_time##秒，首次回血量增加##$doctor_bag_mult%##。",
         ["bm_menu_throwable_add"] = "[##隐蔽口袋##]\n此护甲因小巧轻便而允许你在衣服内侧藏有更多口袋，非天赋投掷物携带量增加##45%##，增加量最少##1##个，最多##4##个。", --（不与万事通作用）
-        ["bm_menu_stability_increase"] = "[##稳固射击##]\n此护甲采用了先进的支撑材料和可靠的设计，蹲伏时武器稳定性提高##$sta%##。",
+        ["bm_menu_stability_increase"] = "[##稳固射击##]\n此护甲采用了先进的支撑材料和可靠的设计，站定时武器稳定性提高##$real_standing%##，蹲伏时提高##$sta%##。",
 
         ["bm_menu_attack_speed"] = "攻击间隔",
         ["bm_menu_impact_delay"] = "攻击前摇",
+        ["bm_menu_cleave"] = "扫击人数",  --tra --check  --测试发现应该指能同时砍死几个人，怎么命名有待商议
 
-        ["bm_menu_stats_detection"] = "敏蔽负荷",  --tra 累赘、负担
+        ["bm_menu_stats_detection"] = "敏蔽负荷",  --累赘、负担
         ["bm_menu_stats_min_detection"] = "敏蔽负荷",
         ["bm_menu_stats_max_detection"] = "敏蔽负荷",
+        ["bm_menu_stats_dash_limit"] = "侧闪次数限制 :",  --跟跑酷mod的侧闪控制有关
 
         ["bm_menu_pickup"] = "捡弹量",
         ["bm_menu_ads_speed"] = "瞄准时间",
@@ -2602,6 +3547,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_menu_forebarrelgrip"] = "枪管&护木",
         ["bm_menu_riser"] = "镜桥",
         ["bm_menu_pump"] = "泵",
+        ["bm_menu_sight_mount"] = "瞄具支架",  --check
 
         ["bm_menu_upotte_barrel"] = "枪管",
         ["bm_menu_upotte_foregrip"] = "护木",
@@ -2704,7 +3650,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["menu_reticle_dmc_ncstar"] = "侦查十字准星",
         ["menu_reticle_dmc_lua"] = "Lua制造!",
         ["menu_reticle_dmc_dot_4x4"] = "小型瞄点",
-        ["menu_reticle_dmc_dot_2x2"] = "小巧瞄点",
+        ["menu_reticle_dmc_dot_2x2"] = "超小型瞄点",
+        ["menu_reticle_dmc_cross_holotherm"] = "SZ Holotherm",
 
         -- Blackmarket gui per-armor skill descriptions.
         ["bm_menu_armor_grinding_1"] = "无政府主义者每次回复的护甲值: #{skill_color}#$passive_armor_regen##",
@@ -2718,12 +3665,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization", function(loc)
         ["bm_menu_dodge_grace_both"] = " 和 ",
         ["bm_menu_dodge_grace_diff_cap"] = "#{risk}#$risk_level##风险等级 ",
 
+        ["bm_menu_dash_grace"] = "侧闪时的无敌帧：#{skill_color}#$dash_grace##",  --tra
+        ["bm_menu_dash_grace_dodge"] = "\n - 此时如果闪避条足够的话：#{skill_color}#$dash_grace_dodge##",
+
         ["bm_menu_armor_max_health_store_1"] = "前总统存储血量上限: #{skill_color}#$health_stored##",
         ["bm_menu_armor_max_health_store_2"] = "前总统存储血量上限: #{skill_color}#$health_stored## \n前总统杀敌护甲回复速度加成: #{skill_color}#$regen_bonus%##"
     })
 end)
 
-Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc)
+Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function(loc)
     LocalizationManager:add_localized_strings({
         ["bm_menu_bonus"] = "属性加成",
         ["steam_inventory_stat_boost"] = "属性加成",
@@ -2763,7 +3713,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
 
         -- AR23 from HELLDIVERS 2
         ["bm_w_ar23"] = "AR-23 解放者",
-        ["bm_w_ar23_desc"] = "超级地球武装部队的标准突击步枪，是对抗小型外星目标的均衡武器，但用于警匪交战它表现出众，不容小觑。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#40%##的伤害且爆头非队长单位可额外造成#{skill_color}#25%##的伤害。",
+        ["bm_w_ar23_desc"] = "超级地球武装部队的标准突击步枪，是对抗小型外星目标的均衡武器，但用于警匪交战它也表现出众，不容小觑。\n\n可#{skill_color}#穿透护甲##造成#{skill_color}#40%##的伤害。",--且爆头非队长单位可额外造成#{skill_color}#25%##的伤害。",
         ["bm_wp_wpn_fps_ass_ar23_optic"] = "穿甲解放者瞄具",
 
         -- Unknown Weapon--
@@ -2813,7 +3763,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
         ["hud_assault_remaining_plural"] = " 波突击后恢复倒地次数",
 
         -- String override for the stungun--
-        ["bm_melee_taser_info"] = "完全蓄力后可以释放高压电击晕敌人。",
+        --["bm_melee_taser_info"] = "完全蓄力后可以释放高压电击晕敌人。",  --abandoned
 
         -- Renamed default weapons and mods + descriptions-- --move all these to their respective weapons--
 
@@ -2855,7 +3805,13 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
         -- VMP HK416c Fixed Stock
         ["bm_wp_tecci_s_minicontra_alt"] = "SG固定枪托",
 
+        --BO6 ASG-89
+        ["bm_wp_upg_i_autousas"] = "Battlefield-Tested Internals",  --tra
+        --Reinbeck M1
         ["bm_w_beck_desc"] = "在犯罪世界里最流行的霰弹枪又回来了，仍然在霰弹枪世界里拥有一席之地！最早在2011年的犯罪狂潮当中出现，这把霰弹枪被证明在近距离情况下非常可靠。",
+        --肯德基的Thors Hammer AW-02套件
+        ["re_kit_Daring"] = "生化危机套件",
+        ["re_kit_Daring_desc"] = "\n#{heat_warm_color}#我一直在此恭候您，温特斯先生。##\n",
 
         -- Modifiers-- --Let me know if I'm safe to move these up, like the other stuff--
         ["bm_menu_bonus_concealment_p1"] = "少量灵活性加成，少量稳定性减少",
@@ -2884,11 +3840,23 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
         ["bm_wp_upg_i_singlefire_desc"] = "#{important_1}#锁定##你的武器为\"#{skill_color}#单发射击##\"",
         ["bm_wp_upg_i_autofire_desc"] = "#{important_1}#锁定##你的武器为\"#{skill_color}#连发射击##\"",
 
-        -- Fixed names for SMGS to ARs--
+        -- Fixed names --  -- 枪名变更 --
         ["bm_w_olympic"] = "Para步枪",
         ["bm_w_akmsu"] = "Krinkov步枪",
-        ["bm_w_x_akmsu"] = "双持Krinkov步枪",
         ["bm_w_hajk"] = "CR 805B步枪",
+        --[[["bm_w_l85a2"] = "女王之怒",
+        ["bm_w_x_b92fs"] = "双持Bernetti 92x手枪",
+        ["bm_w_x_g17"] = "双持Chimano 88s手枪",
+        ["bm_w_x_g22c"] = "双持Chimano Customs手枪",
+        ["bm_w_x_ppk"] = "双持Gruber Kurzes手枪",
+        ["bm_w_x_packrat"] = "双持合约人M30Ls手枪",
+        ["bm_w_x_pl14"] = "双持White Streaks手枪",
+        ["bm_w_x_legacy"] = "双持M13s手枪",
+        ["bm_w_x_maxim9"] = "双持Magnus 9s手枪",
+        ["bm_w_maxim9"] = "Magnus 9s手枪",
+        ["bm_w_x_g18c"] = "双持Chimano 18Cs手枪",
+        ["bm_w_beer"] = "Bernetti 93R手枪",
+        ["bm_w_czech"] = "CR 92手枪",--]]
 
         ["menu_akimbo_assault_rifle"] = "双持突击步枪",
 
@@ -2902,6 +3870,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                 --In-Universe Manufacturer deets
                     --Crosskill/Corvus (Payday/OTWD) = Colt
                     --DSC [Defense System Crosskill] (PD2) = Saco Defense
+                    --B-Team (PD2) = Ruger
+                        --From that Mini-14 stock for the M14
                     --Simmons Armory (PD2) = Springfield Armory 
                         --same acronym lol
                     --Bernetti = Beretta
@@ -2936,6 +3906,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["manufacturer_winchester"] = "Eaton",
                     ["manufacturer_marlin"] = "Rangehitter",
                     ["manufacturer_swesson"] = "J&M",
+                    ["manufacturer_ruger"] = "B-Team",
 
                     ["manufacturer_fnh"] = "VF",
                     ["manufacturer_sig"] = "Signature",
@@ -2948,7 +3919,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["manufacturer_franchi"] = "Ferino",
                     ["manufacturer_beretta"] = "Bernetti",
 
-                    ["manufacturer_kalashnikov"] = "IZMHA",
+                    ["manufacturer_kalashnikov"] = "KU",
+                        ["manufacturer_izhmash"] = "IZMHA",
+                        ["manufacturer_baikal"] = "Argos",
                     ["manufacturer_tula"] = "IZMHA",
                     ["manufacturer_cz"] = "TKA",
 
@@ -2976,8 +3949,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
         ["bm_wpn_prj_hur_desc"] = "伤害：#{skill_color}#360## \n\n他们说锋利的斧头永远是对的，所以一把飞斧当然不会错。",
         ["bm_grenade_electric_desc"] = "伤害：#{ghost_color}#400## \n爆炸半径：#{skill_color}#8##米 \n引爆：#{skill_color}#3##秒后 \n\n比起普通的高爆手雷，电击手雷加了一点点调味料。雷电法王的珍藏。",
         ["bm_grenade_poison_gas_grenade"] = "蝰蛇-6 手雷",
-        ["bm_grenade_poison_gas_grenade_desc"] = "伤害：#{skill_color}#10##秒内造成#{stats_positive}#300##点伤害 \n爆炸半径：#{skill_color}#6##米 \n持续时间（毒雾）：#{skill_color}#12##秒 \n引爆：静止#{skill_color}#1##秒后 \n\n-有#{skill_color}#100%##的几率使范围内敌人中毒陷入硬直，但敌人不会反复中同一片毒雾的硬直\n-#{important_1}#盾兵、熊、掷弹兵和队长对毒雾带来的硬直效果免疫##\n\n这个实验性的生物武器只会释放针对特定基因型的大范围有毒气体，因此对你和你的队员无效。中毒的受害者会出现剧烈的咳嗽、恶心、呕吐等症状，甚至可以致命！除了那些最坚强的佼佼者......\n\n是老道劫匪的理想武器之一喵。",
-        ["bm_grenade_poison_gas_grenade_desc_short"] = "伤害：#{skill_color}#10##秒内造成#{stats_positive}#300##点伤害 \n爆炸半径：#{skill_color}#6##米 \n持续时间（毒雾）：#{skill_color}#12##秒 \n引爆：静止#{skill_color}#1##秒后 \n\n-有#{skill_color}#100%##的几率使范围内敌人中毒陷入硬直，但敌人不会反复中同一片毒雾的硬直\n-#{important_1}#盾兵、熊、掷弹兵和队长对毒雾带来的硬直效果免疫##",
+        ["bm_grenade_poison_gas_grenade_desc"] = "伤害：#{skill_color}#10##秒内造成#{stats_positive}#300##点伤害 \n爆炸半径：#{skill_color}#6##米 \n持续时间（毒雾）：#{skill_color}#12##秒 \n引爆：静止#{skill_color}#1##秒后 \n\n-有#{skill_color}#100%##的几率使范围内敌人中毒陷入硬直，但敌人不会反复中同一片毒雾的硬直\n-#{important_1}#盾兵、熊、医疗兵、掷弹兵和队长对毒雾带来的硬直效果免疫##\n\n这个实验性的生物武器只会释放针对特定基因型的大范围有毒气体，因此对你和你的队员无效。中毒的受害者会出现剧烈的咳嗽、恶心、呕吐等症状，甚至可以致命！除了那些最坚强的佼佼者......\n\n是老道劫匪的理想武器之一喵。",
+        ["bm_grenade_poison_gas_grenade_desc_short"] = "伤害：#{skill_color}#10##秒内造成#{stats_positive}#300##点伤害 \n爆炸半径：#{skill_color}#6##米 \n持续时间（毒雾）：#{skill_color}#12##秒 \n引爆：静止#{skill_color}#1##秒后 \n\n-有#{skill_color}#100%##的几率使范围内敌人中毒陷入硬直，但敌人不会反复中同一片毒雾的硬直\n-#{important_1}#盾兵、熊、医疗兵、掷弹兵和队长对毒雾带来的硬直效果免疫##",
         ["bm_grenade_sticky_grenade"] = "粘性手雷",
         ["bm_grenade_sticky_grenade_desc"] = "伤害：#{risk}#800## \n爆炸半径：#{skill_color}#4.5##米 \n引爆：#{skill_color}#2.5##秒后\n\n可粘附在敌人身上或物体表面的投掷爆炸物。",
 
@@ -3001,524 +3974,566 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             4 = Vanilla names/use your own names
         ]]
         if weapon_names then
-            if weapon_names == 1 then
+        if weapon_names <= 2 then --Resmod names
+            LocalizationManager:add_localized_strings({
 
-            elseif weapon_names <= 2 then --Resmod names
-                LocalizationManager:add_localized_strings({	
-    
-                    --[[ PISTOLS ]]
-                        --Gecko Pistol
-                        ["bm_w_maxim9"] = "Magnus 9",
-                    ["bm_w_x_maxim9"] = "Akimbo Magnus 9s",
+                --[[ PISTOLS ]]
+                    --Gecko Pistol
+                    ["bm_w_maxim9"] = "Magnus 9手枪",
+                    ["bm_w_x_maxim9"] = "双持Magnus 9s手枪",
                     --Igor (APS)
-                    ["bm_w_stech"] = "Igor Automatik",
-                    ["bm_w_x_stech"] = "Akimbo Igor Automatiks",
+                    ["bm_w_stech"] = "Igor Automatik手枪",
+                    ["bm_w_x_stech"] = "双持Igor Automatiks手枪",
                     --Chimano Compact
-                    ["bm_wp_pis_g26"] = "Chimano 26 Compact",
-                    ["bm_w_jowi"] = "Akimbo Chimano 26 Compacts",
+                    ["bm_wp_pis_g26"] = "Chimano 26 Compact手枪",
+                    ["bm_w_jowi"] = "双持Chimano 26 Compacts手枪",
                     --Glock 18c
-                    ["bm_w_glock_18c"] = "Chimano 18C",
-                    ["bm_w_x_g18c"] = "Akimbo Chimano 18Cs",
+                    ["bm_w_glock_18c"] = "Chimano 18C手枪",
+                    ["bm_w_x_g18c"] = "双持Chimano 18Cs手枪",
                     --CZ 75
-                    ["bm_w_czech"] = "CR 92",
-                    ["bm_w_x_czech"] = "Akimbo CR 92s",
+                    ["bm_w_czech"] = "CR 92手枪",
+                    ["bm_w_x_czech"] = "双持CR 92s手枪",
                     --PPK (Gruber)
-                    ["bm_w_ppk"] = "Gruber Kurz",
-                    ["bm_w_x_ppk"] = "Akimbo Gruber Kurzes",
+                    ["bm_w_ppk"] = "Gruber Kurz手枪",
+                    ["bm_w_x_ppk"] = "双持Gruber Kurzes手枪",
                     --M13
-                    ["bm_w_legacy"] = "M13",
-                    ["bm_w_x_legacy"] = "Akimbo M13s",  
+                    ["bm_w_legacy"] = "M13手枪",
+                    ["bm_w_x_legacy"] = "双持M13s手枪",
                     --Glock 17
-                    ["bm_w_glock_17"] = "Chimano 88",
-                    ["bm_w_x_g17"] = "Akimbo Chimano 88s",
+                    ["bm_w_glock_17"] = "Chimano 88手枪",
+                    ["bm_w_x_g17"] = "双持Chimano 88s手枪",
                     --Bernetti 9
-                    ["bm_w_b92fs"] = "Bernetti 92",
-                    ["bm_w_x_b92fs"] = "Akimbo Bernetti 92s",
+                    ["bm_w_b92fs"] = "Bernetti 92手枪",
+                    ["bm_w_x_b92fs"] = "双持Bernetti 92s手枪",
                     --White Streak
-                    ["bm_w_pl14"] = "White Streak",
-                    ["bm_w_x_pl14"] = "Akimbo White Streaks",
+                    ["bm_w_pl14"] = "White Streak手枪",
+                    ["bm_w_x_pl14"] = "双持White Streaks手枪",
                     --Holt 9mm
-                    ["bm_w_holt"] = "Holt 9",
-                    ["bm_w_x_holt"] = "Akimbo Holt 9s",
+                    ["bm_w_holt"] = "Holt 9手枪",
+                    ["bm_w_x_holt"] = "双持Holt 9s手枪",
                     --FMG-9
-                    ["bm_w_fmg9"] = "Wasp DS-9",
+                    ["bm_w_fmg9"] = "Wasp DS-9手枪",
                     --93R
-                    ["bm_w_beer"] = "Bernetti 93R",
-                    --Contractor Pistols 
-                    ["bm_w_packrat"] = "Contractor M30L",
-                    ["bm_w_x_packrat"] = "Akimbo Contractor M30Ls",
-                    --Breech (Luger) 
-                    ["bm_w_breech"] = "Parabellum-08",
+                    ["bm_w_beer"] = "Bernetti 93R手枪",
+                    --Contractor Pistols
+                    ["bm_w_packrat"] = "Contractor M30L手枪",
+                    ["bm_w_x_packrat"] = "双持Contractor M30Ls手枪",
+                    --Breech (Luger)
+                    ["bm_w_breech"] = "Parabellum-08手枪",
                     --Chimano Custom
-                    ["bm_w_g22c"] = "Chimano Custom",
-                    ["bm_w_x_g22c"] = "Akimbo Chimano Customs",
+                    ["bm_w_g22c"] = "Chimano Custom手枪",
+                    ["bm_w_x_g22c"] = "双持Chimano Customs手枪",
                     --Signature .40
-                    ["bm_w_p226"] = "Signature .40",
+                    ["bm_w_p226"] = "Signature .40手枪",
                     --LEO
-                    ["bm_w_hs2000"] = "LEO-40",
+                    ["bm_w_hs2000"] = "LEO-40手枪",
                     ["bm_wp_hs2000_sl_long"] = "Elite Slide",
                     --5/7 pistol
-                    ["bm_w_lemming"] = "Acuto 5/7",
+                    ["bm_w_lemming"] = "Acuto 5/7手枪",
+                    ["bm_w_x_lemming"] = "Ultra & Violet",
                     --Baby Deagle--
-                    ["bm_w_sparrow"] = "Sparrow 941",
+                    ["bm_w_sparrow"] = "Sparrow 941手枪",
                     ["bm_w_x_sparrow"] = "Spike & Vicious",
                     --Crosskill
-                    ["bm_w_colt_1911"] = "Crosskill Operator II",
+                    ["bm_w_colt_1911"] = "Crosskill Operator II手枪",
                     ["bm_w_x_1911"] = "Mustang & Sally",
-                    ["bm_wp_1911_m_big"] = "Casket Magazine",
+                    ["bm_wp_1911_m_big"] = "Casket Magazine手枪",
                     --Crosskill Chunky
-                    ["bm_w_m1911"] = "Crosskill A1",
+                    ["bm_w_m1911"] = "Crosskill A1手枪",
                     ["bm_w_x_m1911"] = "Price & MacTavish",
                     --Crosskill Guard
-                    ["bm_w_shrew"] = "Crosskill Guard",
+                    ["bm_w_shrew"] = "Crosskill Guard手枪",
                     ["bm_w_shrew_joshua"] = "A Light Shining in Darkness",
                     ["bm_w_x_shrew"] = "Barry & Paul",
-                    --USP 
-                    ["bm_w_usp"] = "Interceptor-45",
-                    ["bm_w_x_usp"] = "Akimbo Interceptor-45s",
+                    --USP
+                    ["bm_w_usp"] = "Interceptor-45手枪",
+                    ["bm_w_x_usp"] = "双持Interceptor-45s手枪",
                     ["bm_wp_usp_m_big"] = "Casket Magazine",
                     ["bm_wp_pis_usp_b_match"] = "Freeman Slide",
-                    --Model 54 
-                    ["bm_w_type54"] = "CC-33",
-                    ["bm_w_x_type54"] = "Akimbo CC-33s",
+                    --Model 54
+                    ["bm_w_type54"] = "CC-33手枪",
+                    ["bm_w_x_type54"] = "双持CC-33s手枪",
                     --Broomstick--
-                    ["bm_w_c96"] = "Broomstick",
+                    ["bm_w_c96"] = "Broomstick手枪",
                     ["bm_w_c96_dl44"] = "DL-44",
                     ["bm_wp_c96_nozzle"] = "BlasTech DL-44 Muzzle",
                     --Sub2000
-                    ["bm_w_sub2000"] = "Cavity .40",
+                    ["bm_w_sub2000"] = "Cavity .40手枪",
                     --Deagle
-                    ["bm_w_deagle"] = "Deagle",
-                    ["bm_w_x_deagle"] = "Akimbo Deagles",
+                    ["bm_w_deagle"] = "沙漠之鹰",
+                    ["bm_w_x_deagle"] = "双持沙漠之鹰",
                     --Kahn .357
-                    ["bm_w_korth"] = "Kahn .357",
-                    ["bm_w_x_korth"] = "Akimbo Kahn .357s",
+                    ["bm_w_korth"] = "Kahn .357手枪",
+                    ["bm_w_x_korth"] = "双持Kahn .357s手枪",
                     --Matever 2006m
-                    ["bm_w_mateba"] = "Matever 9mm", --:^)
-                    ["bm_wp_2006m_b_short"] = "Tachikoma Barrel",   
-                    ["bm_wp_2006m_b_medium"] = "Togusa Barrel", 
-                    ["bm_wp_2006m_b_long"] = "Kusanagi Barrel", 
-                    ["bm_w_x_2006m"] = "Akimbo Matevers",
+                    ["bm_w_mateba"] = "Matever 9mm手枪", --:^)
+                    ["bm_wp_2006m_b_short"] = "Tachikoma Barrel",
+                    ["bm_wp_2006m_b_medium"] = "Togusa Barrel",
+                    ["bm_wp_2006m_b_long"] = "Kusanagi Barrel",
+                    ["bm_w_x_2006m"] = "双持Matevers手枪",
                     --Frenchman Model 87
-                    ["bm_w_model3"] = "J&M Model 87",   
-                    ["bm_w_x_model3"] = "Akimbo Model 87s", 
+                    ["bm_w_model3"] = "J&M Model 87手枪",
+                    ["bm_w_x_model3"] = "双持Model 87s手枪",
                     --Raging bull
-                    ["bm_w_raging_bull"] = "Bronco .44",    
-                    ["bm_w_x_rage"] = "Akimbo Bronco .44s",
+                    ["bm_w_raging_bull"] = "Bronco .44手枪",
+                    ["bm_w_x_rage"] = "双持Bronco .44s手枪",
                     --Castigo
-                    ["bm_w_chinchilla"] = "Castigo .44",
-                    ["bm_w_x_chinchilla"] = "Akimbo Castigo .44s",
+                    ["bm_w_chinchilla"] = "Castigo .44手枪",
+                    ["bm_w_x_chinchilla"] = "双持Castigo .44s手枪",
                     --RUS-12
-                    ["bm_w_rsh12"] = "RUS-12",
+                    ["bm_w_rsh12"] = "RUS-12手枪",
                     --SAA/Peacemaker
-                    ["bm_w_peacemaker"] = "Peacemaker .45LC",
+                    ["bm_w_peacemaker"] = "Peacemaker .45LC手枪",
                     --CUSTOM PISTOLS
+                        --ZiP 22
+                        ["bm_w_zip22"] = "Zippy 3000手枪",
                         --Px4
-                        ["bm_w_px4"] = "Bernetti Hx4 Canaan",
+                        ["bm_w_px4"] = "Bernetti Px4手枪",
                         --Browning Hi-Power
-                        ["bm_w_hpb"] = "Hi-Power",
+                        ["bm_w_hpb"] = "Hi-Power手枪",
                         --Browning Hi-Power (Mira)
                         --["bm_w_hpb"] = "Hi-Power",
                         --Walther P99
-                        ["bm_w_p99"] = "Lakner G99",
+                        ["bm_w_p99"] = "Lakner G99手枪",
                         --Derringer
-                        ["bm_w_derringer"] = "Derringer",
+                        ["bm_w_derringer"] = "Derringer手枪",
                         --Automag .44
-                        ["bm_w_amt"] = "Automag .44",
+                        ["bm_w_amt"] = "Automag .44手枪",
                         --Colt Detective
-                        ["bm_w_coltds"] = "Crosskill Investigator",
+                        ["bm_w_coltds"] = "Crosskill Investigator手枪",
                         --SIG P320
-                        ["bm_w_papa320"] = "M19",
-                        ["bm_wp_wpn_fps_pis_papa320_magazine_ext2"] = "32 Round Magazine",
+                        ["bm_w_papa320"] = "M19手枪",
                 --[[ SMGs ]]
                     --Kobus 90--
-                    ["bm_w_p90"] = "Project-90",
-                    ["bm_w_x_p90"] = "Akimbo Project-90s",
+                    ["bm_w_p90"] = "Project-90冲锋枪",
+                    ["bm_w_x_p90"] = "双持Project-90s冲锋枪",
                     ["bm_wp_p90_b_ninja"] = "Ninja Barrel",
                     ["bm_wp_90_body_boxy"] = "OMNIA Assault Stock",
                     --Spec Ops
-                    ["bm_w_mp7"] = "SpecOps-7",
+                    ["bm_w_mp7"] = "SpecOps-7冲锋枪",
                     --Tec-9
-                    ["bm_w_tec9"] = "T3K Urban",
-                    ["bm_w_x_tec9"] = "Akimbo T3K Urbans",
+                    ["bm_w_tec9"] = "T3K Urban冲锋枪",
+                    ["bm_w_x_tec9"] = "双持T3K Urbans冲锋枪",
                     --Heather
-                    ["bm_w_sr2"] = "Heather-2M",
-                    ["bm_w_x_sr2"] = "Akimbo Heather-2Ms",
+                    ["bm_w_sr2"] = "Heather-2M冲锋枪",
+                    ["bm_w_x_sr2"] = "双持Heather-2Ms冲锋枪",
                     --CMP
-                    ["bm_w_mp9"] = "CMP-9",
+                    ["bm_w_mp9"] = "CMP-9冲锋枪",
                     --Miyaka
-                    ["bm_w_pm9"] = "Miyaka 9 Special",
+                    ["bm_w_pm9"] = "Miyaka 9 Special冲锋枪",
                     --Micro Uzi
-                    ["bm_w_baka"] = "Micro Uzi",
-                    ["bm_w_x_baka"] = "Akimbo Micro Uzis",
+                    ["bm_w_baka"] = "Micro Uzi冲锋枪",
+                    ["bm_w_x_baka"] = "双持Micro Uzis冲锋枪",
                     --Cobra/Skorpion
-                    ["bm_w_scorpion"] = "Cobra",
-                    ["bm_w_x_scorpion"] = "Akimbo Cobras",
+                    ["bm_w_scorpion"] = "Cobra冲锋枪",
+                    ["bm_w_x_scorpion"] = "双持Cobras冲锋枪",
                     ["bm_wp_scorpion_m_extended"] = "Dual Magazines",
                     --Tatonka
-                    ["bm_w_coal"] = "AK-19 Tatonka",
+                    ["bm_w_coal"] = "AK-19 Tatonka冲锋枪",
                     --AK Gen
-                    ["bm_w_vityaz"] = "AK-19-01 Tasunka",
+                    ["bm_w_vityaz"] = "AK-19-01 Tasunka冲锋枪",
                     --Signature SMG
-                    ["bm_w_shepheard"] = "FIK PC9",
+                    ["bm_w_shepheard"] = "Signature PC9冲锋枪",
                     --Compact-5/MP5
-                    ["bm_w_mp5"] = "Compact-5", 
-                    ["bm_w_mp5sd"] = "Compact-5SD", 
-                    ["bm_w_mp5k"] = "Compact-5K",
-                    ["bm_w_mp5k_pdw"] = "Compact-5K PDW",
-                    ["bm_w_x_mp5"] = "Akimbo Compact-5s",
+                    ["bm_w_mp5"] = "Compact-5冲锋枪",
+                    ["bm_w_mp5sd"] = "Compact-5SD冲锋枪",
+                    ["bm_w_mp5k"] = "Compact-5K冲锋枪",
+                    ["bm_w_mp5k_pdw"] = "Compact-5K PDW冲锋枪",
+                    ["bm_w_x_mp5"] = "双持Compact-5s冲锋枪",
                     ["bm_wp_mp5_fg_mp5sd"] = "SPOOC Foregrip",
                     --Swedish K
-                    ["bm_w_m45"] = "Swedish K",
+                    ["bm_w_m45"] = "Swedish K冲锋枪",
                     --Pachett/Sterling
-                    ["bm_w_sterling"] = "Patchette L2A3",
-                    ["bm_w_sterling_sd"] = "Patchette L34A1",
-                    ["bm_w_sterling_pistol"] = "Patchette Mk. VII",
-                    ["bm_w_sterling_e11"] = "E-11",
+                    ["bm_w_sterling"] = "Patchette L2A3冲锋枪",
+                    ["bm_w_sterling_sd"] = "Patchette L34A1冲锋枪",
+                    ["bm_w_sterling_pistol"] = "Patchette Mk. VII冲锋枪",
+                    ["bm_w_sterling_e11"] = "E-11冲锋枪",
                     ["bm_wp_sterling_b_e11"] = "BlasTech E-11 Barrel",
                     --Uzi
-                    ["bm_w_uzi"] = "Uzi",
+                    ["bm_w_uzi"] = "Uzi冲锋枪",
                     --Chicago Typewriter
-                    ["bm_w_m1928"] = "Chicago Typewriter",
+                    ["bm_w_m1928"] = "Chicago Typewriter冲锋枪",
                     --Mark 10
-                    ["bm_w_mac10"] = "Mark 10",
-                    ["bm_w_x_mac10"] = "Akimbo Mark 10s",
+                    ["bm_w_mac10"] = "Mark 10冲锋枪",
+                    ["bm_w_x_mac10"] = "双持Mark 10s冲锋枪",
                     --MP40
-                    ["bm_w_erma"] = "MP 40",
+                    ["bm_w_erma"] = "MP 40冲锋枪",
                     --Jackal
-                    ["bm_w_schakal"] = "Jackal",
+                    ["bm_w_schakal"] = "Jackal冲锋枪",
                     --Kross Vertex
-                    ["bm_w_polymer"] = "Kross Vertex",
+                    ["bm_w_polymer"] = "Kross Vertex冲锋枪",
                     --CUSTOM SMGs
+                        --Grendel R31
+                        ["bm_w_r31"] = "Tanto .22冲锋枪",
                         --AR57
-                        ["bm_w_alpha57_prim"] = "FSS Hurricane",
+                        ["bm_w_alpha57_prim"] = "FSS Hurricane冲锋枪",
                         --LWRC
-                        ["bm_w_smg45"] = "FT Striker .45",
+                        ["bm_w_smg45"] = "FT Striker .45冲锋枪",
+                        --LWRC
+                        ["bm_w_fang45"] = "Fang 45冲锋枪",
                         --Typhoon
-                        ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon",
+                        ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon冲锋枪",
+                        --KSP 45
+                        ["bm_w_ksp45"] = "KSP 45冲锋枪",
+                        --LC10
+                        ["bm_w_lc10"] = "LC10冲锋枪",
                 --[[ MGs ]]
                     --Bootleg/HK416c
-                    ["bm_w_tecci"] = "Bootlegger",
-                    ["bm_wp_tecci_s_minicontra_alt"] = "SG Fixed Stock",
+                    ["bm_w_tecci"] = "Bootlegger轻机枪",
                     --KSP/M249
-                    ["bm_w_m249"] = "KSP-90",
+                    ["bm_w_m249"] = "KSP-90轻机枪",
                     --ChainSAW
-                    ["bm_w_kacchainsaw"] = "Campbell 74",
+                    ["bm_w_kacchainsaw"] = "Campbell 74轻机枪",
                     --RPK
-                    ["bm_w_rpk"] = "RPK",
+                    ["bm_w_rpk"] = "RPK轻机枪",
                     --Brenner 21/HK21
-                    ["bm_w_hk21"] = "Brenner-21",
+                    ["bm_w_hk21"] = "Brenner-21重机枪",
                     --M60
-                    ["bm_w_m60"] = "M60",
+                    ["bm_w_m60"] = "M60重机枪",
                     --Ksp 58
-                    ["bm_w_par"] = "KSP-58B",
+                    ["bm_w_par"] = "KSP-58B重机枪",
                     ["bm_wp_par_b_short"] = "Comped Barrel",
                     --Buzzsaw/Mg42
-                    ["bm_w_mg42"] = "Buzzsaw-42",
-                    ["bm_w_mg42_dlt19"] = "DLT-19",
+                    ["bm_w_mg42"] = "Buzzsaw-42重机枪",
+                    ["bm_w_mg42_dlt19"] = "DLT-19重机枪",
                     --Versteckt-51/HK51B
-                    ["bm_w_hk51b"] = "Versteckt-51B",
+                    ["bm_w_hk51b"] = "Versteckt-51B轻机枪",
                     --Microgun
                     ["bm_wp_wpn_fps_lmg_shuno_body_red"] = "Red Body",
                     --CUSTOM MGs
-                        ["bm_w_sig_xm250"] = "FIK MG277",
+                        ["bm_w_sig_xm250"] = "FIK MG277轻机枪",
 
                 --[[ SHOTGUNS ]]
                     --Grimm
-                    ["bm_w_basset"] = "Grimm 12G",
-                    ["bm_w_x_basset"] = "Brothers Grimm 12G",
+                    ["bm_w_basset"] = "格林姆 12G霰弹枪",
+                    ["bm_w_x_basset"] = "格林姆兄弟 12G霰弹枪",
                     --Saiga
-                    ["bm_w_saiga"] = "IZHMA 12G",
+                    ["bm_w_saiga"] = "IZHMA 12G霰弹枪",
                     --AA12
-                    ["bm_w_aa12"] = "Steakout 12G",
+                    ["bm_w_aa12"] = "Steakout 12G霰弹枪",
                     --Spas12
-                    ["bm_w_spas12"] = "Predator 12G",
+                    ["bm_w_spas12"] = "Predator 12G霰弹枪",
                     --Benelli
-                    ["bm_w_benelli"] = "M1014 12G",
+                    ["bm_w_benelli"] = "M1014 12G霰弹枪",
                     --Argos III
-                    ["bm_w_ultima"] = "Argos III 12G",
+                    ["bm_w_ultima"] = "Argos III 12G霰弹枪",
                     --Street Sweeper
-                    ["bm_w_striker"] = "Street Sweeper 12G",
+                    ["bm_w_striker"] = "Street Sweeper 12G霰弹枪",
                     --Goliath
-                    ["bm_w_rota"] = "Goliath 12G",
+                    ["bm_w_rota"] = "Goliath 12G霰弹枪",
                     --VD-12
-                    ["bm_w_sko12"] = "VD-12G",
-                    ["bm_w_x_sko12"] = "Akimbo VD-12s",
+                    ["bm_w_sko12"] = "VD-12G霰弹枪",
+                    ["bm_w_x_sko12"] = "双持VD-12s霰弹枪",
                     --GSPS
-                    ["bm_w_m37"] = "GSPS 12G",
+                    ["bm_w_m37"] = "GSPS 12G霰弹枪",
                     --Supernova
-                    ["bm_w_supernova"] = "Deimos 12G",
+                    ["bm_w_supernova"] = "Deimos 12G霰弹枪",
                     --Loco
-                    ["bm_w_serbu"] = "Locomotive 12G",
+                    ["bm_w_serbu"] = "Locomotive 12G霰弹枪",
                     --Reinfeld 88
-                    ["bm_w_m1897"] = "Repeater 1897 12G",
+                    ["bm_w_m1897"] = "Repeater 1897 12G霰弹枪",
                     --Mosconi 12g
-                    ["bm_w_m590"] = "Mosconi Tactical 12G",
+                    ["bm_w_m590"] = "Mosconi Tactical 12G霰弹枪",
                     --R870
-                    ["bm_w_r870"] = "Reinfeld 880 12G",
+                    ["bm_w_r870"] = "Reinfeld 880 12G霰弹枪",
                     --KSG
-                    ["bm_w_ksg"] = "Raven 12G",
+                    ["bm_w_ksg"] = "Raven 12G霰弹枪",
                     --Breaker 10g
-                    ["bm_w_boot"] = "Breaker 10G",
+                    ["bm_w_boot"] = "Breaker 10G霰弹枪",
                     --Claire Angélique Florette du Bertrand
-                    ["bm_w_coach"] = "Claire S/S 12G",
+                    ["bm_w_coach"] = "Claire S/S 12G霰弹枪",
                     --Mosconi
-                    ["bm_w_huntsman"] = "Mosconi S/S 12G",
+                    ["bm_w_huntsman"] = "Mosconi S/S 12G霰弹枪",
                     --Judge
-                    ["bm_w_judge"] = "The Judge .410",
+                    ["bm_w_judge"] = "The Judge .410霰弹枪",
                     ["bm_w_x_judge"] = "Judge & Jury", --really wish weaponlib's right_only worked w/ the Judges so that we could have the 'right' one be the reinforced frame. a real shame.
                     --Joceline
-                    ["bm_w_b682"] = "Joceline O/U 12G", 
+                    ["bm_w_b682"] = "Joceline O/U 12G霰弹枪",
                     --Custom Shotguns
+                        --MW2023 Riveter
+                        ["bm_w_riveter"] = "Riveter霰弹枪",
+                        --MW2022 Vepr
+                        ["bm_w_vecho"] = "KV Broadside霰弹枪",
+                        --MW2023 Origin 12
+                        ["bm_w_haymaker"] = "Haymaker霰弹枪",
                         --Doomstick
-                        ["bm_w_quadbarrel"] = "Doomstick",
+                        ["bm_w_quadbarrel"] = "Doomstick霰弹枪",
                         --Widowmaker TX
                         ["bm_wp_wpn_fps_shot_wmtx_mag_ext"] = "Extended Magazine",
                         ["bm_wp_wpn_fps_upg_wmtx_gastube_burst"] = "Burst Fire System",
                 --[[ ARs ]]
                     --S552
-                    ["bm_w_s552"] = "Commando 552",
+                    ["bm_w_s552"] = "Commando 552步枪",
                     --M733/AMCAR
-                    ["bm_w_amcar"] = "AM-CAR",
+                    ["bm_w_amcar"] = "AM-CAR步枪",
                     --G36
-                    ["bm_w_g36"] = "JP-36KV",
-                    ["bm_w_g36_k"] = "JP-36K",
-                    ["bm_w_g36_c"] = "JP-36C",
-                    ["bm_w_g36_v"] = "JP-36V",
-                    ["bm_w_g36_long"] = "JP-36",
+                    ["bm_w_g36"] = "JP-36KV步枪",
+                    ["bm_w_g36_k"] = "JP-36K步枪",
+                    ["bm_w_g36_c"] = "JP-36C步枪",
+                    ["bm_w_g36_v"] = "JP-36V步枪",
+                    ["bm_w_g36_long"] = "JP-36步枪",
                     --VHS/Lion's Roar
-                    ["bm_w_vhs"] = "Lion's Roar",
+                    ["bm_w_vhs"] = "Lion's Roar步枪",
                     ["bm_wp_vhs_b_sniper"] = "Hyper Barrel",
                     ["bm_wp_vhs_b_silenced"] = "Bad Dragan Barrel",
                     --Olympic/Para
-                    ["bm_w_olympic"] = "Para-23",
-                    ["bm_w_x_olympic"] = "Akimbo Para-23s",
+                    ["bm_w_olympic"] = "Para-23步枪",
+                    ["bm_w_x_olympic"] = "双持Para-23s步枪",
                     --TAR-21
-                    ["bm_w_komodo"] = "Tempest-95", --it's modeled after the X95, not the 21
+                    ["bm_w_komodo"] = "Tempest-95步枪", --it's modeled after the X95, not the 21
                     --Famas
-                    ["bm_w_famas"] = "Clarion 5.56",
+                    ["bm_w_famas"] = "Clarion 5.56步枪",
                     --M4/CAR-4
-                    ["bm_w_m4"] = "CAR-4",
-                    ["bm_w_m4_mk12"] = "CAR-12 SPR",
+                    ["bm_w_m4"] = "CAR-4步枪",
+                    ["bm_w_m4_mk12"] = "CAR-12 SPR步枪",
+                    ["bm_w_m4_lr300"] = "TR-300步枪",
                     ["bm_wp_upg_ass_m4_b_beowulf"] = "Wolf Barrel",
                     ["bm_wp_upg_s_fixed"] = "CAR Fixed Stock",
                     --AK5
-                    ["bm_w_ak5"] = "Ak 5",
-                    ["bm_w_ak5b"] = "Ak 5B",
-                    ["bm_w_ak5c"] = "Ak 5C",
-                    ["bm_w_ak5_fnc"] = "VF Carabine",
+                    ["bm_w_ak5"] = "Ak 5步枪",
+                    ["bm_w_ak5b"] = "Ak 5B步枪",
+                    ["bm_w_ak5c"] = "Ak 5C步枪",
+                    ["bm_w_ak5_fnc"] = "VF Carabine步枪",
                     --Union 5.56
-                    ["bm_w_corgi"] = "Union 5.56",
+                    ["bm_w_corgi"] = "Union 5.56步枪",
                     ["bm_wp_corgi_b_short"] = "MSG Barrel",
                     --UAR
-                    ["bm_w_aug"] = "UAR A2",
-                    ["bm_w_aug_a3"] = "UAR A3",
-                    ["bm_w_aug_f90"] = "Raptor 90",
-                    ["bm_wp_upg_b_hbar"] = "Heavy Barrel",  
+                    ["bm_w_aug"] = "UAR A2步枪",
+                    ["bm_w_aug_a3"] = "UAR A3步枪",
+                    ["bm_w_aug_f90"] = "Raptor 90步枪",
+                    ["bm_wp_upg_b_hbar"] = "Heavy Barrel",
                     --AK17
-                    ["bm_w_ak12"] = "AK-17",
+                    ["bm_w_ak12"] = "AK-17步枪",
                     --AK 5.45
-                    ["bm_w_ak74"] = "AK 5.45",
+                    ["bm_w_ak74"] = "AK 5.45步枪",
                     --CR 805
-                    ["bm_w_hajk"] = "CR 805B",
+                    ["bm_w_hajk"] = "CR 805B步枪",
                     --AMR-16
-                    ["bm_w_m16"] = "AMR-16",
-                    ["bm_w_m16a1"] = "AMR-16A1",
+                    ["bm_w_m16"] = "AMR-16步枪",
+                    ["bm_w_m16a1"] = "AMR-16A1步枪",
                     --Queen's Wrath
-                    ["bm_w_l85a2"] = "Queen's Wrath",
+                    ["bm_w_l85a2"] = "女王之怒 步枪",
                     --AK 7.62
-                    ["bm_w_akm"] = "AK 7.62",
-                    ["bm_w_akm_gold"] = "Golden AK 7.62",
+                    ["bm_w_akm"] = "AK 7.62步枪",
+                    ["bm_w_akm_gold"] = "Golden AK 7.62步枪",
                     ["bm_wp_upg_ass_ak_b_zastava"] = "Long Barrel",
                     --KETCHUPKNOB--
                     --ASPIRING POKEMON TRAINER, ASH KETCHNOV--
-                    ["bm_w_groza"] = "OB-14st Byk-1", --Hopefully less silly than its Ketchup name
+                    ["bm_w_groza"] = "OB-14st Byk-1步枪", --Hopefully less silly than its Ketchup name
                     --"OB-14st" being an awful combo of "Oblast" (a word for region/zone/area, as well as literally having BLAST in the name) and the "14" in "OTs-14"
                     --Although, a Russian word for "region/zone/area" followed up with a Polish word...
                     --Eh, whatever
                     --CHIKUBI
-                    ["bm_w_tkb"] = "Rodion 3B",
+                    ["bm_w_tkb"] = "Rodion 3B步枪",
                     ["bm_wp_tkb_m_bakelite"] = "Siberian 15x3 Magazine",
                     --Krinkov
-                    ["bm_w_akmsu"] = "Krinkov",
+                    ["bm_w_akmsu"] = "Krinkov步枪",
                     --Akimbo Krinkov
-                    ["bm_w_x_akmsu"] = "Akimbo Krinkovs",
+                    ["bm_w_x_akmsu"] = "双持Krinkovs步枪",
                     --CUSTOM ARs
+                        --BO6 CETME L
+                        ["bm_w_modl"] = "Model L步枪",
+                        --MW2023 ARX-200
+                        ["bm_w_soa"] = "SOA Subverter步枪",
                         --QBZ-191
-                        ["bm_w_pd3_qbz191"] = "Northwest B-9",
+                        ["bm_w_pd3_qbz191"] = "Northwest B-9步枪",
                         --AN-94/92
-                        ["bm_w_tilt"] = "KVK-99",
+                        ["bm_w_tilt"] = "KVK-99步枪",
                         --HK G36
-                        ["bm_w_g36k"] = "JP36K",
+                        ["bm_w_g36k"] = "JP36K步枪",
                         --SCAR-L
-                        ["bm_w_scarl"] = "Eagle Light",
+                        ["bm_w_scarl"] = "Eagle Light步枪",
                         --Valmet Rk.62
-                        ["bm_w_rk62"] = "Velmer",
+                        ["bm_w_rk62"] = "Velmer步枪",
                         --MW22 Honey Badger
-                        ["bm_w_mcbravo"] = "Chimera",
+                        ["bm_w_mcbravo"] = "Chimera步枪",
                         --AR-18
-                        ["bm_w_ar18"] = "CAR-18",
+                        ["bm_w_ar18"] = "CAR-18步枪",
+                        --FIK-22
+                        ["bm_w_fik22"] = "FIK-22 TLR步枪", --why does this use the in-universe Sig name?
+                        --ACR 2012
+                        ["bm_w_acr_2012"] = "MCW-R步枪",
+                        --MW2022 M4
+                        ["bm_w_mike4_2022"] = "M4步枪",
                 --[[ DMRs ]]
                     --Little Friend
-                    ["bm_w_contraband"] = "Bigger Friend 7.62",
-                    ["bm_w_contraband_m16"] = "Little Friend 5.56",
-                    ["bm_w_contraband_mpx"] = "OMNIA PC9 9mm",
+                    ["bm_w_contraband"] = "Bigger Friend 7.62步枪",
+                    ["bm_w_contraband_m16"] = "Little Friend 5.56步枪",
+                    ["bm_w_contraband_mpx"] = "OMNIA PC9 9mm步枪",
                     --FAL
-                    ["bm_w_fal"] = "Falcon 58",
-                    ["bm_w_fal_l1a1"] = "Falcon SLR",
-                    ["bm_w_fal_sa58"] = "Falcon 58 OSW",
-                    ["bm_w_fal_idf"] = "Falcon RMT",
+                    ["bm_w_fal"] = "Falcon 58步枪",
+                    ["bm_w_fal_l1a1"] = "Falcon SLR步枪",
+                    ["bm_w_fal_sa58"] = "Falcon 58 OSW步枪",
+                    ["bm_w_fal_idf"] = "Falcon RMT步枪",
                     --ASS VAL
-                    ["bm_w_asval"] = "Valkyria",
+                    ["bm_w_asval"] = "Valkyria步枪",
                     --Galil
-                    ["bm_w_galil"] = "Gecko 7.62",
-                    ["bm_w_galil_galatz"] = "Gekkota 7.62",
-                    ["bm_w_galil_mar"] = "Micro Gecko 7.62",
-                    ["bm_w_galil_556"] = "Gecko 5.56",
-                    ["bm_w_galil_mar_556"] = "Micro Gecko 5.56",
+                    ["bm_w_galil"] = "Gecko 7.62步枪",
+                    ["bm_w_galil_galatz"] = "Gekkota 7.62步枪",
+                    ["bm_w_galil_mar"] = "Micro Gecko 7.62步枪",
+                    ["bm_w_galil_556"] = "Gecko 5.56步枪",
+                    ["bm_w_galil_mar_556"] = "Micro Gecko 5.56步枪",
                     --SCAR
-                    ["bm_w_scar"] = "Eagle Heavy",
-                    ["bm_w_scar_l"] = "Eagle Light",
+                    ["bm_w_scar"] = "Eagle Heavy步枪",
+                    ["bm_w_scar_l"] = "Eagle Light步枪",
+                    ["bm_w_scar_hamr"] = "Eagle Hammer步枪",
                     --Galant--
-                    ["bm_w_ching"] = "M1 Galant",
+                    ["bm_w_ching"] = "M1 Galant步枪",
                     --M308
-                    ["bm_w_m14"] = "M308",
+                    ["bm_w_m14"] = "M308步枪",
                     --G3
-                    ["bm_w_g3"] = "Gewehr-3",
-                    ["bm_w_g3_sg1"] = "Gewehr-S1",
-                    ["bm_w_g3_msg"] = "Gewehr-90",
-                    ["bm_w_g3_psg"] = "Präzision Gewehr-1",
-                    ["bm_w_g3_hk33"] = "SG-33",
-                    ["bm_w_g3_hk33_fo3"] = "R91",
+                    ["bm_w_g3"] = "Gewehr-3步枪",
+                    ["bm_w_g3_sg1"] = "Gewehr-S1步枪",
+                    ["bm_w_g3_msg"] = "Gewehr-90步枪",
+                    ["bm_w_g3_psg"] = "Präzision Gewehr-1步枪",
+                    ["bm_w_g3_hk33"] = "SG-33步枪",
+                    ["bm_w_g3_hk33_fo3"] = "R91步枪",
                     ["bm_wp_g3_b_sniper"] = "Macro Barrel",
                     ["bm_wp_g3_b_short"] = "Micro Barrel",
                     --KS12
-                    ["bm_w_shak12"] = "KS-12 Urban",
-                    ["bm_w_shak12_vks"] = "KSV-12 Urban",
+                    ["bm_w_shak12"] = "KS-12 Urban步枪",
+                    ["bm_w_shak12_vks"] = "KSV-12 Urban步枪",
                     --HCAR
-                    ["bm_w_hcar"] = "Akron HC",
-                    ["bm_w_hcar_bar"] = "Akron HC",
-                    
+                    ["bm_w_hcar"] = "Akron HC重机枪",
+                    ["bm_w_hcar_bar"] = "Akron HC重机枪",  --tra check 这是啥？应该写步枪还是重机枪？？
+
                     --Custom DMRs
                         --MCX Spear
-                        ["bm_w_mcx_spear"] = "FIK M7",
-                        ["bm_w_ngsierra"] = "Amicus 277",
+                        ["bm_w_mcx_spear"] = "FIK M7步枪",
+                        ["bm_w_ngsierra"] = "Amicus 277步枪",
                         --VSS
-                        ["bm_w_vss"] = "Viktoriya",
+                        ["bm_w_vss"] = "Viktoriya步枪",
                         --G3 HK79
-                        ["bm_w_g3hk79"] = "Gewehr-A3 w/ GL79",
+                        ["bm_w_g3hk79"] = "Gewehr-A3 w/ GL79步枪",
                         --BO3 XR2
-                        ["bm_w_xr2"] = "XR-2",
+                        ["bm_w_xr2"] = "XR-2步枪",
                         --SIERRA .458
-                        ["bm_w_sierra458"] = "Sierra .458",
+                        ["bm_w_sierra458"] = "Sierra .458步枪",
+                        --MW2022 .458 AR15
+                        ["bm_w_msecho"] = "FTAC Recon步枪",
                 --[[ SNIPERS ]]
                     --MSR
-                    ["bm_w_msr"] = "Rattlesnake",
-                    ["bm_wp_snp_msr_ns_suppressor"] = "Viper Suppressor",   
+                    ["bm_w_msr"] = "Rattlesnake狙击步枪",
+                    ["bm_wp_snp_msr_ns_suppressor"] = "Viper Suppressor",
                     --R700
-                    ["bm_w_r700"] = "Reinfeld Model 700",   
+                    ["bm_w_r700"] = "Reinfeld Model 700狙击步枪",
                     --QBU88
-                    ["bm_w_qbu88"] = "Káng Arms X1",
+                    ["bm_w_qbu88"] = "Káng Arms X1狙击步枪",
                     --Winchester 1874
-                    ["bm_w_winchester1874"] = "Repeater 1874", --"Repeater" is the stand-in/fake name for the IRL manufacturer "Winchester"; I know "Eaton" exists from OTWD
+                    ["bm_w_winchester1874"] = "Repeater 1874狙击步枪", --"Repeater" is the stand-in/fake name for the IRL manufacturer "Winchester"; I know "Eaton" exists from OTWD
                     --TTI(TTY)
-                    ["bm_w_tti"] = "Tecci Tactical .308",
+                    ["bm_w_tti"] = "Tecci Tactical .308狙击步枪",
                     --Icky Vicky
-                    ["bm_w_victor"] = "SA North Star",
+                    ["bm_w_victor"] = "SA North Star狙击步枪",
                     --Scunt
-                    ["bm_w_scout"] = "Pronghorn",
+                    ["bm_w_scout"] = "Pronghorn狙击步枪",
                     --AWP
-                    ["bm_w_awp"] = "AIM 900F", --Dunno why Overkill didn't use the naming method used for OTWD; the model itself even uses OTWD's method by directly referencing "AIM" on the receiver
+                    ["bm_w_awp"] = "AIM 900F狙击步枪", --Dunno why Overkill didn't use the naming method used for OTWD; the model itself even uses OTWD's method by directly referencing "AIM" on the receiver
                     --WA2000
-                    ["bm_w_wa2000"] = "Lebensauger",
+                    ["bm_w_wa2000"] = "Lebensauger狙击步枪",
                     --Rangerhitter
-                    ["bm_w_sbl"] = "Rangehitter Mk. 2", --It's not a Beretta gun so "Rangehitter" is the stand-in/fake name for the IRL manufacturer "Marlin"
+                    ["bm_w_sbl"] = "Rangehitter Mk. 2狙击步枪", --It's not a Beretta gun so "Rangehitter" is the stand-in/fake name for the IRL manufacturer "Marlin"
                     --Contender G2
-                    ["bm_w_contender"] = "Aran G2",
+                    ["bm_w_contender"] = "Aran G2狙击步枪",
                     --Model 70
-                    ["bm_w_model70"] = "Platypus 70",
+                    ["bm_w_model70"] = "Platypus 70狙击步枪",
                     --SVD
-                    ["bm_w_siltstone"] = "Grom",
+                    ["bm_w_siltstone"] = "Grom狙击步枪",
                     --Mosin--
-                    ["bm_w_mosin"] = "Nagant",
+                    ["bm_w_mosin"] = "Nagant狙击步枪",
                     --Desert Fox
-                    ["bm_w_desertfox"] = "Desertfox",
+                    ["bm_w_desertfox"] = "Desertfox狙击步枪",
                     --R93
-                    ["bm_w_r93"] = "R93",
+                    ["bm_w_r93"] = "R93狙击步枪",
                     --Thanatos--
-                    ["bm_w_m95"] = "Thanatos 95",
+                    ["bm_w_m95"] = "Thanatos 95狙击步枪",
                     --Custom Snipers
                         --Guerilla
-                        ["bm_w_sgs"] = "Guerilla 542",  
+                        ["bm_w_sgs"] = "Guerilla 542狙击步枪",
                         --PD3 Lynx
-                        ["bm_w_pd3_lynx"] = "HET-5 Red Fox",
+                        ["bm_w_pd3_lynx"] = "HET-5 Red Fox狙击步枪",
                         --AMR2
-                        ["bm_w_amr2"] = "Northwest AM-2",
+                        ["bm_w_amr2"] = "Northwest AM-2狙击步枪",
                         --M107
-                        ["bm_w_m107cq"] = "Thanatos 107",
+                        ["bm_w_m107cq"] = "Thanatos 107狙击步枪",
                         --M200
-                        ["bm_w_m200"] = "TF 141",
+                        ["bm_w_m200"] = "TF 141狙击步枪",
                         --Marlin 1894
-                        ["bm_w_m1894"] = "Mare's Leg",
+                        ["bm_w_m1894"] = "Mare's Leg狙击步枪",
                         --SPX Centerfire
-                        ["bm_w_moss464spx"] = "Mosconi SPX",
+                        ["bm_w_moss464spx"] = "Mosconi SPX狙击步枪",
                         --Winchester 1894
-                        ["bm_w_winchester1894"] = "Repeater 1894",
+                        ["bm_w_winchester1894"] = "Repeater 1894狙击步枪",
                         --SVD
-                        ["bm_w_svd"] = "SV7",
+                        ["bm_w_svd"] = "SV7狙击步枪",
                         ["bm_wp_wpn_fps_snp_svd_pso"] = "SV7 Scope",
                         --L115
-                        ["bm_w_l115"] = "AIM 90M",
+                        ["bm_w_l115"] = "AIM 90M狙击步枪",
+                        --"PTRS"
+                        ["bm_w_mptango41"] = "Gorenko Anti-Tank Rifle狙击步枪",
+                        --Lockwood Mk2
+                        ["bm_w_sbeta"] = "Lockwood Mk2狙击步枪",
                 --[[ LAUNCHERS & BOWS ]]
-                    --GL40      
-                    ["bm_w_gre_m79"] = "GL-40",
+                    --GL40
+                    ["bm_w_gre_m79"] = "GL-40榴弹发射器",
                     --3GL
-                    ["bm_w_ms3gl"] = "Basilisk 3GL",
+                    ["bm_w_ms3gl"] = "Basilisk 3榴弹发射器",
                     --PIGLET/M32
-                    ["bm_w_m32"] = "Piglet",
+                    ["bm_w_m32"] = "Piglet榴弹发射器",
                     --China Puff
-                    ["bm_w_china"] = "China Puff",
+                    ["bm_w_china"] = "China Puff榴弹发射器",
                     --Compact 40mm
-                    ["bm_w_slap"] = "Compact 40mm",
+                    ["bm_w_slap"] = "Compact 40mm榴弹发射器",
                     --Arbiter
-                    ["bm_w_arbiter"] = "Arbiter",
+                    ["bm_w_arbiter"] = "Arbiter榴弹发射器",
                     --RPG
-                    ["bm_w_rpg7"] = "HRL-7",
+                    ["bm_w_rpg7"] = "HRL-7火箭筒",
                     --COMMANDO 101/M202 FLASH
-                    ["bm_w_ray"] = "Commando 101 FLASH",
+                    ["bm_w_ray"] = "Commando 101 FLASH火箭筒",
                 --[[ UNIVERSAL ATTACHMENTS ]]
                     --MUZZLE DEVICES
                     ["bm_wp_upg_ns_ass_smg_stubby"] = "Stubby Flash Hider",
                     --SIGHTS
                     ["bm_wpn_fps_upg_o_hamr"] = "Trigonom SCRW Scope",
-                })
-            end
+            })
+        end
 
         if weapon_names == 2 then --Resmod names (No nicknames)
-            LocalizationManager:add_localized_strings({ 
+            LocalizationManager:add_localized_strings({
 
                 ["bm_w_pl14"] = "WS-14",
                 ["bm_w_x_pl14"] = "Akimbo WS-14s",
+                ["bm_wp_pis_g26"] = "Chimano 26",
+                ["bm_w_jowi"] = "Akimbo Chimano 26s",
+
                 ["bm_w_g22c"] = "Chimano 22C",
                 ["bm_w_x_g22c"] = "Akimbo Chimano 22Cs",
+                ["bm_w_x_sparrow"] = "Akimbo Sparrows",
+
                 ["bm_w_x_1911"] = "Akimbo Operator IIs",
                 ["bm_w_x_m1911"] = "Akimbo Crosskill A1s",
-                ["bm_w_x_sparrow"] = "Akimbo Sparrows",
-                ["bm_w_x_judge"] = "Akimbo Judges",
-                ["bm_w_scar"] = "VF-7S",
-                ["bm_w_scar_l"] = "VF-6M",
-                ["bm_w_scarl"] = "VF-6M",
+                ["bm_w_x_shrew"] = "Akimbo Crosskill Guards",
+
                 ["bm_w_schakal"] = "AMP 45",
-                ["bm_w_tecci"] = "SG 416C",
+
+                ["bm_w_x_judge"] = "Akimbo Judges",
+
                 ["bm_w_l85a2"] = "L-95",
-                ["bm_w_vhs"] = "HVH-2",
                 ["bm_w_contraband"] = "SG 417D GL",
                 ["bm_w_contraband_m16"] = "AMR-16 GL",
                 ["bm_w_contraband_mpx"] = "OMNIA PC9 GL",
-    
+
+                ["bm_w_vhs"] = "HVH-2",
+                ["bm_w_scar"] = "VF-7S",
+                ["bm_w_scar_l"] = "VF-6M",
+                ["bm_w_scar_hamr"] = "VF-HAMR",
+                ["bm_w_scarl"] = "VF-6M",
+
+                ["bm_w_tecci"] = "SG 416C",
+
             })
         elseif weapon_names == 3 then --DMCWO Reelnames
-            LocalizationManager:add_localized_strings({ 
+            LocalizationManager:add_localized_strings({
 
                 --[[PISTOLS]]
                     --5/7
@@ -3600,7 +4615,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_wp_sparrow_body_941"] = "IWI Jericho 941F Kit",
                     ["bm_wp_sparrow_g_cowboy"] = "Weighted Grip",
                     ["bm_wp_sparrow_g_cowboy_desc"] = "YOU'RE GONNA CARRY THAT WEIGHT.",
-                    
+
                     --SUB2000
                     ["bm_w_sub2000"] = "Kel-Tec SUB-2000",
                     ["bm_sub2000_sc_desc"] = "One of the guns that has ever been made. Tiny pistol bullets hit a lot harder when coming out of a longer barrel and its folding capability makes for decent concealment.",
@@ -3643,19 +4658,22 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_socom"] = "H&K Mk.23",
                     ["bm_wp_wpn_fps_upg_fl_pis_socomlam"] = "Prototype Phase I LAM",
                     ["bm_w_x_socom"] = "Akimbo Mk.23s",
-                    --TT-33 
+                    --TT-33
                     ["bm_w_type54"] = "Tokarev TT-33",
                     ["bm_w_x_type54"] = "Akimbo TT-33s",
-                    
+
                     --Kahn .357
                     ["bm_w_korth"] = "Korth NXA",
                     ["bm_w_x_korth"] = "Akimbo Korth NXAs",
                     --Mateba
                     ["bm_w_mateba"] = "Mateba 2006M",
+                    ["bm_wp_2006m_b_short"] = "Tachikoma Barrel",
+                    ["bm_wp_2006m_b_medium"] = "Togusa Barrel",
+                    ["bm_wp_2006m_b_long"] = "Kusanagi Barrel",
                     ["bm_w_x_2006m"] = "Akimbo 2006Ms",
                     --Frenchman Model 87
-                    ["bm_w_model3"] = "S&W Model 3",    
-                    ["bm_w_x_model3"] = "Akimbo Model 3s",  
+                    ["bm_w_model3"] = "S&W Model 3",
+                    ["bm_w_x_model3"] = "Akimbo Model 3s",
                     --Castigo
                     ["bm_w_chinchilla"] = "S&W Model 29",
                     ["bm_w_x_chinchilla"] = "Akimbo Model 29s",
@@ -3677,9 +4695,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_wp_deagle_m_extended"] = "12rnd Desert Eagle Magazine",
                     ["bm_wp_deagle_b_long"] = "10\" Long Barrel",
                     --SAA
-                    ["bm_w_peacemaker"] = "Colt Single Action Army",
+                    ["bm_w_peacemaker"] = "Colt Single Action Army", --Technically a Ruger New Vaquero but that's not as fun
                     ["bm_wp_peacemaker_barrel_long"] = "12\" Barrel",
-                    ["bm_wp_peacemaker_barrel_short"] = "5.5\" Barrel",
+                    ["bm_wp_peacemaker_barrel_short"] = "4.62\" Barrel",
                     ["bm_wp_peacemaker_handle_bling"] = "Engraved SAA Grips",
                     ["bm_wp_peacemaker_rifle_stock"] = "Skeletal Stock",
                     --RUS-12
@@ -3698,12 +4716,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     --P90
                     ["bm_w_p90"] = "FN P90 TR",
                     ["bm_w_x_p90"] = "Akimbo P90s",
-                    ["bm_p90_sc_desc"] = "A bullpup SMG and competitor to the MP7. Frequently commented on as looking like a futuristic space gun.\n\n#{skill_color}#Deals 75% of its damage through body armor and headshots deal 66% more damage to non-captain enemies.##",
+                    ["bm_p90_sc_desc"] = "A bullpup SMG and competitor to the MP7. Frequently commented on as looking like a futuristic space gun.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
                     ["bm_wp_p90_b_long"] = "PS90 Barrel",
                     ["bm_wp_p90_b_civilian"] = "Moerse Lekker Barrel Shroud",
                     --MP7
                     ["bm_w_mp7"] = "H&K MP7A2", --PD2's version kinda existed before the real MP7A2 was a thing so there's still some MP7A1 bits on it but w/e
-                    ["bm_mp7_sc_desc"] = "A lightweight SMG and competitor to the P90 SMG. Doesn't have an undermounted grenade launcher as some sources may lead you to believe.\n\n#{skill_color}#Deals 75% of its damage through body armor and headshots deal 66% more damage to non-captain enemies.##",
+                    ["bm_mp7_sc_desc"] = "A lightweight SMG and competitor to the P90 SMG. Doesn't have an undermounted grenade launcher as some sources may lead you to believe.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
                     ["bm_wp_mp7_b_suppressed"] = "B&T Rotex-II Suppressor",
                     ["bm_wp_mp7_s_long"] = "Extended Stock",
                     ["bm_wp_mp7_m_extended"] = "MP7 40rnd Magazine",
@@ -3728,7 +4746,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     --SR-2M
                     ["bm_w_sr2"] = "TsNIITochMash SR-2M \"Veresk\"",
                     ["bm_w_x_sr2"] = "Akimbo SR-2Ms",
-                    ["bm_sr2_sc_desc"] = "Utilizing a specialized 9×21mm round, the SR-2M is the Russian answer to the P90 and MP7 SMGs.\n\n#{skill_color}#Deals 75% of its damage through body armor and headshots deal 50% more damage to non-captain enemies.##",
+                    ["bm_sr2_sc_desc"] = "Utilizing a specialized 9×21mm round, the SR-2M is the Russian answer to the P90 and MP7 SMGs.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
                     --Miyaka 9
                     ["bm_w_pm9"] = "Minebea PM-9",
                     --FMG9
@@ -3743,8 +4761,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_wp_scorpion_b_suppressed"] = "Skorpion Suppressor",
                     --MP5
                     ["bm_w_mp5"] = "H&K MP5A2",
-                    ["bm_w_mp5sd"] = "H&K MP5SD",   
-                    ["bm_w_mp5k"] = "H&K MP5K", 
+                    ["bm_w_mp5sd"] = "H&K MP5SD",
+                    ["bm_w_mp5k"] = "H&K MP5K",
                     ["bm_w_mp5k_pdw"] = "H&K MP5K PDW",
                     ["bm_w_x_mp5"] = "Akimbo MP5A2s",
                     ["bm_mp5_sc_desc"] = "The little sister to the G3.\nFast-firing, accurate and easy to handle, what more could you want out of an SMG?",
@@ -3757,7 +4775,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_wp_mp5_m_drum"] = "70rnd MP5 Drum",
                     ["bm_wp_mp5_m_straight"] = "30rnd MP5 40/10 Magazine",
                     --MPX
-                    ["bm_w_shepheard"] = "SIG MPX", 
+                    ["bm_w_shepheard"] = "SIG MPX",
                     --Vityaz
                     ["bm_w_vityaz"] = "Kalashnikov Concern PP-19 Vityaz-SN",
                     --Bizon
@@ -3805,7 +4823,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_polymer"] = "KRISS Vector SMG",
                     ["bm_wp_polymer_barrel_precision"] = "CRB Barrel w/Shroud",
                     ["bm_wp_polymer_ns_silencer"] = "Defiance HPS 4GSK Suppressor",
-    
+
                 --[[MGs]]
                     --416C
                     ["bm_w_tecci"] = "H&K HK416-C",
@@ -3852,7 +4870,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     --M240
                     ["bm_w_par"] = "FN M240B",
                     ["bm_par_sc_desc"] = "A heavier sibling machinegun to the M249 typically mounted on vehicles. Trades mobility for an even bigger bullet.",
-                
+
                     ["bm_wp_par_s_plastic"] = "M240B Stock",
                     --M60
                     ["bm_w_m60"] = "Saco M60",
@@ -3864,6 +4882,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_m134"] = "General Electric M134",
                     ["bm_wp_m134_barrel_extreme"] = "Anti-Air Barrel",
                     ["bm_wp_m134_barrel_short"] = "Compact Barrel",
+                    --Custom MGs
+                        ["bm_w_mx63"] = "KAC LAMG",
 
                 --[[SHOTGUNS]]
                     --Saiga
@@ -3947,6 +4967,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_wp_boot_body_exotic"] = "Case Hardened 1887 Reciever",
                     --Claire 12G
                     ["bm_w_coach"] = "Remington Model 1889",
+                    --CUSTOM SHOTGUNS
+                        --MW2022 Vepr
+                        ["bm_w_vecho"] = "Vepr-12",
+                        --MW2023 Origin 12
+                        ["bm_w_haymaker"] = "Origin-12",
 
                 --[[ARs]]
                     --FAMAS
@@ -4004,6 +5029,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     --CAR-4
                     ["bm_w_m4"] = "Colt M4A1",
                     ["bm_w_m4_mk12"] = "Mk 12 SPR",
+                    ["bm_w_m4_lr300"] = "ZM LR-300",
                     --AK74
                     ["bm_w_ak74"] = "Kalashnikov Concern AKS-74",
                     --805
@@ -4037,6 +5063,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_tkb"] = "Tula Arms TKB-059",
                     --Groza
                     ["bm_w_groza"] = "TsKIB SOO Groza-1",
+                    --Custom Rifles
+                        ["bm_w_fik22"] = "Ruger 10/22",
+                        --ACR 2012
+                        ["bm_w_acr_2012"] = "Remington ACR",
+                        --MW2023 ARX-200
+                        ["bm_w_soa"] = "Beretta ARX-200",
+                        --BO6 CETME Model L
+                        ["bm_w_modl"] = "CETME Model L",
+
 
                 --[[DMRs]]
                     --417
@@ -4048,10 +5083,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                         --VMP
                         ["bm_m203_vmp_sc_desc_pc"] = "A replica of Scarface's personal \"Little Friend\" M16.\n\nPressing #{skill_color}#$BTN_BIPOD## switches to the undermounted grenade launcher.",
                         ["bm_m203_vmp_sc_desc"] = "A replica of Scarface's personal \"Little Friend\" M16.\n\nHolding #{skill_color}#$BTN_BIPOD## switches to the undermounted grenade launcher.",
-                
+
                     --SCAR
                     ["bm_w_scar"] = "FN Mk.17",
                     ["bm_w_scar_l"] = "FN Mk.16",
+                    ["bm_w_scar_hamr"] = "FN HAMR",
                     ["bm_wp_scar_fg_railext"] = "PWS SCAR Rail Extension",
                     ["bm_wp_scar_s_sniper"] = "Mk.20 Stock",
                     --FAL
@@ -4095,9 +5131,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_g3_msg"] = "H&K MSG90",
                     ["bm_w_g3_psg"] = "H&K PSG-1",
                     ["bm_w_g3_fo3"] = "R91",
-                    ["bm_g3_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies and thin walls.##",
-                    ["bm_g3_ap25_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Deals 75% of its damage through body armor and can pierce enemies.##",  
-                    ["bm_g3_sg1_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Can pierce body armor, enemies, shields and thin walls.##",
+                    ["bm_g3_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Deals 50% of its damage through body armor and can pierce enemies.##",
+                    ["bm_g3_ap25_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Deals 75% of its damage through body armor and can pierce enemies.##",
+                    ["bm_g3_sg1_sc_desc"] = "Acting as the big sister to the MP5 and HK21, this rifle's accuracy rivals that of snipers.\n\n#{skill_color}#Can pierce body armor, multiple enemies, shields within max damage range and thin walls.##",
                     ["bm_wp_g3_b_short"] = "Short Barrel",
                     ["bm_wp_g3_b_sniper"] = "PSG-1 Barrel",
                     ["bm_wp_g3_fg_psg"] = "PSG-1 Handguard",
@@ -4180,13 +5216,32 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_m95"] = "Barrett M95",
                     ["bm_wp_m95_b_barrel_long"] = "Long Barrel w/AW50F Muzzle Brake",
                     --Custom Snipers
+                        --Guerilla
+                        ["bm_w_sgs"] = "SIG 542",
+                        --AMR2
+                        ["bm_w_amr2"] = "CSI AMR-2",
+                        --M200
+                        ["bm_w_m200"] = "Cheytac M200",
+                        --Marlin 1894
+                        ["bm_w_m1894"] = "Marlin 1894",
+                        --SPX Centerfire
+                        ["bm_w_moss464spx"] = "Mossberg SPX Centerfire",
+                        --Winchester 1894
+                        ["bm_w_winchester1894"] = "Winchester 1894",
+                        --SVD
+                        ["bm_w_svd"] = "Kalashnikov Concern SVD",
+                        --L115
+                        ["bm_w_l115"] = "Accuracy International L115",
+                        --"PTRS"
+                        ["bm_w_mptango41"] = "\"PTRS-41\"",
                         --PD3 Lynx
                         ["bm_w_pd3_lynx"] = "SERO Gepard M6",
                         --M107
-                        ["bm_m107cq_sc_desc"] = "If the M95 wasn't up to speed, then the M107 will deliver what you want as a fine, red mist.\n\n#{skill_color}#Headshots deal 100% more damage to non-captain enemies.\nCan pierce multiple enemies, their body armor, shields, titan-shields and thin walls.##",
+                        ["bm_w_m107cq"] = "Barrett M107CQ",
+                        ["bm_m107cq_sc_desc"] = "If the M95 wasn't up to speed, then the M107 will deliver what you want as a fine, red mist.\n\n#{skill_color}#Can pierce multiple enemies, their body armor, shields, titan-shields and thin walls.##",
 
                 --[[SPECIALS]]
-                    --GL40      
+                    --GL40
                     ["bm_w_gre_m79"] = "Springfield Armory M79",
                     --3GL
                     ["bm_w_ms3gl"] = "Metal Storm 3GL",
@@ -4213,7 +5268,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
 
                     --Gadgets
                         ["bm_wp_upg_fl_pis_tlr1"] = "Streamlight TLR-1 Flashlight",
-                        ["bm_wp_upg_fl_pis_laser"] = "Aim Sports LH002 Laser Sight", 
+                        ["bm_wp_upg_fl_pis_laser"] = "Aim Sports LH002 Laser Sight",
                         ["bm_wp_upg_fl_x400v"] = "SureFire X400V-IRC Laser Light",
                         ["bm_wp_upg_fl_crimson"] = "Crimson Trace CMR-201 Laser Sight",
                         ["bm_wp_upg_fl_pis_m3x"] = "Insight Technology M3X Flashlight",
@@ -4246,7 +5301,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                         ["bm_wp_upg_ak_ns_tgp"] = "TGP-A Suppressor",
                         ["bm_wp_victor_ns_omega"] = "SilencerCo Omega 36M Suppressor",
                         ["bm_wp_kacchainsaw_suppressor"] = "KAC QDSS NT4 Suppressor",
-    
+
                         ["bm_wp_ultima_ns_comp"] = "Hi-Tech Howitzer70 Muzzle Brake",
                         ["bm_wp_upg_ns_shot_shark"] = "Tromix Shark Breaching Brake",
                         ["bm_wp_upg_shot_ns_king"] = "King Armory KA-1212 Breaching Brake",
@@ -4306,24 +5361,24 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
 
                     --Sights
                         ["bm_wp_upg_o_marksmansight_rear_desc"] = "Meprolight Tru-Dot Adjustable Sight Set",
-                        ["bm_wp_upg_o_rmr"] = "Trijicon RMR Reflex Sight",
-    
-                        ["bm_wp_upg_o_docter"] = "IRONDOT w/Docter Sight II Plus Reflex Sight",
-                        ["bm_wp_upg_o_reflex"] = "Reflex Sight",
-                        ["bm_wp_upg_o_cmore"] = "C-More Railway Reflex Sight",
-                        ["bm_wp_upg_o_rx01"] = "Trijicon RX01 Reflex Sight",
-                        ["bm_wp_upg_o_rx30"] = "Trijicon RX30 Reflex Sight",    
-    
+                        ["bm_wp_upg_o_rmr"] = "Trijicon RMR Red Dot Sight",
+
+                        ["bm_wp_upg_o_docter"] = "IRONDOT w/Docter Sight II Plus Red Dot Sight",
+                        ["bm_wp_upg_o_reflex"] = "Red Dot Sight",
+                        ["bm_wp_upg_o_cmore"] = "C-More Railway Red Dot Sight",
+                        ["bm_wp_upg_o_rx01"] = "Trijicon RX01 Red Dot Sight",
+                        ["bm_wp_upg_o_rx30"] = "Trijicon RX30 Red Dot Sight",
+
                         ["bm_wp_upg_o_cs"] = "Aimpoint CS Red Dot Sight",
                         ["bm_wp_upg_o_aimpoint"] = "Aimpoint PRO Red Dot Sight",
                         ["bm_wp_upg_o_t1micro"] = "Aimpoint Micro T-1 Red Dot Sight",
                         ["bm_wp_upg_o_tf90"] = "Tech Force TF90 Red Dot Sight",
-    
+
                         ["bm_wp_upg_o_fc1"] = "DI Optical FC1 Prismatic Red Dot Sight",
                         ["bm_wp_upg_o_eotech"] = "EOTech 553 Holographic Sight",
                         ["bm_wp_upg_o_eotech_xps"] = "EOTech EXPS3 Holographic Sight",
                         ["bm_wp_upg_o_uh"] = "AMG UH-1 Holographic Sight",
-    
+
                         ["bm_wp_upg_o_specter"] = "ELCAN Specter DR 1-4x Scope",
                         ["bm_wp_upg_o_acog"] = "Trijicon ACOG Scope",
                         ["bm_wp_upg_o_poe"] = "BelOMO PO4x24P Scope",
@@ -4331,20 +5386,25 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
 
                         ["bm_wp_upg_o_spot"] = "NcStar ADO 3x42 Scope w/Rangefinder",
 
-                        ["bm_wp_upg_o_atibal"] = "Atibal MROC 3x32 Scope",
+                        ["bm_wp_upg_o_atibal"] = "Atibal MROC 3x32 Scope w/Micro Red Dot",
                         ["bm_wpn_fps_upg_o_hamr"] = "Leupold Mk. 4 HAMR 4x24 Scope",
-    
+
+                        ["bm_wp_upg_o_northtac"] = "Northtac Assault Optic 1-4x28 w/Micro Red Dot",
+                        ["bm_wp_uupg_o_schmidt"] = "Schmidt & Bender 5-45x56 PM II High Power",
+
                         --"Schmidt & Bender 1-8x24 PM Short Dot"
+                        ["bm_wp_upg_o_shortdot"] = "Schmidt & Bender 1-8x24 PM Short Dot",
+                        ["bm_wp_upg_o_shortdot_dmc"] = "Schmidt & Bender 1-8x24 PM Short Dot",
                         ["bm_wp_upg_o_leupold"] = "Leupold Mark 4 LR/T M1 w/BORS",
                         ["bm_wp_upg_o_box"] = "Pulsar Digisight LRF N960 NV Scope",
-    
+
                         ["bm_wpn_fps_upg_o_45iron"] = "XS Sights Angled Sights",
                         ["bm_wpn_fps_upg_o_45rds"] = "Leupold Deltapoint Pro Angled RDS",
                         ["bm_wpn_fps_upg_o_45rds_v2"] = "Aimpoint Micro T-1 Red Dot Sight",
-    
+
                         ["bm_wpn_fps_upg_o_xpsg33_magnifier"] = "Aimpoint 3XMag Magnifier",
                         ["bm_wpn_fps_upg_o_sig"] = "SIG Juliet3 Magnifier",
-    
+
                         ["bm_wp_upg_o_mbus_rear"] = "Magpul MBUS Back-up Sights",
 
                     --Vertical Grips
@@ -4416,7 +5476,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_melee_shovel"] = "K.L.A.S.",
                     ["bm_melee_baseballbat"] = "\"Lucille\"",
                     ["bm_melee_bayonet"] = "AKM Type II Bayonet",
-                    ["bm_melee_bullseye"] = "Smith & Wesson Bullseye Hatchet",  
+                    ["bm_melee_bullseye"] = "Smith & Wesson Bullseye Hatchet",
                     ["bm_melee_x46"] = "Robson Knives X46 Utility Survival Knife",
                     ["bm_melee_dingdong"] = "Gerber Ding Dong Breaching Tool",
                     ["bm_melee_cleaver"] = "Cleaver",
@@ -4473,7 +5533,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             if yurenjie then
                 shalashaska = 1
             end
-            if bobcat or not easterless and twirl <= shalashaska then
+            if bobcat or (not easterless and (twirl <= shalashaska)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_w_peacemaker"] = "左轮山猫",
                     ["bm_w_peacemaker_desc"] = "左轮山猫",
@@ -4498,7 +5558,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             if yurenjie then
                 game_meme_fun = 1
             end
-            if eggplant or not easterless and game_meme <= game_meme_fun then
+            if eggplant or (not easterless and (game_meme <= game_meme_fun)) then
                 LocalizationManager:add_localized_strings({
                     -- HD2
                     ["bm_menu_liberty_saves_me"] = "[##民主护佑##]\n身穿此护甲时，有##10%##的几率免疫破甲伤害和##50%##的几率免疫致命伤害。",
@@ -4513,12 +5573,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_w_m16"] = "9000GP永久",
                     -- Genshin Impact
                     ["heist_deep"] = "原友觉醒",
+                    -- otto
+                    ["bm_melee_funder_strike"] = "电棍",
+                    ["bm_melee_funder_strike_info"] = "过来给你爹捶捶背，使敌人哇袄——",
                     -- apex
                     ["bm_w_fmg9"] = "平行手枪",
                     ["bm_w_mg42"] = "L-STAR充能机枪",
                     -- overwatch
-                    ["bm_wp_upg_bazooka_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。",
-                    ["bm_bazooka_sc_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。",
+                    ["bm_wp_upg_bazooka_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
+                    ["bm_bazooka_sc_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
                     ["bm_w_peacemaker"] = "维和者",
                     ["bm_ap_weapon_peacemaker_sc_desc"] = "“#{heat_warm_color}#正义可不会伸张自己##”\n\n\n辅助开火可以通过快速煽动击锤以#{important_1}#更高的后坐力、更低的有效射程和无法机瞄##为代价#{skill_color}#提高射速##进行速射。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。"
                 })
@@ -4529,7 +5592,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             if yurenjie then
                 game_meme_fun_2 = 1
             end
-            if eggplant or not easterless and game_meme_2 <= game_meme_fun_2 then
+            if eggplant or (not easterless and (game_meme_2 <= game_meme_fun_2)) then
                 LocalizationManager:add_localized_strings({
                     -- Genshin Impact
                     ["heist_deep"] = "OP觉醒",
@@ -4552,7 +5615,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             if yurenjie then
                 chinese_meme_fun = 1
             end
-            if registeredloser or not easterless and chinese_meme <= chinese_meme_fun then
+            if registeredloser or (not easterless and (chinese_meme <= chinese_meme_fun)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_melee_swing_arc_1"] = "有#{skill_color}#较宽##的攻击范围。",
                     ["bm_melee_swing_arc_2"] = "有#{skill_color}#很宽##的攻击范围。",
@@ -4571,10 +5634,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
             if yurenjie then
                 pistol = 1
             end
-            if shitpost or not easterless and big <= pistol then
+            if shitpost or (not easterless and (big <= pistol)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_melee_great_info"] = "试着去刺击，但穿了个洞。\n\n攒累#{skill_color}#九成##之力，斩出一剑，剑尖即可深入#{skill_color}#半米##远方，视野也得以拓宽。",
-                    ["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",
+                    --["bm_melee_jebus_info"] = "#{risk}#明暗双生，黑白两道，生死分明！##\n\n这柄剑刃无容于中庸，必能令敌手唯恐避之不及。",--\n\n攒累九成之力，斩出一剑，剑尖即可深入半米远方，视野也得以拓宽。",  --移除
                     ["bm_sparrow_sc_desc"] = "\n我一定会回来的！",
                     ["bm_m16_sc_desc"] = "我给你一个弹夹，这样你就可以输出了。",
                     ["bm_w_x_type54"] = "十字杀双胞胎",
@@ -4582,7 +5645,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                     ["bm_akmsu_sc_desc"] = "一支不可被低估的小型步枪，用于击倒#{stat_maxed}#大个子##。这把步枪几乎可以在任何时候都发挥效用。"
                 })
             end
-            if shitpost or not easterless and big <= 0.5 then
+            if shitpost or (not easterless and (big <= 0.5)) then
                 LocalizationManager:add_localized_strings({
                     ["bm_melee_model24"] = "哑弹棒"
                 })
@@ -4596,6 +5659,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons", function(loc
                 ["dialog_err_failed_joining_lobby"] = "你太菜了无法加入游戏。"
             })
         end
+		
+		--生化危机套组的另一个描述文本
+		local redfield = math.rand(1)
+		local ethan = 0.55
+		if redfield >= ethan then
+			LocalizationManager:add_localized_strings({
+				["re_kit_Daring_desc"] = "\n#{heat_warm_color}#你是当之无愧的英雄，雷德菲尔德。##\n",
+			})
+		end
+			
 end)
 
 local r = tweak_data.levels.ai_groups.russia -- LevelsTweakData.LevelType.Russia
@@ -4607,7 +5680,7 @@ local f = tweak_data.levels.ai_groups.federales
 local ai_type = tweak_data.levels:get_ai_group_type()
 
 if ai_type == r then
-    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker", function(loc)
+    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker_CSF", function(loc)
         LocalizationManager:add_localized_strings({
             ["hud_assault_assault"] = "ИДЁТ ШТУРМ НАЁМНИКОВ",
             ["hud_assault_cover"] = "ОСТАВАЙТЕСЬ В УКРЫТИИ",
@@ -4615,7 +5688,7 @@ if ai_type == r then
         })
     end)
 elseif ai_type == z then
-    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker", function(loc)
+    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker_CSF", function(loc)
         LocalizationManager:add_localized_strings({
             ["hud_assault_assault"] = "Pciloe Asuaslt in Prergoss",
             ["hud_assault_cover"] = "STYA IN COVRE...FLESH",
@@ -4623,7 +5696,7 @@ elseif ai_type == z then
         })
     end)
 elseif ai_type == f then
-    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker", function(loc)
+    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker_CSF", function(loc)
         LocalizationManager:add_localized_strings({
             ["hud_assault_assault"] = "Asalto Federal En Marcha",
             ["hud_assault_cover"] = "MANTENTE A CUBIERTO",
@@ -4631,7 +5704,7 @@ elseif ai_type == f then
         })
     end)
 elseif ai_type == m then
-    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker", function(loc)
+    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Ticker_CSF", function(loc)
         LocalizationManager:add_localized_strings({
             ["hud_assault_assault"] = "Murkywater Operation in Progress",
             ["hud_assault_alpha"] = "MURKYWATER OPERATION"
@@ -4651,56 +5724,64 @@ if _G.HopLib then
     local fbi = tweak_data.levels.ai_groups.fbi
     local breins = tweak_data.levels.ai_groups.zombie
 
-    Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat", function(loc)
+    Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_CSF", function(loc)
         loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/hoplibkillfeedcompat.json")
     end)
 
     if ai_type == murkywetew then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_murkywetew", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_murkywetew_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/murkywetew.json")
         end)
     elseif ai_type == lapd then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_LAPD", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_LAPD_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/lapd.json")
         end)
     elseif ai_type == mex then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_mex", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_mex_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/mex.json")
         end)
     elseif ai_type == akan then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_akan", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_akan_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/akan.json")
         end)
     elseif ai_type == nypd then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_nypd", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_nypd_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/nypd.json")
         end)
     elseif ai_type == fbi then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_fbi", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_fbi_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/fbi.json")
         end)
     elseif ai_type == breins then
-        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_breins", function(loc)
+        Hooks:Add("LocalizationManagerPostInit", "LtyR_HoplibKillFeedCompat_breins_CSF", function(loc)
             loc:load_localization_file(ModPath_Chin .. "resloc/loc/json_dev_new/breins.json")
         end)
     end
 end
 
 
+if restoration and restoration.Options:GetValue("OTHER/OldEconomy") then
+    Hooks:Add("LocalizationManagerPostInit", "SC_Localization_PayPerDay_CSF", function(loc)
+        LocalizationManager:add_localized_strings({
+            ["victory_stage_cash_summary_name_job"] = "你从当日劫案中获得了额外的金钱： $stage_cash 因为完成合约，你又获得了额外的金钱： $job_cash "
+        })
+    end)
+end
 
-Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
+
+Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(loc)
     LocalizationManager:add_localized_strings({
         ["menu_toggle_one_down"] = "专家模式",
         ["menu_one_down"] = "专家模式",
         ["menu_es_pro_job_bonus"] = "专家模式奖励",
 
         ["menu_asset_lock_additional_assets_pro"] = "专家模式下不可用！",
+        ["menu_asset_buy_all_req_skill"] = "##不可用！##",  --check
         ["menu_pro_warning"] = "这是一个专家级任务，无法重新任务！如果你失败了，整场合约将直接被终止！\n此外，有去无回会触发于劫案的尾声部分，此时会出现具有极高威胁性的临界反应部队。\n全武器友军伤害已启用。完成劫案获得的经验和金钱提高25%。",
 
         ["cn_menu_contract_daypay_header"] = "任务天数：",
         ["cn_menu_contract_jobpay_header"] = "合约报酬：",
-        ["victory_stage_cash_summary_name_job"] = "你从当日劫案中获得了额外的金钱： $stage_cash 因为完成合约，你又获得了额外的金钱： $job_cash ",
-
+        
         ["debug_interact_grenade_crate_take_grenades"] = "按住 $BTN_INTERACT 来拾取一次投掷物(都补满)",
         ["debug_interact_bodybags_bag_take_bodybag"] = "按住 $BTN_INTERACT 来拾取一次尸体袋和绑带(都补满)",
 
@@ -4723,7 +5804,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         -- ECM Jammer
         ["bm_equipment_ecm_jammer"] = "ECM电子干扰器",
         ["bm_equipment_ecm_jammer_desc"] = "要使用ECM干扰器，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就不能被移动，并且它会立刻生效#{skill_color}#$deployable_uses##秒，期间它会阻止手机报警、干扰摄像头及一些其它电子设备。\n\n你可以靠近并对其按下#{skill_color}#$BTN_INTERACT##以启用ECM干扰器的反馈功能，反馈开始时有#{skill_color}#100%##的几率使半径#{skill_color}#25##米范围内的绝大部分敌人失去行动能力，随后每#{skill_color}#1.2##秒都有#{skill_color}#60%##的几率眩晕范围内的敌人。反馈持续#{skill_color}#$deployable_uses##秒且可以在#{skill_color}#4##分钟的充能后重新使用。\n靠近并对ATM机、安全门等目标上的干扰器标志按住#{skill_color}#$BTN_INTERACT##可以打开目标或造成目标失效等的影响。\n\nECM干扰器可以用于干扰电子设备，让你更轻松地实现目标。但若你使用不当，它反而有可能拖延你的任务进程。",
-        ["bm_equipment_ecm_jammer_desc_short"] = "要使用ECM干扰器，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就不能被移动，并且它会立刻生效#{skill_color}#$deployable_uses##秒。\n你可以靠近并对其按下#{skill_color}#$BTN_INTERACT##以启用ECM干扰器的反馈功能，反馈开始时有#{skill_color}#100%##的几率使半径#{skill_color}#25##米范围内的绝大部分敌人失去行动能力，随后每#{skill_color}#1.2##秒都有#{skill_color}#60%##的几率眩晕范围内的敌人。反馈持续#{skill_color}#$deployable_uses##秒且可以在#{skill_color}#4##分钟的充能后重新使用。",
+        ["bm_equipment_ecm_jammer_desc_short"] = "要使用ECM干扰器，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就不能被移动，并且它会立刻生效#{skill_color}#$deployable_uses##秒。\n你可以靠近并对其按下#{skill_color}#$BTN_INTERACT##以启用ECM干扰器的反馈功能，反馈开始时有#{skill_color}#100%##的几率使半径#{skill_color}#25##米范围内的绝大部分敌人失去行动能力，随后每#{skill_color}#1.2##秒都有#{skill_color}#60%##的几率眩晕范围内的敌人。反馈持续#{skill_color}#$deployable_uses##秒且可以在#{skill_color}#4##分钟的充能后重新使用。",  --check 25米变24米是否为实
         -- FAQ U
         ["bm_equipment_first_aid_kit_desc"] = "要使用急救包，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，你或你的队友都可以按住#{skill_color}#$BTN_INTERACT##使用并瞬间回复#{stats_positive}#150##点#{risk}#血量##。急救包只能使用#{skill_color}#一次##。\n\n急救包在紧急情况下用于快速急救。",
         ["bm_equipment_first_aid_kit_desc_short"] = "要使用急救包，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，你或你的队友都可以按住#{skill_color}#$BTN_INTERACT##使用并瞬间回复#{stats_positive}#150##点#{risk}#血量##。急救包只能使用#{skill_color}#一次##。",
@@ -4780,7 +5861,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["loading_gameplay_res_13"] = "幻影特工在在飞踢时会发出标志性的声音。",
         ["loading_gameplay_res_14"] = "幻影特工的飞踢只会把你拷住，不算倒地次数。",
         ["loading_gameplay_res_15"] = "在\"死刑宣判\"难度下，警察的闪光弹无法被打掉。我不要你觉得，我要我觉得。",
-        ["loading_gameplay_res_16"] = "你可以通过近战蓄力来招架住敌人的近战攻击。使用\"反\'控\'精英\"技能可以让其招架住幻影特工的飞踢。",
+        ["loading_gameplay_res_16"] = "你可以通过近战蓄力来招架住绝大部分敌人的近战攻击。使用\"反\'控\'精英\"技能可以让其招架住幻影特工的飞踢和盾兵的撞击。",
         ["loading_gameplay_res_17"] = "敌人的近战攻击比原版更快更猛，保持距离！别傻傻逼逼想着从警察堆里冲过去，这么做你只会被警察的一套连击打出十割。",
         ["loading_gameplay_res_18"] = "有什么比用棒球棍猛打敌人更好的事情呢？用棒球棒爆他们的头！",
         ["loading_gameplay_res_19"] = "狙击手在射击前需要一点时间集中注意力。如果你被狙击手盯上了，你会发觉你听到的声音正在逐渐淡出。你可以通过镭射或是狙击镜的反光找到狙击手的位置。",
@@ -4891,6 +5972,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["loading_equip_skills_res_34"] = "枪托近战的攻击速度受武器本身灵活性影响。",
         ["loading_equip_skills_res_35"] = "\"瞄准时间\"属性也适用于\"冲刺-开火时间\"。\"冲刺-开火时间\"指的是在从你停止冲刺到能够射击的这段硬直时间。",
         ["loading_equip_skills_res_36"] = "在战斗中，消音器会降低敌人在被你瞄准时进行闪避动作的可能性。但你要知道，他们既然不花时间躲避你的射击，那就肯定会用这个时间射击你。",
+        ["loading_equip_skills_res_37"] = "When aiming, optics have a recoil reduction that scales with their current magnification level to aid in shooting over longer ranges; this comes at the cost of slower aim times.",
+        ["loading_equip_skills_res_38"] = "The \"Cleave\" stat for melee weapons represents how many enemies you can hit with a single attack; the shield held by Shield units does not count against cleave.",  --tra
         -- Misc Hints
         ["loading_misc_res_title"] = "恢复MOD劫匪小贴士(杂项)",
         ["loading_misc_res_1"] = "试试我们的新劫案吧！合约人\"胡狼\"里有两个，合约人\"弗拉德\"里有一个\"不速之客\"，此外还有官方地图的圣诞版本。",
@@ -4937,6 +6020,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["st_menu_technician_auto"] = "工兵系",
         ["st_menu_technician_breaching"] = "爆破系",
         ["st_menu_technician_sentry"] = "堡垒系",
+        ["st_menu_ghost_silencer"] = "杀手系",
         ["hud_instruct_mask_on"] = "按下 $BTN_USE_ITEM 戴上面具",
         ["hud_instruct_mask_on_alpha"] = "按下 $BTN_USE_ITEM 戴上面具",
 
@@ -4985,7 +6069,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         ["mutator_mememanonly"] = "哈哈哈哈，你们一帮傻逼！",
         ["mutator_mememanonly_desc"] = "受苦吧......",
-        ["mutator_mememanonly_longdesc"] = "有去无回...无路可逃...救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命\n\n 警告：此突变可能在某些地图导致闪退。",
+        ["mutator_mememanonly_longdesc"] = "有去无回...无路可逃...救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命救命\n\n 警告：此突变可能在某些地图导致闪退或敌人生成异常。",
 
         ["MutatorMoreDonutsPlus"] = "我要甜甜圈",
         ["MutatorMoreDonutsPlus_desc"] = "所有的水军都将被替换为纽约警察局的便衣警察，所有的特殊单位都被替换为维生部队。",
@@ -5041,18 +6125,24 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["menu_mutator_captain_replace_spring"] = "春日队长",
         ["menu_mutator_captain_replace_summer"] = "夏日队长",
         ["menu_mutator_captain_replace_hvh"] = "无头熊队长",
+        ["menu_mutator_winter_blacklist_toggle"] = "Blacklist Winters for \"Random\" option",  --tra
+        ["menu_mutator_spring_blacklist_toggle"] = "Blacklist Spring for \"Random\" option",
+        ["menu_mutator_summer_blacklist_toggle"] = "Blacklist Summers for \"Random\" option",
+        ["menu_mutator_autumn_blacklist_toggle"] = "Blacklist Autumn for \"Random\" option",
+        ["menu_mutator_hvh_blacklist_toggle"] = "Blacklist HHHTDFH for \"Random\" option",
         ["mutator_captain_replace_desc"] = "改变劫案内生成的队长。",
-        ["mutator_captain_replace_longdesc"] = "按你的要求让各种劫案刷出你指定的队长。\n\n提示：脚本生成的队长不会被改变。",
+        ["mutator_captain_replace_longdesc"] = "按你的要求让各种劫案刷出你指定的队长。\n\n提示：脚本生成的队长不会被改变。Blacklisting all captains for \"Random\" option will sequence to use \"No Changes\" option.",  --tra
 
         ["mutator_no_outlines"] = "写实模式",
         ["mutator_no_outlines_desc"] = "禁用大多数的高亮和轮廓。",
         ["mutator_no_outlines_longdesc"] = "大多数物体或角色的高亮及轮廓会被禁用，玩家和AI队友的名字标签也不会显示。",
         ["menu_mutator_no_outlines_enemies_toggle"] = "禁用敌人高亮",
+        ["menu_mutator_no_outlines_objectives_toggle"] = "Disable Highlight Outlines (except escort)",  --tra
 
         ["mutator_spawn_mult"] = "犯罪响应增幅",
         ["menu_mutator_enemy_spawn"] = "刷兵倍率",
-        ["mutator_spawn_mult_desc"] = "增加最大刷兵量。",
-        ["mutator_spawn_mult_longdesc"] = "突击进行中会刷出更多的敌人。Overkill™ 经典操作！",
+        ["mutator_spawn_mult_desc"] = "调整最大刷兵量。",
+        ["mutator_spawn_mult_longdesc"] = "突击进行中会刷出更多（或更少）的敌人。Overkill™ 经典操作！",
 
         ["mutator_birthday"] = "气球派对",
         ["mutator_birthday_desc"] = "击杀特殊敌人将生成能提供增益的气球。",
@@ -5061,6 +6151,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["mutator_CG22"] = "犯罪颂歌",
         ["mutator_CG22_desc"] = "有些劫案会生成一颗掉落礼包的圣诞树，将礼包销毁或运到雪橇上。",
         ["mutator_CG22_longdesc"] = "收获日2-2022年圣诞节活动事件：\n\n一颗圣诞树会在某些劫案中出现，与其互动会使其持续掉落礼包。将礼包运送至销毁处销毁可使你获得一个效果增益，或送至雪橇上使你获得额外的经验、金钱或大陆币。每运一包礼物都有概率生成使用喷雪器的雪人熊。",
+
+        --tra
+        ["mutator_thecandlesburnoutforyou"] = "Reload Marathon",
+        ["mutator_thecandlesburnoutforyou_desc"] = "Disables the auto-reload that occurs when emptying your magazine; Reloads require a manual input",
+        ["mutator_thecandlesburnoutforyou_longdesc"] = "Disables the auto-reload that occurs when emptying your magazine; Reloads require a manual input",
+
+        ["mutator_letthesleepinggoddie"] = "Magazine Martyr",
+        ["mutator_letthesleepinggoddie_desc"] = "弹匣未空就进行换弹时，会丢失弹匣中剩余的子弹。",
+        ["mutator_letthesleepinggoddie_longdesc"] = "弹匣未空就进行换弹时，会丢失弹匣中剩余的子弹。\n\nNote: Weapons that retain their ammo during their reload (per-round loading, retention reloads, etc.) as well as reloads triggered by skills are exempt from the effects of this mutator.",
+        ["mutator_letthesleepinggoddie_no_effect"] = "Unaffected by the \"Magazine Martyr\" mutator.",
 
         ["menu_cg22_post_objective_1_desc"] = "使用任意狙击步枪击杀200名敌人。",
         ["menu_cg22_post_objective_2_desc"] = "在非常困难或更高的难度中，使用SA北极星狙击步枪击杀15个幻影特工。",
@@ -5088,8 +6188,12 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["menu_pda10_post_objective_4_desc"] = "收集50个盖奇包裹",
 
         ["mutator_bravos_only"] = "死亡地带",
-        ["mutator_bravos_only_desc"] = "所有敌人将被替换为同等类别的有去无回单位。",
-        ["mutator_bravos_only_longdesc"] = "所有非地图脚本生成的敌人都被替换成专家模式有去无回里的同类别单位。FBI SWAT将替代蓝皮SWAT，并且FBI SWAT会被替换成Bravo临界反应部队。",
+        ["mutator_bravos_only_desc"] = "敌人将被替换为同等类别的有去无回单位。",
+        ["mutator_bravos_only_longdesc"] = "非地图脚本生成的敌人将被替换成专家模式有去无回里的同类别单位。FBI SWAT将替代蓝皮SWAT，并且FBI SWAT会被替换成Bravo临界反应部队。",
+        ["menu_bravo_replacement_choice"] = "替换方式",
+        ["menu_mutator_bravo_replacement_all"] = "所有单位",
+        ["menu_mutator_bravo_replacement_random"] = "随机替换",
+        ["menu_mutator_bravo_replacement_slider"] = "随机替换的概率（百分比）",
 
         ["mutator_zombie_outbreak"] = "行尸走肉",
         ["mutator_zombie_outbreak_desc"] = "所有敌军都将被替换为丧尸单位。",
@@ -5107,6 +6211,13 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["mutator_faction_override_nypd"] = "纽约市警察局",
         ["mutator_faction_override_lapd"] = "洛杉矶警察局",
         ["faction_selector_choice"] = "阵营: ",
+
+        ["mutator_high_noon"] = "Red Dead: The Heist",  --tra
+        ["menu_mutator_high_noon"] = "Red Dead: The Heist",
+        ["mutator_high_noon_desc"] = "Wild West DC.",
+        ["mutator_high_noon_longdesc"] = "Howdy Cowboys! Prepare to fan your hammers in a thrilling heist of rustlers and deputies.\n\nNo Tactical Advantage Whatsoever: Can only use weapons from the age of Cowboys.\n\nNOTE: When this mutator is disabled after being enabled, this mutator's effects on weapons will remain visible in menus until after a restart or a loading screen.",
+        ["bm_not_cowboy_sc"] = "CANNOT USE!!!",
+        ["bm_not_cowboy_sc_desc"] = "#{important_1}#Not Rootin' Tootin'!##",
 
         ["mutator_cloakercuff"] = "膜法特工",
         ["mutator_cloakercuff_desc"] = "幻影特工的近战攻击会直接拷住玩家。",
@@ -5151,6 +6262,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         ["mutator_spoocsquad"] = "鬼鬼祟祟",
         ["mutator_spoocsquad_desc"] = "幻影特工一组一组地生成。",
         ["mutator_spoocsquad_longdesc"] = "幻影特工一组一组地生成。",
+
+        --tra
+        ["mutator_vanilla_police_call"] = "Intruder Alert",
+        ["mutator_vanilla_police_call_desc"] = "Enables vanilla behavior for police calls, pagers and cameras.",
+        ["mutator_vanilla_police_call_longdesc"] = "Enables vanilla behavior for police calls, pagers and cameras.",
 
         -- Crime spree modifier changes
         ["cn_crime_spree_brief"] = "\"罪无止境\"是一系列随机选取并需要连续完成的劫案组合。你完成的每次一次劫案都会为你增加罪无止境等级与奖励。每过20级或26级，你都需要选择一次附加难度因子；每过100级都会增加劫案的基础难度(如枪林弹雨到祸乱横行)，这会使劫案更难完成。等级600之后，玩家的无敌帧将会逐渐减少，Bravo临界反应部队将会开始生成。\n\n##如果你想邀请你的好友一起玩，请先确保他们开始了罪无止境以一起获得等级和奖励##",
@@ -5231,27 +6347,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Combat Medic
         ["menu_combat_medic_beta_sc"] = "医疗兵",
-        ["menu_combat_medic_beta_desc_sc"] = "掌握: #{risk}#$basic##\n救起队友途中及救起队友后的#{skill_color}#5##秒内，你都将获得#{skill_color}#10%##的伤害减免。\n\n专精: #{risk}#$pro##\n救起一个队友将多给予他#{skill_color}#30%##的血量。",
+        ["menu_combat_medic_beta_desc_sc"] = "掌握: #{risk}#$basic##\n救起队友途中及救起队友后的#{skill_color}#$skill_value_b2##秒内，你都将获得#{skill_color}#$skill_value_b1##的伤害减免。\n\n专精: #{risk}#$pro##\n救起一个队友将多给予他#{skill_color}#$skill_value_p1##的血量。",
 
         -- Quick Fix
         ["menu_tea_time_beta_sc"] = "快速包扎",
-        ["menu_tea_time_beta_desc_sc"] = "掌握: #{risk}#$basic##\n减少#{skill_color}#50%##你放置 急救包 和 医疗箱 所需的时间。\n\n专精: #{risk}#$pro##\n使用你 急救包 的任何玩家将会在#{skill_color}#5##秒内获得#{skill_color}#50%##的伤害减免。",
+        ["menu_tea_time_beta_desc_sc"] = "掌握: #{risk}#$basic##\n减少#{skill_color}#$skill_value_b1##你放置 急救包 和 医疗箱 所需的时间。\n\n专精: #{risk}#$pro##\n使用你 急救包 的任何玩家将会在#{skill_color}#$skill_value_p2##秒内获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Pain Killers
         ["menu_fast_learner_beta_sc"] = "止疼药",
-        ["menu_fast_learner_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起的队友将在#{skill_color}#5##秒内获得#{skill_color}#25%##的伤害减免。\n\n专精: #{risk}#$pro##\n你救起的队友再额外获得#{skill_color}#25%##的伤害减免。",
+        ["menu_fast_learner_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起的队友将在#{skill_color}#$skill_value_b2##秒内获得#{skill_color}#$skill_value_b1##的伤害减免。\n\n专精: #{risk}#$pro##\n你救起的队友再额外获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Uppers
         ["menu_tea_cookies_beta_sc"] = "兴奋剂",
-        ["menu_tea_cookies_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以多携带#{skill_color}#3##个 急救包。\n\n专精: #{risk}#$pro##\n你可以再多携带#{skill_color}#3##个 急救包\n\n你放置的急救包将会自动被#{skill_color}#5##米范围内受到致命伤害的玩家使用\n\n每位玩家在#{skill_color}#60##秒内只能触发一次。\n\n#{important_1}#提示：进入 天鹅绝唱 时不可用##",
+        ["menu_tea_cookies_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以多携带#{skill_color}#$skill_value_b1##个 急救包。\n\n专精: #{risk}#$pro##\n你可以再多携带#{skill_color}#$skill_value_p1##个 急救包\n\n你放置的急救包将会自动被#{skill_color}#5##米范围内受到致命伤害的玩家使用\n\n每位玩家在#{skill_color}#$skill_value_p2##秒内只能触发一次。\n\n#{important_1}#提示：进入 天鹅绝唱 时不可用##",
 
         -- Combat Doctor
         ["menu_medic_2x_beta_sc"] = "战地医师",
-        ["menu_medic_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的 医疗箱 可额外使用#{skill_color}#1##次。\n\n专精: #{risk}#$pro##\n你可以携带#{skill_color}#2##个 医疗箱。",
+        ["menu_medic_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的 医疗箱 可额外使用#{skill_color}#$skill_value_b1##次。\n\n专精: #{risk}#$pro##\n你可以携带#{skill_color}#$skill_value_p1##个 医疗箱。",
 
         -- Inspire
         ["menu_inspire_beta_sc"] = "领袖鼓舞",
-        ["menu_inspire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的救人速度加快#{skill_color}#50%##。\n\n呼喊你的队友会在#{skill_color}#10##秒内提升他们#{skill_color}#20%##的移动速度和换弹速度。\n\n专精: #{risk}#$pro##\n现在呼喊你的队友（包括AI队友）还会在#{skill_color}#10##秒内提升你自己#{skill_color}#20%##的移动速度和换弹速度。\n\n你可以通过呼喊半径#{skill_color}#9米##范围内的倒地队友将他们救起，冷却时间#{skill_color}#90##秒。\n\n#{important_1}#提示：队友必须在你视野范围内才可用，不能隔墙吼人##",
+        ["menu_inspire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你救起倒地队友的速度加快#{skill_color}#$skill_value_b1##。\n\n呼喊你的队友会在#{skill_color}#$skill_value_b3##秒内提升他们#{skill_color}#$skill_value_b2##的移动速度和换弹速度。\n\n专精: #{risk}#$pro##\n现在呼喊你的队友（包括AI队友）还会在#{skill_color}#$skill_value_b3##秒内提升你自己#{skill_color}#$skill_value_zh_p1##的移动速度和换弹速度。\n\n你可以通过呼喊半径#{skill_color}#9米##范围内的倒地队友将他们救起，冷却时间#{skill_color}#$skill_value_p1##秒。\n\n#{important_1}#提示：队友必须在你视野范围内才可用，不能隔墙吼人##",
 
         -- }
 
@@ -5260,27 +6376,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Cable Guy
         ["menu_triathlete_beta_sc"] = "捆绑大师",
-        ["menu_triathlete_beta_desc_sc"] = "掌握: #{risk}#$basic##\n增加#{skill_color}#3##根初始可携带的绑带数量。\n\n专精: #{risk}#$pro##\n你从警察死亡掉落的弹药盒中捡到绑带的概率增加到#{skill_color}#30%##。\n\n增加你最大绑带数#{skill_color}#3##根。",
+        ["menu_triathlete_beta_desc_sc"] = "掌握: #{risk}#$basic##\n增加#{skill_color}#$skill_value_b1##根初始可携带的绑带数量。\n\n专精: #{risk}#$pro##\n增加你最大绑带数#{skill_color}#$skill_value_p1##根。\n\n你从警察死亡掉落的弹药盒中捡到绑带的概率增加到#{skill_color}#30%##。",
 
         -- Clowns are Scary
         ["menu_cable_guy_beta_sc"] = "恐怖小丑",
-        ["menu_cable_guy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n平民被控制趴下的时间延长#{skill_color}#50%##。\n\n专精: #{risk}#$pro##\n你的威慑强度和范围提高#{skill_color}#50%##。",
+        ["menu_cable_guy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n平民被控制趴下的时间延长#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的威慑强度和范围提高#{skill_color}#$skill_value_p1##。",
 
         -- Stockholm Syndrome   
         ["menu_joker_beta_sc"] = "人质综合征",
-        ["menu_joker_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你呼喊附近的平民或转化的警察，他们可能会在你倒地时救你并给你一盒弹药。\n\n专精: #{risk}#$pro##\n每名人质将使你和你的队友获得#{skill_color}#1##点伤害吸收，最多叠加#{skill_color}#4##次。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
+        ["menu_joker_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你呼喊附近的平民或转化的警察，他们可能会在你倒地时救你并给你一盒弹药。\n\n专精: #{risk}#$pro##\n每名人质将使你和你的队友获得#{skill_color}#$skill_value_p1##点伤害吸收，最多叠加#{skill_color}#$skill_value_p2##次。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- Joker    
         ["menu_stockholm_syndrome_beta_sc"] = "背盟败约",
-        ["menu_stockholm_syndrome_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以转化一名普通警察为你作战，该技能不能在潜入时使用，你必须先制服一名警察才能转化它。\n\n你同时只能拥有一名转化的警察。\n被转化的警察会被视为人质，可以用于技能加成或换出监狱里的队友。\n\n你转化的警察受到的伤害减少#{skill_color}#60%##。\n\n专精: #{risk}#$pro##\n你能同时拥有#{skill_color}#2##名转化的警察。\n\n你转化的警察受到的伤害再减少#{skill_color}#20%##。",
+        ["menu_stockholm_syndrome_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以转化一名普通警察为你作战，该技能不能在潜入时使用，你必须先制服一名警察才能转化它。\n\n你同时只能拥有一名转化的警察。\n被转化的警察会被视为人质，可以用于技能加成或换出监狱里的队友。\n\n你转化的警察受到的伤害减少#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你现在能同时拥有#{skill_color}#2##名转化的警察。\n\n你转化的警察受到的伤害再减少#{skill_color}#$skill_value_p1##。",
 
         -- Partners in Crime    
         ["menu_control_freak_beta_sc"] = "犯罪同伙",
-        ["menu_control_freak_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每名人质将增加你#{skill_color}#3%##的移动速度，可叠加#{skill_color}#4##次。\n\n专精: #{risk}#$pro##\n每名人质将提高你#{skill_color}#5%##的血量，可叠加#{skill_color}#4##次。",
+        ["menu_control_freak_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每名人质将增加你#{skill_color}#$skill_value_b1##的移动速度，可叠加#{skill_color}#4##次。\n\n专精: #{risk}#$pro##\n每名人质将提高你#{skill_color}#$skill_value_p1##的血量，可叠加#{skill_color}#4##次。",
 
         -- Hostage Taker
         ["menu_black_marketeer_beta_sc"] = "长久之策",
-        ["menu_black_marketeer_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每名人质将为你提供 \"每#{skill_color}#4##秒回复#{skill_color}#1##点血量\" 的效果，该效果上限#{skill_color}#4##名人质。\n\n专精: #{risk}#$pro##\n当你有#{skill_color}#4##名或以上的人质时，该回血效果增强#{skill_color}#150%##。\n\n人质被救后#{skill_color}#不会逃走##。\n\n你进监狱后，可以让一名人质主动把你交换出来。该效果可以在突击进行中使用，但每场劫案只能使用#{skill_color}#1##次。",
+        ["menu_black_marketeer_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每名人质将为你提供 \"每#{skill_color}#4##秒回复#{skill_color}#$skill_value_b1##点血量\" 的效果，该效果上限#{skill_color}#4##名人质。\n\n专精: #{risk}#$pro##\n当你有#{skill_color}#4##名或以上的人质时，该回血效果增强#{skill_color}#$skill_value_p1##。\n\n人质被救后#{skill_color}#不会逃走##。\n\n你进监狱后，可以让一名人质主动把你交换出来。该效果可以在突击进行中使用，但每场劫案只能使用#{skill_color}#1##次。",
 
         -- }
 
@@ -5289,28 +6405,30 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Leadership
         ["menu_stable_shot_beta_sc"] = "领导风范",
-        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#2##。\n\n专精: #{risk}#$pro##\n全队所有武器的稳定性额外增加#{skill_color}#2##点。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
+        ["menu_stable_shot_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n全队所有武器的稳定性额外增加#{skill_color}#$skill_value_p1##点。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- MG Handling
         ["menu_scavenger_sc"] = "控枪达人",
-        ["menu_scavenger_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的腰射精准度提高#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n冲锋枪和轻重机枪的腰射精准度额外提高#{skill_color}#30%##。\n\n冲锋枪和轻重机枪的换弹速度提高#{skill_color}#25%##。",
+        ["menu_scavenger_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪的腰射精准度提高#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n冲锋枪和轻重机枪的腰射精准度额外提高#{skill_color}#$skill_value_p1##。\n\n冲锋枪和轻重机枪的换弹速度提高#{skill_color}#$skill_value_p2##。",
 
         -- MG Specialist
         ["menu_sharpshooter_sc"] = "机枪专家",
-        ["menu_sharpshooter_desc_sc"] = "掌握: #{risk}#$basic##\n在移动时，冲锋枪和轻重机枪受到的精准度惩罚减少#{skill_color}#60%##。\n\n移动时的精准度惩罚程度取决于稳定性。\n\n专精: #{risk}#$pro##\n冲锋枪和轻重机枪增加#{skill_color}#15%##的射速。\n\n冲锋枪和轻重机枪不松扳机连续射击每五发中的#{skill_color}#第五发##不会消耗弹药。",
+        ["menu_sharpshooter_desc_sc"] = "掌握: #{risk}#$basic##\n在移动时，冲锋枪和轻重机枪受到的精准度惩罚减少#{skill_color}#$skill_value_b1##。\n\n移动时的精准度惩罚程度取决于稳定性。\n\n专精: #{risk}#$pro##\n冲锋枪和轻重机枪增加#{skill_color}#$skill_value_p1##的射速。\n\n冲锋枪和轻重机枪不松扳机连续射击每五发中的#{skill_color}#第五发##不会消耗弹药。",
 
         -- Shock and Awe
         ["menu_spotter_teamwork_beta_sc"] = "来势汹汹",
-        ["menu_spotter_teamwork_beta_desc_sc"] = "掌握: #{risk}#$basic##\n武器弹匣容量增加#{skill_color}#20%##。\n\n#{important_1}#提示：该效果不适用于弓、弩、榴弹发射器和火箭筒##\n\n专精: #{risk}#$pro##\n你可以在冲刺时使用武器腰射，且武器不会有冲刺转开火时的硬直。\n\n武器弹匣容量额外增加#{skill_color}#30%##。",
+        ["menu_spotter_teamwork_beta_desc_sc"] = "掌握: #{risk}#$basic##\n所有武器的弹匣容量增加#{skill_color}#$skill_value_b1##。\n\n#{important_1}#提示：该效果不适用于弓、弩、榴弹发射器和火箭筒##\n\n专精: #{risk}#$pro##\n你可以在冲刺时使用武器腰射，且武器不会有冲刺转开火时的硬直。\n\n武器弹匣容量额外增加#{skill_color}#$skill_value_p1##。",
 
         -- Heavy Impact
         ["menu_speedy_reload_sc"] = "沉重打击",
-        ["menu_speedy_reload_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪有#{skill_color}#20%##的概率击倒敌人，轻机枪使用脚架时概率增加至#{skill_color}#40%##。\n\n#{important_1}#提示：该效果不适用于队长、熊、狙击手和盾兵##\n\n专精: #{risk}#$pro##\n你蹲下时获得#{skill_color}#12.5%##的伤害减免，轻机枪使用脚架时伤害减免增加至#{skill_color}#25%##。",
+        ["menu_speedy_reload_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪有#{skill_color}#$skill_value_b1##的概率击倒敌人，轻机枪使用脚架时概率增加至#{skill_color}#$skill_value_b2##。\n\n#{important_1}#提示：该效果不适用于队长、熊、狙击手和盾兵##\n\n专精: #{risk}#$pro##\n你蹲下时获得#{skill_color}#$skill_value_p1##的伤害减免，轻机枪使用脚架时伤害减免增加至#{skill_color}#$skill_value_p2##。",
 
         -- Body Expertise
         ["menu_body_expertise_beta_sc"] = "血花四溅",
-        ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害。\n\n其余所有不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害。\n\n对于本身可以穿甲的武器，其穿透护甲造成的伤害百分比增加#{skill_color}#50%##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每击杀一名敌人就增加这些武器#{skill_color}#20%##的伤害，最多增加#{skill_color}#60%##，停止射击#{skill_color}#2##秒后失效。",
-
+        ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n其余所有不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害。\n\n对于本身可以穿甲的武器，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每击杀一名敌人就增加这些武器#{skill_color}#$skill_value_p2##的伤害，最多增加#{skill_color}#$skill_value_p3##，停止射击#{skill_color}#$skill_value_p1##秒后失效。",
+        -- 全头hud
+        ["hud_buff_body_expertise_primary_weapon"] = "Pri",
+        ["hud_buff_body_expertise_secondary_weapon"] = "Sec",
         -- }
         -- }
 
@@ -5321,29 +6439,29 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Underdog--
         ["menu_underdog_beta_sc"] = "落水狗",
-        ["menu_underdog_beta_desc_sc"] = "掌握: #{risk}#$basic##\n在半径#{skill_color}#18##米范围内有3个或以上的敌人时，你将在#{skill_color}#7##秒内获得#{skill_color}#10%##的伤害加成。\n\n专精: #{risk}#$pro##\n在半径#{skill_color}#18##米范围内有3个或以上的敌人时，你还能在#{skill_color}#7##秒内获得#{skill_color}#10%##的伤害减免。",
+        ["menu_underdog_beta_desc_sc"] = "掌握: #{risk}#$basic##\n在半径#{skill_color}#18##米范围内有3个或以上的敌人时，你将在#{skill_color}#$skill_value_b2##秒内获得#{skill_color}#$skill_value_b1##的伤害加成。\n\n专精: #{risk}#$pro##\n在半径#{skill_color}#18##米范围内有3个或以上的敌人时，你还能在#{skill_color}#$skill_value_p2##秒内获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Shotgun CQB  
         ["menu_shotgun_cqb_beta_sc"] = "巷斗战术",
-        ["menu_shotgun_cqb_beta_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的开镜速度和冲刺转开火速度加快#{skill_color}#7.5%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器的换弹速度加快#{skill_color}#25%##。",
-        ["menu_shotgun_cqb_per_pellet_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的开镜速度和冲刺转开火速度加快#{skill_color}#7.5%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器的换弹速度加快#{skill_color}#25%##。",--\n\n能射出多发弹丸的霰弹枪每颗弹丸都可以穿透#{skill_color}#1##名敌人。",
+        ["menu_shotgun_cqb_beta_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的开镜速度和冲刺转开火速度加快#{skill_color}#$skill_value_b1%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器的换弹速度加快#{skill_color}#$skill_value_p1##。",
+        ["menu_shotgun_cqb_per_pellet_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的开镜速度和冲刺转开火速度加快#{skill_color}#$skill_value_b1%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器的换弹速度加快#{skill_color}#$skill_value_p1##。",--\n\n能射出多发弹丸的霰弹枪每颗弹丸都可以穿透#{skill_color}#1##名敌人。",
 
         -- Shotgun Impact
         ["menu_shotgun_impact_beta_sc"] = "强力冲击",
-        ["menu_shotgun_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的稳定性增加#{skill_color}#2##。\n\n专精: #{risk}#$pro##\n霰弹枪每发多射出#{skill_color}#3##颗弹丸。\n\n#{important_1}#提示：该效果不适用于霰弹枪的独头弹和高爆弹##",
-        ["menu_shotgun_impact_per_pellet_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的稳定性增加#{skill_color}#2##。\n\n专精: #{risk}#$pro##\n霰弹枪的最小伤害增加#{skill_color}#25%##。\n\n#{important_1}#提示：该效果不适用于霰弹枪的独头弹和高爆弹##",
+        ["menu_shotgun_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n霰弹枪每发多射出#{skill_color}#$skill_value_p1##颗弹丸。\n\n#{important_1}#提示：该效果不适用于霰弹枪的独头弹和高爆弹##",
+        ["menu_shotgun_impact_per_pellet_desc_sc"] = "掌握: #{risk}#$basic##\n霰弹枪和火焰喷射器的稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n霰弹枪的最小伤害增加#{skill_color}#$skill_value_p1##。\n\n#{important_1}#提示：该效果不适用于霰弹枪的独头弹和高爆弹##",
 
         -- Pigeon Shooting  
         ["menu_far_away_beta_sc"] = "飞靶射手",
-        ["menu_far_away_beta_desc_sc"] = "掌握: #{risk}#$basic##\n能射出多发弹丸的霰弹枪每颗弹丸都可以穿透#{skill_color}#1##名敌人且可以#{skill_color}#穿透护甲##造成#{skill_color}#25%##的伤害，此效果可以与任意穿甲伤害叠加，最高叠加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器开镜瞄准时增加#{skill_color}#30%##的精准和衰减始末距。",
+        ["menu_far_away_beta_desc_sc"] = "掌握: #{risk}#$basic##\n能射出多发弹丸的霰弹枪每颗弹丸都可以穿透#{skill_color}#1##名敌人且可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，此效果可以与任意穿甲伤害叠加，最高叠加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器开镜瞄准时增加#{skill_color}#$skill_value_p1##的精准和衰减始末距。",
 
         -- Gung Ho
         ["menu_close_by_beta_sc"] = "激情四\"射\"",
-        ["menu_close_by_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以在冲刺时使用霰弹枪或火焰喷射器腰射，且不会有冲刺转开火时的硬直。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器腰射时的射速提高#{skill_color}#35%##。",
+        ["menu_close_by_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你可以在冲刺时使用霰弹枪或火焰喷射器腰射，且不会有冲刺转开火时的硬直。\n\n专精: #{risk}#$pro##\n霰弹枪和火焰喷射器腰射时的射速提高#{skill_color}#$skill_value_p1##。",
 
         -- Overkill
         ["menu_overkill_sc"] = "疯狂杀戮",
-        ["menu_overkill_desc_sc"] = "掌握: #{risk}#$basic##\n使用霰弹枪、火焰喷射器或OVE9000电锯的#{ghost_color}#直击伤害##击杀#{skill_color}#武器衰减始距内##的敌人会在#{skill_color}#3##秒内提高这些武器#{skill_color}#50%##的最大伤害。\n\n#{important_1}#提示：该伤害加成对爆炸伤害和持续伤害无效，也不能由它们触发##\n\n专精: #{risk}#$pro##\n加快霰弹枪、火焰喷射器和OVE9000电锯的切枪速度#{skill_color}#60%##。\n\n伤害加成的持续时间提高至#{skill_color}#9##秒且伤害加成可适用于所有武器。\n\n#{important_1}#提示：该效果不适用于火箭筒和榴弹发射器##",
+        ["menu_overkill_desc_sc"] = "掌握: #{risk}#$basic##\n使用霰弹枪、火焰喷射器或OVE9000电锯的#{ghost_color}#直击伤害##击杀#{skill_color}#武器衰减始距内##的敌人会在#{skill_color}#$skill_value_b2##秒内提高这些武器#{skill_color}#$skill_value_b1##的最大伤害。\n\n#{important_1}#提示：该伤害加成对爆炸伤害和持续伤害无效，也不能由它们触发##\n\n专精: #{risk}#$pro##\n加快霰弹枪、火焰喷射器和OVE9000电锯的切枪速度#{skill_color}#$skill_value_p2##。\n\n伤害加成的持续时间提高至#{skill_color}#$skill_value_p1##秒且伤害加成可适用于所有武器。\n\n#{important_1}#提示：该效果不适用于火箭筒和榴弹发射器##",
 
         -- }
 
@@ -5352,36 +6470,36 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Stun Resistance--
         ["menu_oppressor_beta_sc"] = "不可撼动",
-        ["menu_oppressor_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每一点护甲值将减少你受到警察近战击退效果的#{skill_color}#2.5%##\n\n专精: #{risk}#$pro##\n减少#{skill_color}#50%##闪光弹致盲效果的持续时间",
+        ["menu_oppressor_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每一点护甲值将减少你受到警察近战击退效果的#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n减少#{skill_color}#$skill_value_p1##闪光弹致盲效果的持续时间",
 
         -- Die Hard
         ["menu_show_of_force_sc"] = "不死小强",
-        ["menu_show_of_force_desc_sc"] = "掌握: #{risk}#$basic##\n你受到对#{skill_color}#血量##的伤害减少#{skill_color}#5%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你受到对#{skill_color}#血量##的伤害额外减少#{skill_color}#5%##。",
+        ["menu_show_of_force_desc_sc"] = "掌握: #{risk}#$basic##\n你受到对#{skill_color}#血量##的伤害减少#{skill_color}#$skill_value_b1##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你受到对#{skill_color}#血量##的伤害额外减少#{skill_color}#$skill_value_p1##。",
 
         -- Transporter
         ["menu_pack_mule_beta_sc"] = "运输者",
-        ["menu_transporter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每#{skill_color}#10##点护甲值会减少携带战利品袋对移动速度的惩罚#{skill_color}#0.5%##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#背着重包跑步##了\n\n#{important_1}#提示：背包带来的移动速度惩罚依然存在##",
+        ["menu_transporter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n每#{skill_color}#10##点护甲值会减少携带战利品袋对移动速度的惩罚#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#背着重包跑步##了\n\n#{important_1}#提示：背包带来的移动速度惩罚依然存在##",
 
         -- More Blood to Bleed--
         ["menu_iron_man_beta_sc"] = "血流成河",
-        ["menu_iron_man_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量上限提高#{skill_color}#10%##。\n\n专精: #{risk}#$pro##\n你的血量上限额外提高#{skill_color}#15%##。",
+        ["menu_iron_man_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量上限提高#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的血量上限额外提高#{skill_color}#$skill_value_p1##。",
 
         -- Bullseye--
         ["menu_prison_wife_beta_sc"] = "正中靶心",
-        ["menu_prison_wife_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会恢复你#{skill_color}#5##点护甲值，冷却时间#{skill_color}#5##秒。\n\n爆头杀敌可以立即减少冷却时间#{skill_color}#0.5##秒。 $anarc_disable\n\n专精: #{risk}#$pro##\n完成爆头击杀恢复的护甲值增加#{skill_color}#30##。\n\n爆头杀敌现在可以立即减少冷却时间#{skill_color}#1##秒。 $anarc_disable",
+        ["menu_prison_wife_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会恢复你#{skill_color}#$skill_value_b1##点护甲值，冷却时间#{skill_color}#$skill_value_b2##秒。\n\n爆头杀敌可以立即减少冷却时间#{skill_color}#$skill_value_b3##秒。 $anarc_disable\n\n专精: #{risk}#$pro##\n完成爆头击杀恢复的护甲值增加#{skill_color}#$skill_value_p1##。\n\n爆头杀敌现在可以立即减少冷却时间#{skill_color}#$skill_value_p2##秒。 $anarc_disable",
 
         -- Iron Man
         ["menu_juggernaut_beta_sc"] = "钢铁之躯",
-        ["menu_juggernaut_beta_desc_sc"] = "掌握: #{risk}#$basic##\n解锁 #{skill_color}#改良型复合战术背心## 以供你使用。\n\n近战打盾可以#{skill_color}#击退或推倒盾兵##。\n\n#{important_1}#提示：对泰坦盾兵和冬日队长无效##\n\n专精: #{risk}#$pro##\n现在远程武器射击盾也有几率#{skill_color}#击退或推倒盾兵##，击倒概率取决于武器伤害。\n\n护甲恢复速度加快#{skill_color}#10%##。 $anarc_disable",
+        ["menu_juggernaut_beta_desc_sc"] = "掌握: #{risk}#$basic##\n解锁 #{skill_color}#改良型复合战术背心## 以供你使用。\n\n近战打盾可以#{skill_color}#击退或推倒盾兵##。\n\n#{important_1}#提示：对泰坦盾兵和冬日队长无效##\n\n专精: #{risk}#$pro##\n现在远程武器射击盾也有几率#{skill_color}#击退或推倒盾兵##，击倒概率取决于武器伤害。\n\n护甲恢复速度加快#{skill_color}#$skill_value_p1##。 $anarc_disable",
 
         -- }
 
         --[[   AMMO SPECIALIST SUBTREE   ]] --
         -- {
 
-        -- Scavenger
+        -- Scavenger    --到这
         ["menu_scavenging_sc"] = "拾荒者",
-        ["menu_scavenging_desc_sc"] = "掌握: #{risk}#$basic##\n你拾取弹药盒的范围增加#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n每击杀#{skill_color}#5##名敌人，第五名被击杀的敌人会额外掉落一个弹药盒",
+        ["menu_scavenging_desc_sc"] = "掌握: #{risk}#$basic##\n你拾取弹药盒的范围增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n每击杀#{skill_color}#$skill_value_p1##名敌人，第$skill_value_zh_p1名被击杀的敌人会额外掉落一个弹药盒",
 
         -- Bulletstorm--
         ["menu_ammo_reservoir_beta_sc"] = "子弹风暴",
@@ -5389,19 +6507,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Specialist Equipment formally Rip and Tear
         ["menu_portable_saw_beta_sc"] = "专业配备",
-        ["menu_portable_saw_beta_desc_sc"] = "掌握: #{risk}#$basic##\n电锯锯片的磨损速度减缓#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n电锯、弓、弩、榴弹发射器或火箭筒的换弹速度加快#{skill_color}#25%##",
+        ["menu_portable_saw_beta_desc_sc"] = "掌握: #{risk}#$basic##\n电锯锯片的磨损速度减缓#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n电锯、弓、弩、榴弹发射器或火箭筒的换弹速度加快#{skill_color}#$skill_value_p1##",
 
         -- Extra Lead
         ["menu_ammo_2x_beta_sc"] = "储备充足",
-        ["menu_ammo_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置的弹药袋的弹药容量额外增加#{skill_color}#200%##\n\n专精: #{risk}#$pro##\n你现在可以放置#{skill_color}#2##个弹药袋",
+        ["menu_ammo_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置的弹药袋的弹药容量额外增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你现在可以放置#{skill_color}#$skill_value_p1##个弹药袋",
 
         -- Rip and Tear formally Carbon Blade
         ["menu_carbon_blade_beta_sc"] = "锯刃轰鸣",
-        ["menu_carbon_blade_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯攻击可以穿过盾牌和泰坦盾造成伤害。\n\n专精: #{risk}#$pro##\n你使用电锯、弓、弩、榴弹发射器或火箭筒击杀敌人有#{skill_color}#50%##的几率在半径#{skill_color}#10##米内的敌人中#{skill_color}#散播恐慌##。\n\n恐慌会使敌人短暂地失去行动能力",
+        ["menu_carbon_blade_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯攻击可以穿过盾牌和泰坦盾造成伤害。\n\n专精: #{risk}#$pro##\n你使用电锯、弓、弩、榴弹发射器或火箭筒击杀敌人有#{skill_color}#$skill_value_p1##的几率在半径#{skill_color}#$skill_value_p2##米内的敌人中#{skill_color}#散播恐慌##。\n\n恐慌会使敌人短暂地失去行动能力",
 
         -- Fully Loaded--
         ["menu_bandoliers_beta_sc"] = "全副武装",
-        ["menu_bandoliers_desc_sc"] = "掌握: #{risk}#$basic##\n你武器携带的总弹量增加#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你武器从每个弹药盒中获取的弹药量增加#{skill_color}#50%##\n\n你有#{skill_color}#5%##的几率从一个弹药盒中获得一个投掷物\n\n若你没有从一个弹药盒中成功获取投掷物，那么该几率将提升#{skill_color}#1%##，成功获取投掷物后该几率将被重置\n\n#{important_1}#提示：你无法用此技能补充天赋/充能投掷物道具##",
+        ["menu_bandoliers_desc_sc"] = "掌握: #{risk}#$basic##\n你武器携带的总弹量增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你武器从每个弹药盒中获取的弹药量增加#{skill_color}#$skill_value_p1##\n\n你现在有#{skill_color}#$skill_value_p2##的几率从一个弹药盒中获得一个投掷物\n\n若你没有从一个弹药盒中成功获取投掷物，那么该几率将提升#{skill_color}#$skill_value_p3##，成功获取投掷物后该几率将被重置\n\n#{important_1}#提示：你无法用此技能补充天赋/充能投掷物道具##",
 
         -- }
         -- }
@@ -5413,27 +6531,27 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Logistician
         ["menu_defense_up_beta_sc"] = "后勤干员",
-        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#50%##，你队友则加快#{skill_color}#25%##。\n\n#{important_1}#提示：该效果不能叠加##",
+        ["menu_defense_up_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你放置和使用随身装备的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的放置和使用随身装备的速度都额外加快#{skill_color}#$skill_value_p1##，你队友则加快#{skill_color}#$skill_value_p2##。\n\n#{important_1}#提示：该效果不能与拥有该技能的其它玩家叠加##",
 
         -- Nerves of Steel--    
         ["menu_fast_fire_beta_sc"] = "钢铁意志",
-        ["menu_fast_fire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以#{skill_color}#在倒地时使用武器瞄准##。\n\n专精: #{risk}#$pro##\n你在互动时获得#{skill_color}#50%##的伤害减免。",
+        ["menu_fast_fire_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以#{skill_color}#在倒地时使用武器瞄准##。\n\n专精: #{risk}#$pro##\n你在互动时获得#{skill_color}#$skill_value_p1##的伤害减免。",
 
         -- Engineering
         ["menu_eco_sentry_beta_sc"] = "工程师",
-        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#40%##\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#60%##",
+        ["menu_eco_sentry_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪血量上限增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的哨戒机枪血量上限额外增加#{skill_color}#$skill_value_p1##。",
 
         -- Jack of all Trades
         ["menu_jack_of_all_trades_beta_sc"] = "万事通",
-        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#50%##\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##",
+        ["menu_jack_of_all_trades_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你携带非天赋投掷物的量提高#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#携带两个随身装备##，按#{skill_color}#$BTN_CHANGE_EQ##来在两个随身装备之间切换。\n\n副随身装备的携带量只有原来的#{skill_color}#一半##，最少为#{skill_color}#1##。",
 
         -- Sentry Tower Defense--
         ["menu_tower_defense_beta_sc"] = "塔防机枪",
-        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#2##个哨戒机枪\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#35%##\n(主副武器各17.5%)",
+        ["menu_tower_defense_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的哨戒机枪现在可以使用AP穿甲弹，使用这种弹药后哨戒机枪的射速减缓#{important_1}#66%##并且其射出的子弹可以#{skill_color}#穿透敌人的护甲和盾牌##。\n\n专精: #{risk}#$pro##\n你现在最多可以携带#{skill_color}#$skill_value_p1##个哨戒机枪。\n\n放置哨戒机枪消耗的总弹量降低至#{skill_color}#15%##。",
 
         -- Bulletproof--
         ["menu_iron_man_sc"] = "刀枪不入",
-        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##\n#{important_1}#提示：对自我伤害无效##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#15%##\n\n你的护甲恢复速度加快#{skill_color}#15%## $anarc_disable",
+        ["menu_iron_man_desc_sc"] = "掌握: #{risk}#$basic##\n你的护甲现在#{skill_color}#不能被穿透##。\n#{important_1}#提示：对摔落伤害和自我伤害无效，也不能免疫幻影特工飞踢和泰瑟警察电击造成的倒地##\n\n专精: #{risk}#$pro##\n当你的护甲值为满时，你将获得减伤，减伤的量等于你护甲值上限的#{skill_color}#$skill_value_p1##。\n\n你的护甲恢复速度加快#{skill_color}#$skill_value_p2##。 $anarc_disable",
 
         -- }
 
@@ -5442,15 +6560,15 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Hardware Expert-- 硬件专家  Silent Drilling
         ["menu_hardware_expert_beta_sc"] = "静音钻机",
-        ["menu_hardware_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的钻机现在#{skill_color}#完全静音##，平民和保安必须看到钻机才会警觉。\n\n专精: #{risk}#$pro##\n你修理电锯和钻机的速度加快#{skill_color}#50%##。",
+        ["menu_hardware_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的钻机现在#{skill_color}#完全静音##，平民和保安必须看到钻机才会警觉。\n\n专精: #{risk}#$pro##\n你修理电锯和钻机的速度加快#{skill_color}#$skill_value_p1##。",
 
         -- Danger Close 危险勿近  Demoman
         ["menu_trip_mine_expert_beta_sc"] = "恐怖分子",
-        ["menu_combat_engineering_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以携带#{skill_color}#6##个聚能炸药。\n\n你放置聚能炸药和诡雷的速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n你现在可以携带#{skill_color}#8##个聚能炸药。\n\n诡雷的爆炸半径增加#{skill_color}#30%##。",
+        ["menu_combat_engineering_desc_sc"] = "掌握: #{risk}#$basic##\n你现在可以携带#{skill_color}#6##个聚能炸药。\n\n你放置聚能炸药和诡雷的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你现在可以携带#{skill_color}#8##个聚能炸药。\n\n诡雷的爆炸半径增加#{skill_color}#$skill_value_p1##。",
 
         -- Drill Sawgeant 钻锯技工
         ["menu_drill_expert_beta_sc"] = "钻锯技工",
-        ["menu_drill_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机工作所需时间减少#{skill_color}#10%##\n\n专精: #{risk}#$pro##\n你的电锯和钻机工作所需时间额外减少#{skill_color}#20%##",
+        ["menu_drill_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机工作所需时间减少#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你的电锯和钻机工作所需时间额外减少#{skill_color}#$skill_value_p1##。",
 
         -- Demoman-- 恐怖分子  Fire Trap
         ["menu_more_fire_power_sc"] = "火焰陷阱",
@@ -5458,7 +6576,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Kickstarter 物理修复  Expert Hardware
         ["menu_kick_starter_beta_sc"] = "硬件专家",
-        ["menu_kick_starter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机在组装完毕时有#{skill_color}#10%##的概率变成自动修复的电锯或钻机。\n\n专精: #{risk}#$pro##\n你的电锯和钻机变成自动修复版的概率提高#{skill_color}#20%##。\n\n试图破坏你钻机的敌人有#{skill_color}#50%##的概率被电击，以阻止他们的破坏行为。",
+        ["menu_kick_starter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的电锯和钻机在组装完毕时有#{skill_color}#$skill_value_b1##的概率变成自动修复的电锯或钻机。\n\n专精: #{risk}#$pro##\n你的电锯和钻机变成自动修复版的概率提高#{skill_color}#$skill_value_p1##。\n\n试图破坏你钻机的敌人有#{skill_color}#$skill_value_p2##的概率被电击，以阻止他们的破坏行为。",
 
         -- Fire Trap 火焰陷阱  Kickstarter
         ["menu_fire_trap_beta_sc"] = "物理修复",
@@ -5499,7 +6617,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Spotter--
         ["menu_ecm_2x_beta_sc"] = "侦察先锋",
-        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#20##米外受到的伤害增加#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n你标记的敌人在任何距离受到的伤害都额外增加#{skill_color}#35%##。",
+        ["menu_ecm_2x_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你标记的敌人在#{skill_color}#$skill_value_b2##米外受到的伤害增加#{skill_color}#$skill_value_b1##，随着距离增加，伤害加成逐渐提高，在#{skill_color}#$skill_value_zh_b2##米的距离下达到最大值#{skill_color}#$skill_value_zh_b1##。\n\n专精: #{risk}#$pro##\n现在你标记的敌人在#{skill_color}#任何距离##下受到的伤害都额外增加#{skill_color}#$skill_value_p1##。",
 
         -- }
 
@@ -5508,7 +6626,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Duck and Cover--
         ["menu_sprinter_beta_sc"] = "蹲防战术",
-        ["menu_sprinter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的耐力将提前#{skill_color}#25%##的时间进行恢复且恢复速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n蹲伏时，你的闪避条每秒增加你闪避点数的#{skill_color}#6%##。\n\n你的蹲伏移动速度加快#{skill_color}#10%##。",
+        ["menu_sprinter_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的耐力将提前#{skill_color}#25%##的时间进行恢复且恢复速度加快#{skill_color}#25%##。\n\n专精: #{risk}#$pro##\n蹲伏时，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p1##。\n\n你的蹲伏移动速度加快#{skill_color}#$skill_value_p2##。",
 
         -- Deep Pockets--
         ["menu_thick_skin_beta_sc"] = "深层口袋",
@@ -5516,15 +6634,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Moving Target--
         ["menu_dire_need_beta_sc"] = "移动目标",
-        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n你瞄准时的移动速度加快#{skill_color}#50%##。\n#{important_1}#提示：瞄准时的移速会被限制在你的正常状态最大移速以内##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1.5%##的移动速度加成，最多加快#{skill_color}#15%##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#15%##；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#60%##。",
+        ["menu_dire_need_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的移动速度加成，最多加快#{skill_color}#$skill_value_b4##。\n\n你瞄准时受到的移速惩罚降低#{skill_color}#$skill_value_b5##。\n#{important_1}#提示：瞄准时的移速会被限制在你的正常状态最大移速以内##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#$skill_value_p2##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的移动速度加成，最多加快#{skill_color}#$skill_value_p4##。\n\n冲刺时，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p5##（疲劳状态下减半）；\n滑索上，你的闪避条每秒增加你闪避点数的#{skill_color}#$skill_value_p6##。\n\n疲劳状态指体力用光时仍保持奔跑的状态。",
 
         -- Shockproof
         ["menu_insulation_beta_sc"] = "绝缘装甲",
-        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#15%##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#30%##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#2##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其最大血量#{skill_color}#50%##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
+        ["menu_insulation_beta_desc_sc"] = "掌握: #{risk}#$basic##\n被泰瑟警察电击时，你#{skill_color}#不会被强制开枪##且有#{skill_color}#$skill_value_b2##的几率反火并击晕电击你的泰瑟警察。\n\n提示：被电击时产生的精准和稳定惩罚及抖动幅度不变。\n\n敌人枪击造成的抖动降低#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n被泰瑟警察电击后的#{skill_color}#$skill_value_p1##秒内对它按[互动键]可以立即对电击你的泰瑟警察造成一次反火，并对其造成其最大血量#{skill_color}#$skill_value_p2##的伤害。\n\n泰坦泰瑟射击你造成的减速效果和时间减少#{skill_color}#50%##。",
 
         -- }
 
-        --[[   SILENT KILLER SUBTREE   ]] --
+        --[[   CONTRACT KILLER SUBTREE   ]] --
+        --FORMERLY "SILENT KILLER"
         -- {
 
         -- Second Wind
@@ -5537,11 +6656,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- The Professional--
         ["menu_silence_expert_beta_sc"] = "职业杀手",
-        ["menu_silence_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你使用武器瞄准的速度和冲刺转开火的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你使用武器瞄准的速度和冲刺转开火的速度额外加快#{skill_color}#$skill_value_p1##。\n\n被使用一般实弹的武器击杀的特殊敌人会额外掉落一个弹药盒。",
+        ["menu_silence_expert_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你使用武器瞄准的速度和冲刺转开火的速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你使用武器瞄准的速度和冲刺转开火的速度额外加快#{skill_color}#$skill_value_p1##。\n\n被远程武器爆头击杀的特殊敌人会额外掉落一个弹药盒。",
 
         -- Unseen Strike, formally Dire Need--
         ["menu_backstab_beta_sc"] = "掩其无备",
-        ["menu_backstab_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你在#{skill_color}#$skill_value_b1##秒内没有受到任何伤害，你将获得#{skill_color}#$skill_value_b2##的暴击率加成直到你受到伤害为止。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：\"杀手\"天赋的临时虚血自动衰减不算受到伤害，而临时虚血因非衰减因素降低都算受到伤害##\n\n专精: #{risk}#$pro##\n受到伤害后，暴击率加成仍将持续#{skill_color}#$skill_value_p1##秒。",
+        ["menu_backstab_beta_desc_sc"] = "掌握: #{risk}#$basic##\n如果你在#{skill_color}#$skill_value_b1##秒内没有受到任何伤害，你将获得#{skill_color}#$skill_value_b2##的暴击率加成，受到伤害后仍将持续#{skill_color}#$skill_value_b3##秒，随后失效，需要重新触发。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：\"杀手\"天赋的临时虚血自动衰减不算受到伤害，而临时虚血因非衰减因素降低都算受到伤害；爆炸伤害和持续伤害不受暴击影响##\n\n专精: #{risk}#$pro##\n现在在受到伤害后，暴击率加成仍将持续#{skill_color}#$skill_value_p1##秒。",
 
         -- Cleaner--
         ["menu_hitman_beta_sc"] = "清道夫",
@@ -5549,7 +6668,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Low Blow--
         ["menu_unseen_strike_beta_sc"] = "下作手段",
-        ["menu_unseen_strike_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的暴击率，最多增加#{skill_color}#$skill_value_b4##。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的暴击率，最多增加#{skill_color}#$skill_value_p4##。\n\n使用枪械或近战武器从背后攻击一名敌人的暴击几率额外增加#{skill_color}#$skill_value_p5##。",
+        ["menu_unseen_strike_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##的暴击率，最多增加#{skill_color}#$skill_value_b4##。\n\n成功暴击将使你造成的伤害提升#{skill_color}#50%##。\n\n#{important_1}#提示：爆炸伤害和持续伤害不受暴击影响##\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_p3##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#$skill_value_p1##的暴击率，最多增加#{skill_color}#$skill_value_p4##。\n\n使用枪械或近战武器从背后攻击一名敌人的暴击几率额外增加#{skill_color}#$skill_value_p5##。",
 
         -- }
         -- }
@@ -5565,7 +6684,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         -- {
 
         -- Swan Song
-        ["menu_perseverance_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量为#{skill_color}#0##时不会立刻倒地，你能在#{skill_color}#3##秒内获得无敌并持续战斗，但此时的移动速度减少#{skill_color}#60%##，3秒结束后进入倒地状态\n\n专精: #{risk}#$pro##\n倒地前持续战斗的时间额外增加#{skill_color}#6##秒",
+        ["menu_perseverance_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量为#{skill_color}#0##时不会立刻倒地，你能在#{skill_color}#$skill_value_b1##秒内获得无敌并持续战斗，但此时的移动速度减少#{skill_color}#60%##，$skill_value_b1秒结束后进入倒地状态。\n\n专精: #{risk}#$pro##\n倒地前持续战斗的时间增加至#{skill_color}#$skill_value_p1##秒。",
 
         -- }
 
@@ -5574,34 +6693,34 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Counter-Strike--
         ["menu_drop_soap_beta_sc"] = "反\"控\"精英",
-        ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##",
+        ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的飞踢并将其击倒。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的盾击##了。\n\n#{important_1}#提示：泰坦盾和冬队盾的盾击无法被反击##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
 
         -- Bloodthirst--
         ["menu_bloodthirst_sc"] = "血之渴望",
-        ["menu_bloodthirst_desc_sc"] = "掌握: #{risk}#$basic##\n使用近战武器击杀敌人将在#{skill_color}#10##秒内获得#{skill_color}#25%##的换弹速度加成\n\n专精: #{risk}#$pro##\n每击杀一个敌人会提高#{skill_color}#25%##你下一次使用近战武器攻击的伤害，伤害增益上限为#{skill_color}#100%##\n\n该效果将在使用近战武器成功击中敌人后重置",
+        ["menu_bloodthirst_desc_sc"] = "掌握: #{risk}#$basic##\n使用近战武器击杀敌人将在#{skill_color}#$skill_value_b2##秒内获得#{skill_color}#$skill_value_b1##的换弹速度加成。\n\n专精: #{risk}#$pro##\n每击杀一个敌人会提高#{skill_color}#25%##你下一次使用近战武器攻击的伤害，伤害增益上限为#{skill_color}#100%##。\n\n该效果将在使用近战武器成功击中敌人后重置。",
 
         -- }
         -- }
         -- }
 
         -- Sneaky Bastard--
-        ["menu_jail_diet_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#2##点敏蔽负荷都将获得#{skill_color}#1##点闪避点数，最多增加#{skill_color}#10##点。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#30##时，每降低#{skill_color}#1##点敏蔽负荷都将获得#{skill_color}#1##点闪避点数，最多增加#{skill_color}#10##点。\n\n你的护甲被破坏时，每次闪避成功都将恢复你血量上限#{skill_color}#2%##的血量。",
+        ["menu_jail_diet_beta_desc_sc"] = "掌握: #{risk}#$basic##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_b2##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##点闪避点数，最多增加#{skill_color}#$skill_value_b4##点。\n\n专精: #{risk}#$pro##\n当你的敏蔽负荷低于#{skill_color}#$skill_value_b3##时，每降低#{skill_color}#$skill_value_p1##点敏蔽负荷都将获得#{skill_color}#$skill_value_b1##点闪避点数，最多增加#{skill_color}#$skill_value_b4##点。\n\n你的护甲被破坏时，每次闪避成功都将恢复你血量上限#{skill_color}#$skill_value_p2##的血量。",
 
         -- Sharpshooter--
         ["menu_discipline_sc"] = "神枪手",
-        ["menu_discipline_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的稳定性增加#{skill_color}#2##\n\n专精: #{risk}#$pro##\n完成爆头击杀将在#{skill_color}#10##秒内使你的开火速率增加#{skill_color}#20%##，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发",
+        ["menu_discipline_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的稳定性增加#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n完成爆头击杀将在#{skill_color}#$skill_value_p2##秒内使你的开火速率增加#{skill_color}#$skill_value_p1##，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发",
 
         -- Kilmer-- 
         ["menu_heavy_impact_beta_sc"] = "基尔默",
-        ["menu_heavy_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的移动时受到的精准度惩罚减少#{skill_color}#60%##。\n\n移动时受到的精准度惩罚会被稳定性影响。\n\n专精: #{risk}#$pro##\n突击步枪和狙击步枪的换弹速度加快#{skill_color}#25%##",
+        ["menu_heavy_impact_beta_desc_sc"] = "掌握: #{risk}#$basic##\n突击步枪和狙击步枪的移动时受到的精准度惩罚减少#{skill_color}#$skill_value_b1##。\n\n移动时受到的精准度惩罚会被稳定性影响。\n\n专精: #{risk}#$pro##\n突击步枪和狙击步枪的换弹速度加快#{skill_color}#$skill_value_p1##",
 
         -- Mind Blown, formerly Explosive Headshot--
         ["menu_kilmer_sc"] = "脑\"洞\"大开",
-        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#4##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#70%##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n被爆头的敌人每离你#{skill_color}#8##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#3##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪或狙击步枪以#{skill_color}#单发射击##或#{skill_color}#速射模式##爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#1##米\n\n被爆头的敌人每离你#{skill_color}#8##米远，擦伤的伤害就额外增加#{skill_color}#10%##，最多额外增加#{skill_color}#100%##",
+        ["menu_kilmer_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头的同时，被爆头的敌人半径#{skill_color}#$skill_value_b2##米内最近的敌人会受到你刚刚爆头伤害#{skill_color}#$skill_value_b1##的擦伤，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发，并且有#{important_1}#$skill_value_b5##秒的冷却时间（冷却时间不应用于单次速射开火内的擦伤间隔）。\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，就会有一个额外的敌人受到该擦伤效果，最多同时擦伤#{skill_color}#$skill_value_b4##名敌人\n\n专精: #{risk}#$pro##\n使用突击步枪以#{skill_color}#单发射击##或#{skill_color}#速射模式##爆头产生的伤害#{skill_color}#不受距离衰减影响##\n\n可被擦伤的距离增加#{skill_color}#$skill_value_p1##米\n\n被爆头的敌人每离你#{skill_color}#$skill_value_b3##米远，擦伤的伤害就额外增加#{skill_color}#$skill_value_p2##，最多额外增加#{skill_color}#$skill_value_p3##",
 
         -- Ammo Efficiency--
         ["menu_single_shot_ammo_return_sc"] = "弹无虚发",
-        ["menu_single_shot_ammo_return_desc_sc"] = "掌握: #{risk}#$basic##\n在#{skill_color}#8##秒内完成#{skill_color}#3##次爆头击杀会额外给予你武器总弹量#{skill_color}#3%##的子弹，最少可以获得#{skill_color}#1##发弹药。\n该效果只能由突击步枪和狙击步枪触发。\n\n专精: #{risk}#$pro##\n现在只需要在#{skill_color}#12##秒内完成#{skill_color}#2##次爆头击杀就能触发技能。", -- ，子弹会在你弹匣不满时#{skill_color}#直接加进弹匣中##
+        ["menu_single_shot_ammo_return_desc_sc"] = "掌握: #{risk}#$basic##\n使用突击步枪和狙击步枪在#{skill_color}#$skill_value_b2##秒内完成#{skill_color}#$skill_value_b1##次爆头击杀会给予你武器捡弹量#{skill_color}#一半##的子弹补充进备弹中，补充值向上取整，最少可以获得#{skill_color}#1##发弹药。\n\n专精: #{risk}#$pro##\n现在只需要在时间内完成#{skill_color}#$skill_value_p1##次爆头击杀就能触发技能，并且子弹会在你弹匣不满时#{skill_color}#直接补充进弹匣中##。",  -- 弹药漏斗这块的
 
         -- Rifleman
         ["menu_rifleman_sc"] = "步枪精通",
@@ -5609,19 +6728,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Aggressive Reload
         ["menu_engineering_beta_sc"] = "迅猛装填",
-        ["menu_engineering_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会在#{skill_color}#10##秒内加快你#{skill_color}#25%##的换弹速度，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n专精: #{risk}#$pro##\n换弹速度增益提升至#{skill_color}#50%##且可以由#{skill_color}#连发射击##的突击步枪和狙击步枪触发",
+        ["menu_engineering_beta_desc_sc"] = "掌握: #{risk}#$basic##\n完成爆头击杀会在#{skill_color}#$skill_value_b2##秒内加快你#{skill_color}#$skill_value_b1##的换弹速度，该效果只能由#{skill_color}#单发射击##和#{skill_color}#速射模式##的突击步枪和狙击步枪触发\n\n专精: #{risk}#$pro##\n换弹速度增益提升至#{skill_color}#$skill_value_p1##且可以由#{skill_color}#连发射击##的突击步枪和狙击步枪触发",
 
         -- Evasion--
         ["menu_awareness_beta_sc"] = "紧急回避",
-        ["menu_awareness_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的移动速度加快#{skill_color}#5%##。\n\n你受到的摔落伤害减少#{skill_color}#75%##。\n\n专精: #{risk}#$pro##\n#{skill_color}#跑步换弹##——你现在可以在冲刺时换弹。\n\n你可以在模组设置中选择是否依然在起跑时打断换弹",
+        ["menu_awareness_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的移动速度加快#{skill_color}#$skill_value_b1##。\n\n你受到的摔落伤害减少#{skill_color}#$skill_value_b2##。\n\n专精: #{risk}#$pro##\n#{skill_color}#跑步换弹##——你现在可以在冲刺时换弹。\n\n你可以在模组设置中选择是否依然在起跑时打断换弹",
 
         -- Equilibrium--
         ["menu_equilibrium_beta_sc"] = "沉着冷静",
-        ["menu_equilibrium_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你与你队友的手枪稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的切枪速度加快#{skill_color}#$skill_value_p1##。",
+        ["menu_equilibrium_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你与你队友的手枪稳定性增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的切枪速度加快#{skill_color}#$skill_value_p1##，双持武器的切枪速度加快#{skill_color}#$skill_value_p2##。",
 
         -- Gun Nut--
         ["menu_dance_instructor_sc"] = "手枪狂徒",
-        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害。",
+        ["menu_dance_instructor_desc_sc"] = "掌握: #{risk}#$basic##\n腰射时，手枪的精准度增加#{skill_color}#$skill_value_b1##，双持武器的精准度也增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n手枪的射速增加#{skill_color}#$skill_value_p1##。\n\n你的手枪现在可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p2##的伤害。\n\n你的双持武器现在也可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_p3##的伤害，对于本身可以穿甲的，其穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_p3##，最多增加至#{skill_color}#100%##。",
 
         -- Over Pressurized/Gunfighter--
         ["menu_gun_fighter_sc"] = "手枪斗士",
@@ -5637,23 +6756,23 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Trigger Happy--
         ["menu_trigger_happy_beta_sc"] = "乱枪狂人",
-        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_b3+$skill_value_p2##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
+        ["menu_trigger_happy_beta_desc_sc"] = "掌握: #{risk}#$basic##\n使用手枪完成爆头会在#{skill_color}#$skill_value_b2##秒内提高手枪#{skill_color}#$skill_value_b1##的伤害。\n该效果可叠加#{skill_color}#$skill_value_b3##次，每次使用手枪#{skill_color}#爆头##可以使效果持续时间刷新。\n\n专精: #{risk}#$pro##\n该效果的可叠加次数增加至#{skill_color}#$skill_value_zh_p1##次，持续时间延长至#{skill_color}#$skill_value_p1##秒，刷新后的持续时间也是如此。",
 
         -- Running From Death--
         ["menu_nine_lives_beta_sc"] = "死里逃生",
-        ["menu_nine_lives_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地起身后在#{skill_color}#10##秒内移动速度加快#{skill_color}#25%##\n\n专精: #{risk}#$pro##\n你倒地起身后在#{skill_color}#10##秒内受到的伤害减少#{skill_color}#20%##，且起身后你的#{skill_color}#武器会立即装填完毕##",
+        ["menu_nine_lives_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地起身后在#{skill_color}#$skill_value_b2##秒内移动速度加快#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你倒地起身后在#{skill_color}#$skill_value_p2##秒内受到的伤害减少#{skill_color}#$skill_value_p1##，且起身后你的#{skill_color}#武器会立即装填完毕##。",
 
         -- Undying--
         ["menu_running_from_death_beta_sc"] = "苟延残喘",
-        ["menu_running_from_death_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地时的血量增加#{skill_color}#100%##\n\n专精: #{risk}#$pro##\n你倒地时的血量额外增加#{skill_color}#100%##\n\n你现在可以#{skill_color}#在倒地时使用主武器##",
+        ["menu_running_from_death_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你倒地时的血量增加#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你倒地时的血量额外增加#{skill_color}#$skill_value_p1##。\n\n你现在可以#{skill_color}#在倒地时使用主武器##。",
 
         -- What Doesn't Kill You Only Makes You Stronger--
         ["menu_what_doesnt_kill_beta_sc"] = "越挫越勇",
-        ["menu_what_doesnt_kill_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你获得#{skill_color}#X##点伤害吸收。\n#{skill_color}#X##=#{skill_color}#初始倒地次数##-#{skill_color}#剩余倒地次数##\n\n专精: #{risk}#$pro##\n该技能提供的伤害吸收效果变为原来的#{skill_color}#3##倍。",
+        ["menu_what_doesnt_kill_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你获得#{skill_color}#X##点伤害吸收。\n#{skill_color}#X##=(#{skill_color}#初始倒地次数##-#{skill_color}#剩余倒地次数##)*#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n该技能提供的伤害吸收效果变为原来的#{skill_color}#$skill_value_p1##倍。",
 
         -- Haunt--
         ["menu_haunt_sc"] = "恐惧弥漫",
-        ["menu_haunt_desc_sc"] = "掌握: #{risk}#$basic##\n击杀一名在你半径#{skill_color}#18##米内的敌人有概率在附近#{skill_color}#12##米的敌人中#{skill_color}#散播恐慌##，初始概率为#{skill_color}#5%##，每次倒地会提升该效果触发概率的#{skill_color}#5%##，该效果会随着你倒地次数的恢复而减少。\n\n恐慌会使敌人短暂地失去行动能力\n\n专精: #{risk}#$pro##\n初始概率提高至#{skill_color}#20%##。",
+        ["menu_haunt_desc_sc"] = "掌握: #{risk}#$basic##\n击杀一名在你半径#{skill_color}#18##米内的敌人有概率在附近#{skill_color}#12##米的敌人中#{skill_color}#散播恐慌##，初始概率为#{skill_color}#$skill_value_b1##，每次倒地会提升该效果触发概率的#{skill_color}#$skill_value_b1##，该效果会随着你倒地次数的恢复而减少。\n\n恐慌会使敌人短暂地失去行动能力\n\n专精: #{risk}#$pro##\n初始概率提高至#{skill_color}#$skill_value_p1##。",
 
         -- Messiah--
         ["menu_pistol_beta_messiah_sc"] = "弥赛亚",
@@ -5661,19 +6780,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
         -- Martial Arts--
         ["menu_martial_arts_beta_sc"] = "武术训练",
-        ["menu_martial_arts_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你受到来源于近战武器的伤害减少#{skill_color}#50%##。\n\n专精: #{risk}#$pro##\n你近战武器的击倒指数增加#{skill_color}#100%##。\n\n近战武器的击倒指数将影响你用近战武器攻击时击倒敌人的概率，并决定你近战武器能对熊的护甲和面甲造成多少伤害。",
+        ["menu_martial_arts_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你受到来源于近战武器的伤害减少#{skill_color}#$skill_value_b1##。\n\n专精: #{risk}#$pro##\n你近战武器的击倒指数增加#{skill_color}#$skill_value_p1##。\n\n近战武器的击倒指数将影响你用近战武器攻击时击倒敌人的概率，并决定你近战武器能对熊的护甲和面甲还有泰坦盾及冬队盾造成多少伤害。",
 
         -- Pumping Iron--
         ["menu_steroids_beta_sc"] = "铁拳无敌",
-        ["menu_steroids_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你近战武器的蓄力速度和攻击速度都增快#{skill_color}#20%##\n\n专精: #{risk}#$pro##\n你近战武器的蓄力速度和攻击速度都额外增快#{skill_color}#30%##",
+        ["menu_steroids_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你近战武器的蓄力速度和攻击速度都增快#{skill_color}#$skill_value_b1##\n\n专精: #{risk}#$pro##\n你近战武器的蓄力速度和攻击速度都额外增快#{skill_color}#$skill_value_p1##",
 
         -- Frenzy--
         ["menu_wolverine_beta_sc"] = "狂乱",
-        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#20%##，你受到的回血效果也最多减少#{skill_color}#30%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#50%##，你受到的回血效果最多减少#{skill_color}#75%##。",
+        ["menu_wolverine_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#30%##，你受到的回血效果也最多减少#{skill_color}#$skill_value_b1##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有#{skill_color}#$deflection##的血量减伤分数。\n\n专精: #{risk}#$pro##\n你的血量越少，你的血量减伤分数越高，你受到的回血效果也越弱。\n\n现在你的血量低于#{skill_color}#100%##时，你受到的对#{skill_color}#血量##的伤害最多减少#{skill_color}#$skill_value_p1##，你受到的回血效果最多减少#{skill_color}#75%##。",
 
         -- Berserker--
         ["menu_frenzy_sc"] = "狂战士",
-        ["menu_frenzy_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将会获得最高#{skill_color}#100%##的#{skill_color}#近战武器和电锯##伤害加成。\n\n专精: #{risk}#$pro##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将获得最高#{skill_color}#50%##的#{skill_color}#远程武器##伤害加成。\n\n#{important_1}#提示：不适用于榴弹发射器和火箭筒##"
+        ["menu_frenzy_desc_sc"] = "掌握: #{risk}#$basic##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将会获得最高#{skill_color}#$skill_value_b1##的#{skill_color}#近战武器和电锯##伤害加成。\n\n专精: #{risk}#$pro##\n你的血量越少，伤害就越高。\n\n你的血量低于#{skill_color}#100%##时，你将获得最高#{skill_color}#$skill_value_p1##的#{skill_color}#远程武器##伤害加成。\n\n#{important_1}#提示：不适用于榴弹发射器和火箭筒##"
 
     })
 
@@ -5685,6 +6804,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
         end
         if butt <= frame then
             LocalizationManager:add_localized_strings({
+                ["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时反击幻影特工的#{risk}#RIDER-KICK##并将其击倒。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##。\n\n专精: #{risk}#$pro##\n你现在可以#{skill_color}#反击幻影特工的冲刺踢和盾兵的肘击##了。\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##\n\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK#和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
                 ["bm_wskn_famas_hypno"] = "巴适之鹰",
                 ["menu_st_spec_23"] = "瑞典蠢驴",
                 ["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
@@ -5703,7 +6823,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills", function(loc)
 
 end)
 
-Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(loc)
+Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks_CSF", function(loc)
     LocalizationManager:add_localized_strings({
         ["bm_menu_dodge"] = "闪避点数",
         ["menu_st_category_activated"] = "激活",
@@ -5711,26 +6831,25 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(
         ["menu_st_category_mod"] = "模组",
 
         -- Shared Perks--
-        ["menu_deckall_2_desc_sc"] = "你的爆头伤害增加##25%##。\n\n你造成的伤害增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_4_desc_sc"] = "你的灵活性增加##1##。\n\n防弹背心带来的移动速度惩罚减少##15%##。\n\n你完成单日劫案和整个合约后获得的经验值增加##45%##。\n\n你造成的伤害额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_6_desc_sc"] = "##解锁手雷箱##以供你使用。\n\n你造成的伤害再额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
-        ["menu_deckall_8_desc_sc"] = "你使用医疗箱的速度加快##20%##。\n\n你造成的伤害再次额外增加##25%##，该效果不适用于投掷物、榴弹发射器和火箭筒。",
+        ["menu_deckall_2_desc_sc"] = "你的爆头伤害增加#{skill_color}#$perk_value_1##。\n\n你造成的伤害增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_4_desc_sc"] = "你的灵活性增加#{skill_color}#$perk_value_1##。\n\n防弹背心带来的移动速度惩罚减少#{skill_color}#$perk_value_2##。\n\n你完成单日劫案和整个合约后获得的经验值增加#{skill_color}#$perk_value_3##。\n\n#{risk}#在非专家模式下##，你的换弹速度提升#{skill_color}#$perk_value_4##。\n\n你造成的伤害额外增加#{skill_color}#$perk_value_5##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_6_desc_sc"] = "解锁#{skill_color}#手雷箱##以供你使用，手雷箱可用于在劫案期间#{skill_color}#完全补充##投掷物。\n\n#{risk}#在非专家模式下##，你的捡弹率提升#{skill_color}#$perk_value_1##，该效果在离线模式下将会翻倍。\n\n你造成的伤害再额外增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
+        ["menu_deckall_8_desc_sc"] = "你使用医疗箱的速度加快#{skill_color}#$perk_value_1##。\n\n你造成的伤害再次额外增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：伤害增幅对投掷物、榴弹发射器和火箭筒## #{important_1}#无效##。",
 
         -- Crook--
 
-        ["menu_deck6_1_desc_sc"] = "你的闪避点数增加##5##。\n\n防弹背心的护甲值提高##15%##。",
-        ["menu_deck6_3_desc_sc"] = "防弹背心的闪避点数增加##5##。",
-        ["menu_deck6_5_desc_sc"] = "防弹背心的护甲值额外提高##15%##。\n\n你的撬锁速度加快##20%##。",
-        ["menu_deck6_7_desc_sc"] = "防弹背心的闪避点数额外增加##5##。",
-        ["menu_deck6_9_desc_sc"] = "防弹背心的护甲值再额外提高##20%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck6_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n防弹背心的护甲值提高##$perk_value_2##。",
+        ["menu_deck6_3_desc_sc"] = "防弹背心的闪避点数增加##$perk_value_1##。",
+        ["menu_deck6_5_desc_sc"] = "防弹背心的护甲值额外提高##$perk_value_1##。\n\n你的撬锁速度加快##$perk_value_2##。",
+        ["menu_deck6_7_desc_sc"] = "防弹背心的闪避点数额外增加##$perk_value_1##。",
+        ["menu_deck6_9_desc_sc"] = "防弹背心的护甲值再额外提高##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Rogue
-
-        ["menu_deck4_1_desc_sc"] = "你的闪避点数增加##5##。\n\n你的切枪速度加快##30%##。",
-        ["menu_deck4_3_desc_sc"] = "你的闪避点数额外增加##5##。",
+        ["menu_deck4_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n你的切枪速度加快##$perk_value_2##。",
+        ["menu_deck4_3_desc_sc"] = "你的闪避点数额外增加##$perk_value_1##。",
         ["menu_deck4_5_desc_sc"] = "倒地起身后，你的闪避条增加至其正常状态上限的##200%##。\n\n你回路的摄像头，失效的时间增加##20##秒。",
-        ["menu_deck4_7_desc_sc"] = "你的闪避点数再额外增加##5##。",
-        ["menu_deck4_9_desc_sc"] = "完成一次闪避后的##4##秒内，你的血量每##0.4##秒将增加##1.2##点；该效果可以叠加，但每当你受到了对血量的伤害，回血量就变为原来的##75%##，最少每层每次回##0.35##点血量，所有回血叠加失效后重置。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck4_7_desc_sc"] = "你的闪避点数再额外增加##$perk_value_1##。",
+        ["menu_deck4_9_desc_sc"] = "完成一次闪避后的##$perk_value_2##秒内，你的血量每##0.4##秒将增加##$perk_value_1##点；该效果可以叠加，但每当你受到了对血量的伤害，回血量就变为原来的##75%##，最少每层每次回##0.35##点血量，所有回血叠加失效后重置。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Hitman--
         ["menu_deck5_1_sc"] = "刀枪并进",
@@ -5738,259 +6857,261 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(
         ["menu_deck5_5_sc"] = "铅笔杀神",
         ["menu_deck5_7_sc"] = "终极杀手",
 
-        ["menu_deck5_1_desc_sc"] = "使用非近战武器击杀一名敌人将为你储存##30##点血量，储存血量的上限为##100##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒##5##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有##245##点临时虚血。",
-        ["menu_deck5_3_desc_sc"] = "你的护甲恢复后，闪避条将会增加闪避点数的##100%##。\n\n你的闪避点数增加##5##。",
-        ["menu_deck5_5_desc_sc"] = "你每次杀敌的存血量及其上限都提高##50%##。\n\n你初始携带的尸体袋数量增加##1##。",
-        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##120##的临时虚血。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck5_9_desc_sc"] = "当你有临时虚血时，你受到的对##血量##的伤害减少##10%##且你的移动速度额外增加##20%##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有##60%##的血量减伤分数。\n\n赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck5_1_desc_sc"] = "使用非近战武器击杀一名敌人将为你储存#{skill_color}#$perk_value_1##点血量，储存血量的上限为#{risk}#$perk_value_2##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒#{important_1}#$perk_value_3##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有#{risk}#$perk_value_4##点临时虚血。",
+        ["menu_deck5_3_desc_sc"] = "你的护甲恢复后，闪避条将会增加闪避点数的##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck5_5_desc_sc"] = "你每次杀敌的存血量及其上限都提高##$perk_value_1##。\n\n你初始携带的尸体袋数量增加##$perk_value_2##。",
+        ["menu_deck5_7_desc_sc"] = "你倒地起身后获得##$perk_value_1##点临时虚血。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck5_9_desc_sc"] = "当你有临时虚血时，你受到的对##血量##的伤害减少##$perk_value_1##且你的移动速度额外增加##$perk_value_2##。\n\n对血量的减伤会在其他减伤计算完后再进行计算，你最多能有##$perk_value_3##的血量减伤分数。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Muscle
 
-        ["menu_deck2_1_desc_sc"] = "你的血量上限增加##10%##。",
-        ["menu_deck2_3_desc_sc"] = "你的血量上限额外增加##10%##。\n\n你的闪避点数增加##5##。",
-        ["menu_deck2_5_desc_sc"] = "你的血量上限再额外增加##10%##。\n\n你打包尸体和与人质互动的速度加快##75%##。",
-        ["menu_deck2_7_desc_sc"] = "每次的开火射击有##5%##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck2_9_desc_sc"] = "你的血量上限再次额外增加##10%##。\n\n你倒地起身后的血量恢复##35%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck2_1_desc_sc"] = "你的血量上限增加##$perk_value_1##。",
+        ["menu_deck2_3_desc_sc"] = "你的血量上限额外增加##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck2_5_desc_sc"] = "你的血量上限再额外增加##$perk_value_1##。\n\n你打包尸体和与人质互动的速度加快##$perk_value_2##。",
+        ["menu_deck2_7_desc_sc"] = "每次的开火射击有##$perk_value_1##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck2_9_desc_sc"] = "你的血量上限再次额外增加##$perk_value_1##。\n\n你倒地起身后，额外恢复你最大血量的##$perk_value_2##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Crew Chief
 
-        ["menu_deck1_3_desc_sc"] = "你和你队友的耐力提高##50%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n你的闪避点数增加##5##。\n\n你呼喊的距离增加##25%##。",
-        ["menu_deck1_5_desc_sc"] = "你的血量上限增加##10%##，你队友的血量上限增加##5%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n你回答对讲机所需的时间减少##25%##。",
-        ["menu_deck1_7_desc_sc"] = "你的护甲值提高##10%##。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck1_9_desc_sc"] = "每位人质会为你和队友增加##5%##的血量上限和##10%##的耐力，最多叠加##4##次。\n\n提示：该效果不能由多个使用领队天赋的玩家叠加\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck1_3_desc_sc"] = "你和你队友的耐力提高#{skill_color}#$perk_value_1.##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你的闪避点数增加#{skill_color}#5## 。\n\n你呼喊的距离增加#{skill_color}#$perk_value_2.##。",
+        ["menu_deck1_5_desc_sc"] = "你的血量上限增加#{skill_color}#$perk_value_1##，你队友的血量上限增加#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你回答对讲机所需的时间减少#{skill_color}#$perk_value_3##。",
+        ["menu_deck1_7_desc_sc"] = "你的护甲值提高#{skill_color}#$perk_value_1##。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n你的闪避点数额外增加#{skill_color}#$perk_value_2##。",
+        ["menu_deck1_9_desc_sc"] = "每位人质会为你和队友增加#{skill_color}#$perk_value_1##的血量上限和#{skill_color}#$perk_value_2##的耐力，最多叠加#{skill_color}#$perk_value_3##次。\n\n#{risk}#注意：该效果不能由多个使用领队天赋的玩家叠加。##\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##",
         -- I only had to put these in to fix Overkill's shitty rebalance attempt--
         -- Armorer--
 
-        ["menu_deck3_1_desc_sc"] = "你的护甲值增加##10%##。",
-        ["menu_deck3_3_desc_sc"] = "你的护甲值额外增加##10%##。",
-        ["menu_deck3_5_desc_sc"] = "你的护甲值再额外增加##5%##。\n\n你可以放置##2##个尸体袋箱。",
-        ["menu_deck3_7_desc_sc"] = "你的护甲恢复速度加快##10%##。",
-        ["menu_deck3_9_desc_sc"] = "你的护甲恢复速度额外加快##10%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck3_1_desc_sc"] = "你的护甲值增加##$perk_value_1##。",
+        ["menu_deck3_3_desc_sc"] = "你的护甲值额外增加##$perk_value_1##。",
+        ["menu_deck3_5_desc_sc"] = "你的护甲值再额外增加##$perk_value_1##。\n\n你可以放置##$perk_value_2##个尸体袋箱。",
+        ["menu_deck3_7_desc_sc"] = "你的护甲恢复速度加快##$perk_value_1##。",
+        ["menu_deck3_9_desc_sc"] = "你的护甲恢复速度额外加快##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Burglar--
 
-        ["menu_deck7_1_desc_sc"] = "你的闪避点数增加##5##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##5%##。",
-        ["menu_deck7_3_desc_sc"] = "你的闪避点数额外增加##5##。",
-        ["menu_deck7_5_desc_sc"] = "你蹲伏的移动速度加快##20%##。\n\n蹲伏时，你的闪避条每秒额外增加闪避点数的##5%##。",
-        ["menu_deck7_7_desc_sc"] = "你的闪避点数再额外增加##5##。",
-        ["menu_deck7_9_desc_sc"] = "你的护甲恢复速率增加##10%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck7_1_desc_sc"] = "你的闪避点数增加##$perk_value_1##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##$perk_value_2##。",
+        ["menu_deck7_3_desc_sc"] = "你的闪避点数额外增加##$perk_value_1##。",
+        ["menu_deck7_5_desc_sc"] = "你蹲伏的移动速度加快##$perk_value_1##。\n\n蹲伏时，你的闪避条每秒额外增加闪避点数的##$perk_value_2##。",
+        ["menu_deck7_7_desc_sc"] = "你的闪避点数再额外增加##$perk_value_1##。",
+        ["menu_deck7_9_desc_sc"] = "你的护甲恢复速率增加##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Gambler--
 
-        ["menu_deck10_1_desc_sc"] = "你捡起一个弹药盒会回复##4##至##8##点血量。\n\n冷却时间为##8##秒，每捡起一个弹药盒会减少冷却时间##2##至##6##秒。",
-        ["menu_deck10_3_desc_sc"] = "你从敌人掉落的弹药盒中获得弹药时，你的团队成员会获得##35%##个弹药盒的弹药补充。\n\n你的闪避点数增加##5##。",
-        ["menu_deck10_5_desc_sc"] = "你捡起一个弹药盒回复的血量额外增加##1##。\n\n你回答对讲机所需的时间减少##25%##。",
-        ["menu_deck10_7_desc_sc"] = "当你触发捡弹回血时，你的队友也回复你回血量##50%##的血量。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck10_9_desc_sc"] = "你捡起一个弹药盒回复的血量再额外增加##1##。\n\n当你触发捡弹回血时，你的护甲值也回复##30##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck10_1_desc_sc"] = "你捡起一个弹药盒会回复#{skill_color}#$perk_value_1##至#{skill_color}#$perk_value_2##点血量。\n\n冷却时间为#{important_1}#$perk_value_3##秒，每捡起一个弹药盒会减少冷却时间#{skill_color}#$perk_value_4##至#{skill_color}#$perk_value_5##秒。",
+        ["menu_deck10_3_desc_sc"] = "你从敌人掉落的弹药盒中获得弹药时，你的团队成员会获得##$perk_value_1##个弹药盒的弹药补充。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck10_5_desc_sc"] = "你捡起一个弹药盒回复的血量增加至##$perk_value_1##至##$perk_value_2##点。\n\n当你拾取弹药盒时，你的闪避条将增加你闪避点数的##$perk_value_3##。\n\n你回答对讲机所需的时间减少##$perk_value_4##。",
+        ["menu_deck10_7_desc_sc"] = "当你触发捡弹回血时，你的队友也回复你回血量##$perk_value_1##的血量。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck10_9_desc_sc"] = "你捡起一个弹药盒回复的血量增加至##$perk_value_1##至##$perk_value_2##点。\n\n当你触发捡弹回血时，你的护甲值也回复##$perk_value_3##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
         ["menu_deck10_7"] = "狡诈灵药",
         ["menu_deck10_9"] = "满贯神药",
 
-        -- Infiltrator--
+        -- Infiltrator--  --渗透者
 
-        ["menu_deck8_1_desc_sc"] = "若在你半径##12##米范围内有一名敌人存在，你受到来自敌人的伤害减少##5%##。",
-        ["menu_deck8_3_desc_sc"] = "若在你半径##12##米范围内有一名敌人存在，你受到来自敌人的伤害额外减少##5%##。\n你的闪避点数增加##5##。",
-        ["menu_deck8_5_desc_sc"] = "若在你半径##12##米范围内有一名敌人存在，你受到来自敌人的伤害再额外减少##10%##。\n\n每次使用近战武器成功击中敌人都将在##10##秒内使你的近战武器伤害增加##8%##，该效果可以叠加且最多叠加##5##次，打空失效。\n\n你回路的摄像头，失效的时间增加##20##秒。",
-        ["menu_deck8_7_desc_sc"] = "近战武器击中敌人后，近战武器伤害加成额外增加##8%##。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck8_9_desc_sc"] = "每次使用近战武器成功击中敌人都将在##5##秒内使你的血量每##1##秒回复##1##点，该效果可以叠加且最多叠加##5##次。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck8_1_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害减少##$perk_value_2##。",
+        ["menu_deck8_3_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害额外减少##$perk_value_2##。\n你的闪避点数增加##$perk_value_3##。",
+        ["menu_deck8_5_desc_sc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害再额外减少##$perk_value_2##。\n\n每次使用近战武器成功击中敌人都将在##$perk_value_4##秒内使你的近战武器伤害增加##$perk_value_3##，该效果可以叠加且最多叠加##$perk_value_5##次，打空失效。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
+        ["menu_deck8_7_desc_sc"] = "近战武器击中敌人后，近战武器伤害加成在##$perk_value_2##秒内额外增加##$perk_value_1##，该效果可以叠加且最多叠加##$perk_value_3##次，打空失效。\n\n你的闪避点数额外增加##$perk_value_4##。",
+        ["menu_deck8_9_desc_sc"] = "每次使用近战武器成功击中敌人都将在##$perk_value_2##秒内使你的血量每##$perk_value_zh_1##秒回复##$perk_value_1##点，该效果可以叠加且最多叠加##$perk_value_3##次。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
-        -- Sociopath--
+        -- Sociopath--  --反社会
 
         ["menu_deck9_1_sc"] = "非礼勿言",
-        ["menu_deck9_1_desc_sc"] = "当你被##18##米内至少##3##名敌人包围时，你受到来自敌人的伤害减少##5%##。",
-        ["menu_deck9_3_desc_sc"] = "击杀一名敌人将为你回复##20##点护甲值。\n\n该效果的冷却时间为##5##秒，每击杀一名敌人可使冷却时间减少##0.7##秒，近战击杀将额外减少##1.5##秒。\n\n如果某次杀敌把冷却时间减少到0，那么该效果会立刻触发，然后再次进入冷却。\n\n你的闪避点数增加##5##。",
-        ["menu_deck9_5_desc_sc"] = "使用近战武器击杀一名敌人将为你回复##5%##的血量。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n你初始携带的尸体袋数量增加##1##。",
-        ["menu_deck9_7_desc_sc"] = "击杀一名距你##18##米内的敌人将为你额外回复##15##点护甲值，若是近战击杀则多额外回复##15##点。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck9_9_desc_sc"] = "击杀一名距你##18##米内的敌人将有##25%##的几率在附近##16##米的敌人中##散播恐慌##，若是近战击杀则概率额外增加##25%##，恐慌会使敌人短暂地失去行动能力。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck9_1_desc_sc"] = "当你被##$perk_value_1##米内至少##3##名敌人包围时，你受到来自敌人的伤害减少##$perk_value_2##。",
+        ["menu_deck9_3_desc_sc"] = "击杀一名敌人将为你回复#{skill_color}#$perk_value_1##点护甲值。\n\n该效果的冷却时间为#{important_1}#$perk_value_2##秒，每击杀一名敌人可使冷却时间减少#{skill_color}#$perk_value_3##秒，近战击杀将额外减少#{skill_color}#$perk_value_4##秒。\n\n如果某次杀敌把冷却时间减少到0，那么该效果会立刻触发，然后再次进入冷却。\n\n你的闪避点数增加#{skill_color}#$perk_value_5##。",
+        ["menu_deck9_5_desc_sc"] = "使用近战武器击杀一名敌人将为你回复##$perk_value_1##的血量与##$perk_value_3##的体力。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n你初始携带的尸体袋数量增加##$perk_value_2##。",
+        ["menu_deck9_7_desc_sc"] = "击杀一名距你##$perk_value_1##米内的敌人将为你额外回复##$perk_value_2##点护甲值，若是近战击杀则回复量##翻倍##。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n你的闪避点数额外增加##$perk_value_3##。",
+        ["menu_deck9_9_desc_sc"] = "击杀一名距你##$perk_value_1##米内的敌人将有##$perk_value_2##的几率在附近##$perk_value_3##米的敌人中##散播恐慌##，若是近战击杀则概率##翻倍##，恐慌会使敌人短暂地失去行动能力。\n\n这与“##危急情形##”（牌组三）同时计算冷却。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Grinder--
 
-        ["menu_deck11_1_desc_sc"] = "身穿##防爆弹衣##时，成功伤害到敌人将使你在##3##秒内每秒回复##2##点血量。\n\n该效果可以叠加，但每##0.65##秒只能叠加一层，最高叠加##5##层。使用哨戒机枪、火焰或毒素伤害到敌人不能为你叠加回血效果。\n\n你所有护甲的护甲量减少##25##。\n\n你防爆弹衣的灵活性增加##3##。",
-        ["menu_deck11_3_desc_sc"] = "每层增益中每秒回复的血量额外增加##1##点。",
-        ["menu_deck11_5_desc_sc"] = "每层增益的持续时间额外增加##2##秒。\n\n你可以放置##2##个尸体袋箱。",
-        ["menu_deck11_7_desc_sc"] = "每层增益中每秒回复的血量再额外增加##1##点。",
-        ["menu_deck11_9_desc_sc"] = "每层增益将使你的移动速度加快##5%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck11_1_desc_sc"] = "身穿#{risk}#防爆弹衣##时，成功伤害到敌人将使你在#{skill_color}#$perk_value_2##秒内每秒回复#{skill_color}#$perk_value_1##点血量。\n\n该效果可以叠加，但每#{important_1}#$perk_value_4##秒只能叠加一层，最高叠加#{skill_color}#$perk_value_3##层。\n\n#{risk}#注意：使用哨戒机枪、火焰或毒素伤害到敌人不能为你叠加回血效果。##\n\n你防爆弹衣的护甲量减少#{important_1}#$perk_value_5##。\n\n你防爆弹衣的灵活性增加#{skill_color}#$perk_value_6##。",
+        ["menu_deck11_3_desc_sc"] = "每层增益中每秒回复的血量额外增加##$perk_value_1##点。",
+        ["menu_deck11_5_desc_sc"] = "每层增益的持续时间额外增加##$perk_value_1##秒。\n\n你可以放置##$perk_value_2##个尸体袋箱。",
+        ["menu_deck11_7_desc_sc"] = "每层增益中每秒回复的血量再额外增加##$perk_value_1##点。",
+        ["menu_deck11_9_desc_sc"] = "每层增益将使你的移动速度加快##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Open your mind--
 
-        ["menu_deck13_1_desc_sc"] = "当你有护甲时，每击杀一名敌人将为你储存##4##点血量。\n\n当你的护甲完全被破坏后，回复护甲的同时也会将你储存的血量用于一等一回复你的血量。\n\n最多能储存多少血取决于你穿的是什么护甲，更轻的护甲能储存更多的血量。",
-        ["menu_deck13_3_desc_sc"] = "每次杀敌储存的血量增加##2##点。\n\n你的闪避点数增加##5##。",
-        ["menu_deck13_5_desc_sc"] = "提高你血量储存上限的##20%##。\n\n你和你队友控制的平民趴下的时间延长##25%##。",
-        ["menu_deck13_7_desc_sc"] = "每次杀敌储存的血量额外增加##2##点。\n\n你的闪避点额外增加##5##。",
-        ["menu_deck13_9_desc_sc"] = "每击杀一名敌人都可以加快你的护甲恢复速度，加快的程度取决于你穿的是什么护甲，更轻的护甲能获得更快的恢复速度。护甲成功恢复后该效果需要重新叠加。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck13_1_desc_sc"] = "当你有护甲时，每击杀一名敌人将为你储存#{skill_color}#$perk_value_1##点血量。\n\n当你的护甲完全被破坏后，回复护甲的同时也会将你储存的血量用于一等一回复你的血量。\n\n#{risk}#最多能储存多少血取决于你穿的是什么护甲##。",
+        ["menu_deck13_3_desc_sc"] = "每次杀敌储存的血量增加##$perk_value_1##点。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck13_5_desc_sc"] = "提高你血量储存上限的##$perk_value_1##。\n\n你和你队友控制的平民趴下的时间延长##$perk_value_2##。",
+        ["menu_deck13_7_desc_sc"] = "每次杀敌储存的血量额外增加##$perk_value_1##点。\n\n你的闪避点额外增加##$perk_value_2##。",
+        ["menu_deck13_9_desc_sc"] = "每击杀一名敌人都可以#{skill_color}#加快你的护甲恢复速度##，#{risk}#加快的程度取决于你穿的是什么护甲，更轻的护甲能获得更快的恢复速度。##\n\n护甲成功恢复后该效果需要#{important_1}#重新叠加##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- THIS IS WAR BABY--
 
-        ["menu_deck14_1_desc_sc"] = "你所造成伤害的100%将会转化为狂乱度，狂乱度最多可以叠##720##层。\n\n关于狂乱度：\n每累积##120##点狂乱度，你受到的伤害就减少##1##点。狂乱度每##8##秒减少##120##层。",
-        ["menu_deck14_3_desc_sc"] = "你的队友现在也可以享受通过狂乱度获得的减伤效果。\n\n你和队友同时使用瘾君子的效果不叠加，减伤效果取团队内最高的狂乱度。\n\n你的闪避点数增加##5##。",
-        ["menu_deck14_5_desc_sc"] = "你的狂乱度现在每##8##秒只减少##90##层。\n\n你和你队友控制的平民趴下的时间延长##25%##。",
-        ["menu_deck14_7_desc_sc"] = "现在每累积##90##层狂乱度，你受到的伤害就减少##1##点。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck14_9_desc_sc"] = "你通过狂乱度获得的减伤效果增加##100%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck14_1_desc_sc"] = "你所造成伤害的##100%##将会转化为狂乱度，狂乱度最多可以叠##$perk_value_1##层。\n\n关于狂乱度：\n每累积##$perk_value_3##点狂乱度，你受到的伤害就减少##$perk_value_2##点。狂乱度每##8##秒减少##$perk_value_4##层。",
+        ["menu_deck14_3_desc_sc"] = "你的队友现在也可以享受通过狂乱度获得的减伤效果。\n\n你和队友同时使用瘾君子的效果#{important_1}#不叠加##，减伤效果取团队内#{risk}#最高##的狂乱度。\n\n你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck14_5_desc_sc"] = "你的狂乱度现在每##$perk_value_2##秒只减少##$perk_value_1##层。\n\n你和你队友控制的平民趴下的时间延长##$perk_value_3##。",
+        ["menu_deck14_7_desc_sc"] = "现在每累积##$perk_value_2##层狂乱度，你受到的伤害就减少##$perk_value_1##点。\n\n你的闪避点数额外增加##$perk_value_3##。",
+        ["menu_deck14_9_desc_sc"] = "你通过狂乱度获得的减伤效果增加##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Anarchist--
         ["menu_st_spec_15"] = "无政府主义者", -- there's a random space at the end of the original string
-        ["menu_deck15_1_desc_sc"] = "你的护甲不再是一次性回满，而是每段时间回复一次。回复量取决于积累的量，每秒会积累##8##点护甲值；两次回复的时间间隔取决于你穿的护甲，更厚重的防弹背心回复间隔更长。\n\n提示：加快护甲回复速率的技能效果将对此天赋无效",
-        ["menu_deck15_3_desc_sc"] = "你##50%##的血量转化为##50%##的护甲值。",
-        ["menu_deck15_5_desc_sc"] = "你##50%##的血量转化为##100%##的护甲值。\n\n你和你队友控制的平民趴下的时间延长##25%##。",
-        ["menu_deck15_7_desc_sc"] = "你##50%##的血量转化为##150%##的护甲值。",
-        ["menu_deck15_9_desc_sc"] = "造成伤害会为你回复护甲值——该效果的冷却时间为##5##秒，穿越重型的防弹背心就能回复越多的护甲。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck15_1_desc_sc"] = "你的护甲不再是一次性回满，而是每段时间回复一次。回复量取决于积累的量，每秒会积累#{skill_color}#8##点护甲值；两次回复的时间间隔取决于你穿的护甲，更厚重的防弹背心回复间隔更长。\n\n#{risk}#注意：加快护甲回复速率的技能效果将对此天赋无效##",
+        ["menu_deck15_3_desc_sc"] = "你#{risk}#$perk_value_1的血量##转化为#{skill_color}#$perk_value_2的护甲值##。",
+        ["menu_deck15_5_desc_sc"] = "你#{risk}#$perk_value_1的血量##转化为#{skill_color}#$perk_value_2的护甲值##。\n\n你和你队友控制的平民趴下的时间延长##$perk_value_3##。",
+        ["menu_deck15_7_desc_sc"] = "你#{risk}#$perk_value_1的血量##转化为#{skill_color}#$perk_value_2的护甲值##。",
+        ["menu_deck15_9_desc_sc"] = "#{skill_color}#造成伤害会为你回复护甲值##——该效果的冷却时间为#{important_1}#$perk_value_1##秒，穿越重型的防弹背心就能回复越多的护甲。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##",
         ["menu_anarc_disable"] = "#{important_1}#(对无政府主义者无效)##",
 
         -- Scarface--
 
-        ["menu_deck17_1_desc_sc"] = "解锁首脑##注射器##以供你使用。注射器会使用你的投掷物栏。\n\n游戏中你可以按##$BTN_ABILITY;##键激活注射器，激活注射器会在##5##秒内使你在受到伤害后回复所受到伤害##30%##的血量。\n\n注射器的冷却时间为##30##秒。\n\n提示：=注射器效果总结=\n1.先回血再受到伤害；\n2.有护甲时，受击回血；\n3.无护甲时，受击减伤。\n(并不是绝对的减伤，取决于不同的情况)",
-        ["menu_deck17_3_desc_sc"] = "注射器生效期间，你的移动速度加快##20%##。",
-        ["menu_deck17_5_desc_sc"] = "注射器的持续时间增加至##7##秒。\n\n注射器生效期间，你获得##嘲讽##——一旦你进入敌人的射击范围内，无论周围是什么情况敌人都会优先射击你。",
-        ["menu_deck17_7_desc_sc"] = "你的血量低于##35%##时，注射器生效期间的回血量额外增加##63%##。",
-        ["menu_deck17_9_desc_sc"] = "注射器生效期间，每获得##5##点血量的过量治疗将减少注射器冷却时间##2##秒。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck17_1_desc_sc"] = "解锁首脑#{skill_color}#注射器##以供你使用。注射器会使用你的投掷物栏。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活注射器，激活注射器会在#{skill_color}#$perk_value_2##秒内使你在受到伤害后回复所受到伤害#{skill_color}#$perk_value_1##的血量。\n\n注射器的冷却时间为#{important_1}#$perk_value_3##秒，每次击杀都会减少注射器的冷却时间#{skill_color}#$perk_value_4##秒。\n\n#{risk}#提示：=注射器效果总结=\n1.先回血再受到伤害；\n2.有护甲时，受击回血；\n3.无护甲时，受击减伤。##\n#{important_1}#(并不是绝对的减伤，取决于不同的情况)##",
+        ["menu_deck17_3_desc_sc"] = "注射器生效期间，你的移动速度加快##$perk_value_1##。",
+        ["menu_deck17_5_desc_sc"] = "激活注射器现会在##$perk_value_2##秒内使你在受到伤害后回复所受到伤害##$perk_value_1##的血量。\n\n注射器生效期间，你获得##嘲讽##——一旦你进入敌人的射击范围内，无论周围是什么情况敌人都会优先射击你。",
+        ["menu_deck17_7_desc_sc"] = "你的血量低于##$perk_value_2##时，注射器生效期间的回血量额外增加##$perk_value_1##。",
+        ["menu_deck17_9_desc_sc"] = "注射器生效期间，每获得##$perk_value_1##点血量的过量治疗将减少注射器冷却时间##$perk_value_2##秒。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- 10 feet higher--
 
-        ["menu_deck18_1_desc_sc"] = "你的闪避点数增加##5##。\n\n解锁投掷物——##烟雾弹##以供你使用。\n\n烟雾弹扔出后，它会制造一片持续##12##秒的烟幕。处于烟幕中的你和你队友回复护甲的速度加快##100%##。烟幕中的敌人精准度降低##75%##。\n\n烟雾弹的冷却时间为##40##秒，击杀一名敌人将使冷却时间减少##1##秒。",
-        ["menu_deck18_3_desc_sc"] = "你的闪避点数额外增加##5##。",
-        ["menu_deck18_5_desc_sc"] = "成功闪避一次敌人的攻击将减少烟雾弹的冷却时间##1##秒。\n\n你初始携带的尸体袋数量增加##1##。",
-        ["menu_deck18_7_desc_sc"] = "你的闪避点数再额外增加##5##。",
-        ["menu_deck18_9_desc_sc"] = "当你在烟雾弹产生的烟幕中时，你的闪避条每秒增加闪避点数的##40%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck18_1_desc_sc"] = "你的闪避点数增加#{skill_color}#$perk_value_6##。\n\n解锁投掷物——#{skill_color}#烟雾弹##以供你使用。\n\n烟雾弹扔出后，它会制造一片持续#{skill_color}#$perk_value_1##秒的烟幕。处于烟幕中的你和你队友回复护甲的速度加快#{skill_color}#$perk_value_2##。烟幕中的敌人精准度降低#{skill_color}#$perk_value_3##。\n\n烟雾弹的冷却时间为#{important_1}#$perk_value_4##秒，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_5##秒。",
+        ["menu_deck18_3_desc_sc"] = "你的闪避点数额外增加##$perk_value_1##。",
+        ["menu_deck18_5_desc_sc"] = "成功闪避一次敌人的攻击将减少烟雾弹的冷却时间##$perk_value_1##秒。\n\n你初始携带的尸体袋数量增加##$perk_value_2##。",
+        ["menu_deck18_7_desc_sc"] = "你的闪避点数再额外增加##$perk_value_1##。",
+        ["menu_deck18_9_desc_sc"] = "当你在烟雾弹产生的烟幕中时，你的闪避条每秒增加闪避点数的##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- Sweet liquor eases the pain--
 
-        ["menu_deck19_1_desc_sc"] = "解锁##修士酒壶##以供你使用。\n\n你受到的对##血量##的伤害中的##37.5%##不会立刻使你丢失血量，而是变成虚血在##8##秒内逐渐衰减完。\n\n你可以按使用投掷物的按键激活修士酒壶并立刻使虚血变为实血。\n\n当虚血变为实血时，你也会恢复虚血转变量##185%##的血量。修士酒壶的冷却时间为##30##秒。\n\n你##50%##的##护甲量##将转变为##50%##的##血量##。",
-        ["menu_deck19_3_desc_sc"] = "每击杀一名敌人，你的酒壶冷却时间就减少##4##秒。",
-        ["menu_deck19_5_desc_sc"] = "在##4##秒内没受到伤害将会立即使虚血变为实血(即触发酒壶的效果)。\n\n你回答对讲机所需的时间减少##25%##。",
-        ["menu_deck19_7_desc_sc"] = "你的血量低于##50%##时，你每击杀一名敌人将减少修士酒壶的冷却时间##8##秒。",
-        ["menu_deck19_9_desc_sc"] = "你倒地被救起后的剩余血量提高##35%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck19_1_desc_sc"] = "解锁#{skill_color}#修士酒壶##以供你使用。\n\n你受到的对#{risk}#血量##的伤害中的#{skill_color}#$perk_value_1##不会立刻使你丢失血量，而是变成虚血在#{skill_color}#$perk_value_2##秒内逐渐衰减完。\n\n你可以按使用投掷物的按键激活修士酒壶并立刻使虚血变为实血。\n\n当虚血变为实血时，你也会恢复虚血转变量#{skill_color}#$perk_value_3##的血量。修士酒壶的冷却时间为#{important_1}#$perk_value_4##秒。\n\n你#{skill_color}#$perk_value_5##的#{skill_color}#护甲量##将转变为#{skill_color}#$perk_value_6##的#{skill_color}#血量##。",
+        ["menu_deck19_3_desc_sc"] = "每击杀一名敌人，你的酒壶冷却时间就减少##$perk_value_1##秒。",
+        ["menu_deck19_5_desc_sc"] = "在##$perk_value_1##秒内没受到伤害将会立即使虚血变为实血(即触发酒壶的效果)。\n\n你回答对讲机所需的时间减少##$perk_value_2##。",
+        ["menu_deck19_7_desc_sc"] = "你的血量低于##$perk_value_1##时，你每击杀一名敌人将减少修士酒壶的冷却时间##$perk_value_2##秒。",
+        ["menu_deck19_9_desc_sc"] = "你倒地被救起后的剩余血量提高##$perk_value_1##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
 
         -- it's not a war crime if they're not people--
 
-        ["menu_deck20_1_desc_sc"] = "解锁##电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的##18##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复##4##点血量，并且为你标记的队友回复##2##点血量。\n\n电子烟的持续时间为##11##秒，冷却时间为##80##秒。",
-        ["menu_deck20_3_desc_sc"] = "你和你标记的队友每击杀一名敌人都会延长电子烟的持续时间##2##秒。每次杀敌将减少下次杀敌延长时间的##0.2##秒。",
-        ["menu_deck20_5_desc_sc"] = "你和你标记的队友每击杀一名敌人都会为你获得##0.5##的伤害减免，最多获得##8##点伤害减免，电子烟效果结束时失效。\n\n你回路的摄像头，失效的时间增加##20##秒。",
-        ["menu_deck20_7_desc_sc"] = "电子烟效果回复的血量变为原来的##2##倍。",
-        ["menu_deck20_9_desc_sc"] = "你每击杀一名敌人都会减少电子烟的冷却时间##2##秒。\n\n电子烟效果持续时间，你标记的队友击杀敌人也能为你减少电子烟的冷却时间##2##秒。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck20_1_desc_sc"] = "解锁#{skill_color}#电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的#{skill_color}#$perk_value_1##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复#{skill_color}#$perk_value_2##点血量，并且为你标记的队友回复#{skill_color}#$perk_value_3##点血量。\n\n电子烟的持续时间为#{skill_color}#$perk_value_4##秒，冷却时间为#{important_1}#$perk_value_5##秒。",
+        ["menu_deck20_3_desc_sc"] = "你和你标记的队友每击杀一名敌人都会延长电子烟的持续时间##$perk_value_1##秒。每次杀敌将减少下次杀敌延长时间的##$perk_value_2##秒。",
+        ["menu_deck20_5_desc_sc"] = "你和你标记的队友每击杀一名敌人都会为你获得##$perk_value_1##的伤害减免，最多获得##$perk_value_2##点伤害减免，电子烟效果结束时失效。\n\n你回路的摄像头，失效的时间增加##$perk_value_3##秒。",
+        ["menu_deck20_7_desc_sc"] = "电子烟效果回复的血量变为原来的##$perk_value_1##。",
+        ["menu_deck20_9_desc_sc"] = "你每击杀一名敌人都会减少电子烟的冷却时间##$perk_value_1##秒。\n\n电子烟效果持续时间内，你标记的队友击杀敌人也能为你减少电子烟的冷却时间##$perk_value_2##秒。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##。",
 
         -- Biker--
 
-        ["menu_deck16_1_desc_sc"] = "每当你或你队友击杀一名敌人时，你获得##2##点血量，冷却时间为##5##秒。",
-        ["menu_deck16_3_desc_sc"] = "你每##5##秒恢复##10##点护甲值。",
-        ["menu_deck16_5_desc_sc"] = "每减少##25%##的护甲值都将减少杀敌加血冷却时间##0.5##秒。\n\n你打包尸体和与人质互动的速度加快##75%##。",
-        ["menu_deck16_7_desc_sc"] = "你现在每##5##秒恢复##20##点护甲值。\n\n使用近战武器击杀敌人将使该效果下一次提前##1##秒触发。",
-        ["menu_deck16_9_desc_sc"] = "每减少##25%##的护甲值都将使杀敌回血量增加##2##点。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck16_1_desc_sc"] = "每当你或你队友击杀一名敌人时，你获得#{skill_color}#$perk_value_1##点血量，冷却时间为#{important_1}#$perk_value_2##秒。",
+        ["menu_deck16_3_desc_sc"] = "你每##$perk_value_2##秒恢复##$perk_value_1##点护甲值。",
+        ["menu_deck16_5_desc_sc"] = "每减少##$perk_value_1##的护甲值都将减少杀敌加血冷却时间##$perk_value_2##秒。\n\n你打包尸体和与人质互动的速度加快##$perk_value_3##。",
+        ["menu_deck16_7_desc_sc"] = "你现在每##$perk_value_2##秒恢复##$perk_value_1##点护甲值。\n\n使用近战武器击杀敌人将使该效果下一次提前##$perk_value_3##秒触发。",
+        ["menu_deck16_9_desc_sc"] = "每减少##$perk_value_1##的护甲值都将使杀敌回血量增加##$perk_value_2##点。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##。",
 
         -- Yakuza--
 
-        ["menu_deck12_1_desc_sc"] = "你的血量低于##100%##时，血量越少，你的闪避条被动增长的速度越快，最快可以达到每秒增加闪避点数的##8%##。\n\n你的闪避点数增加##5##。",
-        ["menu_deck12_3_desc_sc"] = "你的血量低于##100%##时，血量越少，你杀敌增加的闪避条越多，最多可以达到每击杀一个敌人增加闪避点数的##50%##。",
-        ["menu_deck12_5_desc_sc"] = "你的血量低于##100%##时，血量越少，你受到的伤害越少，最多可以获得##20%##的伤害减免。\n\n你打包尸体和与人质互动的速度加快##75%##。",
-        ["menu_deck12_7_desc_sc"] = "你的血量低于##100%##时，血量越少，你使用近战武器杀敌增加的闪避条越多，最多可以达到每用近战武器击杀一个敌人增加闪避点数的##50%##，并与\"蛇之刺青\"（卡牌3）叠加。\n\n使用近战武器击杀敌人将使你下一次成功闪避获取的无敌时间增加##150%##，最多增加到##0.9##秒。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck12_9_desc_sc"] = "你的血量减伤分数上限提高至##80%##。\n\n受到致命伤害时，你不会倒地，你的血量会变为##1##并获得##50##点护甲值，该效果只能触发一次，每次倒地起身或触发应急急救包后重置使用次数。\n\n提示：该效果不适用于也不能被幻影特工飞踢或泰瑟警察电击造成的倒地刷新\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck12_1_desc_sc"] = "你的血量低于##100%##时，血量越少，你的闪避条被动增长的速度越快，最快可以达到每秒增加闪避点数的##$perk_value_1##。\n\n你的闪避点数增加##$perk_value_2##。",
+        ["menu_deck12_3_desc_sc"] = "你的血量低于##100%##时，血量越少，你杀敌增加的闪避条越多，最多可以达到每击杀一个敌人增加闪避点数的##$perk_value_1##。",
+        ["menu_deck12_5_desc_sc"] = "你的血量低于##100%##时，血量越少，你受到的伤害越少，最多可以获得##$perk_value_1##的伤害减免。\n\n你打包尸体和与人质互动的速度加快##$perk_value_2##。",
+        ["menu_deck12_7_desc_sc"] = "你的血量低于##100%##时，血量越少，你使用近战武器杀敌增加的闪避条越多，最多可以达到每用近战武器击杀一个敌人增加闪避点数的##$perk_value_1##，并与\"蛇之刺青\"（卡牌3）叠加。\n\n使用近战武器击杀敌人将使你下一次成功闪避获取的无敌时间增加##$perk_value_2##，最多增加到##$perk_value_3##秒。\n\n你的闪避点数额外增加##$perk_value_4##。", --恢复制作组自己都不走心...
+        ["menu_deck12_9_desc_sc"] = "你的血量减伤分数上限提高至#{skill_color}#$perk_value_1##。\n\n受到致命伤害时，你不会倒地，你的血量会变为#{skill_color}#1##并获得#{skill_color}#$perk_value_2##点护甲值，该效果只能触发一次，每次倒地起身或触发应急急救包后重置使用次数。\n\n#{risk}#注意：该效果不适用于也不能被幻影特工飞踢或泰瑟警察电击造成的倒地刷新##\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##。",
         ["menu_yakuza_deflection_add"] = "（因极道增加）",
 
         -- Hacker--
 
-        ["menu_deck21_1_desc_sc"] = "解锁##便携式ECM干扰器##以供你使用。\n\n游戏中你可以按##$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续##10##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时必定使所有半径##16##米内的敌人失去行动能力，随后每##1##秒都有##60%##的几率眩晕范围内的敌人，反馈持续##10##秒。\n\n便携式ECM干扰器每##70##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少##2##秒。",
-        ["menu_deck21_3_desc_sc"] = "你的闪避点数增加##5##。",
-        ["menu_deck21_5_desc_sc"] = "便携式ECM干扰器的反馈生效时，击杀一名敌人将为你回复##12##点血量。",
-        ["menu_deck21_7_desc_sc"] = "你的护甲回复速率增加##10%##。\n\n你的闪避点数额外增加##5##。",
-        ["menu_deck21_9_desc_sc"] = "便携式ECM干扰器的反馈生效时，你的队友击杀一名敌人也能回复##4##点血量。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        --["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+		["menu_deck21_1_desc_sc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+        ["menu_deck21_3_desc_sc"] = "你的闪避点数增加##$perk_value_1##。",
+        ["menu_deck21_5_desc_sc"] = "便携式ECM干扰器的反馈生效时，击杀一名敌人将为你回复##$perk_value_1##点血量。",
+        ["menu_deck21_7_desc_sc"] = "你的护甲回复速率增加##$perk_value_1##。\n\n你的闪避点数额外增加##$perk_value_2##。",
+        ["menu_deck21_9_desc_sc"] = "便携式ECM干扰器的反馈生效时，你的队友击杀一名敌人也能回复##$perk_value_1##点血量。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##。",
 
         -- Leech
 
-        ["menu_deck22_1_desc_sc"] = "解锁并装备##水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复##10%##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每##10%##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀##3##名敌人回复一格且免伤##1##秒。\n\n水蛭安瓶能够持续##6##秒钟并且有##40##秒冷却。",
-        ["menu_deck22_3_desc_sc"] = "在水蛭安瓶生效期间，任何时候你受到生命值伤害会恢复你队友其总血量的##1%##。",
-        ["menu_deck22_5_desc_sc"] = "水蛭安瓶的生效时间延长到##10##秒。\n\n每击杀一名敌人会减少水蛭安瓶的冷却时间##1##秒。\n\n你打包尸体和与人质互动的速度加快##75%##。",
-        ["menu_deck22_7_desc_sc"] = "水蛭生效期间血量分割变为血上限的每##5%##一格。",
-        ["menu_deck22_9_desc_sc"] = "倒地时启用水蛭安瓶能够立即起身直至生效结束。\n\n使用水蛭安瓶起身会增加额外的##30##秒冷却时间。\n\n受到伤害时为队友恢复的血量变为##2%##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck22_1_desc_sc"] = "解锁并装备#{skill_color}#水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复#{skill_color}#$perk_value_1##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每#{skill_color}#$perk_value_3##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀#{skill_color}#$perk_value_4##名敌人回复一格且免伤#{skill_color}#$perk_value_5##秒。\n\n水蛭安瓶能够持续#{skill_color}#$perk_value_2##秒钟并且有#{important_1}#$perk_value_6##秒冷却。",
+        ["menu_deck22_3_desc_sc"] = "在水蛭安瓶生效期间，任何时候你受到生命值伤害会恢复你队友其总血量的##$perk_value_1##。",
+        ["menu_deck22_5_desc_sc"] = "水蛭安瓶的生效时间延长到##$perk_value_1##秒。\n\n每击杀一名敌人会减少水蛭安瓶的冷却时间##$perk_value_2##秒。\n\n你打包尸体和与人质互动的速度加快##$perk_value_3##。",
+        ["menu_deck22_7_desc_sc"] = "水蛭生效期间血量分割变为血上限的每##$perk_value_1##一格。",
+        ["menu_deck22_9_desc_sc"] = "倒地时启用水蛭安瓶能够立即起身直至生效结束。\n\n使用水蛭安瓶起身会增加额外的#{important_1}#$perk_value_1##秒冷却时间。\n\n受到伤害时为队友恢复的血量变为#{skill_color}#$perk_value_2##。\n\n天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##",
 
         -- CopyCat--
-        ["menu_deck23_1_desc"] = "使用主武器时，击杀##10##名敌人会自动装填副武器，反之亦然。\n提示：\n主副武器杀敌会独立计算，但你切出另一把武器并换弹后杀敌计数就会重置；\n只需要使用某武器即可，这意味着刀和投掷物杀敌也计入\n\n你武器切换速度增快##15%##。",
-        ["menu_deck23_1_short"] = "使用主武器时，击杀##10##名敌人会自动装填副武器，反之亦然。\n\n你武器切换速度增快##15%##。",
-        ["menu_deck23_1_1_desc"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_1_1_short"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_1_2_desc"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_1_2_short"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_1_3_desc"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_1_3_short"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_1_4_desc"] = "你蹲下时和背包时的移动速度加快##5%##。",
-        ["menu_deck23_1_4_short"] = "你蹲下时和背包时的移动速度加快##5%##。",
+        ["menu_deck23_1_desc"] = "使用主武器时，击杀#{skill_color}#$perk_value_1##名敌人会自动装填副武器，反之亦然。\n#{risk}#注意：\n主副武器杀敌会独立计算，但你切出另一把武器并换弹后杀敌计数就会重置；\n只需要使用某武器即可，这意味着刀和投掷物杀敌也计入。##\n\n你武器切换速度增快#{skill_color}#$perk_value_2##。",
+        ["menu_deck23_1_short"] = "使用主武器时，击杀#{skill_color}#$perk_value_1##名敌人会自动装填副武器，反之亦然。\n\n你武器切换速度增快#{skill_color}#$perk_value_2##。",
+        ["menu_deck23_1_1_desc"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_1_short"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_2_desc"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_2_short"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_3_desc"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_3_short"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_1_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
 
-        ["menu_deck23_3_desc"] = "你每次完成爆头可恢复##3##点血量，每##5##秒只能触发一次。",
-        ["menu_deck23_3_short"] = "你每次完成爆头可恢复##3##点血量，每##5##秒只能触发一次。",
-        ["menu_deck23_3_1_desc"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_3_1_short"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_3_2_desc"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_3_2_short"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_3_3_desc"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_3_3_short"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_3_4_desc"] = "你蹲下时和背包时的移动速度加快##5%##。",
-        ["menu_deck23_3_4_short"] = "你蹲下时和背包时的移动速度加快##5%##。",
+        ["menu_deck23_3_desc"] = "你每次完成爆头可恢复#{skill_color}#$perk_value_1##点血量，每#{important_1}#$perk_value_2##秒只能触发一次。\n\n若#{skill_color}#正中靶心##技能可用，可与其同时触发并共享冷却。",
+        ["menu_deck23_3_short"] = "你每次完成爆头可恢复#{skill_color}#$perk_value_1##点血量，每#{important_1}#$perk_value_2##秒只能触发一次。\n\n若#{skill_color}#正中靶心##技能可用，可与其同时触发并共享冷却。",
+        ["menu_deck23_3_1_desc"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_1_short"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_2_desc"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_2_short"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_3_desc"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_3_short"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_3_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
 
-        ["menu_deck23_5_desc"] = "闪避成功将使本来的伤害##100%##反弹回开火的敌人身上。\n\n打破你护甲的子弹会以##200%##的伤害反弹回开火的敌人身上，冷却时间为##15##秒。",
-        ["menu_deck23_5_short"] = "闪避成功将使本来的伤害##100%##反弹回开火的敌人身上。\n\n打破你护甲的子弹会以##200%##的伤害反弹回开火的敌人身上，冷却时间为##15##秒。",
-        ["menu_deck23_5_1_desc"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_5_1_short"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_5_2_desc"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_5_2_short"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_5_3_desc"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_5_3_short"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_5_4_desc"] = "你蹲下时和背包时的移动速度加快##5%##。",
-        ["menu_deck23_5_4_short"] = "你蹲下时和背包时的移动速度加快##5%##。",
+        ["menu_deck23_5_desc"] = "闪避成功将使敌人攻击的#{skill_color}#100%##伤害反弹回开火的敌人身上。\n\n打破你护甲的子弹会伤害反弹回开火的敌人身上并额外附加#{skill_color}#$perk_value_1##的伤害，冷却时间为#{important_1}#$perk_value_2##秒。",
+        ["menu_deck23_5_short"] = "闪避成功将使敌人攻击的#{skill_color}#100%##伤害反弹回开火的敌人身上。\n\n打破你护甲的子弹会伤害反弹回开火的敌人身上并额外附加#{skill_color}#$perk_value_1##的伤害，冷却时间为#{important_1}#$perk_value_2##秒。",
+        ["menu_deck23_5_1_desc"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_1_short"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_2_desc"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_2_short"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_3_desc"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_3_short"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_5_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
 
-        ["menu_deck23_7_desc"] = "当你的血量低于##50%##时，你会免疫对血量的伤害##2##秒，每##90##秒只能触发一次。",
-        ["menu_deck23_7_short"] = "当你的血量低于##50%##时，你会免疫对血量的伤害##2##秒，每##90##秒只能触发一次。",
-        ["menu_deck23_7_1_desc"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_7_1_short"] = "你的血量上限增加##7.5%##。",
-        ["menu_deck23_7_2_desc"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_7_2_short"] = "你的护甲量增加##3.75%##。",
-        ["menu_deck23_7_3_desc"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_7_3_short"] = "你的闪避点数增加##1.25##。",
-        ["menu_deck23_7_4_desc"] = "你蹲下时和背包时的移动速度加快##5%##。",
-        ["menu_deck23_7_4_short"] = "你蹲下时和背包时的移动速度加快##5%##。",
+        ["menu_deck23_7_desc"] = "当你的血量低于#{skill_color}#$perk_value_1##时，你会免疫对血量的伤害#{skill_color}#$perk_value_2##秒，每#{important_1}#$perk_value_3##秒只能触发一次。",
+        ["menu_deck23_7_short"] = "当你的血量低于#{skill_color}#$perk_value_1##时，你会免疫对血量的伤害#{skill_color}#$perk_value_2##秒，每#{important_1}#$perk_value_3##秒只能触发一次。",
+        ["menu_deck23_7_1_desc"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_1_short"] = "你的血量上限增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_2_desc"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_2_short"] = "你的护甲量增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_3_desc"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_3_short"] = "你的闪避点数增加#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_4_desc"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
+        ["menu_deck23_7_4_short"] = "你蹲下时和背包时的移动速度加快#{skill_color}#$perk_value_1##。",
         -- Final Card
         -- Crew Chief
-        ["menu_deck1_mrwi_desc"] = "你呼喊的距离增加##25%##。\n\n你和你队友的耐力提高##50%##。\n\n提示：不与其它同天赋玩家的效果叠加\n\n你回答对讲机所需的时间减少##25%##。",
+        ["menu_deck1_mrwi_desc"] = "你呼喊的距离增加#{skill_color}#$perk_value_1.##。\n\n你和你队友的耐力提高#{skill_color}#$perk_value_2##。\n\n#{risk}#注意：不与其它同天赋（包括原版领队）玩家的效果叠加##\n\n你回答对讲机所需的时间减少#{skill_color}#$perk_value_3##。",
         -- Muscle
-        ["menu_deck2_mrwi_desc"] = "每次的开火射击有##5%##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你打包尸体和与人质互动的速度加快##75%##。",
+        ["menu_deck2_mrwi_desc"] = "每次的开火射击有##$perk_value_1##的几率在敌人中##散播恐慌##，恐慌会使敌人短暂地失去行动能力。\n\n你打包尸体和与人质互动的速度加快##$perk_value_2##。",
         -- Armorer
-        ["menu_deck3_mrwi_desc"] = "你的护甲恢复速度加快##10%##。\n\n你可以放置##2##个尸体袋箱。",
+        ["menu_deck3_mrwi_desc"] = "你的护甲恢复速度加快##$perk_value_1##。\n\n你可以放置##$perk_value_2##个尸体袋箱。",
         -- Rouge
-        ["menu_deck4_mrwi_desc"] = "你的闪避点数额外增加##5##。\n\n你的切枪速度加快##30%##。\n\n你回路的摄像头，失效的时间增加##20##秒。",
+        ["menu_deck4_mrwi_desc"] = "你的闪避点数额外增加##$perk_value_1##。\n\n你的切枪速度加快##$perk_value_2##。\n\n你回路的摄像头，失效的时间增加##$perk_value_3##秒。",
         -- Hitman
-        ["menu_deck5_mrwi_desc"] = "使用非近战武器击杀一名敌人将为你储存##30##点血量，储存血量的上限为##100##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒##5##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有##245##点临时虚血。\n\n你初始携带的尸体袋数量增加##1##。",
+        ["menu_deck5_mrwi_desc"] = "使用非近战武器击杀一名敌人将为你储存#{skill_color}#$perk_value_1##点血量，储存血量的上限为#{risk}#$perk_value_2##点。\n\n使用近战武器杀敌将使储存的血量转化为临时虚血，临时虚血跟血量一样是你的生命值，临时虚血会以每秒#{important_1}#$perk_value_3##点的速度减少。\n\n临时虚血可以超出你的血量上限，你最多能拥有#{risk}#$perk_value_4##点临时虚血。\n\n你初始携带的尸体袋数量增加#{skill_color}#$perk_value_5##。",
         -- Crook
-        ["menu_deck6_mrwi_desc"] = "防弹背心的闪避点数增加##5##。\n\n防弹背心的护甲值提高##15%##。\n\n你的撬锁速度加快##20%##。",
+        ["menu_deck6_mrwi_desc"] = "防弹背心的闪避点数增加##$perk_value_1##。\n\n防弹背心的护甲值提高##$perk_value_2##。\n\n你的撬锁速度加快##$perk_value_3##。",
         -- Burglar
-        ["menu_deck7_mrwi_desc"] = "你的闪避点数额外增加##5##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##5%##。\n\n你蹲伏的移动速度加快##20%##。",
+        ["menu_deck7_mrwi_desc"] = "你的闪避点数额外增加##$perk_value_1##。\n\n蹲伏时，你的闪避条每秒增加闪避点数的##$perk_value_2##。\n\n你蹲伏的移动速度加快##$perk_value_3##。",
         -- Infiltrator
-        ["menu_deck8_mrwi_desc"] = "若在你半径##12##米范围内有一名敌人存在，你受到来自敌人的伤害减少##10%##。\n\n每次使用近战武器成功击中敌人都将在##5##秒内使你的近战武器伤害增加##8%##，该效果可以叠加且最多叠加##5##次，打空失效。\n\n你回路的摄像头，失效的时间增加##20##秒。",
+        ["menu_deck8_mrwi_desc"] = "若在你半径##$perk_value_1##米范围内有一名敌人存在，你受到来自敌人的伤害减少##$perk_value_2##。\n\n每次使用近战武器成功击中敌人都将在##$perk_value_4##秒内使你的近战武器伤害增加##$perk_value_3##，该效果可以叠加且最多叠加##$perk_value_5##次，打空失效。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
         -- Sociopath
-        ["menu_deck9_mrwi_desc"] = "击杀一名敌人将为你回复护甲值，击杀的敌人若在你周围##18##米内，你回复##15##点护甲值（近战击杀效果##翻倍##），否则回复##20##点。\n\n该效果的冷却时间为##5##秒，每击杀一名敌人可使冷却时间减少##0.5##秒，近战击杀将额外减少##1.5##秒。\n\n如果某次杀敌把冷却时间减少到0，那么该效果会立刻触发，然后再次进入冷却。\n\n你初始携带的尸体袋数量增加##1##。",
+        ["menu_deck9_mrwi_desc"] = "击杀一名敌人将为你回复#{skill_color}#$perk_value_1##点护甲值，击杀的敌人若在你周围#{skill_color}#$perk_value_2##米内，你额外回复#{skill_color}#$perk_value_3##点护甲值（近战击杀效果#{skill_color}#翻倍##）。\n\n该效果的冷却时间为#{important_1}#$perk_value_4##秒，每击杀一名敌人可使冷却时间减少#{skill_color}#$perk_value_5##秒，近战击杀将额外减少#{skill_color}#$perk_value_6##秒。\n\n如果某次杀敌把冷却时间减少到0，那么该效果会立刻触发，然后再次进入冷却。\n\n你初始携带的尸体袋数量增加#{skill_color}#$perk_value_7##。",
         -- Gambler
-        ["menu_deck10_mrwi_desc"] = "你捡起一个弹药盒会回复##1##至##12##点血量。\n冷却时间为##10##秒，每捡起一个弹药盒会减少冷却时间##2##至##5##秒。\n\n你从敌人掉落的弹药盒中获得弹药时，你的团队成员会获得##35%##个弹药盒的弹药补充。\n\n你回答对讲机所需的时间减少##25%##。",
+        ["menu_deck10_mrwi_desc"] = "你捡起一个弹药盒会回复##$perk_value_1##至##$perk_value_2##点血量。\n冷却时间为##$perk_value_3##秒，每捡起一个弹药盒会减少冷却时间##$perk_value_4##至##$perk_value_5##秒。\n\n你从敌人掉落的弹药盒中获得弹药时，你的团队成员会获得##$perk_value_6##个弹药盒的弹药补充。\n\n你回答对讲机所需的时间减少##$perk_value_7##。",
         -- Grinder
-        ["menu_deck11_mrwi_desc"] = "身穿##防爆弹衣##时，成功伤害到敌人将使你在##3##秒内每秒回复##2##点血量。\n\n该效果可以叠加，但每##0.65##秒只能叠加一层，最高叠加##5##层。使用哨戒机枪、火焰或毒素伤害到敌人不能为你叠加回血效果。\n\n你所有护甲的护甲量减少##25##。\n\n你防爆弹衣的灵活性增加##2##。\n\n你可以放置##2##个尸体袋箱。",
+        ["menu_deck11_mrwi_desc"] = "身穿#{risk}#防爆弹衣##时，成功伤害到敌人将使你在#{skill_color}#$perk_value_2##秒内每秒回复#{skill_color}#$perk_value_1##点血量。\n\n该效果可以叠加，但每#{important_1}#$perk_value_4##秒只能叠加一层，最高叠加#{skill_color}#$perk_value_3##层。\n\n#{risk}#注意：使用哨戒机枪、火焰或毒素伤害到敌人不能为你叠加回血效果##。\n\n你防爆弹衣的护甲量减少#{important_1}#$perk_value_5##。\n\n你防爆弹衣的灵活性增加#{skill_color}#$perk_value_6##。\n\n你可以放置#{skill_color}#$perk_value_7##个尸体袋箱。",
         -- Yakuza
-        ["menu_deck12_mrwi_desc"] = "你的血量低于##100%##时，血量越少，你杀敌增加的闪避条越多，最多可以达到每击杀一个敌人增加闪避点数的##50%##。\n\n你打包尸体和与人质互动的速度加快##75%##。",
+        ["menu_deck12_mrwi_desc"] = "你的血量低于##100%##时，血量越少，你杀敌增加的闪避条越多，最多可以达到每击杀一个敌人增加闪避点数的##$perk_value_1##。\n\n你打包尸体和与人质互动的速度加快##$perk_value_2##。",
         -- Ex-Pres
-        ["menu_deck13_mrwi_desc"] = "当你有护甲时，每击杀一名敌人将为你储存##4##点血量。\n\n当你的护甲完全被破坏后，回复护甲的同时也会将你储存的血量用于一等一回复你的血量。\n\n最多能储存多少血取决于你穿的是什么护甲，更轻的护甲能储存更多的血量。\n\n你和你队友控制的平民趴下的时间延长##25%##。",
+        ["menu_deck13_mrwi_desc"] = "当你有护甲时，每击杀一名敌人将为你储存##$perk_value_1##点血量。\n\n当你的护甲完全被破坏后，回复护甲的同时也会将你储存的血量用于一等一回复你的血量。\n\n最多能储存多少血取决于你穿的是什么护甲。\n\n你和你队友控制的平民趴下的时间延长##$perk_value_2##。",
         -- Maniac
-        ["menu_deck14_mrwi_desc"] = "你所造成伤害的100%将会转化为狂乱度，狂乱度最多可以叠##720##层。\n\n关于狂乱度：\n每累积##120##点狂乱度，你受到的伤害就减少##1##点。狂乱度每##8##秒减少##120##层。\n\n你和你队友控制的平民趴下的时间延长##25%##。",
+        ["menu_deck14_mrwi_desc"] = "你所造成伤害的##100%##将会转化为狂乱度，狂乱度最多可以叠##$perk_value_1##层。\n\n关于狂乱度：\n每累积##$perk_value_3##点狂乱度，你受到的伤害就减少##$perk_value_2##点。狂乱度每##$perk_value_5##秒减少##$perk_value_4##层。\n\n你和你队友控制的平民趴下的时间延长##$perk_value_6##。",
         -- Anarchist
-        ["menu_deck15_mrwi_desc"] = "你的护甲不再是一次性回满，而是每段时间回复一次。回复量取决于积累的量，每秒会积累##8##点护甲值；两次回复的时间间隔取决于你穿的护甲，更厚重的防弹背心回复间隔更长。\n\n提示：加快护甲回复速率的技能效果将对此天赋无效\n\n你和你队友控制的平民趴下的时间延长##25%##。",
+        ["menu_deck15_mrwi_desc"] = "你的护甲不再是一次性回满，而是每段时间回复一次。回复量取决于积累的量，每秒会积累#{skill_color}#8##点护甲值；两次回复的时间间隔取决于你穿的护甲，更厚重的防弹背心回复间隔更长。\n\n#{risk}#注意：加快护甲回复速率的技能效果将对此天赋无效##\n\n你和你队友控制的平民趴下的时间延长#{skill_color}#$perk_value_1##。",
         -- Biker
-        ["menu_deck16_mrwi_desc"] = "每当你或你队友击杀一名敌人时，你获得##2##点血量，冷却时间为##5##秒。\n\n你打包尸体和与人质互动的速度加快##75%##。",
+        ["menu_deck16_mrwi_desc"] = "每当你或你队友击杀一名敌人时，你获得#{skill_color}#$perk_value_1##点血量，冷却时间为#{important_1}#$perk_value_2##秒。\n\n你打包尸体和与人质互动的速度加快#{skill_color}#$perk_value_3##。",
         -- Kingpin
-        ["menu_deck17_mrwi_desc"] = "解锁首脑##注射器##以供你使用。注射器会使用你的投掷物栏。\n\n游戏中你可以按##$BTN_ABILITY;##键激活注射器，激活注射器会在##6##秒内使你的移动速度加快##20%##并在受到伤害后回复所受到伤害##20%##的血量。\n\n注射器的冷却时间为##30##秒。",
+        ["menu_deck17_mrwi_desc"] = "解锁首脑#{skill_color}#注射器##以供你使用。注射器会使用你的投掷物栏。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活注射器，激活注射器会在#{skill_color}#$perk_value_2##秒内使你的移动速度加快#{skill_color}#$perk_value_3##并在受到伤害后回复所受到伤害#{skill_color}#$perk_value_1##的血量。\n\n注射器的冷却时间为#{important_1}#$perk_value_4##秒，每次击杀都会减少注射器的冷却时间#{skill_color}#$perk_value_5##秒。",
         -- Sicario
-        ["menu_deck18_mrwi_desc"] = "解锁投掷物——##烟雾弹##以供你使用\n\n烟雾弹扔出后，它会制造一片持续##12##秒的烟幕。处于烟幕中的你和你队友回复护甲的速度加快##100%##。烟幕中的敌人精准度降低##75%##。\n\n烟雾弹的冷却时间为##40##秒，击杀一名敌人将使冷却时间减少##1##秒。\n\n你的闪避点数额外增加##5##。\n\n你初始携带的尸体袋数量增加##1##。",
+        ["menu_deck18_mrwi_desc"] = "解锁投掷物——#{skill_color}#烟雾弹##以供你使用\n\n烟雾弹扔出后，它会制造一片持续#{skill_color}#$perk_value_1##秒的烟幕。处于烟幕中的你和你队友回复护甲的速度加快#{skill_color}#$perk_value_2##。烟幕中的敌人精准度降低#{skill_color}#$perk_value_3##。\n\n烟雾弹的冷却时间为#{important_1}#$perk_value_4##秒，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_5##秒。\n\n你的闪避点数额外增加#{skill_color}#$perk_value_6##。\n\n你初始携带的尸体袋数量增加#{skill_color}#$perk_value_7##。",
         -- Stoic
-        ["menu_deck19_mrwi_desc"] = "解锁##修士酒壶##以供你使用。\n\n你受到的对##血量##的伤害中的##25%##不会立刻使你丢失血量，而是变成虚血在##5##秒内逐渐衰减完。\n\n你可以按使用投掷物的按键激活修士酒壶并立刻使虚血变为实血。\n\n当虚血变为实血时，你也会恢复虚血转变量##185%##的血量。修士酒壶的冷却时间为##30##秒。\n\n你##50%##的##护甲量##将转变为##50%##的##血量##。\n\n你回答对讲机所需的时间减少##25%##。",
+        ["menu_deck19_mrwi_desc"] = "解锁#{skill_color}#修士酒壶##以供你使用。\n\n你受到的对#{risk}#血量##的伤害中的#{skill_color}#$perk_value_1##不会立刻使你丢失血量，而是变成虚血在#{skill_color}#$perk_value_2##秒内逐渐衰减完。\n\n你可以按使用投掷物的按键激活修士酒壶并立刻使虚血变为实血。\n\n当虚血变为实血时，你也会恢复虚血转变量#{skill_color}#$perk_value_3##的血量。修士酒壶的冷却时间为#{skill_color}#$perk_value_4##秒。\n\n你#{skill_color}#$perk_value_5##的#{risk}#护甲量##将转变为#{skill_color}#$perk_value_6##的#{risk}#血量##。\n\n你回答对讲机所需的时间减少#{skill_color}#$perk_value_7##。",
         -- Tag Team
-        ["menu_deck20_mrwi_desc"] = "解锁##电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的##18##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复##4##点血量，并且为你标记的队友回复##2##点血量。\n\n电子烟的持续时间为##11##秒，冷却时间为##80##秒。\n\n你回路的摄像头，失效的时间增加##20##秒。",
+        ["menu_deck20_mrwi_desc"] = "解锁#{skill_color}#电子烟##以供你使用。\n\n要使用电子烟，你需要看向一名没有视野遮挡的#{skill_color}#$perk_value_1##米内的队友并按下使用投掷物的按键标记他。\n\n你和你标记的队友每击杀一名敌人都会为你回复#{skill_color}#$perk_value_2##点血量，并且为你标记的队友回复#{skill_color}#$perk_value_3##点血量。\n\n电子烟的持续时间为#{skill_color}#$perk_value_4##秒，冷却时间为#{important_1}#$perk_value_5##秒。\n\n你回路的摄像头，失效的时间增加##$perk_value_6##秒。",
         -- Hacker
-        ["menu_deck21_mrwi_desc"] = "解锁##便携式ECM干扰器##以供你使用。\n\n游戏中你可以按##$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续##10##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时必定使所有半径##16##米内的敌人失去行动能力，随后每##1##秒都有##60%##的几率眩晕范围内的敌人，反馈持续##10##秒。\n\n便携式ECM干扰器每##70##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少##2##秒。",
+        --["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次$perk_value_8，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
+		["menu_deck21_mrwi_desc"] = "解锁#{skill_color}#便携式ECM干扰器##以供你使用。\n\n游戏中你可以按#{skill_color}#$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续#{skill_color}#$perk_value_1##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时有#{skill_color}#$perk_value_3##的概率使所有半径#{skill_color}#$perk_value_2##米内的敌人失去行动能力，随后每#{skill_color}#$perk_value_4##秒都有#{skill_color}#$perk_value_5##的几率眩晕范围内的敌人，反馈持续#{skill_color}#$perk_value_1##秒。\n\n便携式ECM干扰器每#{important_1}#$perk_value_6##秒的冷却时间可以充能一次，击杀一名敌人将使冷却时间减少#{skill_color}#$perk_value_7##秒。",
         -- Leech
-        ["menu_deck22_mrwi_desc"] = "解锁并装备##水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复##5%##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每##10%##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀##3##名敌人回复一格且免伤##1##秒。\n\n水蛭安瓶能够持续##6##秒钟并且有##40##秒冷却。\n\n你打包尸体和与人质互动的速度加快##75%##。",
+        ["menu_deck22_mrwi_desc"] = "解锁并装备#{skill_color}#水蛭安瓿瓶##。\n\n对局中你可以使用投掷物按键来启用水蛭安瓶，启用时会直接恢复#{skill_color}#$perk_value_1##的总血量并且在生效期间取消你的全部护甲。\n\n与此同时你的血量以血上限的每#{skill_color}#$perk_value_3##来被分割成小格，每受任意一次伤害移除整个格。同时每击杀#{skill_color}#$perk_value_4##名敌人回复一格且免伤#{skill_color}#$perk_value_5##秒。\n\n水蛭安瓶能够持续#{skill_color}#$perk_value_2##秒钟并且有#{important_1}#$perk_value_6##秒冷却。\n\n你打包尸体和与人质互动的速度加快#{skill_color}#$perk_value_7##。",
 
-        ["menu_deck23_9_desc"] = "天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加##10%##",
+        ["menu_deck23_9_desc"] = "天赋牌组完成奖励：你结束劫案后翻牌获得稀有物品的概率增加#{skill_color}#10%##。",
 
         -- Better Description in Chinese
         ["menu_st_spec_6_desc"] = "骗术师是一个多面手，他和犯罪这个词一样古老。\n\n说真的，骗术师是无所不能的。他能偷会盗、花言巧语，一两句话就能将一个滔天大罪瞒天过海。他一生都以欺骗和犯罪为活。",
@@ -6048,27 +7169,60 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(
         ["rpd_menu_dialog_title"] = "你确定吗？",
         ["rpd_menu_dialog_text"] = "如果你重置 $perk_deck_name 天赋，你会被返还 $points_to_refund 天赋点。",
 
+
+        -- 飞鹰空袭、轨道战备等
+        ["bm_wpn_prj_hd2offensive_eagle_airstrike"] = "“飞鹰”空袭",
+        ["bm_wpn_prj_hd2offensive_eagle_airstrike_desc"] = "发动无目标的榴弹火力网，进行小范围地毯式轰炸。\n\n将战备扔出去后，榴弹会排成一列垂直于你扔出时的朝向从空中落下。\n\n最大数量：#{skill_color}#4##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#180##秒",
+        ["bm_wpn_prj_hd2offensive_orbital_120mm"] = "轨道120mm高爆弹火力网",
+        ["bm_wpn_prj_hd2offensive_orbital_120mm_desc"] = "向小范围区域齐射的火力打击，可以解决集中在一起的敌方单位并留下几滩火焰阻挡敌人的行动。\n\n最大数量：#{skill_color}#1##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#360##秒\n持续时间：#{skill_color}#30##秒\n炮弹数量：#{skill_color}#20##个",
+        ["bm_wpn_prj_hd2offensive_orbital_gas"] = "轨道毒气攻击",
+        ["bm_wpn_prj_hd2offensive_orbital_gas_desc"] = "释放多个腐蚀性气团的射弹，可以使敌人陷入呕吐状态以控制它们的行动并造成少量的持续性伤害。\n\n最大数量：#{skill_color}#2##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#150##秒",
+        ["bm_wpn_prj_hd2offensive_orbital_precision"] = "轨道精准攻击",
+        ["bm_wpn_prj_hd2offensive_orbital_precision_desc"] = "来自异次元的驱逐舰“阿特拉斯”轨道加农炮的一发精准攻击。\n\n最大数量：#{skill_color}#1##\n使用次数限制：#{skill_color}#无限制##\n冷却时间：#{skill_color}#30##秒",
+        ["hud_hd2offensive_inbound"] = "即将抵达",
+	    ["hud_hd2offensive_impact"] = "下落中",
+	    ["hud_hd2offensive_ongoing"] = "进行中",
+        ["hud_hd2offensive_m"] = "m",
+
         --Strings for Lobby Player Info
 		["menu_st_spec_24"] = "白板",
 		["menu_st_spec_25"] = "先天异禀",
+        ["menu_st_spec_26"] = "佣兵",
+		["menu_st_spec_27"] = "解放者",
         -- MOD PERK DECKS
         -- OFFYERROCKER'S MERCENARY PERK DECK  --check
         --[[["menu_deck_kmerc_1_desc_sc"] = "Years of battle have made your skin tough. Take greatly reduced damage from heavy hits to your health so that ##no single attack can kill you##.\n\nYou gain ##5%## more health.",
         ["menu_deck_kmerc_3_desc_sc"] = "Stand strong and meet force with force! Gain ##1%## critical chance for every ##20## points of armor you have.\n\nYou gain ##10%## more armor.",
         ["menu_deck_kmerc_5_desc_sc"] = "When your health would become ##0##, it becomes ##1## instead and you gain ##2## seconds of invulnerability.\n\nYou cannot sprint while under the effects of this invulnerability.\nThis effect cannot occur again until you are restored to full health.\n\nYou gain an additional ##5%## more health.",
         ["menu_deck_kmerc_7_desc_sc"] = "The inner layer of your armor is lined with coagulant agents and hemostatic gel. After having armor for at least ##2## seconds, heal health equal to ##1%## of your max armor every ##5## seconds so long as you have armor.",--]]
-        ["menu_deck_kmerc_1_desc_sc"] = "Take greatly reduced damage from heavy hits to your health so that no single attack can kill you.\n\nYou gain ##5%## more health.",
-        ["menu_deck_kmerc_3_desc_sc"] = "You gain ##1%## reload speed and ##2%## weapon swap speed for every ##4## points armor you have.\n\nYou gain ##5%## more armor.",
-        ["menu_deck_kmerc_5_desc_sc"] = "When your health would become ##0##, it becomes ##1## instead and you gain ##2## seconds of invulnerability.\nYou cannot sprint while under the effects of this invulnerability.\nThis effect cannot occur again until you are restored to full health.\n\nYou gain an additional ##5%## more health.",
-        ["menu_deck_kmerc_7_desc_sc"] = "After having armor for at least ##2## seconds, heal health equal to ##1%## of your max armor every ##5## seconds so long as you have armor.",
-        ["menu_deck_kmerc_9_desc_sc"] = "Whenever you take damage to your health that leaves you at ##30%## health or less, regain ##50%## of that damage as armor.\nThis cannot occur more than once every ##1## second or from the same hit that triggers Walk It Off's (Card 5) invulnerability.",
+		["menu_deck_kmerc_title"] = "佣兵",
+		["menu_deck_kmerc_desc"] = "这位专家佣兵经过上万种的生存训练，更将上万种消灭敌军的诀窍校记于心。即便是在枪林弹雨之中，专家级别的佣兵也会凭借着可怕的毅力，坚持不懈的精神和强大的意志力杀出一条血路。生存是佣兵的第一法则：当一切结束后，尘埃落定之时，那上百万美元的报酬对一个死人来说又算什么呢？",
+		["menu_deck_kmerc_1"] = "伤痕累累",
+		["menu_deck_kmerc_3"] = "越战越勇",
+		["menu_deck_kmerc_5"] = "冷静片刻",
+		["menu_deck_kmerc_7"] = "一线希冀",
+		["menu_deck_kmerc_9"] = "至强一面",
+		["menu_deck_kmerc_1_desc_sc"] = "敌人对你血量造成的伤害减少。减伤效率会随着你的最大血量提升与敌人伤害的提升而提升。\n\n你获得##5%##的额外血量。",
+		["menu_deck_kmerc_3_desc_sc"] = "你每有##5##点最大护甲值，就会获得##1%##的换弹速度加成与##2%##的武器切换速度加成。\n\n你获得##5%##的额外护甲。",
+		["menu_deck_kmerc_5_desc_sc"] = "当你的血量降低至##0##，它将会提升至##1##且你将获得##2##秒的无敌时间。\n你在无敌效果的持续时间内不能冲刺。\n该效果在你重新回复满血量之前都无法再次触发。\n\n你再获得##5%##的额外血量。",
+		["menu_deck_kmerc_7_desc_sc"] = "在获取护甲至少##2##秒后，只要你有护甲，你就会在每##5##秒获取相当于你最大护甲值的##1%##的治疗量。",
+		["menu_deck_kmerc_9_desc_sc"] = "当你受到的伤害使你的血量降低至你血量的##30%##或更低时，你将获取相当于上一击##50%##的伤害量的护甲值。\n该效果冷却##1##秒钟且不会与“冷静片刻”（卡牌5）的无敌效果同时触发。",
 
         -- OFFYERROCKER'S LIBERATOR PERK DECK
-        ["menu_deck_liberator_1_desc_sc"] = "Unlocks the ##Survival Syringe## for use in place of a throwable. Using the Survival Syringe will immediately restore ##15## stamina and restore ##0.5## points of health every second for ##4## seconds or until the player takes health damage.\nThe Survival Syringe has ##1## charge with a cooldown of ##30## seconds; each kill you perform will reduce the cooldown by ##1## second.",
-        ["menu_deck_liberator_3_desc_sc"] = "The health regen from the Survival Syringe now lasts for an additional ##2## seconds.\n\nWhen health regen from Survival Syringe is canceled, gain ##10%## damage resistance for the remaining time.",
-        ["menu_deck_liberator_5_desc_sc"] = "The Survival Syringe restores an additional ##15## stamina and restores an additional ##0.5## points of health every second.\n\nYour dodge is increased by ##5## points.",
-        ["menu_deck_liberator_7_desc_sc"] = "Your health is increased by ##10%##.\n\nThe health regen from Survival Syringe now lasts for an additional ##2## seconds.",
-        ["menu_deck_liberator_9_desc_sc"] = "The Survival Syringe now restores an additional ##1## point of health every second."
+		["bm_tachi"] = "Tachi-2B 急救注射器",
+		["bm_tachi_desc"] = "这些注射器含有强效药物和微型机器人的混合物。使用时，注射器里的机器人会进入身体，并迅速修复其注入点周围的任何受损组织。这些特殊变种的注射器还会暂时提升使用者的肾上腺素水平——尤其适合去找到一个不错的掩体，让机器人们得以发挥它们的作用。",
+		["menu_deck_liberator_title"] = "解放者",
+		["menu_deck_liberator_desc"] = "解放者有着悠久的历史，他们通常以数字文档的形式“回收”政府和企业的财物。由于缺乏斗争的经验，解放者时常需要停下来调整一下自己的状态，但是这并不妨碍他们继续与那些坐在钢铁王座之端的暴君作斗争。",
+		["menu_deck_liberator_1"] = "生存捷径",
+		["menu_deck_liberator_3"] = "预先干扰",
+		["menu_deck_liberator_5"] = "缺乏经验",
+		["menu_deck_liberator_7"] = "问题实体",
+		["menu_deck_liberator_9"] = "新兴力量",
+		["menu_deck_liberator_1_desc_sc"] = "解锁##急救注射器##以供你使用。注射器会使用你的投掷物栏。使用急救注射器将立即回复##15##点耐力，并在接下来的##6##秒内每秒回复##1##点血量，玩家受到对血量的伤害后，将会在下一次回血时回复这两次回血间隔中损失的血量，随后停止后续的血量回复。\n注射器每##30##秒充能##1##次，每次击杀可以减少冷却时间##1##秒。\n\n你的闪避点数增加##5##。",
+		["menu_deck_liberator_3_desc_sc"] = "急救注射器的回血效果延长##2##秒，\n\n回血效果因被打断而停止后，在剩余的持续时间内，你将获得##15%##的伤害抗性。",
+		["menu_deck_liberator_5_desc_sc"] = "使用急救注射器将额外回复##15##点体力且每秒的血量回复点数额外增加##1##。\n\n你的闪避点数额外增加##5##。",
+		["menu_deck_liberator_7_desc_sc"] = "你的血量提升##10%##。\n\n急救注射器的回血效果额外延长##2##秒。",
+		["menu_deck_liberator_9_desc_sc"] = "使用急救注射器时每秒的血量回复点数额外增加##1##。\n\n你的闪避点数再额外增加##5##。"
 
         --[[ Original Blank Perk Deck--
         ["menu_st_spec_0"] = "空白天赋",    
@@ -6082,11 +7236,37 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(
 
     if MetroLine_BodyExpert_Convert then
         LocalizationManager:add_localized_strings({
-            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#100%##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#50%##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#50%##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#10%##的伤害，最多加至#{skill_color}#30%##，停止射击#{skill_color}#2##秒后失效。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#40%##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#10%##的效果，最多加至#{skill_color}#70%##，停止射击#{skill_color}#2##秒后重置。"
+            ["menu_body_expertise_beta_desc_sc"] = "掌握: #{risk}#$basic##\n冲锋枪和轻重机枪可以#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b2##的伤害。\n\n不能穿甲的武器都能#{skill_color}#穿透护甲##造成#{skill_color}#$skill_value_b1##的伤害，能穿甲的穿透护甲造成的伤害百分比增加#{skill_color}#$skill_value_b1##，最多增加至#{skill_color}#100%##。\n\n专精: #{risk}#$pro##\n使用#{skill_color}#连发射击##的冲锋枪和轻重机枪在连续射击时，每杀一名敌人就增加#{skill_color}#$skill_value_p2##的伤害，最多加至#{skill_color}#$skill_value_p3##，每停止射击#{skill_color}#$skill_value_p1##秒后丢失#{skill_color}#$skill_value_Metro_lost_damage_stack##的效果。\n\n这些武器在连续射击敌人身体时还会附带#{skill_color}#$skill_value_Metro_base_damage##的原定爆头伤害，每杀一名敌人就多加#{skill_color}#$skill_value_Metro_damage_increased##的效果，最多加至#{skill_color}#$skill_value_Metro_max_damage##，每停止射击#{skill_color}#$skill_value_Metro_reset_time##秒后丢失#{skill_color}#$skill_value_Metro_reset_stack##的效果。"
         })
     end
 
-    if ViNight_PECM then
+    if Counter_Strike_Revert then --近战反击，以及它的彩蛋文本...
+	
+		LocalizationManager:add_localized_strings({
+			["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击幻影特工的飞踢与冲刺踢并将其击倒，且可以反击盾兵的盾击##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：泰坦盾和冬队盾的盾击无法被反击##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的飞踢和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+		})
+	
+		if not easterless then
+			local butt = math.rand(1)
+			local frame = 0.01
+			if Month == "4" and Day == "1" then
+				frame = 1
+			end
+			if butt <= frame then
+				LocalizationManager:add_localized_strings({
+					["menu_drop_soap_beta_desc_sc"] = "掌握: #{risk}#$basic##\n你现在能通过按住#{skill_color}#[近战键]##在近战武器蓄力时#{skill_color}#反击##幻影特工的#{risk}#RIDER-KICK##与冲刺踢并将其击倒，且#{skill_color}#可以反击盾兵的肘击##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害减少#{skill_color}#20%##\n\n#{important_1}#提示：对于泰坦盾和冬队盾，只有他们肘你的份儿##。\n\n专精: #{risk}#$pro##\n你手持近战武器时受到来自远程武器的伤害减少#{skill_color}#10%##。\n\n幻影特工的#{risk}#RIDER-KICK##和泰瑟警察的电击使你倒地造成的伤害额外减少#{skill_color}#30%##。",
+					["bm_wskn_famas_hypno"] = "巴适之鹰",
+					["menu_st_spec_23"] = "瑞典蠢驴",
+					["menu_st_spec_23_desc"] = "谁抄袭一堆MOD当DLC卖？谁的BUG的修了一个又一个，还是没修完？谁的游戏闪退成为日常？\n\n\n#{important_1}#只有我——Overkill。##\n\n\n",
+					["menu_difficulty_sm_wish"] = "钢铁之路",
+					["menu_risk_sm_wish"] = "钢铁之路，为那些掌控了秘密诀窍并寻求挑战的人而准备。"
+				})
+			end
+		end
+		
+    end
+
+    --[[if ViNight_PECM then --我相信恢复的新代码会让这些数据自动填上去...
         LocalizationManager:add_localized_strings({
             --Hacker itself
             ["menu_deck21_1_desc_sc"] = "解锁##便携式ECM干扰器##以供你使用。\n\n游戏中你可以按##$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续##1.5##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时必定使所有半径##12##米内的敌人失去行动能力，随后每##0.3##秒都有##60%##的几率眩晕范围内的敌人，反馈持续##1.5##秒。\n\n便携式ECM干扰器每##25##秒的冷却时间可以充能一次，最多有##6##次充能，击杀一名敌人将使冷却时间减少##0.5##秒。",
@@ -6094,7 +7274,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Perk_Decks", function(
             --Copycat
             ["menu_deck21_mrwi_desc"] = "解锁##便携式ECM干扰器##以供你使用。\n\n游戏中你可以按##$BTN_ABILITY;##键激活便携式ECM干扰器。\n\n警报响起前使用便携式ECM干扰器会带来电子干扰的效果，所有电子设备都将失效，对讲机也会被延迟，干扰持续##1.5##秒。\n\n警报响起后使用便携式ECM干扰器会带来反馈效果，反馈开始时必定使所有半径##12##米内的敌人失去行动能力，随后每##0.3##秒都有##60%##的几率眩晕范围内的敌人，反馈持续##1.5##秒。\n\n便携式ECM干扰器每##25##秒的冷却时间可以充能一次，最多有##6##次充能，击杀一名敌人将使冷却时间减少##0.5##秒。"
         })
-    end
+    end]]
 
     --hecu--
     --[[local get_steam_id = Steam:userid()

@@ -43,6 +43,8 @@
 	"ene_titan_rifle" : "D-106“幻变”步枪兵",
     "ene_titan_shotgun" : "D-106“幻变”霰弹兵",
 	"ene_titan_sniper" : "D-102“敏锐”神射手",
+	"ene_titan_sniper_scripted" : "D-102“敏锐”神射手",
 	"ene_titan_taser" : "D-110“维雅”泰瑟",
-	"ene_vip_2" : "D-123“终结”MK2榴弹熊"
+	"ene_vip_2" : "D-123“终结”MK2泰坦熊",
+	"ene_vip_2_assault" : "D-123“终结”MK2泰坦熊"
 }	
