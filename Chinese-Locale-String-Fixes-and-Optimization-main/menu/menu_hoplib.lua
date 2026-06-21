@@ -229,7 +229,7 @@ ChinStringFixes.settings = {
             NoMA_Enable = true
         },
         Resmod = {
-            Resmod_Compat = 2,
+            Resmod_Compat = 3,
             Resmod_Updater = function()
                 if not ChinStringFixes.Res_Path then
                     local menu_options = {}

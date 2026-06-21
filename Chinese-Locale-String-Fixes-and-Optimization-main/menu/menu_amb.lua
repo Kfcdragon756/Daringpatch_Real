@@ -13,7 +13,7 @@ ChinStringFixes.settings = {
             NoMA_Enable = true
         },
         Resmod = {
-            Resmod_Compat = 2
+            Resmod_Compat = 3
         },
         OVKNMSL = {
             OVKNMSL_Enable = true,

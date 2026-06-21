@@ -227,6 +227,7 @@ Hooks:Add("MenuManagerOnOpenMenu", "CSF_MenuManagerOnOpenMenu_CheckResVersion", 
     --log("old_res is "..tostring(old_res)..", json_data_get.Never_Display_Again_old is "..tostring(json_data_get.Never_Display_Again_false))
     if Warn_Me then
         if all_read then
+            --log("update checker:\nlocal_version: " .. local_version .. "\n" .. "current_version: " .. current_version .. "\n" .. "dev_version: " .. dev_version .. "\n")
             if (local_version == current_version) or (json_data_get and json_data_get.Never_Display_Again_dismatch == true) then
                 --nothing
             else
