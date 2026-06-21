@@ -2835,7 +2835,7 @@ local crew_wep_preset = {
 			self.ben_crew.alert_size = 2500
 			self.ben_crew.suppression = 3.4
 			self.ben_crew.is_shotgun = true
-			self.ben_crew.rays = 9
+			self.ben_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.ben_crew.FIRE_MODE = "single"
 			self.benelli_crew = deep_clone(self.ben_crew)
 		end
@@ -2854,7 +2854,7 @@ local crew_wep_preset = {
 			self.spas12_crew.hold = "rifle"
 			self.spas12_crew.alert_size = 2500
 			self.spas12_crew.suppression = 3.4
-			self.spas12_crew.rays = 9
+			self.spas12_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.spas12_crew.is_shotgun = true
 			self.spas12_crew.FIRE_MODE = "single"
 		end
@@ -2892,7 +2892,7 @@ local crew_wep_preset = {
 			self.aa12_crew.alert_size = 2500
 			self.aa12_crew.suppression = 3.4
 			self.aa12_crew.is_shotgun = true
-			self.aa12_crew.rays = 9
+			self.aa12_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.aa12_crew.FIRE_MODE = "auto"
 		end
 		
@@ -2911,7 +2911,7 @@ local crew_wep_preset = {
 			self.sko12_crew.alert_size = 2500
 			self.sko12_crew.suppression = 3.4
 			self.sko12_crew.is_shotgun = true
-			self.sko12_crew.rays = 9
+			self.sko12_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.sko12_crew.FIRE_MODE = "auto"
 		end
 		
@@ -2929,7 +2929,7 @@ local crew_wep_preset = {
 			self.saiga_crew.hold = "rifle"
 			self.saiga_crew.alert_size = 2500
 			self.saiga_crew.suppression = 3.4
-			self.saiga_crew.rays = 9
+			self.saiga_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.saiga_crew.is_shotgun = true
 			self.saiga_crew.FIRE_MODE = "auto"
 		end
@@ -2948,7 +2948,7 @@ local crew_wep_preset = {
 			self.b682_crew.hold = "rifle"
 			self.b682_crew.alert_size = 2500
 			self.b682_crew.suppression = 3.4
-			self.b682_crew.rays = 9
+			self.b682_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.b682_crew.is_shotgun = true
 			self.b682_crew.FIRE_MODE = "single"
 		end
@@ -2968,7 +2968,7 @@ local crew_wep_preset = {
 			self.r870_crew.alert_size = 2500
 			self.r870_crew.suppression = 3.4
 			self.r870_crew.is_shotgun = true
-			self.r870_crew.rays = 9
+			self.r870_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.r870_crew.FIRE_MODE = "single"		
 		end
 		
@@ -2986,7 +2986,7 @@ local crew_wep_preset = {
 			self.ksg_crew.alert_size = 2500
 			self.ksg_crew.suppression = 3.4
 			self.ksg_crew.is_shotgun = true
-			self.ksg_crew.rays = 9
+			self.ksg_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.ksg_crew.FIRE_MODE = "single"
 		end
 
@@ -3006,7 +3006,7 @@ local crew_wep_preset = {
 			self.huntsman_crew.alert_size = 2500
 			self.huntsman_crew.suppression = 3.4
 			self.huntsman_crew.is_shotgun = true
-			self.huntsman_crew.rays = 9
+			self.huntsman_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.huntsman_crew.FIRE_MODE = "single"
 		end
 	
@@ -3025,7 +3025,7 @@ local crew_wep_preset = {
 			self.boot_crew.alert_size = 2500
 			self.boot_crew.suppression = 3.4
 			self.boot_crew.is_shotgun = true
-			self.boot_crew.rays = 9
+			self.boot_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.boot_crew.FIRE_MODE = "single"
 		end
 
@@ -3044,7 +3044,7 @@ local crew_wep_preset = {
 			self.supernova_crew.alert_size = 2500
 			self.supernova_crew.suppression = 3.4
 			self.supernova_crew.is_shotgun = true
-			self.supernova_crew.rays = 9
+			self.supernova_crew.rays = 9  -- [GPT合并1] 此项值原为8
 			self.supernova_crew.FIRE_MODE = "single"
 		end
 
@@ -5169,12 +5169,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 	--self:_init_new_weapon_sync(weapon_data)
 	--self:_init_new_weapon_sync_crew()
-	local tact_rel = {'deagle','colt_1911','usp','p226','g22c','glock_17','glock_18c','b92fs','ppk','mp9','new_mp5','mp7','p90','olympic','akmsu','akm','akm_gold','ak74','m16','amcar','new_m4','ak5','s552','g36','aug','saiga','new_m14','scar','fal','rpk','msr','r93','m95','famas','galil','g3','scorpion','benelli','serbu','r870','ksg','g26','spas12','l85a2','vhs','hs2000','tec9','asval','sub2000','polymer','wa2000','model70','sparrow','m37','sr2','pl14','tecci','hajk','boot','packrat','schakal','desertfox','tti','siltstone','flint','coal','lemming','breech','basset','shrew','corgi','shepheard','komodo','legacy','beer','czech','stech','r700','holt','maxim9','fmg9','china','scout','qbu88','m1897','sko12','victor','hcar','awp','supernova','m590','m45','pm9','baka','type54','m1911','vityaz','groza','contraband','shak12','winchester1874','sbl','arbiter'}
+	local tact_rel = {'deagle','colt_1911','usp','p226','g22c','glock_17','glock_18c','b92fs','ppk','mp9','new_mp5','mp7','p90','olympic','akmsu','akm','akm_gold','ak74','m16','amcar','new_m4','ak5','s552','g36','aug','saiga','new_m14','scar','fal','rpk','msr','r93','m95','famas','galil','g3','scorpion','benelli','serbu','r870','ksg','g26','spas12','l85a2','vhs','hs2000','tec9','asval','sub2000','polymer','wa2000','model70','sparrow','m37','sr2','pl14','tecci','hajk','boot','packrat','schakal','desertfox','tti','siltstone','flint','coal','lemming','breech','basset','shrew','corgi','shepheard','komodo','legacy','beer','czech','stech','r700','holt','maxim9','fmg9','china','scout','qbu88','m1897','sko12','victor','hcar','awp','supernova','m590','m45','pm9','baka','type54','m1911','vityaz','groza','contraband','shak12','winchester1874','sbl','arbiter','pmm'}
 	for i, wep_id in ipairs(tact_rel) do
 		self[wep_id].tactical_reload = 1
 		self[wep_id].has_description = false
 	end
-	tact_rel = {'x_deagle','x_1911','x_b92fs','jowi','x_usp','x_g17','x_g22c','x_packrat','x_shrew','x_breech','x_g18c','x_hs2000','x_p226','x_pl14','x_ppk','x_sparrow','x_legacy','x_czech','x_stech','x_holt','x_maxim9','x_type54','x_m1911' }
+	tact_rel = {'x_deagle','x_1911','x_b92fs','jowi','x_usp','x_g17','x_g22c','x_packrat','x_shrew','x_breech','x_g18c','x_hs2000','x_p226','x_pl14','x_ppk','x_sparrow','x_legacy','x_czech','x_stech','x_holt','x_maxim9','x_type54','x_m1911','x_pmm' }
 	for i, wep_id in ipairs(tact_rel) do
 		self[wep_id].tactical_reload = 2
 		self[wep_id].BURST_FIRE = {
@@ -5217,7 +5217,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		self[wep_id].categories = {"akimbo", "shotgun"}
 	end
 
-	local lock_em_up = {'colt_1911','usp','p226','g22c','glock_17','glock_18c','x_g18c','b92fs','ppk','mac10','x_mac10','deagle','x_deagle','x_1911','x_b92fs','jowi','g26','c96','x_c96','sterling','m1928','hs2000','rpg7','cobray','x_usp','x_g17','x_g22c','sparrow','x_sparrow','pl14','packrat','x_packrat','lemming','x_breech','breech','erma','x_erma','shrew','x_shrew','stech','x_stech','czech','x_czech','maxim9','x_maxim9','holt','x_holt','m1911','x_m1911','beer','x_beer','type54','x_type54','legacy','x_legacy','coach','shepheard','x_shepheard','polymer','x_polymer','schakal','x_schakal','mp9','mp7','uzi','x_uzi','contender','schakal'}
+	local lock_em_up = {'colt_1911','usp','p226','g22c','glock_17','glock_18c','x_g18c','b92fs','ppk','mac10','x_mac10','deagle','x_deagle','x_1911','x_b92fs','jowi','g26','c96','x_c96','sterling','m1928','hs2000','rpg7','cobray','x_usp','x_g17','x_g22c','sparrow','x_sparrow','pl14','packrat','x_packrat','lemming','x_breech','breech','erma','x_erma','shrew','x_shrew','stech','x_stech','czech','x_czech','maxim9','x_maxim9','holt','x_holt','m1911','x_m1911','beer','x_beer','type54','x_type54','legacy','x_legacy','coach','shepheard','x_shepheard','polymer','x_polymer','schakal','x_schakal','mp9','mp7','uzi','x_uzi','contender','schakal','pmm','x_pmm'}
 	for i, wep_id in ipairs(lock_em_up) do
 		self[ wep_id ].lock_slide = true
 		self[ wep_id ].sounds.magazine_empty = "wp_pistol_slide_lock"
@@ -5225,6 +5225,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	self.sterling.lock_slide_alt = true
 	self.schakal.lock_slide_alt = true
 	self.m1911.lock_slide_alt = true
+	self.pmm.lock_slide_alt = true
 	self.rpg7.sounds.magazine_empty = nil
 	self.coach.sounds.magazine_empty = nil
 	self.contender.sounds.magazine_empty = nil
@@ -5300,13 +5301,13 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		self[ wep_id ].nato = true
 	end
 	faction = {
-		'sr2','x_sr2','akmsu','akm','akm_gold','ak74','rpk','asval','x_akmsu','flint','mosin','siltstone','shak12','rsh12','groza','coal','stech','x_stech','type54','x_type54','qbu88','tkb'
+		'sr2','x_sr2','akmsu','akm','akm_gold','ak74','rpk','asval','x_akmsu','flint','mosin','siltstone','shak12','rsh12','groza','coal','stech','x_stech','type54','x_type54','qbu88','tkb','pmm','x_pmm'
 	}	
 	for i, wep_id in ipairs(faction) do
 		self[ wep_id ].warsaw = true
 	end
 		
-	local recat = { "g26", "jowi", "holt", "x_holt", "glock_18c", "x_g18c", "czech", "x_czech", "stech", "x_stech", "fmg9", "b92fs", "x_b92fs", "beer", "x_beer", "maxim9", "x_maxim9", "glock_17", "x_g17", "g22c", "x_g22c", "packrat", "x_packrat", "breech", "x_breech", "ppk", "x_ppk", "lemming", "hs2000", "x_hs2000", "p226", "x_p226", "sparrow", "x_sparrow", "legacy", "x_legacy", "pl14", "x_pl14"}	
+	local recat = { "g26", "jowi", "holt", "x_holt", "glock_18c", "x_g18c", "czech", "x_czech", "stech", "x_stech", "fmg9", "b92fs", "x_b92fs", "beer", "x_beer", "maxim9", "x_maxim9", "glock_17", "x_g17", "g22c", "x_g22c", "packrat", "x_packrat", "breech", "x_breech", "ppk", "x_ppk", "lemming", "hs2000", "x_hs2000", "p226", "x_p226", "sparrow", "x_sparrow", "legacy", "x_legacy", "pl14", "x_pl14", "pmm", "x_pmm"}	
 	for i, wep_id in ipairs(recat) do
 		self[ wep_id ].recategorize = { "light_pis" }
 		self[ wep_id ].damage_type = "pistol"
@@ -5696,7 +5697,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.czech.has_description = true
 						self.czech.desc_id = "bm_czech_sc_desc"				
 						self.czech.CLIP_AMMO_MAX = 18
-						self.czech.AMMO_MAX = 180
+						self.czech.AMMO_MAX = 180  -- [GPT合并1] 此项值原为90
 						self.czech.fire_mode_data.fire_rate = 0.06
 						self.czech.kick = self.stat_info.kick_tables.even_recoil
 						self.czech.kick_pattern = {
@@ -5843,6 +5844,52 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.beer.timers.reload_exit_not_empty = 0.65
 
 				--SECONDARIES
+				
+					--Welrod
+						self.welrod.categories = { "pistol" }
+						self.welrod.recategorize = { "light_pis" }
+						self.welrod.desc_id = "bm_welrod_sc_desc"
+						self.welrod.has_description = true
+						self.welrod.fire_mode_data.fire_rate = 2.233
+						self.welrod.fire_rate_multiplier = 1.45
+						self.welrod.CLIP_AMMO_MAX = 8
+						self.welrod.kick = self.stat_info.kick_tables.right_recoil
+						self.welrod.kick_pattern = {
+							{0, self.stat_info.kick_tables.even_recoil},
+							{3, self.stat_info.kick_tables.moderate_right_kick},
+							{5, self.stat_info.kick_tables.right_recoil}
+						}
+						self.welrod.supported = true
+						self.welrod.ads_speed = 0.100
+						self.welrod.damage_falloff = {
+							start_dist = 1200,
+							end_dist = 3600,
+							min_mult = 0.1667
+						}
+						self.welrod.stats = {
+							damage = 30,
+							spread = 61,
+							recoil = 97,
+							spread_moving = 9,
+							zoom = 1,
+							concealment = 32,
+							suppression = 11,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.welrod.stats_modifiers = nil
+						self.welrod.panic_suppression_chance = 0.05
+						self.welrod.weapon_movement_penalty = 1.14
+						self.welrod.sounds.magazine_empty = nil
+						self.welrod.hs_mult = 3
+						self.welrod.always_play_anims = true
+						self.welrod.timers.reload_not_empty = 2
+						self.welrod.timers.reload_exit_not_empty = 1.14
+						self.welrod.timers.reload_empty = 2
+						self.welrod.timers.reload_exit_empty = 1.14				
 
 					--Gecko M2 (Maxim 9)
 						self.maxim9.categories = {
@@ -5943,7 +5990,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							"pistol_pdw"
 						}
 						self.lemming.CLIP_AMMO_MAX = 20
-						self.lemming.AMMO_MAX = 75
+						self.lemming.AMMO_MAX = 75  -- [GPT合并1] 此项值原为90
 						self.lemming.fire_mode_data.fire_rate = 0.1
 						self.lemming.kick = self.stat_info.kick_tables.moderate_kick
 						self.lemming.kick_pattern = {
@@ -5959,7 +6006,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.lemming.can_shoot_through_shield = false
 						self.lemming.can_shoot_through_wall = false
 						self.lemming.armor_piercing_chance = 0.75
-						self.lemming.hs_mult = 1.666666
+						self.lemming.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.33333
 						self.lemming.supported = true
 						self.lemming.ads_speed = 0.140
 						self.lemming.damage_falloff = {
@@ -6002,7 +6049,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							}
 							self.x_lemming.tactical_reload = 2
 							self.x_lemming.CLIP_AMMO_MAX = 40
-							self.x_lemming.AMMO_MAX = 150
+							self.x_lemming.AMMO_MAX = 150  -- [GPT合并1] 此项值原为180
 							self.x_lemming.fire_mode_data.fire_rate = 0.1
 							self.x_lemming.kick = self.stat_info.kick_tables.moderate_kick
 							self.x_lemming.kick_pattern = {
@@ -6018,7 +6065,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							self.x_lemming.can_shoot_through_shield = false
 							self.x_lemming.can_shoot_through_wall = false
 							self.x_lemming.armor_piercing_chance = 0.75
-							self.x_lemming.hs_mult = 1.666666
+							self.x_lemming.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.33333
 							self.x_lemming.supported = true
 							self.x_lemming.ads_speed = 0.140
 							self.x_lemming.damage_falloff = {
@@ -6202,6 +6249,89 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_ppk.reload_speed_multiplier = 1.5
 						self.x_ppk.timers.reload_exit_not_empty = 0.55
 						self.x_ppk.timers.reload_exit_empty = 0.65
+						
+					--Strix (Makarov)
+						self.pmm.has_description = true
+						self.pmm.desc_id = "bm_pmm_sc_desc"
+						self.pmm.AMMO_MAX = 75
+						self.pmm.CLIP_AMMO_MAX = 8
+						self.pmm.fire_mode_data.fire_rate = 0.09677419
+						self.pmm.kick = self.stat_info.kick_tables.left_recoil
+						self.pmm.kick_pattern = {
+							{0, self.stat_info.kick_tables.even_recoil},
+							{3, self.stat_info.kick_tables.left_recoil},
+							{5, self.stat_info.kick_tables.moderate_right_kick}
+						}
+						self.pmm.supported = true
+						self.pmm.ads_speed = 0.100
+						self.pmm.damage_falloff = {
+							start_dist = 1100,
+							end_dist = 2900,
+							min_mult = 0.2083
+						}
+						self.pmm.stats = {
+							damage = 24,
+							spread = 57,
+							recoil = 87,
+							spread_moving = 9,
+							zoom = 1,
+							concealment = 32,
+							suppression = 11,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.pmm.stats_modifiers = nil
+						self.pmm.panic_suppression_chance = 0.05
+						self.pmm.reload_speed_multiplier = 1.35
+						self.pmm.timers.reload_empty = 2
+						self.pmm.timers.reload_exit_empty = 1
+						self.pmm.timers.reload_not_empty = 1.45
+						self.pmm.timers.reload_exit_not_empty = 0.5
+						self.pmm.weapon_movement_penalty = 1.14
+						self.pmm.weapon_hold = "glock" --temp until the wrists for its anims get fixed
+						self.pmm.animations.reload_name_id = "ppk"
+					--Akimbo
+						self.x_pmm.has_description = true
+						self.x_pmm.desc_id = "bm_x_pmm_sc_desc"
+						self.x_pmm.AMMO_MAX = 150
+						self.x_pmm.CLIP_AMMO_MAX = 16
+						self.x_pmm.fire_mode_data.fire_rate = 0.09677419
+						self.x_pmm.kick = self.stat_info.kick_tables.left_recoil
+						self.x_pmm.kick_pattern = {
+							{0, self.stat_info.kick_tables.even_recoil},
+							{3, self.stat_info.kick_tables.left_recoil},
+							{5, self.stat_info.kick_tables.moderate_right_kick}
+						}
+						self.x_pmm.supported = true
+						self.x_pmm.ads_speed = 0.100
+						self.x_pmm.damage_falloff = {
+							start_dist = 1100,
+							end_dist = 2900,
+							min_mult = 0.2083
+						}
+						self.x_pmm.stats = {
+							damage = 24,
+							spread = 47,
+							recoil = 77,
+							spread_moving = 9,
+							zoom = 1,
+							concealment = 32,
+							suppression = 11,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.x_pmm.stats_modifiers = nil
+						self.x_pmm.weapon_movement_penalty = 1.14
+						self.x_pmm.panic_suppression_chance = 0.05
+						self.x_pmm.reload_speed_multiplier = 1.35
+						self.x_pmm.timers.reload_exit_not_empty = 0.55
+						self.x_pmm.timers.reload_exit_empty = 0.65						
 
 					--Chimano Compact (Glock 26)
 						self.g26.has_description = true
@@ -6836,6 +6966,58 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_packrat.stats_modifiers = nil
 						self.x_packrat.timers.reload_exit_empty = 0.55
 						self.x_packrat.timers.reload_exit_not_empty = 0.65
+						
+					--Ballerina 9mm
+						self.speen.has_description = true
+						self.speen.desc_id = "bm_speen_sc_desc"
+						self.speen.categories = {"pistol"}
+						self.speen.recategorize = {"light_pis"}
+						self.speen.CLIP_AMMO_MAX = 17
+						self.speen.AMMO_MAX = 60
+						self.speen.sounds.enter_steelsight = "secondary_steel_sight_enter"
+						self.speen.sounds.leave_steelsight = "secondary_steel_sight_exit"
+						self.speen.fire_mode_data.fire_rate = 0.1
+						self.speen.CAN_TOGGLE_FIREMODE = false
+						self.speen.FIRE_MODE = "single"
+						self.speen.kick = {}
+						self.speen.kick = self.stat_info.kick_tables.left_recoil
+						self.speen.kick_pattern = {
+							{0, self.stat_info.kick_tables.left_recoil},
+							{4, self.stat_info.kick_tables.even_recoil},
+							{7, self.stat_info.kick_tables.right_recoil},
+							{10, self.stat_info.kick_tables.moderate_right_kick},
+							{16, self.stat_info.kick_tables.even_recoil},
+						}
+						self.speen.supported = true
+						self.speen.ads_speed = 0.180
+						self.speen.damage_falloff = {
+							start_dist = 2000,
+							end_dist = 4300,
+							min_mult = 0.2
+						}
+						self.speen.stats = {
+							damage = 30,
+							spread = 76,
+							recoil = 93,
+							spread_moving = 5,
+							zoom = 1,
+							concealment = 29,
+							suppression = 9,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.speen.panic_suppression_chance = 0.05
+						self.speen.stats_modifiers = nil
+						self.speen.use_unequip_swap = true
+						self.speen.swap_speed_multiplier = 0.55
+						self.speen.timers.equip = 1.3
+						self.speen.timers.reload_empty = 2.3
+						self.speen.timers.reload_exit_empty = 0.65
+						self.speen.timers.reload_not_empty = 1.3
+						self.speen.timers.reload_exit_not_empty = 0.51						
 
 					--Parabellum (Luger)
 						self.breech.has_description = true
@@ -7865,7 +8047,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--Kahn .357
 						self.korth.has_description = true
-						self.korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"	
+						self.korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"  -- [GPT合并1] 此项值原为"bm_ap_armor_50_weapon_sc_desc"
 						self.korth.fire_mode_data.fire_rate = 0.18181818
 						self.korth.CLIP_AMMO_MAX = 8
 						self.korth.AMMO_MAX = 30
@@ -7917,7 +8099,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.korth.hide_reload_obj_exit = 1.1
 					--Akimbo
 						self.x_korth.has_description = true
-						self.x_korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"	
+						self.x_korth.desc_id = "bm_ap_armor_75_weapon_sc_desc"  -- [GPT合并1] 此项值原为"bm_ap_armor_50_weapon_sc_desc"
 						self.x_korth.fire_mode_data.fire_rate = 0.18181818
 						self.x_korth.CLIP_AMMO_MAX = 16
 						self.x_korth.AMMO_MAX = 60
@@ -8344,7 +8526,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							reload = 20
 						}
 						self.deagle.stats_modifiers = nil
-						self.deagle.armor_piercing_chance = 1.0
+						self.deagle.armor_piercing_chance = 1.0  -- [GPT合并1] 此项值原为0.5
 						self.deagle.can_shoot_through_enemy = true
 						self.deagle.panic_suppression_chance = 0.05
 						self.deagle.sounds.fire = "deagle_fire"
@@ -8392,7 +8574,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							reload = 20
 						}
 						self.x_deagle.stats_modifiers = nil
-						self.x_deagle.armor_piercing_chance = 1
+						self.x_deagle.armor_piercing_chance = 1  -- [GPT合并1] 此项值原为0.5
 						self.x_deagle.can_shoot_through_enemy = true
 						self.x_deagle.panic_suppression_chance = 0.05
 						self.x_deagle.timers.reload_exit_empty = 0.55
@@ -8447,7 +8629,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.peacemaker.stats_modifiers = nil
 						self.peacemaker.panic_suppression_chance = 0.05
-						self.peacemaker.object_damage_mult = 2
+						self.peacemaker.object_damage_mult = 2  -- [GPT合并1] 此项值原为1.8
 						self.peacemaker.armor_piercing_chance = 1
 						self.peacemaker.can_shoot_through_enemy = true
 						self.peacemaker.can_shoot_through_enemy_unlim = true
@@ -8679,7 +8861,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.mp7.has_description = true
 						self.mp7.desc_id = "bm_mp7_sc_desc"	
-						self.mp7.AMMO_MAX = 75
+						self.mp7.AMMO_MAX = 75  -- [GPT合并1] 此项值原为90
 						self.mp7.fire_mode_data.fire_rate = 0.06315789473
 						self.mp7.CAN_TOGGLE_FIREMODE = true
 						self.mp7.auto = {}
@@ -8687,7 +8869,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.mp7.can_shoot_through_enemy = false
 						self.mp7.can_shoot_through_shield = false
 						self.mp7.can_shoot_through_wall = false
-						self.mp7.hs_mult = 1.666666
+						self.mp7.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.3333333
 						self.mp7.armor_piercing_chance = 0.75
 						self.mp7.kick = self.stat_info.kick_tables.even_recoil
 						self.mp7.kick_pattern = {
@@ -8733,14 +8915,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.p90.has_description = true
 						self.p90.desc_id = "bm_p90_sc_desc"	
-						self.p90.AMMO_MAX = 75
+						self.p90.AMMO_MAX = 75  -- [GPT合并1] 此项值原为90
 						self.p90.fire_mode_data.fire_rate = 0.070588235
 						self.p90.armor_piercing_chance = 0.75
 						self.p90.can_shoot_through_enemy = false
 						self.p90.can_shoot_through_shield = false
 						self.p90.can_shoot_through_wall = false
 						self.p90.panic_suppression_chance = 0.05
-						self.p90.hs_mult = 1.666666
+						self.p90.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.33333
 						self.p90.kick = self.stat_info.kick_tables.even_recoil
 						self.p90.kick_pattern = {
 							{0, self.stat_info.kick_tables.even_recoil},
@@ -8783,14 +8965,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.x_p90.has_description = true
 						self.x_p90.desc_id = "bm_p90_sc_desc"	
-						self.x_p90.AMMO_MAX = 150
+						self.x_p90.AMMO_MAX = 150  -- [GPT合并1] 此项值原为180
 						self.x_p90.fire_mode_data.fire_rate = 0.070588235
 						self.x_p90.armor_piercing_chance = 0.75
 						self.x_p90.can_shoot_through_enemy = false
 						self.x_p90.can_shoot_through_shield = false
 						self.x_p90.can_shoot_through_wall = false
 						self.x_p90.panic_suppression_chance = 0.05
-						self.x_p90.hs_mult = 1.666666
+						self.x_p90.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.33333
 						self.x_p90.kick = self.stat_info.kick_tables.even_recoil
 						self.x_p90.kick_pattern = {
 							{0, self.stat_info.kick_tables.even_recoil},
@@ -9006,7 +9188,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.sr2.desc_id = "bm_sr2_sc_desc"
 						self.sr2.fire_mode_data.fire_rate = 0.063157894
 						self.sr2.CLIP_AMMO_MAX = 30
-						self.sr2.AMMO_MAX = 75
+						self.sr2.AMMO_MAX = 75  -- [GPT合并1] 此项值原为90
 						self.sr2.kick = {}
 						self.sr2.kick = self.stat_info.kick_tables.even_recoil
 						self.sr2.kick_pattern = {
@@ -9040,7 +9222,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.sr2.can_shoot_through_enemy = false
 						self.sr2.can_shoot_through_shield = false
 						self.sr2.can_shoot_through_wall = false
-						self.sr2.hs_mult = 1.5
+						self.sr2.hs_mult = 1.5  -- [GPT合并1] 此项值原为1.2
 						self.sr2.stats_modifiers = nil
 						self.sr2.panic_suppression_chance = 0.05
 						self.sr2.reload_speed_multiplier = 1.02
@@ -9059,7 +9241,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_sr2.desc_id = "bm_sr2_sc_desc"
 						self.x_sr2.fire_mode_data.fire_rate = 0.063157894
 						self.x_sr2.CLIP_AMMO_MAX = 60
-						self.x_sr2.AMMO_MAX = 150
+						self.x_sr2.AMMO_MAX = 150  -- [GPT合并1] 此项值原为180
 						self.x_sr2.kick = self.stat_info.kick_tables.even_recoil
 						self.x_sr2.kick_pattern = {
 							{0, self.stat_info.kick_tables.even_recoil},
@@ -9097,7 +9279,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_sr2.can_shoot_through_enemy = false
 						self.x_sr2.can_shoot_through_shield = false
 						self.x_sr2.can_shoot_through_wall = false
-						self.x_sr2.hs_mult = 1.5
+						self.x_sr2.hs_mult = 1.5  -- [GPT合并1] 此项值原为1.2
 						self.x_sr2.panic_suppression_chance = 0.05
 						self.x_sr2.reload_speed_multiplier = 0.75
 						self.x_sr2.timers.reload_not_empty = 2.1
@@ -9466,7 +9648,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.erma.stats_modifiers = nil
 						self.erma.sounds.spin_start = "wp_mac10_lever_pull"
 						self.erma.spin_up_shoot = true
-						self.erma.spin_up_t = 0.07 * 0.15
+						self.erma.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 						self.erma.spin_down_t = 0.0000000001
 						self.erma.panic_suppression_chance = 0.05
 						self.erma.timers.reload_exit_empty = 0.6
@@ -9649,7 +9831,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.sterling.stats_modifiers = nil
 						self.sterling.sounds.spin_start = "wp_mac10_lever_pull"
 						self.sterling.spin_up_shoot = true
-						self.sterling.spin_up_t = 0.07 * 0.15
+						self.sterling.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 						self.sterling.spin_down_t = 0.0000000001
 						self.sterling.panic_suppression_chance = 0.05
 						self.sterling.reload_speed_multiplier = 1.2
@@ -9694,7 +9876,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.mac10.stats_modifiers = nil
 						self.mac10.sounds.spin_start = "wp_mac10_lever_pull"
 						self.mac10.spin_up_shoot = true
-						self.mac10.spin_up_t = 0.05 * 0.15
+						self.mac10.spin_up_t = 0.05 * 0.15  -- [GPT合并1] 此项值原为0.05
 						self.mac10.spin_down_t = 0.0000000001
 						self.mac10.timers.reload_empty = 2.2
 						self.mac10.timers.reload_not_empty = 1.5
@@ -9738,7 +9920,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_mac10.panic_suppression_chance = 0.05
 						self.x_mac10.sounds.spin_start = "wp_mac10_lever_pull"
 						self.x_mac10.spin_up_shoot = true
-						self.x_mac10.spin_up_t = 0.05 * 0.15
+						self.x_mac10.spin_up_t = 0.05 * 0.15  -- [GPT合并1] 此项值原为0.05
 						self.x_mac10.spin_down_t = 0.0000000001
 						self.x_mac10.reload_speed_multiplier = 0.75
 						self.x_mac10.timers.reload_empty = 3
@@ -9789,7 +9971,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.uzi.panic_suppression_chance = 0.05
 						self.uzi.sounds.spin_start = "wp_uzi_clip_lever_pull"
 						self.uzi.spin_up_shoot = true
-						self.uzi.spin_up_t = 0.07 * 0.15
+						self.uzi.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 						self.uzi.spin_down_t = 0.0000000001
 						self.uzi.reload_speed_multiplier = 1.1
 						self.uzi.timers.reload_empty = 3.22
@@ -9836,7 +10018,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_uzi.panic_suppression_chance = 0.05
 						self.x_uzi.sounds.spin_start = "wp_uzi_clip_lever_pull"
 						self.x_uzi.spin_up_shoot = true
-						self.x_uzi.spin_up_t = 0.07 * 0.15
+						self.x_uzi.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 						self.x_uzi.spin_down_t = 0.0000000001
 						self.x_uzi.reload_speed_multiplier = 0.75
 						self.x_uzi.timers.reload_empty = 3
@@ -9884,7 +10066,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m1928.stats_modifiers = nil
 						self.m1928.sounds.spin_start = "wp_m1928_lever_release"
 						self.m1928.spin_up_shoot = true
-						self.m1928.spin_up_t = 0.06 * 0.15
+						self.m1928.spin_up_t = 0.06 * 0.15  -- [GPT合并1] 此项值原为0.06
 						self.m1928.spin_down_t = 0.00000001
 						self.m1928.timers.reload_not_empty = 3.3
 						self.m1928.timers.reload_exit_not_empty = 1.2
@@ -9995,7 +10177,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m249.stats_modifiers = nil
 					self.m249.sounds.spin_start = "wp_m249_lever_release"
 					self.m249.spin_up_shoot = true
-					self.m249.spin_up_t = 0.08 * 0.15
+					self.m249.spin_up_t = 0.08 * 0.15  -- [GPT合并1] 此项值原为0.08
 					self.m249.spin_down_t = 0.00000001
 					self.m249.timers.equip = 1.2
 					self.m249.timers.reload_empty = 5.22
@@ -10055,7 +10237,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.kacchainsaw.reload_speed_multiplier = 0.87
 					self.kacchainsaw.sounds.spin_start = "wp_kac_reload_lever_push"
 					self.kacchainsaw.spin_up_shoot = true
-					self.kacchainsaw.spin_up_t = 0.07 * 0.15
+					self.kacchainsaw.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 					self.kacchainsaw.spin_down_t = 0.00000001
 					self.kacchainsaw.timers.equip = 2
 					self.kacchainsaw.timers.reload_empty = 6
@@ -10121,7 +10303,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						"smg"
 					}
 					self.rpk.CLIP_AMMO_MAX = 75
-					self.rpk.AMMO_MAX = 275
+					self.rpk.AMMO_MAX = 275  -- [GPT合并1] 此项值原为240
 					self.rpk.fire_mode_data.fire_rate = 0.1
 					self.rpk.CAN_TOGGLE_FIREMODE = true
 					self.rpk.BURST_FIRE = false
@@ -10171,7 +10353,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					}
 					self.hk51b.desc_id = "bm_hk51b_sc_desc"
 					self.hk51b.has_description = true
-					self.hk51b.CLIP_AMMO_MAX = 40+10
+					self.hk51b.CLIP_AMMO_MAX = 40+10  -- [GPT合并1] 此项值原为40
 					self.hk51b.AMMO_MAX = 240
 					self.hk51b.fire_mode_data.fire_rate = 0.063157
 					self.hk51b.CAN_TOGGLE_FIREMODE = true
@@ -10237,8 +10419,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.mg42.sounds.fire = "mg42_fire"
 						self.mg42.sounds.fire_single = "mg42_fire"
-						self.mg42.CLIP_AMMO_MAX = 100
-						self.mg42.AMMO_MAX = 220
+						self.mg42.CLIP_AMMO_MAX = 100  -- [GPT合并1] 此项值原为50
+						self.mg42.AMMO_MAX = 220  -- [GPT合并1] 此项值原为160
 						self.mg42.has_description = true
 						self.mg42.desc_id = "bm_wolf_brigade_sc_desc"
 						self.mg42.kick = self.stat_info.kick_tables.vertical_kick
@@ -10281,7 +10463,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.mg42.panic_suppression_chance = 0.05
 						self.mg42.sounds.spin_start = "wp_mg42_lever_release"
 						self.mg42.spin_up_shoot = true
-						self.mg42.spin_up_t = 0.09 * 0.15
+						self.mg42.spin_up_t = 0.09 * 0.15  -- [GPT合并1] 此项值原为0.09
 						self.mg42.spin_down_t = 0.00000001
 						self.mg42.reload_speed_multiplier = 1
 						self.mg42.timers.reload_exit_empty = 1.65
@@ -10296,7 +10478,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.hk21.desc_id = "bm_hk21_sc_desc"
 						self.hk21.has_description = true
 						self.hk21.CLIP_AMMO_MAX = 100
-						self.hk21.AMMO_MAX = 220
+						self.hk21.AMMO_MAX = 220  -- [GPT合并1] 此项值原为160
 						self.hk21.fire_mode_data.fire_rate = 0.075
 						self.hk21.CAN_TOGGLE_FIREMODE = true
 						self.hk21.BURST_FIRE = {
@@ -10358,7 +10540,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.hcar.has_description = true
 						self.hcar.desc_id = "bm_hcar_sc_desc"	
 						self.hcar.CLIP_AMMO_MAX = 20
-						self.hcar.AMMO_MAX = 160
+						self.hcar.AMMO_MAX = 160  -- [GPT合并1] 此项值原为120
 						self.hcar.fire_mode_data.fire_rate = 0.12
 						self.hcar.muzzleflash = "_dmc/effects/heavy_muzzle"
 						self.hcar.muzzleflash_silenced = "_dmc/effects/heavy_suppressed"
@@ -10370,7 +10552,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{16, self.stat_info.kick_tables.moderate_right_kick}
 						}
 						self.hcar.supported = true
-						self.hcar.ads_speed = 0.420
+						self.hcar.ads_speed = 0.420  -- [GPT合并1] 此项值原为0.480
 						self.hcar.damage_falloff = {
 							start_dist = 1700,
 							end_dist = 5400,
@@ -10405,8 +10587,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							"rambo",
 							"mmg"
 						}
-						self.m60.CLIP_AMMO_MAX = 100
-						self.m60.AMMO_MAX = 180
+						self.m60.CLIP_AMMO_MAX = 100  -- [GPT合并1] 此项值原为75
+						self.m60.AMMO_MAX = 180  -- [GPT合并1] 此项值原为120
 						self.m60.fire_mode_data.fire_rate = 0.1034482
 						self.m60.kick = self.stat_info.kick_tables.random_right_recoil
 						self.m60.kick_pattern = {
@@ -10447,7 +10629,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m60.reload_speed_multiplier = 0.77
 						self.m60.sounds.spin_start = "wp_m60_reload_lever_release"
 						self.m60.spin_up_shoot = true
-						self.m60.spin_up_t = 0.1 *0.15
+						self.m60.spin_up_t = 0.1 *0.15  -- [GPT合并1] 此项值原为0.1
 						self.m60.spin_down_t = 0.00000001
 						self.m60.timers.reload_empty = 5.87
 						self.m60.timers.reload_exit_empty = 1.75
@@ -10462,9 +10644,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							"smg",
 							"mmg"
 						}
-						self.par.CLIP_AMMO_MAX = 100
+						self.par.CLIP_AMMO_MAX = 100  -- [GPT合并1] 此项值原为50
 						self.par.fire_mode_data.fire_rate = 0.092307
-						self.par.AMMO_MAX = 200
+						self.par.AMMO_MAX = 200  -- [GPT合并1] 此项值原为120
 						self.par.kick = {}
 						self.par.kick = self.stat_info.kick_tables.random_left_recoil
 						self.par.kick_pattern = {
@@ -10504,7 +10686,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.par.reload_speed_multiplier = 0.775
 						self.par.sounds.spin_start = "wp_m249_lever_release"
 						self.par.spin_up_shoot = true
-						self.par.spin_up_t = 0.1 * 0.15
+						self.par.spin_up_t = 0.1 * 0.15  -- [GPT合并1] 此项值原为0.1
 						self.par.spin_down_t = 0.00000001
 						self.par.timers.reload_not_empty = 6.3
 						self.par.timers.reload_empty = 6.3
@@ -10519,8 +10701,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							"smg"
 						}
 						self.ranc_heavy_machine_gun.upgrade_blocks = nil
-						self.ranc_heavy_machine_gun.CLIP_AMMO_MAX  = 100
-						self.ranc_heavy_machine_gun.AMMO_MAX = 100
+						self.ranc_heavy_machine_gun.CLIP_AMMO_MAX = 100  -- [GPT合并1] 此项值原为200
+						self.ranc_heavy_machine_gun.AMMO_MAX = 100  -- [GPT合并1] 此项值原为200
 						self.ranc_heavy_machine_gun.fire_mode_data.fire_rate = 0.1
 						self.ranc_heavy_machine_gun.kick = self.stat_info.kick_tables.kick_m2
 						self.ranc_heavy_machine_gun.supported = true
@@ -10549,7 +10731,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.ranc_heavy_machine_gun.can_shoot_through_enemy = true
 						self.ranc_heavy_machine_gun.can_shoot_through_shield = true
 						self.ranc_heavy_machine_gun.can_shoot_through_wall = true
-						self.ranc_heavy_machine_gun.can_shoot_through_titan_shield = true
+						self.ranc_heavy_machine_gun.can_shoot_through_titan_shield = true  -- [GPT合并1] 此项值原为false
 
 			--[[     MINIGUNS     ]]
 
@@ -10562,7 +10744,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.shuno.desc_id = "bm_shuno_sc_desc"
 					self.shuno.CLIP_AMMO_MAX = 300
 					self.shuno.NR_CLIPS_MAX = 1
-					self.shuno.AMMO_MAX = 900
+					self.shuno.AMMO_MAX = 900  -- [GPT合并1] 此项值原为600
 					self.shuno.FIRE_MODE = "auto"
 					self.shuno.fire_mode_data = {}
 					self.shuno.fire_mode_data.fire_rate = 0.03
@@ -10617,7 +10799,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m134.desc_id = "bm_m134_sc_desc"	
 					self.m134.CLIP_AMMO_MAX = 400
 					self.m134.NR_CLIPS_MAX = 1
-					self.m134.AMMO_MAX = 800
+					self.m134.AMMO_MAX = 800  -- [GPT合并1] 此项值原为400
 					self.m134.FIRE_MODE = "auto"
 					self.m134.fire_mode_data = {}
 					self.m134.fire_mode_data.fire_rate = 0.03
@@ -10724,8 +10906,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--Commando 553  --此武器修改
 						self.s552.desc_id = "bm_s552_sc_desc"
-						self.s552.has_daring_ap_desc = true  --此处添加
-						self.s552.armor_piercing_chance = 0.20  --此处添加
+						self.s552.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.s552.armor_piercing_chance = 0.20  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.s552.has_description = true					
 						self.s552.fire_mode_data.fire_rate = 0.08571428571
 						self.s552.auto.fire_rate = 0.08571428571
@@ -10744,9 +10926,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{13, self.stat_info.kick_tables.moderate_right_kick},
 							{19, self.stat_info.kick_tables.vertical_kick}
 						}
-						self.s552.AMMO_MAX = 150
+						self.s552.AMMO_MAX = 150  -- [GPT合并1] 此项值原为180
 						self.s552.supported = true
-						self.s552.ads_speed = 0.265  --此处修改，原0.280
+						self.s552.ads_speed = 0.265  -- [GPT合并1] 此项值原为0.280  --此处修改，原0.280
 						self.s552.damage_falloff = {  --此处修改
 							start_dist = 100,
 							end_dist = 4000,
@@ -10836,7 +11018,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Lion's Roar
 						self.vhs.desc_id = "bm_vhs_sc_desc"
 						self.vhs.has_description = true					
-						self.vhs.CLIP_AMMO_MAX = 32
+						self.vhs.CLIP_AMMO_MAX = 32  -- [GPT合并1] 此项值原为30
 						self.vhs.AMMO_MAX = 180
 						self.vhs.fire_mode_data.fire_rate = 0.070588235
 						self.vhs.CAN_TOGGLE_FIREMODE = true
@@ -10850,7 +11032,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{22, self.stat_info.kick_tables.moderate_kick}
 						}
 						self.vhs.supported = true
-						self.vhs.ads_speed = 0.240
+						self.vhs.ads_speed = 0.240  -- [GPT合并1] 此项值原为0.260
 						self.vhs.damage_falloff = {
 							start_dist = 2100,
 							end_dist = 6500,
@@ -10945,7 +11127,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							self.ak5.shell_ejection = "effects/payday2/particles/weapons/shells/shell_shak"
 						end
 						self.ak5.supported = true
-						self.ak5.ads_speed = 0.240
+						self.ak5.ads_speed = 0.240  -- [GPT合并1] 此项值原为0.260
 						self.ak5.damage_falloff = {
 							start_dist = 2700,
 							end_dist = 7000,
@@ -10965,11 +11147,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.ak5.armor_piercing_chance = 0.15 --此处添加
-						self.ak5.has_daring_ap_desc = true --此处添加
+						self.ak5.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.ak5.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.ak5.stats_modifiers = nil
 						self.ak5.timers.reload_empty = 3
-						self.ak5.timers.reload_exit_empty = 1.00
+						self.ak5.timers.reload_exit_empty = 1.00  -- [GPT合并1] 此项值原为1.15
 						self.ak5.timers.reload_exit_not_empty = 0.95
 						self.ak5.panic_suppression_chance = 0.05
 						self.ak5.reload_speed_multiplier = 1
@@ -11016,7 +11198,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.corgi.timers.reload_exit_empty = 0.8
 						self.corgi.timers.reload_not_empty = 2.1
 						self.corgi.timers.reload_exit_not_empty = 0.75
-						self.corgi.reload_speed_multiplier = 0.9
+						self.corgi.reload_speed_multiplier = 0.9  -- [GPT合并1] 此项值原为0.85
 
 					--UAR (AUG)
 						self.aug.desc_id = "bm_aug_sc_desc"
@@ -11034,7 +11216,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{19, self.stat_info.kick_tables.moderate_kick}
 						}
 						self.aug.supported = true
-						self.aug.ads_speed = 0.220
+						self.aug.ads_speed = 0.220  -- [GPT合并1] 此项值原为0.240
 						self.aug.damage_falloff = {
 							start_dist = 2200,
 							end_dist = 6600,
@@ -11059,7 +11241,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.aug.timers.reload_exit_empty = 1.1
 						self.aug.timers.reload_exit_not_empty = 1.7
 						self.aug.panic_suppression_chance = 0.05
-						self.aug.reload_speed_multiplier = 1.005
+						self.aug.reload_speed_multiplier = 1.005  -- [GPT合并1] 此项值原为0.975
 
 					--Ak17
 						self.flint.desc_id = "bm_flint_sc_desc"
@@ -11105,10 +11287,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 4,
 							reload = 20
 						}
-						self.flint.armor_piercing_chance = 0.15 --此处添加
-						self.flint.has_daring_ap_desc = true --此处添加
+						self.flint.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.flint.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.flint.stats_modifiers = nil
-						self.flint.hs_mult = 0.85 --此处添加
+						self.flint.hs_mult = 0.85  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.flint.panic_suppression_chance = 0.05
 						self.flint.timers.reload_empty = 3.01
 						self.flint.timers.reload_exit_empty = 0.94
@@ -11149,10 +11331,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.ak74.armor_piercing_chance = 0.15
-						self.ak74.has_daring_ap_desc = true
+						self.ak74.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项
+						self.ak74.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 						self.ak74.stats_modifiers = nil
-						self.ak74.hs_mult = 0.85  --此处添加
+						self.ak74.hs_mult = 0.85  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.ak74.panic_suppression_chance = 0.05
 						self.ak74.reload_speed_multiplier = 1.2
 						self.ak74.timers.reload_empty = 3.67
@@ -11542,8 +11724,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.akm.armor_piercing_chance = 0.15 --此处添加
-						self.akm.has_daring_ap_desc = true --此处添加
+						self.akm.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.akm.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.akm.stats_modifiers = nil
 						self.akm.panic_suppression_chance = 0.05
 						self.akm.reload_speed_multiplier = 1.17
@@ -11553,8 +11735,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.akm.timers.reload_exit_not_empty = 0.95
 						--Gold AK
 						self.akm_gold.bmp = 1000
-						self.akm_gold.armor_piercing_chance = 0.25  --此处添加
-						self.akm_gold.has_daring_ap_desc = true  --此处添加
+						self.akm_gold.armor_piercing_chance = 0.25  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.akm_gold.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.akm_gold.desc_id = "bm_akm_gold_sc_desc"
 						self.akm_gold.has_description = true
 						self.akm_gold.kick = self.stat_info.kick_tables.moderate_right_kick
@@ -11591,8 +11773,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							reload = 20
 						}
 						self.akm_gold.stats_modifiers = nil
-						self.akm_gold.object_damage_mult = 0.6666666667
-                    	self.akm_gold.hs_mult = 0.6666666667
+						self.akm_gold.object_damage_mult = 0.6666666667  -- [GPT合并1] ybspatch 新增/修改项
+                    	self.akm_gold.hs_mult = 0.6666666667  -- [GPT合并1] ybspatch 新增/修改项
 						self.akm_gold.panic_suppression_chance = 0.05
 						self.akm_gold.reload_speed_multiplier = 1.17
 						self.akm_gold.timers.reload_empty = 3.66
@@ -11639,8 +11821,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.groza.armor_piercing_chance = 0.15 --此处添加
-						self.groza.has_daring_ap_desc = true --此处添加
+						self.groza.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.groza.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.groza.stats_modifiers = nil
 						self.groza.reload_speed_multiplier = 1
 						if SystemFS:exists("assets/mod_overrides/Groza Animation Overhaul") then
@@ -11663,12 +11845,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							self.groza_underbarrel.reload_speed_multiplier = 0.66666
 						end
 						self.groza.reload_speed_multiplier = self.groza.reload_speed_multiplier * 0.86
-						self.groza.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-                        self.groza.min_exp_dmg = 30
-                        self.groza.hit_fix = 0.95  --exp_func]]
-						self.groza_underbarrel.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-                        self.groza_underbarrel.min_exp_dmg = 30
-                        self.groza_underbarrel.hit_fix = 0.95  --exp_func]]
+						self.groza.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+                        self.groza.min_exp_dmg = 30  -- [GPT合并1] ybspatch 新增/修改项
+                        self.groza.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
+						self.groza_underbarrel.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+                        self.groza_underbarrel.min_exp_dmg = 30  -- [GPT合并1] ybspatch 新增/修改项
+                        self.groza_underbarrel.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.groza_underbarrel.upgrade_blocks = {
 							weapon = {
 								"clip_ammo_increase"
@@ -11811,8 +11993,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.akmsu.armor_piercing_chance = 0.15 --此处添加
-						self.akmsu.has_daring_ap_desc = true --此处添加
+						self.akmsu.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.akmsu.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.akmsu.stats_modifiers = nil
 						self.akmsu.timers.reload_empty = 3.2
 						self.akmsu.timers.reload_exit_empty = 1.25
@@ -11865,8 +12047,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							value = 1,
 							reload = 20
 						}
-						self.x_akmsu.armor_piercing_chance = 0.15 --此处添加
-						self.x_akmsu.has_daring_ap_desc = true --此处添加
+						self.x_akmsu.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+						self.x_akmsu.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 						self.x_akmsu.stats_modifiers = nil
 						self.x_akmsu.reload_speed_multiplier = 0.7
 						self.x_akmsu.timers.reload_not_empty = 2.1
@@ -12115,12 +12297,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.contraband.can_shoot_through_enemy = false
 						self.contraband.timers.reload_exit_empty = 0.725
 						self.contraband.timers.reload_exit_not_empty = 0.8
-						self.contraband.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.contraband.min_exp_dmg = 24
-						self.contraband.hit_fix = 0.95  --exp_func]]
-						self.contraband_m203.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.contraband_m203.min_exp_dmg = 24
-						self.contraband_m203.hit_fix = 0.95  --exp_func]]
+						self.contraband.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.contraband.min_exp_dmg = 24  -- [GPT合并1] ybspatch 新增/修改项
+						self.contraband.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
+						self.contraband_m203.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.contraband_m203.min_exp_dmg = 24  -- [GPT合并1] ybspatch 新增/修改项
+						self.contraband_m203.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.contraband_m203.upgrade_blocks = {
 							weapon = {
 								"clip_ammo_increase"
@@ -12389,7 +12571,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{9, self.stat_info.kick_tables.vertical_kick}
 						}
 						self.qbu88.supported = true
-						self.qbu88.ads_speed = 0.360
+						self.qbu88.ads_speed = 0.360  -- [GPT合并1] 此项值原为0.460
 						self.qbu88.damage_falloff = {
 							start_dist = 2500,
 							end_dist = 6500,
@@ -12443,7 +12625,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.tti.can_shoot_through_wall = true
 						self.tti.muzzleflash = "effects/payday2/particles/weapons/big_762_auto_fps"
 						self.tti.supported = true
-						self.tti.ads_speed = 0.450
+						self.tti.ads_speed = 0.450  -- [GPT合并1] 此项值原为0.480
 						self.tti.damage_falloff = {
 							start_dist = 3300,
 							end_dist = 8000,
@@ -12774,7 +12956,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.wa2000.muzzleflash = "effects/payday2/particles/weapons/big_762_auto_fps"
 						self.wa2000.supported = true
-						self.wa2000.ads_speed = 0.300
+						self.wa2000.ads_speed = 0.300  -- [GPT合并1] 此项值原为0.420
 						self.wa2000.damage_falloff = {
 							start_dist = 3400,
 							end_dist = 8000,
@@ -12922,7 +13104,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.mosin.kick = self.stat_info.kick_tables.vertical_kick
 						self.mosin.muzzleflash = "effects/payday2/particles/weapons/big_762_auto_fps"
 						self.mosin.supported = true
-						self.mosin.ads_speed = 0.300
+						self.mosin.ads_speed = 0.300  -- [GPT合并1] 此项值原为0.320
 						self.mosin.damage_falloff = {
 							start_dist = 3500,
 							end_dist = 8000,
@@ -13109,7 +13291,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.bessy.panic_suppression_chance = 0.05
 						self.bessy.spin_up_semi = true
 						self.bessy.spin_up_shoot = true
-						self.bessy.spin_up_t = 0.1 * 0.15
+						self.bessy.spin_up_t = 0.1 * 0.15  -- [GPT合并1] 此项值原为0.1
 						self.bessy.spin_down_t = 0.00000001
 						self.bessy.sounds.spin_start = "wp_baka_lever_pull"
 						self.bessy.timers.reload_not_empty = 9.85
@@ -13181,8 +13363,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.m95.upgrade_blocks = nil
 					self.m95.has_description = true
 					self.m95.desc_id = "bm_m95_sc_desc"
-					self.m95.AMMO_MAX = 15
-					self.m95.object_damage_mult = 0.5625
+					self.m95.AMMO_MAX = 15  -- [GPT合并1] 此项值原为12
+					self.m95.object_damage_mult = 0.5625  -- [GPT合并1] ybspatch 新增/修改项
 					self.m95.fire_mode_data.fire_rate = 1.5
 					self.m95.fire_rate_multiplier = 1.05
 					self.m95.kick = self.stat_info.kick_tables.right_kick
@@ -13406,10 +13588,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Izhma 12G
 						self.saiga.desc_id = "bm_saiga_sc_desc"
 						self.saiga.has_description = true			
-						self.saiga.rays = 9
+						self.saiga.rays = 9  -- [GPT合并1] 此项值原为8
 						self.saiga.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.saiga.CLIP_AMMO_MAX = 7
-						self.saiga.AMMO_MAX = 80
+						self.saiga.CLIP_AMMO_MAX = 7  -- [GPT合并1] 此项值原为5
+						self.saiga.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 						self.saiga.fire_mode_data.fire_rate = 0.1333333
 						self.saiga.shake.fire_multiplier = 1
 						self.saiga.shake.fire_steelsight_multiplier = -1
@@ -13421,7 +13603,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{5, self.stat_info.kick_tables.right_recoil}
 						}
 						self.saiga.supported = true
-						self.saiga.ads_speed = 0.300
+						self.saiga.ads_speed = 0.300  -- [GPT合并1] 此项值原为0.340
 						self.saiga.damage_falloff = {
 							start_dist = 500,
 							end_dist = 2750,
@@ -13450,8 +13632,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--VD-12 (SKO12)
 						self.sko12.use_data.selection_index = 2
-						self.sko12.rays = 9
-						self.sko12.AMMO_MAX = 80
+						self.sko12.rays = 9  -- [GPT合并1] 此项值原为8
+						self.sko12.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 						self.sko12.CLIP_AMMO_MAX = 25
 						self.sko12.fire_mode_data.fire_rate = 0.181818181
 						self.sko12.kick = self.stat_info.kick_tables.moderate_kick
@@ -13465,7 +13647,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.sko12.FIRE_MODE = "single"				
 						self.sko12.CAN_TOGGLE_FIREMODE = false
 						self.sko12.supported = true
-						self.sko12.ads_speed = 0.400
+						self.sko12.ads_speed = 0.400  -- [GPT合并1] 此项值原为0.420
 						self.sko12.damage_falloff = {
 							start_dist = 600,
 							end_dist = 3000,
@@ -13494,9 +13676,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.sko12.timers.reload_exit_not_empty = 0.8
 
 					--Steakout (AA-12)
-						self.aa12.rays = 9
+						self.aa12.rays = 9  -- [GPT合并1] 此项值原为8
 						self.aa12.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.aa12.AMMO_MAX = 80
+						self.aa12.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 						self.aa12.desc_id = "bm_aa12_sc_desc"
 						self.aa12.has_description = true
 						self.aa12.fire_mode_data.fire_rate = 0.2
@@ -13546,10 +13728,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Argos III (Ultima)
 						self.ultima.desc_id = "bm_ultima_sc_desc"
 						self.ultima.has_description = true					
-						self.ultima.rays = 9
+						self.ultima.rays = 9  -- [GPT合并1] 此项值原为8
 						self.ultima.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.ultima.CLIP_AMMO_MAX = 7
-						self.ultima.AMMO_MAX = 80
+						self.ultima.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 						self.ultima.use_data.selection_index = 2
 						self.ultima.fire_mode_data.fire_rate = 0.2
 						self.ultima.kick = self.stat_info.kick_tables.moderate_kick
@@ -13581,7 +13763,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}	
 						self.ultima.stats_modifiers = nil
 						self.ultima.panic_suppression_chance = 0.05	
-						self.ultima.reload_speed_multiplier = 0.87
+						self.ultima.reload_speed_multiplier = 0.87  -- [GPT合并1] 此项值原为0.68
 						self.ultima.timers.shotgun_reload.not_empty = {
 							reload_enter = 0.4666666666666667,
 							reload_first_shell_offset = 0.27,
@@ -13595,9 +13777,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Predator 12G
 						self.spas12.desc_id = "bm_spas12_sc_desc"
 						self.spas12.has_description = true					
-						self.spas12.rays = 6
+						self.spas12.rays = 6  -- [GPT合并1] 此项值原为8
 						self.spas12.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.spas12.AMMO_MAX = 80
+						self.spas12.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 						self.spas12.CLIP_AMMO_MAX = 6
 						self.spas12.CAN_TOGGLE_FIREMODE = false
 						self.spas12.fire_mode_data.fire_rate = 0.25
@@ -13639,7 +13821,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.spas12.stats_modifiers = nil
 						self.spas12.panic_suppression_chance = 0.05
 						self.spas12.reload_fix_offset = 0.25
-						self.spas12.reload_speed_multiplier = 1.25
+						self.spas12.reload_speed_multiplier = 1.25  -- [GPT合并1] 此项值原为0.95
 						self.spas12.timers.shotgun_reload_enter = 0.3
 						self.spas12.timers.shotgun_reload_first_shell_offset = 0.33
 						self.spas12.timers.shotgun_reload_shell = 0.5666666666666667
@@ -13649,9 +13831,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--M1014
 						self.benelli.desc_id = "bm_benelli_sc_desc"
 						self.benelli.has_description = true					
-						self.benelli.AMMO_MAX = 80
-						self.benelli.CLIP_AMMO_MAX = 7
-						self.benelli.rays = 12
+						self.benelli.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
+						self.benelli.CLIP_AMMO_MAX = 7  -- [GPT合并1] 此项值原为5
+						self.benelli.rays = 12  -- [GPT合并1] 此项值原为8
 						self.benelli.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.benelli.fire_mode_data.fire_rate = 0.22222222
 						self.benelli.CAN_TOGGLE_FIREMODE = false
@@ -13662,7 +13844,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{5, self.stat_info.kick_tables.moderate_right_kick}
 						}
 						self.benelli.supported = true
-						self.benelli.ads_speed = 0.315
+						self.benelli.ads_speed = 0.315  -- [GPT合并1] 此项值原为0.320
 						self.benelli.damage_falloff = {
 							start_dist = 900,
 							end_dist = 3300,
@@ -13695,10 +13877,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				--SECONDARIES
 
 					--Grimm 12G
-						self.basset.rays = 9
+						self.basset.rays = 9  -- [GPT合并1] 此项值原为8
 						self.basset.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.basset.CLIP_AMMO_MAX = 5
-						self.basset.AMMO_MAX = 40
+						self.basset.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 						self.basset.fire_mode_data.fire_rate = 0.1333333
 						self.basset.kick = self.stat_info.kick_tables.moderate_left_kick
 						self.basset.kick_pattern = {
@@ -13784,9 +13966,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.x_basset.sounds.fire_single = "basset_x_fire_single"
 
 					--Street Sweeper
-						self.striker.rays = 9
+						self.striker.rays = 9  -- [GPT合并1] 此项值原为8
 						self.striker.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.striker.AMMO_MAX = 40
+						self.striker.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 						self.striker.fire_mode_data.fire_rate = 0.2
 						self.striker.CAN_TOGGLE_FIREMODE = false
 						self.striker.CLIP_AMMO_MAX = 12
@@ -13824,8 +14006,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--Goliath 12G
 						self.rota.upgrade_blocks = nil
-						self.rota.AMMO_MAX = 40
-						self.rota.rays = 9
+						self.rota.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
+						self.rota.rays = 9  -- [GPT合并1] 此项值原为8
 						self.rota.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.rota.kick = self.stat_info.kick_tables.vertical_kick
 						self.rota.kick_pattern = {
@@ -13868,12 +14050,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m590.desc_id = "bm_menu_sc_m590_desc"
 						self.m590.has_description = true
 						self.m590.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.m590.rays = 9
+						self.m590.rays = 9  -- [GPT合并1] 此项值原为8
 						self.m590.CLIP_AMMO_MAX = 7
 						self.m590.kick = self.stat_info.kick_tables.vertical_kick
 						self.m590.fire_mode_data.fire_rate = 0.5
-						self.m590.fire_rate_multiplier = 1.04166
-						self.m590.AMMO_MAX = 60
+						self.m590.fire_rate_multiplier = 1.04166  -- [GPT合并1] 此项值原为0.9
+						self.m590.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 						self.m590.supported = true
 						self.m590.ads_speed = 0.320
 						self.m590.damage_falloff = {
@@ -13907,7 +14089,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.supernova.desc_id = "bm_supernova_sc_desc"
 						self.supernova.has_description = true
 						self.supernova.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.supernova.rays = 9
+						self.supernova.rays = 9  -- [GPT合并1] 此项值原为8
 						self.supernova.kick = self.stat_info.kick_tables.vertical_kick
 						self.supernova.kick_pattern = {
 							{0, self.stat_info.kick_tables.vertical_kick},
@@ -13916,10 +14098,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{5, self.stat_info.kick_tables.vertical_kick}
 						}
 						self.supernova.CLIP_AMMO_MAX = 4
-						self.supernova.AMMO_MAX = 60
+						self.supernova.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 						self.supernova.BURST_FIRE = false
 						self.supernova.fire_mode_data.fire_rate = 0.62
-						self.supernova.fire_rate_multiplier = 1.0333333
+						self.supernova.fire_rate_multiplier = 1.0333333  -- [GPT合并1] 此项值原为0.975
 						self.supernova.alt_fire_data = {
 							fire_rate = 0.3874998,
 							range_mul = 0.75,
@@ -13970,13 +14152,13 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.r870.desc_id = "bm_menu_sc_r870_desc"
 						self.r870.has_description = true
 						self.r870.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.r870.rays = 9
+						self.r870.rays = 9  -- [GPT合并1] 此项值原为8
 						self.r870.CLIP_AMMO_MAX = 8
 						self.r870.kick = self.stat_info.kick_tables.vertical_kick
 						self.r870.single.fire_rate = 0.5
 						self.r870.fire_mode_data.fire_rate = 0.5
-						self.r870.fire_rate_multiplier = 0.9583333
-						self.r870.AMMO_MAX = 60
+						self.r870.fire_rate_multiplier = 0.9583333  -- [GPT合并1] 此项值原为0.825
+						self.r870.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 						self.r870.supported = true
 						self.r870.ads_speed = 0.300
 						self.r870.damage_falloff = {
@@ -14000,7 +14182,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}		
 						self.r870.stats_modifiers = nil
 						self.r870.panic_suppression_chance = 0.05
-						self.r870.reload_speed_multiplier = 0.98
+						self.r870.reload_speed_multiplier = 0.98  -- [GPT合并1] 此项值原为0.97
 						self.r870.timers.shotgun_reload_enter = 0.3
 						self.r870.timers.shotgun_reload_first_shell_offset = 0.33
 						self.r870.timers.shotgun_reload_shell = 0.5666666666666667
@@ -14010,12 +14192,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Raven (KSG)
 						self.ksg.desc_id = "bm_menu_sc_ksg_desc"
 						self.ksg.has_description = true			
-						self.ksg.rays = 9
+						self.ksg.rays = 9  -- [GPT合并1] 此项值原为8
 						self.ksg.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.ksg.AMMO_MAX = 60
+						self.ksg.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 						self.ksg.CLIP_AMMO_MAX = 14
 						self.ksg.fire_mode_data.fire_rate = 0.5
-						self.ksg.fire_rate_multiplier = 0.875
+						self.ksg.fire_rate_multiplier = 0.875  -- [GPT合并1] 此项值原为0.775
 						self.ksg.kick = self.stat_info.kick_tables.vertical_kick		
 						self.ksg.supported = true
 						self.ksg.ads_speed = 0.340
@@ -14051,7 +14233,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m1897.desc_id = "bm_menu_sc_m1897_desc"
 						self.m1897.has_description = true				
 						self.m1897.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.m1897.rays = 9
+						self.m1897.rays = 9  -- [GPT合并1] 此项值原为8
 						self.m1897.CLIP_AMMO_MAX = 5
 						self.m1897.kick = self.stat_info.kick_tables.vertical_kick
 						self.m1897.kick_pattern = {
@@ -14060,7 +14242,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{4, self.stat_info.kick_tables.random_recoil}
 						}
 						self.m1897.fire_mode_data.fire_rate = 0.6
-						self.m1897.fire_rate_multiplier = 1.1
+						self.m1897.fire_rate_multiplier = 1.1  -- [GPT合并1] 此项值原为0.87
 						self.m1897.BURST_FIRE = {
 							count = 1,
 							rof_mult = 1.8,
@@ -14073,7 +14255,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							last_recoil_mult = 1.2
 						}
 						self.m1897.BURST_TYPE = "slam"
-						self.m1897.AMMO_MAX = 60
+						self.m1897.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 						self.m1897.supported = true
 						self.m1897.ads_speed = 0.280
 						self.m1897.damage_falloff = {
@@ -14099,16 +14281,16 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m1897.panic_suppression_chance = 0.05
 						self.m1897.timers.shotgun_reload_exit_not_empty = 0.9
 						self.m1897.timers.shotgun_reload_exit_empty = 0.9
-						self.ksg.reload_speed_multiplier = 1.1
+						self.ksg.reload_speed_multiplier = 1.1  -- [GPT合并1] ybspatch 新增/修改项
 				--SECONDARIES
 
 					--Loco 12g
 						self.serbu.has_description = true
 						self.serbu.desc_id = "bm_serbu_sc_desc"
-						self.serbu.rays = 9
+						self.serbu.rays = 9  -- [GPT合并1] 此项值原为8
 						self.serbu.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.serbu.CLIP_AMMO_MAX = 4
-						self.serbu.AMMO_MAX = 30
+						self.serbu.AMMO_MAX = 30  -- [GPT合并1] 此项值原为20
 						self.serbu.fire_mode_data.fire_rate = 0.5
 						self.serbu.kick = self.stat_info.kick_tables.moderate_kick
 						self.serbu.supported = true
@@ -14144,12 +14326,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--GSPS (Ithaca Model 37)
 						self.m37.desc_id = "bm_slamfire_generic_desc"
 						self.m37.has_description = true				
-						self.m37.rays = 9
+						self.m37.rays = 9  -- [GPT合并1] 此项值原为8
 						self.m37.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.m37.CLIP_AMMO_MAX = 5
-						self.m37.AMMO_MAX = 30
+						self.m37.AMMO_MAX = 30  -- [GPT合并1] 此项值原为20
 						self.m37.fire_mode_data.fire_rate = 0.6
-						self.m37.fire_rate_multiplier = 0.98
+						self.m37.fire_rate_multiplier = 0.98  -- [GPT合并1] 此项值原为0.85
 						self.m37.BURST_FIRE = {
 							count = 1,
 							rof_mult = 1.8,
@@ -14207,7 +14389,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							{3, self.stat_info.kick_tables.vertical_kick}
 						}
 						self.judge.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.judge.AMMO_MAX = 30
+						self.judge.AMMO_MAX = 30  -- [GPT合并1] 此项值原为20
 						self.judge.supported = true
 						self.judge.ads_speed = 0.200
 						self.judge.damage_falloff = {
@@ -14302,9 +14484,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Joceline O/U 12G (Beretta 682 Hybrid)
 						self.b682.desc_id = "bm_b682_sc_desc"
 						self.b682.has_description = true						
-						self.b682.rays = 9
+						self.b682.rays = 9  -- [GPT合并1] 此项值原为8
 						self.b682.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.b682.AMMO_MAX = 40
+						self.b682.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 						self.b682.fire_mode_data = {}
 						self.b682.CAN_TOGGLE_FIREMODE = false
 						self.b682.fire_mode_data.fire_rate = 0.2727272
@@ -14350,11 +14532,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Breaker 12g (Model 1887)
 						self.boot.desc_id = "bm_menu_sc_boot_desc"
 						self.boot.has_description = true
-						self.boot.AMMO_MAX = 40
+						self.boot.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 						self.boot.CLIP_AMMO_MAX = 6
 						self.boot.fire_mode_data.fire_rate = 1
-						self.boot.fire_rate_multiplier = 2.15552383 --此处修改
-						self.boot.rays = 9
+						self.boot.fire_rate_multiplier = 2.15552383  -- [GPT合并1] 此项值原为0.91667  --此处修改
+						self.boot.rays = 9  -- [GPT合并1] 此项值原为8
 						self.boot.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 						self.boot.kick = self.stat_info.kick_tables.right_kick
 						self.boot.supported = true
@@ -14394,9 +14576,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					--Mosconi 12G
 						self.huntsman.desc_id = "bm_menu_sc_huntsman_desc"
 						self.huntsman.has_description = true
-						self.huntsman.rays = 9
+						self.huntsman.rays = 9  -- [GPT合并1] 此项值原为8
 						self.huntsman.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.huntsman.AMMO_MAX = 40
+						self.huntsman.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 						self.huntsman.sounds.fire_single = "huntsman_fire"
 						self.huntsman.sounds.fire_auto = "huntsman_fire"
 						self.huntsman.BURST_FIRE = {
@@ -14452,14 +14634,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 
 					--Claire 12G
 						self.coach.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-						self.coach.rays = 9
+						self.coach.rays = 9  -- [GPT合并1] 此项值原为8
 						self.coach.kick = self.stat_info.kick_tables.vertical_kick
 						self.coach.kick_pattern = {
 							{0, self.stat_info.kick_tables.vertical_kick},
 							{2, self.stat_info.kick_tables.pattern_r4},
 							{3, self.stat_info.kick_tables.pattern_v4},
 						}
-						self.coach.AMMO_MAX = 20
+						self.coach.AMMO_MAX = 20  -- [GPT合并1] 此项值原为15
 						self.coach.sounds.fire_single = "coach_fire"
 						self.coach.sounds.fire_auto = "coach_fire"
 						self.coach.BURST_FIRE = {
@@ -14501,7 +14683,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.coach.timers.reload_not_empty = 1
 						self.coach.timers.reload_exit_not_empty = 1.65
 						self.coach.reload_speed_multiplier = 0.88
-						self.coach.swap_speed_multiplier = 1.1
+						self.coach.swap_speed_multiplier = 1.1  -- [GPT合并1] ybspatch 新增/修改项
 
 		--[[     SPECIALS     ]]--
 
@@ -14585,7 +14767,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.frankish.timers.reload_exit_empty = 0.8
 						self.frankish.timers.reload_exit_not_empty = 0.8
 						self.frankish.stats_modifiers = {damage = 4}
-						self.frankish.reload_speed_multiplier = 1.15
+						self.frankish.reload_speed_multiplier = 1.15  -- [GPT合并1] ybspatch 新增/修改项
 					
 					--Heavy Crossbow
 						self.arblast.upgrade_blocks = {
@@ -14621,7 +14803,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.arblast.timers.reload_exit_not_empty = 0.9
 						self.arblast.timers.reload_not_empty = 2.8
 						self.arblast.timers.reload_empty = 2.8
-						self.arblast.reload_speed_multiplier = 1.7
+						self.arblast.reload_speed_multiplier = 1.7  -- [GPT合并1] ybspatch 新增/修改项
 
 					--Plainsrider Bow
 						self.plainsrider.upgrade_blocks = {
@@ -14752,6 +14934,49 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.elastic.reload_speed_multiplier = 2.5
 
 				--SECONDARIES
+				
+					--Dart Gun
+						self.dart.categories = {
+							"crossbow",
+							"crossbow_pistol"
+						}
+						self.dart.upgrade_blocks = {
+							weapon = {
+								"clip_ammo_increase"
+							}
+						}
+						self.dart.damage_type = "sniper"
+						self.dart.has_description = true
+						self.dart.desc_id = "bm_dart_sc_desc"
+						self.dart.AMMO_MAX = 15
+						self.dart.panic_suppression_chance = 0.05
+						self.dart.ignore_damage_upgrades = true
+						self.dart.fire_mode_data.fire_rate = 1
+						self.dart.kick = self.stat_info.kick_tables.horizontal_recoil
+						self.dart.supported = true
+						self.dart.ads_speed = 0.160
+						self.dart.stats = {
+							damage = 120,
+							spread = 96,
+							recoil = 95,
+							spread_moving = 8,
+							zoom = 1,
+							concealment = 30,
+							suppression = 20,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.dart.panic_suppression_chance = 0.05
+						self.dart.stats_modifiers = {damage = 2}
+						self.dart.sprintout_anim_offset = 0.015
+						self.dart.timers.reload_not_empty = 2.4
+						self.dart.timers.reload_exit_not_empty = 1.1
+						self.dart.timers.reload_empty = 2.4
+						self.dart.timers.reload_exit_empty = 1.1
+				
 
 					--Pistol Crossbow
 						self.hunter.categories = {
@@ -14791,7 +15016,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.hunter.stats_modifiers = {damage = 2}
 						self.hunter.timers.reload_exit_empty = 0.3
 						self.hunter.timers.reload_exit_not_empty = 0.3
-						self.hunter.reload_speed_multiplier = 1.1
+						self.hunter.reload_speed_multiplier = 1.1  -- [GPT合并1] ybspatch 新增/修改项
 
 			--[[     LAUNCHERS     ]]
 
@@ -14810,9 +15035,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.gre_m79.AMMO_MAX = 10
 						self.gre_m79.alt_shotgunraycast = true
 						self.gre_m79.rays = 1
-						self.gre_m79.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.gre_m79.min_exp_dmg = 36
-						self.gre_m79.hit_fix = 0.775  --exp_func]]
+						self.gre_m79.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.gre_m79.min_exp_dmg = 36  -- [GPT合并1] ybspatch 新增/修改项
+						self.gre_m79.hit_fix = 0.775  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.gre_m79.supported = true
 						self.gre_m79.ads_speed = 0.360
 						self.gre_m79.damage_falloff = {
@@ -14853,9 +15078,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.m32.desc_id = "bm_m32_sc_desc"
 						self.m32.fire_mode_data.fire_rate = 0.6
 						self.m32.fire_rate_multiplier = 1.5
-						self.m32.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
-						self.m32.min_exp_dmg = 30
-						self.m32.hit_fix = 0.9  --exp_func]]
+						self.m32.exp_func = "linear"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.m32.min_exp_dmg = 30  -- [GPT合并1] ybspatch 新增/修改项
+						self.m32.hit_fix = 0.9  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						--self.m32.BURST_FIRE = 2
 						--self.m32.BURST_FIRE_RATE_MULTIPLIER = 3
 						--self.m32.BURST_FIRE_RECOIL_MULTIPLIER = 1.5
@@ -14911,8 +15136,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 							rof_mult = 8,
 						}
 						self.ray.rays = 1
-						self.ray.exp_func = "no_falloff"
-						self.ray.hit_fix = 0.75
+						self.ray.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项
+						self.ray.hit_fix = 0.75  -- [GPT合并1] ybspatch 新增/修改项
 						self.ray.supported = true
 						self.ray.shake.fire_steelsight_multiplier = -2
 						self.ray.ads_speed = 0.540
@@ -14971,9 +15196,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						}
 						self.ms3gl.burst = nil
 						self.ms3gl.AMMO_MAX = 10
-						self.ms3gl.exp_func = "quad_op"  --此处修改，自定义爆炸衰减[[exp_func
-						self.ms3gl.min_exp_dmg = 15
-						self.ms3gl.hit_fix = 0.9  --exp_func]]
+						self.ms3gl.exp_func = "quad_op"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.ms3gl.min_exp_dmg = 15  -- [GPT合并1] ybspatch 新增/修改项
+						self.ms3gl.hit_fix = 0.9  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.ms3gl.alt_shotgunraycast = true
 						self.ms3gl.rays = 1
 						self.ms3gl.kick = self.stat_info.kick_tables.vertical_kick
@@ -15011,9 +15236,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.arbiter.fire_mode_data.fire_rate = 0.5
 						self.arbiter.CLIP_AMMO_MAX = 5
 						self.arbiter.AMMO_MAX = 6
-						self.arbiter.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
-						self.arbiter.min_exp_dmg = 25
-						self.arbiter.hit_fix = 0.9  --exp_func]]
+						self.arbiter.exp_func = "linear"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.arbiter.min_exp_dmg = 25  -- [GPT合并1] ybspatch 新增/修改项
+						self.arbiter.hit_fix = 0.9  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.arbiter.alt_shotgunraycast = true
 						self.arbiter.rays = 1
 						self.arbiter.supported = true
@@ -15057,9 +15282,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.slap.fire_mode_data.fire_rate = 1.2
 						self.slap.kick = self.stat_info.kick_tables.vertical_kick
 						self.slap.AMMO_MAX = 5
-						self.slap.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-						self.slap.min_exp_dmg = 36
-						self.slap.hit_fix = 0.825  --exp_func]]
+						self.slap.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.slap.min_exp_dmg = 36  -- [GPT合并1] ybspatch 新增/修改项
+						self.slap.hit_fix = 0.825  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.slap.alt_shotgunraycast = true
 						self.slap.rays = 1
 						self.slap.supported = true
@@ -15104,9 +15329,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.china.AMMO_MAX = 5
 						self.china.alt_shotgunraycast = true
 						self.china.rays = 1
-						self.china.exp_func = "linear"  --此处修改，自定义爆炸衰减[[exp_func
-						self.china.min_exp_dmg = 30
-						self.china.hit_fix = 0.875  --exp_func]]
+						self.china.exp_func = "linear"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+						self.china.min_exp_dmg = 30  -- [GPT合并1] ybspatch 新增/修改项
+						self.china.hit_fix = 0.875  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 						self.china.kick = self.stat_info.kick_tables.vertical_kick
 						self.china.supported = true
 						self.china.ads_speed = 0.500
@@ -15147,8 +15372,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.rpg7.kick = self.stat_info.kick_tables.vertical_kick
 						self.rpg7.has_description = true
 						self.rpg7.rays = 1
-						self.rpg7.exp_func = "no_falloff"
-						self.rpg7.hit_fix = 0.75
+						self.rpg7.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项
+						self.rpg7.hit_fix = 0.75  -- [GPT合并1] ybspatch 新增/修改项
 						self.rpg7.desc_id = "bm_rocket_launcher_sc_desc"
 						self.rpg7.fire_mode_data.fire_rate = 2
 						self.rpg7.AMMO_MAX = 3
@@ -15183,6 +15408,53 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						self.rpg7.timers.reload_not_empty = 4.1
 						self.rpg7.timers.reload_exit_empty = 3.1
 						self.rpg7.timers.reload_exit_not_empty = 3.1
+						
+					--Flare Gun
+						self.flun.categories = {
+							"grenade_launcher",
+							"gl_pistol",
+							"keep_ammo_max"
+						}
+						self.flun.upgrade_blocks = {
+							weapon = {
+								"clip_ammo_increase"
+							}
+						}
+						self.flun.has_description = true
+						self.flun.fire_mode_data.fire_rate = 0.3
+						self.flun.AMMO_MAX = 15
+						self.flun.kick = self.stat_info.kick_tables.moderate_kick
+						self.flun.rays = 1
+						self.flun.alt_shotgunraycast = true
+						self.flun.supported = true
+						self.flun.ads_speed = 0.160
+						self.flun.damage_falloff = {
+							start_dist = 300,
+							end_dist = 1800,
+							min_mult = 0.1333
+						}
+						self.flun.stats = {
+							damage = 30,
+							spread = 51,
+							recoil = 51,
+							spread_moving = 5,
+							zoom = 1,
+							concealment = 30,
+							suppression = 8,
+							alert_size = 2,
+							extra_ammo = 101,
+							total_ammo_mod = 400,
+							value = 1,
+							reload = 25
+						}
+						self.flun.stats_modifiers = { damage = 2 }
+						self.flun.reload_speed_multiplier = 1
+						self.flun.timers.reload_empty = 1.62
+						self.flun.timers.reload_exit_empty = 1
+						self.flun.timers.reload_not_empty = 1.62
+						self.flun.timers.reload_exit_not_empty = 1
+						self.flun.panic_suppression_chance = 0.05
+						
 
 			--OVE9000 SAW
 				self.saw.has_description = true
@@ -15292,7 +15564,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.shatters_fury.can_shoot_through_shield = true
 			self.shatters_fury.can_shoot_through_wall = true
 			self.shatters_fury.armor_piercing_chance = 1
-			self.shatters_fury.object_damage_mult = 2
+			self.shatters_fury.object_damage_mult = 2  -- [GPT合并1] 此项值原为1.8
 			--self.shatters_fury.animations.reload_name_id = "chinchilla"
 			self.shatters_fury.reload_speed_multiplier = 0.9
 			self.shatters_fury.force_shake = true
@@ -15760,9 +16032,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.amr12.recategorize = { "light_shot" }	
 					self.amr12.damage_type = "shotgun"
 					self.amr12.damage_type_single_ray = "sniper"
-					self.amr12.rays = 9
+					self.amr12.rays = 9  -- [GPT合并1] 此项值原为8
 					self.amr12.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-					self.amr12.AMMO_MAX = 80
+					self.amr12.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 					self.amr12.tactical_reload = 1		
 					self.amr12.CLIP_AMMO_MAX = 5
 					self.amr12.fire_mode_data.fire_rate = 0.17142857
@@ -15776,7 +16048,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						{5, self.stat_info.kick_tables.right_recoil}
 					}
 					self.amr12.supported = true
-					self.amr12.ads_speed = 0.290
+					self.amr12.ads_speed = 0.290  -- [GPT合并1] 此项值原为0.400
 					self.amr12.damage_falloff = {
 						start_dist = 500,
 						end_dist = 2800,
@@ -15798,7 +16070,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.amr12.panic_suppression_chance = 0.05
 					self.amr12.stats_modifiers = {damage = 1}
 					self.amr12.sounds.stop_fire = "contraband_fire_single"
-					self.amr12.reload_speed_multiplier = 1.3
+					self.amr12.reload_speed_multiplier = 1.3  -- [GPT合并1] ybspatch 新增/修改项
 					self.amr12.timers = deep_clone(self.olympic.timers)
 				end
 			
@@ -15809,7 +16081,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.minibeck.tactical_reload = 1
 					self.minibeck.fire_mode_data.fire_rate = 0.2
 					self.minibeck.CLIP_AMMO_MAX = 5
-					self.minibeck.AMMO_MAX = 40
+					self.minibeck.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 					self.minibeck.supported = true
 					self.minibeck.ads_speed = 0.280
 					self.minibeck.damage_falloff = {
@@ -15839,7 +16111,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.minibeck.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 					self.minibeck.panic_suppression_chance = 0.05
 					self.minibeck.stats_modifiers = nil
-					self.minibeck.rays = 9
+					self.minibeck.rays = 9  -- [GPT合并1] 此项值原为8
 					self.minibeck.reload_speed_multiplier = 1
 					self.minibeck.reload_fix_offset = 0.25
 					self.minibeck.timers.shotgun_reload_enter = 0.3
@@ -15856,15 +16128,15 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.beck.has_description = true
 					self.beck.desc_id = "bm_w_beck_desc"
 					self.beck.tactical_reload = 1
-					self.beck.rays = 9
+					self.beck.rays = 9  -- [GPT合并1] 此项值原为8
 					self.beck.CLIP_AMMO_MAX = 6
 					self.beck.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 					self.beck.kick = self.stat_info.kick_tables.left_kick
 					self.beck.fire_mode_data.fire_rate = 0.5
 					self.beck.fire_rate_multiplier = 0.9166666
-					self.beck.AMMO_MAX = 60
+					self.beck.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40
 					self.beck.supported = true
-					self.beck.ads_speed = 0.300
+					self.beck.ads_speed = 0.300  -- [GPT合并1] 此项值原为0.320
 					self.beck.damage_falloff = {
 						start_dist = 800,
 						end_dist = 3400,
@@ -15900,12 +16172,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.bs23.damage_type_single_ray = "anti_materiel"
 					self.bs23.always_play_anims = true
 					self.bs23.tactical_reload = 1
-					self.bs23.AMMO_MAX = 40
+					self.bs23.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 					self.bs23.CLIP_AMMO_MAX = 3
 					self.bs23.reload_speed_multiplier = 1.3
-					self.bs23.fire_rate_multiplier = 1.75 --此处修改
+					self.bs23.fire_rate_multiplier = 1.75  -- [GPT合并1] 此项值原为1.20  --此处修改
 					self.bs23.fire_mode_data.fire_rate = 1.3
-					self.bs23.rays = 9
+					self.bs23.rays = 9  -- [GPT合并1] 此项值原为8
 					self.bs23.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 					self.bs23.kick = self.stat_info.kick_tables.right_kick
 					self.bs23.supported = true
@@ -16080,7 +16352,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			
 				if self.spike then --Gambyt's Spike Rifle
 					self.spike.warsaw = true
-					self.spike.newline_num = 1
+					self.spike.newline_num = 1  -- [GPT合并1] ybspatch 新增/修改项
 					self.spike.recategorize = { "heavy_ar" }
 					self.spike.is_bullpup = true
 					self.spike.has_description = false						
@@ -16116,8 +16388,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
-					self.spike.armor_piercing_chance = 0.15 --此处添加
-					self.spike.has_daring_ap_desc = true --此处添加
+					self.spike.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+					self.spike.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 					self.spike.stats_modifiers = nil
 					self.spike.rays = nil
 					self.spike.reload_speed_multiplier = 0.8
@@ -16270,7 +16542,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					self.qsho.has_description = true
 					self.qsho.no_auto_anims = true	
 					self.qsho.desc_id = "bm_quake_shotgun_sc_desc"
-					self.qsho.AMMO_MAX = 20
+					self.qsho.AMMO_MAX = 20  -- [GPT合并1] 此项值原为15
 					self.qsho.kick = self.stat_info.kick_tables.vertical_kick
 					self.qsho.supported = true
 					self.qsho.ads_speed = 0.400
@@ -16496,11 +16768,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 1,
 					reload = 20
 				}
-				self.tilt.armor_piercing_chance = 0.15
-				self.tilt.has_daring_ap_desc = true
+				self.tilt.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项
+				self.tilt.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 				self.tilt.stats_modifiers = nil
-				self.tilt.object_damage_mult = 0.85
-                self.tilt.hs_mult = 0.85
+				self.tilt.object_damage_mult = 0.85  -- [GPT合并1] ybspatch 新增/修改项
+                self.tilt.hs_mult = 0.85  -- [GPT合并1] ybspatch 新增/修改项
 				self.tilt.panic_suppression_chance = 0.05
 				self.tilt.timers = deep_clone(self.flint.timers)
 			end
@@ -16599,12 +16871,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 		--[[     ZDANN'S MODS     ]]--
 			if self.akm_nomag then --Leather Dann's Early Access AK
 				self.akm_nomag.warsaw = true
-				self.akm_nomag.newline_num = 1  --文本换行次数
-				self.akm_nomag.has_daring_ap_desc = true  --用于显示文本
-				self.akm_nomag.armor_piercing_chance = 0.3  --此处添加
+				self.akm_nomag.newline_num = 1  -- [GPT合并1] ybspatch 新增/修改项  --文本换行次数
+				self.akm_nomag.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --用于显示文本
+				self.akm_nomag.armor_piercing_chance = 0.3  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 				self.akm_nomag.recategorize = { "heavy_ar" }
 				self.akm_nomag.has_description = false
-				self.akm_nomag.AMMO_MAX = 40
+				self.akm_nomag.AMMO_MAX = 40  -- [GPT合并1] 此项值原为120
 				self.akm_nomag.fire_mode_data.fire_rate = 0.1
 				self.akm_nomag.kick = self.stat_info.kick_tables.moderate_right_kick
 				self.akm_nomag.kick_pattern = {
@@ -16825,7 +17097,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					"raygun"
 				}
 				self.raygun.use_data.selection_index = 2
-				self.raygun.AMMO_MAX = 40
+				self.raygun.AMMO_MAX = 40  -- [GPT合并1] 此项值原为60
 				self.raygun.fire_mode_data.fire_rate = 0.33149171270
 				self.raygun.kick = self.stat_info.kick_tables.even_recoil
 				self.raygun.kick_pattern = {
@@ -17450,14 +17722,14 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.fp45.recategorize = {"heavy_pis"}
 				self.fp45.damage_type = "handcannon"
 				self.fp45.has_description = true
-				self.fp45.desc_id = "bm_fp45_sc_desc"
+				self.fp45.desc_id = "bm_fp45_sc_desc"  -- [GPT合并1] 此项值原为"bm_ap_weapon_sc_desc"
 				self.fp45.lock_slide = true
 				self.fp45.always_play_anims = true
 				self.fp45.fire_mode_data.fire_rate = 0.08571428571
 				self.fp45.single.fire_rate = 0.08571428571
 				self.fp45.CLIP_AMMO_MAX = 1
-				self.fp45.AMMO_MAX = 10
-				self.fp45.object_damage_mult = 5.2
+				self.fp45.AMMO_MAX = 10  -- [GPT合并1] 此项值原为24
+				self.fp45.object_damage_mult = 5.2  -- [GPT合并1] ybspatch 新增/修改项
 				self.fp45.kick = self.stat_info.kick_tables.left_recoil
 				self.fp45.kick_pattern = {
 					{0, self.stat_info.kick_tables.vertical_kick},
@@ -17493,8 +17765,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.fp45.can_shoot_through_enemy_unlim = true
 				self.fp45.can_shoot_through_wall = true
 				self.fp45.can_shoot_through_shield = true
-				self.fp45.can_shoot_through_titan_shield = true
-				self.fp45.reload_speed_multiplier = 1.16
+				self.fp45.can_shoot_through_titan_shield = true  -- [GPT合并1] ybspatch 新增/修改项
+				self.fp45.reload_speed_multiplier = 1.16  -- [GPT合并1] 此项值原为1.1
 				self.fp45.timers.reload_not_empty = 6.4
 				self.fp45.timers.reload_exit_not_empty = 1.3
 				self.fp45.timers.reload_empty = 6.4
@@ -17781,7 +18053,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.lewis.stats_modifiers = nil
 				self.lewis.sounds.spin_start = "wp_mg42_lever_release"
 				self.lewis.spin_up_shoot = true
-				self.lewis.spin_up_t = 0.08 * 0.15
+				self.lewis.spin_up_t = 0.08 * 0.15  -- [GPT合并1] 此项值原为0.08
 				self.lewis.spin_down_t = 0.0000000001
 				self.lewis.reload_speed_multiplier = 0.9
 				self.lewis.timers.reload_not_empty = 2.95
@@ -17798,9 +18070,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.mp153.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 				self.mp153.sounds.stop_fire = "saiga_stop"
 				self.mp153.tactical_reload = 1
-				self.mp153.CLIP_AMMO_MAX = 4
-				self.mp153.rays = 7
-				self.mp153.AMMO_MAX = 80
+				self.mp153.CLIP_AMMO_MAX = 4  -- [GPT合并1] ybspatch 新增/修改项
+				self.mp153.rays = 7  -- [GPT合并1] 此项值原为8
+				self.mp153.AMMO_MAX = 80  -- [GPT合并1] 此项值原为60
 				self.mp153.fire_mode_data.fire_rate = 0.1875
 				self.mp153.kick = self.stat_info.kick_tables.moderate_kick
 				self.mp153.kick_pattern = {
@@ -17809,7 +18081,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					{4, self.stat_info.kick_tables.moderate_right_kick}
 				}
 				self.mp153.supported = true
-				self.mp153.ads_speed = 0.295
+				self.mp153.ads_speed = 0.295  -- [GPT合并1] 此项值原为0.400
 				self.mp153.damage_falloff = {
 					start_dist = 800,
 					end_dist = 5200,
@@ -17830,7 +18102,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.mp153.stats_modifiers = nil
 				self.mp153.panic_suppression_chance = 0.05
-				self.mp153.reload_speed_multiplier = 1.15
+				self.mp153.reload_speed_multiplier = 1.15  -- [GPT合并1] 此项值原为1
 				self.mp153.timers.shotgun_reload_exit_empty = 1.65
 				self.mp153.timers.shotgun_reload_exit_not_empty = 0.75
 			end
@@ -17841,8 +18113,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.wmtx.damage_type_single_ray = "sniper"
 				self.wmtx.upgrade_blocks = nil
 				self.wmtx.CLIP_AMMO_MAX = 6
-				self.wmtx.AMMO_MAX = 30
-				self.wmtx.rays = 9
+				self.wmtx.AMMO_MAX = 30  -- [GPT合并1] 此项值原为20
+				self.wmtx.rays = 9  -- [GPT合并1] 此项值原为8
 				self.wmtx.CAN_TOGGLE_FIREMODE = false
 				self.wmtx.BURST_FIRE = false
 				self.wmtx.FIRE_MODE = "single"
@@ -17890,8 +18162,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.jackhammer.damage_type_single_ray = "sniper"
 				self.jackhammer.upgrade_blocks = nil
 				self.jackhammer.CLIP_AMMO_MAX = 10
-				self.jackhammer.AMMO_MAX = 40
-				self.jackhammer.rays = 9
+				self.jackhammer.AMMO_MAX = 40  -- [GPT合并1] 此项值原为20
+				self.jackhammer.rays = 9  -- [GPT合并1] 此项值原为8
 				self.jackhammer.CAN_TOGGLE_FIREMODE = true
 				self.jackhammer.BURST_FIRE = false
 				self.jackhammer.FIRE_MODE = "auto"
@@ -17940,7 +18212,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.quadbarrel.damage_type_single_ray = "sniper"
 				self.quadbarrel.always_play_anims = true
 				self.quadbarrel.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
-				self.quadbarrel.rays = 9
+				self.quadbarrel.rays = 9  -- [GPT合并1] 此项值原为8
 				self.quadbarrel.kick = self.stat_info.kick_tables.vertical_kick
 				self.quadbarrel.kick_pattern = {
 					{0, self.stat_info.kick_tables.random_recoil},
@@ -17948,7 +18220,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					{2, self.stat_info.kick_tables.right_recoil},
 					{4, self.stat_info.kick_tables.random_recoil}
 				}
-				self.quadbarrel.AMMO_MAX = 40
+				self.quadbarrel.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 				self.quadbarrel.sounds.stop_fire = "judge_x_fire"
 				self.quadbarrel.BURST_FIRE = {
 					count = 4,
@@ -17998,10 +18270,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ks23.damage_type_single_ray = "anti_materiel"
 				self.ks23.tactical_reload = 1
 				self.ks23.reload_speed_multiplier = 1.3
-				self.ks23.fire_rate_multiplier = 1.725 --此处修改
+				self.ks23.fire_rate_multiplier = 1.725  -- [GPT合并1] 此项值原为1.20  --此处修改
 				self.ks23.fire_mode_data.fire_rate = 1.3
-				self.ks23.rays = 9
-				self.ks23.AMMO_MAX = 40
+				self.ks23.rays = 9  -- [GPT合并1] 此项值原为8
+				self.ks23.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 				self.ks23.CLIP_AMMO_MAX = 3		
 				self.ks23.kick = self.stat_info.kick_tables.vertical_kick
 				self.ks23.supported = true
@@ -18051,7 +18323,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					{3, self.stat_info.kick_tables.random_recoil}
 				}
 				self.super.CLIP_AMMO_MAX = 1
-				self.super.AMMO_MAX = 20
+				self.super.AMMO_MAX = 20  -- [GPT合并1] 此项值原为18
 				self.super.CAN_TOGGLE_FIREMODE = false							
 				self.super.BURST_FIRE = false
 				self.super.fire_mode_data.fire_rate = 0.5
@@ -18081,7 +18353,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.super.reload_speed_multiplier = 1.5
 				self.super.timers.reload_exit_empty = 0.4
 				self.super.timers.reload_exit_not_empty = 0.4
-				self.super.armor_piercing_chance = 0.5
+				self.super.armor_piercing_chance = 0.5  -- [GPT合并1] ybspatch 新增/修改项
 			end
 
 			if self.fazertron then --Pawcio's Calico M960
@@ -18293,7 +18565,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ak12.damage_type = "assault_rifle"
 				self.ak12.tactical_reload = 1
 				self.ak12.warsaw = true
-				self.ak12.newline_num = 1  --此处添加
+				self.ak12.newline_num = 1  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 				self.ak12.AMMO_MAX = 150
 				self.ak12.CLIP_AMMO_MAX = 30
 				self.ak12.BURST_FIRE = {
@@ -18334,8 +18606,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 4,
 					reload = 20
 				}
-				self.ak12.armor_piercing_chance = 0.15 --此处添加
-				self.ak12.has_daring_ap_desc = true --此处添加
+				self.ak12.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+				self.ak12.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 				self.ak12.stats_modifiers = nil
 				self.ak12.panic_suppression_chance = 0.05
 				self.ak12.ignore_reload_objects = true --ignores the object hiding flag set via weaponbase in favor of playerstandard's
@@ -18732,9 +19004,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					value = 4,
 					reload = 20
 				}
-				self.g3hk79.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-                self.g3hk79.min_exp_dmg = 24
-                self.g3hk79.hit_fix = 0.95  --exp_func]]
+				self.g3hk79.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+                self.g3hk79.min_exp_dmg = 24  -- [GPT合并1] ybspatch 新增/修改项
+                self.g3hk79.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 				self.g3hk79.stats_modifiers = nil
 				self.g3hk79.panic_suppression_chance = 0.05
 				self.g3hk79.armor_piercing_chance = 0.5
@@ -19179,7 +19451,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.musket.panic_suppression_chance = 0.05
 				self.musket.spin_up_semi = true
 				self.musket.spin_up_shoot = true
-				self.musket.spin_up_t = 0.16 * 0.15
+				self.musket.spin_up_t = 0.16 * 0.15  -- [GPT合并1] 此项值原为0.16
 				self.musket.spin_down_t = 0.00000001
 				self.musket.sounds.spin_start = "wp_baka_lever_pull"
 				self.musket.reload_speed_multiplier = 1
@@ -19195,13 +19467,13 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.m107cq.recategorize = { "antim_snp" }
 				self.m107cq.hs_mult = 2
-				self.m107cq.object_damage_mult = 2.75
+				self.m107cq.object_damage_mult = 2.75  -- [GPT合并1] ybspatch 新增/修改项
 				self.m107cq.damage_type = "anti_materiel"
 				self.m107cq.upgrade_blocks = nil
 				self.m107cq.has_description = true
 				self.m107cq.desc_id = "bm_m107cq_sc_desc"
 				self.m107cq.tactical_reload = 1
-				self.m107cq.AMMO_MAX = 20
+				self.m107cq.AMMO_MAX = 20  -- [GPT合并1] 此项值原为18
 				self.m107cq.fire_mode_data.fire_rate = 0.48
 				self.m107cq.sms = sms_preset.semi_snp_amr
 				self.m107cq.kick = deep_clone(self.stat_info.kick_tables.right_kick)
@@ -19257,7 +19529,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.m200.upgrade_blocks = nil
 				self.m200.has_description = true
 				self.m200.desc_id = "bm_m200_sc_desc"
-				self.m200.AMMO_MAX = 15
+				self.m200.AMMO_MAX = 15  -- [GPT合并1] 此项值原为12
 				self.m200.CLIP_AMMO_MAX = 7
 				self.m200.tactical_reload = 1
 				self.m200.kick = self.stat_info.kick_tables.moderate_right_kick
@@ -19308,13 +19580,13 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.amr2.recategorize = { "antim_snp" }
 				self.amr2.hs_mult = 2
-				self.amr2.object_damage_mult = 3
+				self.amr2.object_damage_mult = 3  -- [GPT合并1] ybspatch 新增/修改项
 				self.amr2.damage_type = "anti_materiel"
 				self.amr2.always_play_anims = true
 				self.amr2.upgrade_blocks = nil
 				self.amr2.has_description = true
 				self.amr2.desc_id = "bm_m200_sc_desc"
-				self.amr2.AMMO_MAX = 15
+				self.amr2.AMMO_MAX = 15  -- [GPT合并1] 此项值原为12
 				self.amr2.CLIP_AMMO_MAX = 5
 				self.amr2.tactical_reload = 1
 				self.amr2.kick = self.stat_info.kick_tables.moderate_right_kick
@@ -19511,7 +19783,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			if self.deckard then 
 				self.deckard.recategorize = {"heavy_pis", "handcannon"}
 				self.deckard.has_description = true
-				self.deckard.desc_id = "bm_w_deckard_sc_desc"
+				self.deckard.desc_id = "bm_w_deckard_sc_desc"  -- [GPT合并1] 此项值原为"bm_ap_armor_50_weapon_sc_desc"
 				self.deckard.armor_piercing_chance = 0.5
 				self.deckard.can_shoot_through_enemy = true
 				self.deckard.plasma_b = true
@@ -19882,7 +20154,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.coltds.desc_id = "bm_lemon_dmc_desc"
 				self.coltds.fire_mode_data = {}
 				self.coltds.fire_mode_data.fire_rate = 0.139534
-				self.coltds.AMMO_MAX = 40
+				self.coltds.AMMO_MAX = 40  -- [GPT合并1] 此项值原为30
 				self.coltds.kick = self.stat_info.kick_tables.moderate_kick
 				self.coltds.kick_pattern = {
 					{0, self.stat_info.kick_tables.vertical_kick},
@@ -19956,7 +20228,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.tommy.stats_modifiers = nil
 				self.tommy.sounds.spin_start = "wp_m1928_lever_release"
 				self.tommy.spin_up_shoot = true
-				self.tommy.spin_up_t = 0.07 * 0.15
+				self.tommy.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 				self.tommy.spin_down_t = 0.00000001
 				self.tommy.timers.reload_exit_empty = 0.9
 				self.tommy.timers.reload_exit_not_empty = 0.8
@@ -20119,10 +20391,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				table.insert(self.cssdeagle.categories, "cs_spread")
 				self.cssdeagle.recategorize = { "heavy_pis", "handcannon" }
 				self.cssdeagle.damage_type = "handcannon"
-				self.cssdeagle.desc_id = "bm_cssdeagle_sc_desc"
+				self.cssdeagle.desc_id = "bm_cssdeagle_sc_desc"  -- [GPT合并1] 此项值原为"bm_ap_armor_75_weapon_sc_desc"
 				self.cssdeagle.has_description = true
 				self.cssdeagle.object_damage_mult = 1.2
-				self.cssdeagle.AMMO_MAX = 30+12
+				self.cssdeagle.AMMO_MAX = 30+12  -- [GPT合并1] 此项值原为20
 				self.cssdeagle.fire_mode_data.fire_rate = 0.2247191
 				self.cssdeagle.kick = self.stat_info.kick_tables.left_recoil
 				self.cssdeagle.kick_pattern = {
@@ -20507,9 +20779,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.damage_type = "shotgun_heavy"
 				self.thorhammer.damage_type_single_ray = "sniper"
 				self.thorhammer.tactical_reload = 1
-				self.thorhammer.fire_mode_data.fire_rate = 0.375 --此处修改，让它有更好的射速使它在近距离更具优势
+				self.thorhammer.fire_mode_data.fire_rate = 0.375  -- [GPT合并1] 此项值原为0.5  --此处修改，让它有更好的射速使它在近距离更具优势
 				self.thorhammer.CLIP_AMMO_MAX = 12
-				self.thorhammer.AMMO_MAX = 60  --此处修改，原40
+				self.thorhammer.AMMO_MAX = 60  -- [GPT合并1] 此项值原为40  --此处修改，原40
 				self.thorhammer.kick = self.stat_info.kick_tables.right_recoil
 				self.thorhammer.kick_pattern = {
 					{0, self.stat_info.kick_tables.left_recoil},
@@ -20520,7 +20792,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.thorhammer.muzzleflash = "effects/payday2/particles/weapons/big_51b_auto_fps" --"effects/particles/shotgun/shotgun_gen"
 				self.thorhammer.FIRE_MODE = "single"				
 				self.thorhammer.CAN_TOGGLE_FIREMODE = false
-				self.thorhammer.rays = 9 --此处修改
+				self.thorhammer.rays = 9  -- [GPT合并1] 此项值原为8  --此处修改
 				self.thorhammer.supported = true
 				self.thorhammer.ads_speed = 0.300
 				self.thorhammer.damage_falloff = { --此处修改
@@ -21161,10 +21433,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.alpha57_prim.BURST_FIRE = false
 				self.alpha57_prim.fire_mode_data.fire_rate = 0.0857142
 				self.alpha57_prim.CLIP_AMMO_MAX = 50
-				self.alpha57_prim.AMMO_MAX = 150
+				self.alpha57_prim.AMMO_MAX = 150  -- [GPT合并1] 此项值原为180
 				self.alpha57_prim.supported = true
 				self.alpha57_prim.ads_speed = 0.260
-				self.alpha57_prim.hs_mult = 1.666666
+				self.alpha57_prim.hs_mult = 1.666666  -- [GPT合并1] 此项值原为1.33333
 				self.alpha57_prim.armor_piercing_chance = 0.75
 				self.alpha57_prim.can_shoot_through_enemy = false
 				self.alpha57_prim.can_shoot_through_shield = false
@@ -21699,11 +21971,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					"smg"
 				}
 				self.stoner63a.damage_type = "machine_gun"
-				self.stoner63a.CLIP_AMMO_MAX = 100
+				self.stoner63a.CLIP_AMMO_MAX = 100  -- [GPT合并1] 此项值原为75
 				self.stoner63a.BURST_FIRE = false
 				self.stoner63a.CAN_TOGGLE_FIREMODE = false
 				self.stoner63a.fire_mode_data.fire_rate = 0.0829875
-				self.stoner63a.AMMO_MAX = 320
+				self.stoner63a.AMMO_MAX = 320  -- [GPT合并1] 此项值原为300
 				self.stoner63a.kick = self.stat_info.kick_tables.random_right_recoil
 				self.stoner63a.always_use_standing = true
 				self.stoner63a.muzzleflash = "_dmc/effects/heavy_muzzle"
@@ -21733,7 +22005,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.stoner63a.panic_suppression_chance = 0.05
 				self.stoner63a.sounds.spin_start = "wp_m60_reload_lever_release"
 				self.stoner63a.spin_up_shoot = true
-				self.stoner63a.spin_up_t = 0.07 * 0.15
+				self.stoner63a.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 				self.stoner63a.spin_down_t = 0.00000001
 				self.stoner63a.reload_speed_multiplier = 0.98
 				self.stoner63a.sms = sms_preset.lmg_48
@@ -21974,7 +22246,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.cp2077_guts.descope_on_fire_ignore_setting = true
 				self.cp2077_guts.hipfire_shake = true
 				self.cp2077_guts.supported = true
-				self.cp2077_guts.ads_speed = 0.320 --此处修改
+				self.cp2077_guts.ads_speed = 0.320  -- [GPT合并1] 此项值原为0.400  --此处修改
 				self.cp2077_guts.damage_falloff = {
 					start_dist = 800,
 					end_dist = 3000,
@@ -22100,7 +22372,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.swhiskey.armor_piercing_chance = 1
 				self.swhiskey.spin_up_semi = true
 				self.swhiskey.spin_up_shoot = true
-				self.swhiskey.spin_up_t = 0.08 * 0.15
+				self.swhiskey.spin_up_t = 0.08 * 0.15  -- [GPT合并1] 此项值原为0.08
 				self.swhiskey.spin_down_t = 0.00000001
 				self.swhiskey.object_damage_mult = 1.8
 				self.swhiskey.timers.reload_empty = 2.05
@@ -22722,8 +22994,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
-					self.akilo_2022.armor_piercing_chance = 0.15 --此处添加
-					self.akilo_2022.has_daring_ap_desc = true --此处添加
+					self.akilo_2022.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+					self.akilo_2022.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 					self.akilo_2022.stats_modifiers = nil
 					self.akilo_2022.reload_speed_multiplier = 1.45
 					self.akilo_2022.timers.reload_exit_empty = 0.8
@@ -22772,8 +23044,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 						value = 1,
 						reload = 20
 					}
-					self.akilo105_2022.armor_piercing_chance = 0.15 --此处添加
-					self.akilo105_2022.has_daring_ap_desc = true --此处添加
+					self.akilo105_2022.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+					self.akilo105_2022.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 					self.akilo105_2022.stats_modifiers = nil
 					self.akilo105_2022.reload_speed_multiplier = 1.72
 					self.akilo105_2022.timers.reload_exit_empty = 0.8
@@ -22892,8 +23164,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.sig_xm250.damage_type = "machine_gun"
 				self.sig_xm250.sms = sms_preset.lmg_60
 				self.sig_xm250.weapon_movement_penalty = sms_preset.lmg_60
-				self.sig_xm250.CLIP_AMMO_MAX = 80
-				self.sig_xm250.AMMO_MAX = 260
+				self.sig_xm250.CLIP_AMMO_MAX = 80  -- [GPT合并1] 此项值原为50
+				self.sig_xm250.AMMO_MAX = 260  -- [GPT合并1] 此项值原为240
 				self.sig_xm250.FIRE_MODE = "auto"
 				self.sig_xm250.fire_mode_data.fire_rate = 0.075
 				self.sig_xm250.CAN_TOGGLE_FIREMODE = false
@@ -22936,7 +23208,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.sig_xm250.reload_speed_multiplier = 0.8
 				self.sig_xm250.sounds.spin_start = "wp_m249_lever_release"
 				self.sig_xm250.spin_up_shoot = true
-				self.sig_xm250.spin_up_t = 0.07 * 0.15
+				self.sig_xm250.spin_up_t = 0.07 * 0.15  -- [GPT合并1] 此项值原为0.07
 				self.sig_xm250.spin_down_t = 0.00000001
 				self.sig_xm250.timers.reload_empty = 3.5
 				self.sig_xm250.timers.reload_exit_empty = 0.5
@@ -22993,7 +23265,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ngsierra.sounds.spin_start = "wp_m249_lever_release"
 				self.ngsierra.sounds.magazine_empty = "wp_rifle_slide_lock"
 				self.ngsierra.spin_up_shoot = true
-				self.ngsierra.spin_up_t = 0.1 * 0.15
+				self.ngsierra.spin_up_t = 0.1 * 0.15  -- [GPT合并1] 此项值原为0.1
 				self.ngsierra.spin_down_t = 0.0000000001
 				self.ngsierra.can_shoot_through_enemy = false
 				self.ngsierra.can_shoot_through_wall = false
@@ -23353,10 +23625,10 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.srs99_s7.recategorize = { "antim_snp" }
 				self.srs99_s7.hs_mult = 2
-				self.srs99_s7.object_damage_mult = 1.85
+				self.srs99_s7.object_damage_mult = 1.85  -- [GPT合并1] ybspatch 新增/修改项
 				self.srs99_s7.damage_type = "anti_materiel"
 				self.srs99_s7.upgrade_blocks = nil
-				self.srs99_s7.AMMO_MAX = 20
+				self.srs99_s7.AMMO_MAX = 20  -- [GPT合并1] 此项值原为18
 				self.srs99_s7.sms = sms_preset.semi_snp_amr
 				self.srs99_s7.kick = deep_clone(self.stat_info.kick_tables.vertical_kick)
 				self.srs99_s7.supported = true
@@ -23450,12 +23722,12 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.pd3_lynx.recategorize = { "antim_snp" }
 				self.pd3_lynx.hs_mult = 2
-				self.pd3_lynx.object_damage_mult = 1.85
+				self.pd3_lynx.object_damage_mult = 1.85  -- [GPT合并1] ybspatch 新增/修改项
 				self.pd3_lynx.damage_type = "anti_materiel"
 				self.pd3_lynx.is_bullpup = true
 				self.pd3_lynx.upgrade_blocks = nil
 				self.pd3_lynx.CLIP_AMMO_MAX = 5
-				self.pd3_lynx.AMMO_MAX = 20
+				self.pd3_lynx.AMMO_MAX = 20  -- [GPT合并1] 此项值原为18
 				self.pd3_lynx.tactical_reload = 1
 				self.pd3_lynx.muzzleflash = "effects/payday2/particles/weapons/50cal_auto_fps"
 				self.pd3_lynx.fire_mode_data.fire_rate = 0.545454
@@ -23549,7 +23821,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.raid_ww2_bren.panic_suppression_chance = 0.05
 				self.raid_ww2_bren.sounds.spin_start = "wp_mg42_lever_release"
 				self.raid_ww2_bren.spin_up_shoot = true
-				self.raid_ww2_bren.spin_up_t = 0.08 * 0.15
+				self.raid_ww2_bren.spin_up_t = 0.08 * 0.15  -- [GPT合并1] 此项值原为0.08
 				self.raid_ww2_bren.spin_down_t = 0.00000001
 				self.raid_ww2_bren.reload_speed_multiplier = 0.7
 				self.raid_ww2_bren.sms = sms_preset.lmg_90
@@ -23743,8 +24015,8 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 					end_dist = 4700,
 					min_mult = 0.8
 				}
-				self.ar47.armor_piercing_chance = 0.15 --此处添加
-				self.ar47.has_daring_ap_desc = true --此处添加
+				self.ar47.armor_piercing_chance = 0.15  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
+				self.ar47.has_daring_ap_desc = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加
 				self.ar47.stats = {
 					damage = 30,
 					spread = 77,
@@ -23847,7 +24119,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.sierra458.muzzleflash = "effects/payday2/particles/weapons/50cal_auto_fps"
 				self.sierra458.supported = true
-				self.sierra458.ads_speed = 0.340
+				self.sierra458.ads_speed = 0.340  -- [GPT合并1] 此项值原为0.400
 				self.sierra458.damage_falloff = {
 					start_dist = 2500,
 					end_dist = 5800,
@@ -24646,11 +24918,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.ar2.recategorize = {"heavy_ar"}
 				self.ar2.damage_type = "assault_rifle"
 				self.ar2.CLIP_AMMO_MAX = 30
-				self.ar2.AMMO_MAX = 120
+				self.ar2.AMMO_MAX = 120  -- [GPT合并1] 此项值原为150
 				self.ar2.fire_mode_data.fire_rate = 0.1
 				self.ar2.CAN_TOGGLE_FIREMODE = false
 				self.ar2.FIRE_MODE = "auto"
-				self.ar2.kick = self.stat_info.kick_tables.moderate_kick
+				self.ar2.kick = self.stat_info.kick_tables.moderate_kick  -- [GPT合并1] 此项值原为self.stat_info.kick_tables.even_recoil
 				self.ar2.supported = true
 				self.ar2.ads_speed = 0.200
 				self.ar2.damage_falloff = {
@@ -25726,7 +25998,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				}
 				self.hhpc.stats_modifiers = nil
 				self.hhpc.armor_piercing_chance = 1
-				self.hhpc.object_damage_mult = 2
+				self.hhpc.object_damage_mult = 2  -- [GPT合并1] 此项值原为1.8
 				self.hhpc.reload_speed_multiplier = 0.9
 				self.hhpc.panic_suppression_chance = 0.05
 				self.hhpc.timers.reload_exit_empty = 0.5
@@ -26188,9 +26460,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				value = 9,
 				reload = 20
 			}
-			self.iuhTTIPlus.exp_func = "quad"  --此处修改，自定义爆炸衰减[[exp_func
-        	self.iuhTTIPlus.min_exp_dmg = 24
-            self.iuhTTIPlus.hit_fix = 0.95  --exp_func]]
+			self.iuhTTIPlus.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，自定义爆炸衰减[[exp_func
+        	self.iuhTTIPlus.min_exp_dmg = 24  -- [GPT合并1] ybspatch 新增/修改项
+            self.iuhTTIPlus.hit_fix = 0.95  -- [GPT合并1] ybspatch 新增/修改项  --exp_func]]
 			self.iuhTTIPlus.armor_piercing_chance = 1
 			self.iuhTTIPlus.stats_modifiers = nil
 			self.iuhTTIPlus.panic_suppression_chance = 0.05
@@ -26394,7 +26666,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				reload = 20
 			}
 			self.ashot.stats_modifiers = nil
-			self.ashot.reload_speed_multiplier = 1.325 --此处修改
+			self.ashot.reload_speed_multiplier = 1.325  -- [GPT合并1] 此项值原为1.25  --此处修改
 			self.ashot.panic_suppression_chance = 0.05
 			self.ashot.timers = deep_clone(self.new_raging_bull.timers)
 		end
@@ -26810,29 +27082,29 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			}
 			self.cold.stats_modifiers = nil
 			self.cold.panic_suppression_chance = 0.05
-			self.cold.ads_speed = 0.145
-			self.cold.panic_suppression_chance = 0.05
-			self.cold.reload_speed_multiplier = 1.12
+			self.cold.ads_speed = 0.145  -- [GPT合并1] ybspatch 新增/修改项
+			self.cold.panic_suppression_chance = 0.05  -- [GPT合并1] ybspatch 新增/修改项
+			self.cold.reload_speed_multiplier = 1.12  -- [GPT合并1] ybspatch 新增/修改项
 		end
 
 		if self.m9butcool then -- Samurai Edge 此处添加
 			self.m9butcool.recategorize = { "light_pis" }
 			self.m9butcool.categories = { "pistol" }
-			self.m9butcool.has_description = false
-			self.m9butcool.supported = true	
-			self.m9butcool.CLIP_AMMO_MAX = 15
-			self.m9butcool.AMMO_MAX = 75
-			self.m9butcool.single.fire_rate = 0.0882352
-			self.m9butcool.fire_mode_data.fire_rate = 0.0882352
-			self.m9butcool.kick = self.stat_info.kick_tables.even_recoil
-			self.m9butcool.sounds.fire = "beretta_fire"
+			self.m9butcool.has_description = false  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.supported = true  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.CLIP_AMMO_MAX = 15  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.AMMO_MAX = 75  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.single.fire_rate = 0.0882352  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.fire_mode_data.fire_rate = 0.0882352  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.kick = self.stat_info.kick_tables.even_recoil  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.sounds.fire = "beretta_fire"  -- [GPT合并1] ybspatch 新增/修改项
 			self.m9butcool.kick_pattern = {
 				{0, self.stat_info.kick_tables.moderate_kick},
 				{4, self.stat_info.kick_tables.right_kick},
 				{7, self.stat_info.kick_tables.moderate_right_kick}
 			}
-			self.m9butcool.supported = true
-			self.m9butcool.ads_speed = 0.140
+			self.m9butcool.supported = true  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.ads_speed = 0.140  -- [GPT合并1] ybspatch 新增/修改项
 			self.m9butcool.damage_falloff = {
 				start_dist = 1600,
 				end_dist = 3700,
@@ -26852,11 +27124,11 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				value = 1,
 				reload = 20
 			}
-			self.m9butcool.stats_modifiers = nil
-			self.m9butcool.panic_suppression_chance = 0.05
-			self.m9butcool.reload_speed_multiplier = 1.13
-			self.m9butcool.timers.reload_exit_empty = 0.5
-			self.m9butcool.timers.reload_exit_not_empty = 0.65
+			self.m9butcool.stats_modifiers = nil  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.panic_suppression_chance = 0.05  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.reload_speed_multiplier = 1.13  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.timers.reload_exit_empty = 0.5  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.timers.reload_exit_not_empty = 0.65  -- [GPT合并1] ybspatch 新增/修改项
 			self:SetupAttachmentPoint("m9butcool", {
 				name = "a_ns_burton",
 				base_a_obj = "a_ns",
@@ -27437,36 +27709,36 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	---火箭筒---
 	if self.rpg7 then
 		self.rpg7.AMMO_PICKUP = {self.rpg7.AMMO_PICKUP[1]*1.3, self.rpg7.AMMO_PICKUP[2]*1.3}
-		self.rpg7.exp_falloff_desc = true
+		self.rpg7.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.ray then
 		self.ray.AMMO_PICKUP = {self.ray.AMMO_PICKUP[1]*1.3, self.ray.AMMO_PICKUP[2]*1.3}
-		self.ray.exp_falloff_desc = true
+		self.ray.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	---榴弹---
 	if self.china then
 		self.china.AMMO_PICKUP = {self.china.AMMO_PICKUP[1]*1.5, self.china.AMMO_PICKUP[2]*1.5}
-		self.china.exp_falloff_desc = true
+		self.china.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.m32 then
 		self.m32.AMMO_PICKUP = {self.m32.AMMO_PICKUP[1]*1.5, self.m32.AMMO_PICKUP[2]*1.5}
-		self.m32.exp_falloff_desc = true
+		self.m32.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.gre_m79 then
 		self.gre_m79.AMMO_PICKUP = {self.gre_m79.AMMO_PICKUP[1]*1.4, self.gre_m79.AMMO_PICKUP[2]*1.4}
-		self.gre_m79.exp_falloff_desc = true
+		self.gre_m79.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.arbiter then
 		self.arbiter.AMMO_PICKUP = {self.arbiter.AMMO_PICKUP[1]*1.4, self.arbiter.AMMO_PICKUP[2]*1.4}
-		self.arbiter.exp_falloff_desc = true
+		self.arbiter.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.slap then
 		self.slap.AMMO_PICKUP = {self.slap.AMMO_PICKUP[1]*1.4, self.slap.AMMO_PICKUP[2]*1.4}
-		self.slap.exp_falloff_desc = true
+		self.slap.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	if self.ms3gl then
 		self.ms3gl.AMMO_PICKUP = {self.ms3gl.AMMO_PICKUP[1]*1.2, self.ms3gl.AMMO_PICKUP[2]*1.3}
-		self.ms3gl.exp_falloff_desc = true
+		self.ms3gl.exp_falloff_desc = true  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	---反器材狙---
 	if self.m200 then
@@ -27530,7 +27802,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	end
 	
 	if self.duke1911 then
-		self.duke1911.stats.damage = 90
+		self.duke1911.stats.damage = 90  -- [GPT合并1] ybspatch 新增/修改项
 	end
 	
 	for _,v in ipairs(hancan_160) do
@@ -27623,7 +27895,7 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 	end
 
 	--给mosconi S/S霰弹枪的物体倍率加成。
-	self.huntsman.object_damage_mult = 1.25
+	self.huntsman.object_damage_mult = 1.25  -- [GPT合并1] ybspatch 新增/修改项
 
 end)
 

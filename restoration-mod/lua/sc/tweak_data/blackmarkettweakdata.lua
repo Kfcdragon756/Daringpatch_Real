@@ -1863,6 +1863,11 @@ function BlackMarketTweakData:_init_projectiles(tweak_data)
 		"launcher_incendiary_ms3gl",
 		"launcher_electric_ms3gl",
 		"sticky_grenade",
+		"dart_poison",
+		"dart_daze",
+		"dart_revive",
+		"laser_watch",
+		"flun_flare",		
 		--Resmod projectiles
 		"bravo_frag",
 		"cluster_fuck",
@@ -1913,6 +1918,10 @@ function BlackMarketTweakData:_init_projectiles(tweak_data)
 	self.projectiles.poison_gas_grenade.max_amount = 3
 
 	self.projectiles.sticky_grenade.throw_shout = nil
+	
+	self.projectiles.laser_watch.base_cooldown_no_perk = true
+	self.projectiles.laser_watch.base_cooldown = 35
+	self.projectiles.laser_watch.pickup_cooldown_t = 3.5 --10~ pickups to gain back one immediately
 
 	if self.projectiles.xmas_snowball then
 		self.projectiles.xmas_snowball.max_amount = 3
@@ -1922,22 +1931,22 @@ function BlackMarketTweakData:_init_projectiles(tweak_data)
 	end
 
 	self.projectiles.pocket_ecm_jammer.max_amount = 1  --黑客pcm不要改动
-	self.projectiles.pocket_ecm_jammer.base_cooldown = 70
+	self.projectiles.pocket_ecm_jammer.base_cooldown = 70  -- [GPT合并1] 此项值原为60
 	--[[if ViNight_PECM then
-		self.projectiles.pocket_ecm_jammer.max_amount = 6
-		self.projectiles.pocket_ecm_jammer.base_cooldown = 25
+		self.projectiles.pocket_ecm_jammer.max_amount = 6  -- [GPT合并1] ybspatch 新增/修改项
+		self.projectiles.pocket_ecm_jammer.base_cooldown = 25  -- [GPT合并1] ybspatch 新增/修改项
 	end]]
 	
 	--Daring Frags Amount++
-	self.projectiles.frag.max_amount = (self.projectiles.frag.max_amount or 3) + 1
-	self.projectiles.frag_com.max_amount = (self.projectiles.frag_com.max_amount or 3) + 1
-	self.projectiles.dynamite.max_amount = (self.projectiles.dynamite.max_amount or 3) + 2
-	self.projectiles.sticky_grenade.max_amount = (self.projectiles.sticky_grenade.max_amount or 3) + 2
-	self.projectiles.molotov.max_amount = (self.projectiles.molotov.max_amount or 3) + 1
-	self.projectiles.fir_com.max_amount = (self.projectiles.fir_com.max_amount or 3) + 1
-	self.projectiles.dada_com.max_amount = (self.projectiles.dada_com.max_amount or 3) + 1
-	self.projectiles.poison_gas_grenade.max_amount = (self.projectiles.poison_gas_grenade.max_amount or 3) + 1
-	self.projectiles.wpn_gre_electric.max_amount = (self.projectiles.wpn_gre_electric.max_amount or 3) + 3
+	self.projectiles.frag.max_amount = (self.projectiles.frag.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.frag_com.max_amount = (self.projectiles.frag_com.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.dynamite.max_amount = (self.projectiles.dynamite.max_amount or 3) + 2  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.sticky_grenade.max_amount = (self.projectiles.sticky_grenade.max_amount or 3) + 2  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.molotov.max_amount = (self.projectiles.molotov.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.fir_com.max_amount = (self.projectiles.fir_com.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.dada_com.max_amount = (self.projectiles.dada_com.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.poison_gas_grenade.max_amount = (self.projectiles.poison_gas_grenade.max_amount or 3) + 1  -- [GPT合并1] ybspatch 新增/修改项
+	self.projectiles.wpn_gre_electric.max_amount = (self.projectiles.wpn_gre_electric.max_amount or 3) + 3  -- [GPT合并1] ybspatch 新增/修改项
 
 	--Fuck off
 	self.projectiles.frag.no_cheat_count = true
@@ -4748,11 +4757,11 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.fight.stats.charge_time = 0.9
 		self.melee_weapons.fight.stats.range = 160
 		self.melee_weapons.fight.stats.concealment = 30
-		self.melee_weapons.fight.counter_damage = 24 --原本为12，此处修改
-		self.melee_weapons.fight.counter_aoe = true
-		self.melee_weapons.fight.aoe_damage = 10
-		self.melee_weapons.fight.aoe_range = 1500
-		self.melee_weapons.fight.aoe_play_haojing = true
+		self.melee_weapons.fight.counter_damage = 24  -- [GPT合并1] 此项值原为12  --原本为12，此处修改
+		self.melee_weapons.fight.counter_aoe = true  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.fight.aoe_damage = 10  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.fight.aoe_range = 1500  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.fight.aoe_play_haojing = true  -- [GPT合并1] ybspatch 新增/修改项
 		--Ding Ding--
 		self.melee_weapons.boxing_gloves.info_id = "bm_melee_boxing_gloves_info"
 		self.melee_weapons.boxing_gloves.stats.cleave = 1
@@ -4790,7 +4799,7 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.zeus.stats.max_damage = 2.401
 		self.melee_weapons.zeus.stats.min_damage_effect = 0.6
 		self.melee_weapons.zeus.stats.max_damage_effect = 1.2
-		self.melee_weapons.zeus.stats.charge_time = 0.06
+		self.melee_weapons.zeus.stats.charge_time = 0.06  -- [GPT合并1] 此项值原为0.6
 		self.melee_weapons.zeus.stats.range = 155
 		self.melee_weapons.zeus.stats.concealment = 29
 			--RIP Buzzer meta--
@@ -4803,7 +4812,7 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 			self.melee_weapons.taser.stats.max_damage = 2.401
 			self.melee_weapons.taser.stats.min_damage_effect = 0.6
 			self.melee_weapons.taser.stats.max_damage_effect = 1.2
-			self.melee_weapons.taser.stats.charge_time = 0.06
+			self.melee_weapons.taser.stats.charge_time = 0.06  -- [GPT合并1] 此项值原为0.8
 			self.melee_weapons.taser.stats.range = 165
 			self.melee_weapons.taser.stats.concealment = 29
 
@@ -4984,19 +4993,19 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 			self.melee_weapons.croupier_rake.stats.range = 170
 			self.melee_weapons.croupier_rake.stats.concealment = 29
 			--We should stop meeting like this you know-- --此处添加 新电棍数据
-			self.melee_weapons.funder_strike.info_id = "bm_melee_funder_strike_info"
-			self.melee_weapons.funder_strike.stats.cleave = 1
-			self.melee_weapons.funder_strike.stats.raycasts = 10
-			self.melee_weapons.funder_strike.stats.raycasts_charge = 15
-			self.melee_weapons.funder_strike.stats.min_damage = 3
-			self.melee_weapons.funder_strike.stats.max_damage = 4.5
-			self.melee_weapons.funder_strike.stats.min_damage_effect = 5.0
-			self.melee_weapons.funder_strike.stats.max_damage_effect = 9.0
-			self.melee_weapons.funder_strike.stats.charge_time = 0.7
-			self.melee_weapons.funder_strike.stats.range = 170
-			self.melee_weapons.funder_strike.stats.concealment = 29
-			self.melee_weapons.funder_strike.tase_data = nil
-			self.melee_weapons.funder_strike.special_weapon = "taser"
+			self.melee_weapons.funder_strike.info_id = "bm_melee_funder_strike_info"  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.cleave = 1  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.raycasts = 10  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.raycasts_charge = 15  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.min_damage = 3  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.max_damage = 4.5  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.min_damage_effect = 5.0  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.max_damage_effect = 9.0  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.charge_time = 0.7  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.range = 170  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.stats.concealment = 29  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.tase_data = nil  -- [GPT合并1] ybspatch 新增/修改项
+			self.melee_weapons.funder_strike.special_weapon = "taser"  -- [GPT合并1] ybspatch 新增/修改项
 
 		--shillelelelelelagh--	
 		self.melee_weapons.shillelagh.info_id = "bm_melee_shillelagh_info"
@@ -5356,7 +5365,7 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.buck.stats.charge_time = 1.5
 		self.melee_weapons.buck.stats.range = 165
 		self.melee_weapons.buck.stats.concealment = 28
-		self.melee_weapons.buck.block = 0.75
+		self.melee_weapons.buck.block = 0.75  -- [GPT合并1] 此项值原为0.9
 		--self.melee_weapons.buck.sphere_cast_radius_add = 8
 			--The target is a briefcase. Discretion is of the essence.--
 			self.melee_weapons.briefcase.info_id = "bm_melee_briefcase_info"	
@@ -5370,7 +5379,7 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 			self.melee_weapons.briefcase.stats.charge_time = 1.5
 			self.melee_weapons.briefcase.stats.range = 155
 			self.melee_weapons.briefcase.stats.concealment = 29
-			self.melee_weapons.briefcase.block = 0.6
+			self.melee_weapons.briefcase.block = 0.6  -- [GPT合并1] 此项值原为0.9
 
 
 
@@ -5447,10 +5456,10 @@ function BlackMarketTweakData:_init_melee_weapons(tweak_data)
 		self.melee_weapons.twins.stats.charge_time = 1.15
 		self.melee_weapons.twins.stats.range = 170
 		self.melee_weapons.twins.stats.concealment = 28
-		self.melee_weapons.twins.counter_damage = 12  --原为6，此处修改
-		self.melee_weapons.twins.counter_aoe = true  --此处添加aoe反击伤害
-		self.melee_weapons.twins.aoe_damage = 6
-		self.melee_weapons.twins.aoe_range = 1000
+		self.melee_weapons.twins.counter_damage = 12  -- [GPT合并1] 此项值原为6  --原为6，此处修改
+		self.melee_weapons.twins.counter_aoe = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加aoe反击伤害
+		self.melee_weapons.twins.aoe_damage = 6  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.twins.aoe_range = 1000  -- [GPT合并1] ybspatch 新增/修改项
 
 
 		--memed hard enough into the game--
@@ -6183,10 +6192,10 @@ Hooks:PostHook(BlackMarketTweakData, "init", "CustomMelee", function(self, tweak
 	self.melee_weapons.zweihander.stats.charge_bonus_range = 50
 	self.melee_weapons.zweihander.stats.concealment = 25
 	self.melee_weapons.zweihander.stats.speed_mult = 0.77
-	self.melee_weapons.zweihander.counter_damage = 36  --原本为18，此处修改
-	self.melee_weapons.zweihander.counter_aoe = true  --此处添加aoe反击伤害
-	self.melee_weapons.zweihander.aoe_damage = 20
-	self.melee_weapons.zweihander.aoe_range = 2500
+	self.melee_weapons.zweihander.counter_damage = 36  -- [GPT合并1] 此项值原为18  --原本为18，此处修改
+	self.melee_weapons.zweihander.counter_aoe = true  -- [GPT合并1] ybspatch 新增/修改项  --此处添加aoe反击伤害
+	self.melee_weapons.zweihander.aoe_damage = 20  -- [GPT合并1] ybspatch 新增/修改项
+	self.melee_weapons.zweihander.aoe_range = 2500  -- [GPT合并1] ybspatch 新增/修改项
 
 	self.melee_weapons.broad.anim_attack_charged_vars = nil
 	self.melee_weapons.broad.anim_attack_charged_left_vars = nil
@@ -6591,15 +6600,15 @@ Hooks:PostHook(BlackMarketTweakData, "init", "CustomMelee", function(self, tweak
 		self.melee_weapons.megumins_staff.stats = deep_clone(self.melee_weapons.stick.stats)
 		self.melee_weapons.megumins_staff.stats.charge_bonus_start = 0.99
 		self.melee_weapons.megumins_staff.stats.charge_bonus_range = 2800
-		self.melee_weapons.megumins_staff.stats.concealment = 24
+		self.melee_weapons.megumins_staff.stats.concealment = 24  -- [GPT合并1] 此项值原为23
 		self.melee_weapons.megumins_staff.stats.charge_time = 55
-		self.melee_weapons.megumins_staff.stats.min_damage = 7.5
-		self.melee_weapons.megumins_staff.stats.max_damage = 25
-		self.melee_weapons.megumins_staff.stats.min_damage_effect = 10
-		self.melee_weapons.megumins_staff.stats.max_damage_effect = 100
+		self.melee_weapons.megumins_staff.stats.min_damage = 7.5  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.megumins_staff.stats.max_damage = 25  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.megumins_staff.stats.min_damage_effect = 10  -- [GPT合并1] ybspatch 新增/修改项
+		self.melee_weapons.megumins_staff.stats.max_damage_effect = 100  -- [GPT合并1] ybspatch 新增/修改项
 		self.melee_weapons.megumins_staff.ignore_charge_speed = true
 		self.melee_weapons.megumins_staff.special_weapon = "megumin"
-		self.melee_weapons.megumins_staff.explosion_range = 5000
+		self.melee_weapons.megumins_staff.explosion_range = 5000  -- [GPT合并1] 此项值原为2000
 		self.melee_weapons.megumins_staff.explosion_damage = 5000
 		self.melee_weapons.megumins_staff.sphere_cast_radius_add = nil
 	end
@@ -6623,7 +6632,7 @@ Hooks:PostHook(BlackMarketTweakData, "init", "CustomMelee", function(self, tweak
 	end
 
 	if self.melee_weapons.toyknife then
-		self.melee_weapons.toyknife.info_id = "bm_melee_toyknife_info_desc"
+		self.melee_weapons.toyknife.info_id = "bm_melee_toyknife_info_desc"  -- [GPT合并1] ybspatch 新增/修改项
 		self.melee_weapons.toyknife.anim_attack_vars = {"var1","var2"} --Removes the awkward blunt side strike attack variants
 		self.melee_weapons.toyknife.stats.min_damage = 0.5
 		self.melee_weapons.toyknife.stats.max_damage = 1.0

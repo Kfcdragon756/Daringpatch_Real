@@ -923,7 +923,29 @@ local muzzle_device = {
 			falloff_start_mult = 1.1,
 			falloff_end_mult = 1.1,
 			ads_speed_mult = 1.05
-		}
+		},
+		
+	-- ++Stab +++Acc/Range -----Con
+		muzz_dual3_c = {
+			value = 7,
+			spread = 3,
+			recoil = 4,
+			concealment = -5,
+			falloff_start_mult = 1.15,
+			falloff_end_mult = 1.15,
+			ads_speed_mult = 1.125
+		},
+		supp_dual3_c = { --Extra Acc/range for Con
+			suppression = 12,
+			alert_size = -1,
+			value = 7,
+			spread = 4,
+			recoil = 4,
+			concealment = -6,
+			falloff_start_mult = 1.2,
+			falloff_end_mult = 1.2,
+			ads_speed_mult = 1.15
+		}		
 }
 
 local grips = {
@@ -1994,6 +2016,124 @@ end
 				end)
 
 		--SECONDARIES
+		
+			--WELROD
+				Hooks:PostHook(WeaponFactoryTweakData, "_init_welrod", "resmod_welrod", function(self)
+					self.parts.wpn_fps_pis_welrod_b_standard.supported = true
+					self.parts.wpn_fps_pis_welrod_b_standard.stats = {
+						value = 0,
+						alert_size = -1,
+						suppression = 12
+					}
+
+					self.parts.wpn_fps_pis_welrod_shitfuck = {
+						type = "shitfuck",
+						name_id = "none",
+						stats = {
+							value = 1
+						},
+						unit = "units/pd2_dlc_gage_historical/weapons/wpn_fps_pis_c96/wpn_fps_pis_c96"
+					}
+
+					self.parts.wpn_fps_pis_welrod_b_standard.override.wpn_fps_upg_vg_ass_smg_verticalgrip = { a_obj = "a_fl_2" }
+					self.parts.wpn_fps_pis_welrod_b_standard.override.wpn_fps_upg_vg_ass_smg_stubby = { a_obj = "a_fl_2" }
+					self.parts.wpn_fps_pis_welrod_b_standard.override.wpn_fps_smg_schakal_vg_surefire = { a_obj = "a_fl_2" }
+
+					self.wpn_fps_pis_welrod.override = self.wpn_fps_pis_welrod.override or {}
+					self.wpn_fps_pis_welrod.adds = self.wpn_fps_pis_welrod.adds or {}
+
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_smg_cobray_ns_barrelextension")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_ass_shak12_ns_suppressor")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_ass_shak12_ns_muzzle")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_upg_ns_ass_filter")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_upg_vg_ass_smg_verticalgrip")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_upg_vg_ass_smg_stubby")
+					table.insert(self.wpn_fps_pis_welrod.uses_parts, "wpn_fps_smg_schakal_vg_surefire")
+
+					attachment_list = {
+						"wpn_fps_upg_o_specter",
+						"wpn_fps_upg_o_aimpoint",
+						"wpn_fps_upg_o_docter",
+						"wpn_fps_upg_o_eotech",
+						"wpn_fps_upg_o_t1micro",
+						"wpn_fps_upg_o_rx30",
+						"wpn_fps_upg_o_rx01",
+						"wpn_fps_upg_o_reflex",
+						"wpn_fps_upg_o_eotech_xps",
+						"wpn_fps_upg_o_cmore",
+						"wpn_fps_upg_o_aimpoint_2",
+						"wpn_fps_upg_o_acog",
+						"wpn_fps_upg_o_cs",
+						"wpn_fps_upg_o_spot",
+						"wpn_fps_upg_o_bmg",
+						"wpn_fps_upg_o_uh",
+						"wpn_fps_upg_o_fc1",
+						"wpn_fps_upg_o_tf90",
+						"wpn_fps_upg_o_poe",
+						"wpn_fps_upg_o_health",
+						"wpn_fps_upg_o_hamr",
+						"wpn_fps_upg_o_atibal",
+					}
+					for _, add_uses_parts in ipairs(attachment_list) do
+						table.insert(self.wpn_fps_pis_welrod.uses_parts, add_uses_parts)
+						self.wpn_fps_pis_welrod.adds[add_uses_parts] = {"wpn_fps_pis_welrod_shitfuck", "wpn_fps_smg_thompson_o_adapter"}
+						self.wpn_fps_pis_welrod.override[add_uses_parts] = {
+							parent = "shitfuck",
+							a_obj = "a_rds"
+						}
+					end
+
+					self.wpn_fps_pis_welrod.override.wpn_fps_upg_o_hamr_reddot = {
+						parent = "shitfuck",
+						a_obj = "a_rds"
+					}
+					self.wpn_fps_pis_welrod.override.wpn_fps_upg_o_atibal_reddot = {
+						parent = "shitfuck",
+						a_obj = "a_rds"
+					}
+					self.wpn_fps_pis_welrod.override.wpn_fps_smg_thompson_o_adapter = {
+						parent = "shitfuck",
+						a_obj = "a_rds"
+					}
+
+					self.wpn_fps_pis_welrod.override.wpn_fps_smg_cobray_ns_barrelextension = {
+						parent = "lower_receiver",
+						a_obj = "a_ns",
+						forbids = {
+							"wpn_upg_o_marksmansight_front",
+							"wpn_fps_pis_welrod_o_standard_front"
+						}
+					}
+					self.wpn_fps_pis_welrod.override.wpn_fps_ass_shak12_ns_muzzle = {
+						parent = "lower_receiver",
+						a_obj = "a_ns",
+						forbids = {
+							"wpn_upg_o_marksmansight_front",
+							"wpn_fps_pis_welrod_o_standard_front"
+						}
+					}
+					self.wpn_fps_pis_welrod.override.wpn_fps_ass_shak12_ns_suppressor = {
+						parent = "lower_receiver",
+						a_obj = "a_ns",
+						forbids = {
+							"wpn_upg_o_marksmansight_front",
+							"wpn_fps_pis_welrod_o_standard_front"
+						}
+					}
+					self.wpn_fps_pis_welrod.override.wpn_fps_upg_ns_ass_filter = {
+						parent = "lower_receiver",
+						a_obj = "a_ns",
+						forbids = {
+							"wpn_upg_o_marksmansight_front",
+							"wpn_fps_pis_welrod_o_standard_front"
+						}
+					}
+
+
+					self.wpn_fps_pis_welrod_npc.adds = deep_clone(self.wpn_fps_pis_welrod.adds)
+					self.wpn_fps_pis_welrod_npc.override = deep_clone(self.wpn_fps_pis_welrod.override)
+					self.wpn_fps_pis_welrod_npc.uses_parts = deep_clone(self.wpn_fps_pis_welrod.uses_parts)
+				end)		
 
 			--MAXIM 9
 				Hooks:PostHook(WeaponFactoryTweakData, "_init_maxim9", "resmod_maxim9", function(self)
@@ -2649,7 +2789,29 @@ end
 					self.wpn_fps_pis_x_stech_npc.override = deep_clone(self.wpn_fps_pis_x_stech.override)	
 					self.wpn_fps_pis_x_stech_npc.uses_parts = deep_clone(self.wpn_fps_pis_x_stech.uses_parts)		
 				end)
+				
+			--MAKAROV
+				Hooks:PostHook(WeaponFactoryTweakData, "_init_pmm", "resmod_pmm", function(self)
+					self.parts.wpn_fps_pis_pmm_g_black.supported = true
+					self.parts.wpn_fps_pis_pmm_g_black.stats = deep_clone(grips.quickdraw_1)
+					self.parts.wpn_fps_pis_pmm_g_black.custom_stats = deep_clone(grips.quickdraw_1)
 
+					self.parts.wpn_fps_pis_pmm_slide_suppressed.supported = true
+					self.parts.wpn_fps_pis_pmm_slide_suppressed.stats = {
+						value = 3,
+						spread = -1,
+						recoil = 2
+					}
+					self.parts.wpn_fps_pis_pmm_slide_suppressed.custom_stats = nil
+
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.supported = true
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.has_description = true
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.desc_id = "bm_wp_upg_suppressor"
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.stats = deep_clone(muzzle_device.supp_dual3_c)
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.custom_stats= deep_clone(muzzle_device.supp_dual3_c)
+					self.parts.wpn_fps_pis_pmm_ns_suppressor.perks = {"silencer"}
+				end)
+				
 			--PPK
 				Hooks:PostHook(WeaponFactoryTweakData, "_init_ppk", "resmod_ppk", function(self)
 					
@@ -3849,6 +4011,44 @@ end
 					
 					self.wpn_fps_pis_hs2000_npc.uses_parts = deep_clone(self.wpn_fps_pis_hs2000.uses_parts)		
 				end)
+				
+				Hooks:PostHook(WeaponFactoryTweakData, "_init_speen", "resmod_speen", function(self)
+
+					--extendo barrel
+					self.parts.wpn_fps_smg_speen_barrel_dmr.supported = true
+					self.parts.wpn_fps_smg_speen_barrel_dmr.stats = deep_clone(barrels.long_b1_stats)
+					self.parts.wpn_fps_smg_speen_barrel_dmr.custom_stats = deep_clone(barrels.long_b1_stats)
+
+					--give me a clip so i can do some damage
+					self.parts.wpn_fps_smg_speen_extra_magazine.supported = true
+					self.parts.wpn_fps_smg_speen_extra_magazine.stats = {
+						value = 2,
+						spread = -2,
+						concealment = -1,
+						reload = 5
+					}
+
+					--extendo clipazine
+					self.parts.wpn_fps_smg_speen_magazine_extended.supported = true
+					self.parts.wpn_fps_smg_speen_magazine_extended.stats = {
+						value = 6,
+						extra_ammo = 16,
+						concealment = -3,
+						reload = -5
+					}
+					self.parts.wpn_fps_smg_speen_magazine_extended.custom_stats = {
+						ads_speed_mult = 1.15
+					}
+
+					self.parts.wpn_fps_smg_speen_sights_rear_no_parent = {
+						a_obj = "a_o_rear",
+						type = "sight_special",
+						name_id = "bm_wp_speen_iron_sights",
+						unit = "units/pd2_dlc_esp/weapons/wpn_fps_smg_speen_pts/optics/wpn_fps_smg_speen_sights_rear_standard",
+						third_unit = "units/pd2_dlc_esp/weapons/wpn_third_smg_speen_pts/optics/wpn_third_smg_speen_sights_rear_standard"
+					}
+
+				end)				
 
 	--[[     HEAVY PISTOLS     ]]
 
@@ -5098,9 +5298,9 @@ end
 						},--]]
 						dlc = "sc"
 					}
-					self.parts.dr_wei_MR_saw = deep_clone(self.parts.dr_wei_MR)
-					self.parts.dr_wei_MR_saw.name_id = "dr_wei_MR_saw"
-					self.parts.dr_wei_MR_saw.desc_id = "dr_wei_MR_saw_desc"
+					self.parts.dr_wei_MR_saw = deep_clone(self.parts.dr_wei_MR)  -- [GPT合并1] ybspatch 新增/修改项
+					self.parts.dr_wei_MR_saw.name_id = "dr_wei_MR_saw"  -- [GPT合并1] ybspatch 新增/修改项
+					self.parts.dr_wei_MR_saw.desc_id = "dr_wei_MR_saw_desc"  -- [GPT合并1] ybspatch 新增/修改项
 					--]
 
 					
@@ -15295,7 +15495,7 @@ end
 					self.parts.wpn_fps_snp_mosin_b_standard.pcs = {}
 					self.parts.wpn_fps_snp_mosin_b_standard.supported = true
 					self.parts.wpn_fps_snp_mosin_b_standard.stats = deep_clone(barrels.long_b3_stats)
-					self.parts.wpn_fps_snp_mosin_b_standard.stats.bayonet_range = 60  --保留修改，原50
+					self.parts.wpn_fps_snp_mosin_b_standard.stats.bayonet_range = 60  -- [GPT合并1] 此项值原为50  --保留修改，原50
 					self.parts.wpn_fps_snp_mosin_b_standard.custom_stats = deep_clone(barrels.long_b3_stats)
 					
 					--Short Barrel
@@ -17931,10 +18131,10 @@ end
 					}	
 
 					--保留修改部分--[
-					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.exp_func = "quad"
-					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.min_exp_dmg = 30
-					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.hit_fix = 0.5625
-					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.stats.concealment = -4
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.min_exp_dmg = 30  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.hit_fix = 0.5625  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_sho_boot.override.wpn_fps_upg_a_explosive.stats.concealment = -4  -- [GPT合并1] ybspatch 新增/修改项
 					--]
 
 					table.insert(self.wpn_fps_sho_boot.uses_parts, "wpn_fps_upg_boot_legend")
@@ -17973,10 +18173,10 @@ end
 					}
 
 					--保留修改部分--[
-					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.exp_func = "quad"
-					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
-					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
-					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.stats.concealment = -4
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.hit_fix = 0.5  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_shot_huntsman.override.wpn_fps_upg_a_explosive.stats.concealment = -4  -- [GPT合并1] ybspatch 新增/修改项
 					--]
 					
 					self.wpn_fps_shot_huntsman_npc.uses_parts = deep_clone(self.wpn_fps_shot_huntsman.uses_parts)
@@ -18035,10 +18235,10 @@ end
 					}	
 
 					--保留修改部分--[
-					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.exp_func = "quad"
-    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
-    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
-					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.stats.concealment = -4
+					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项
+    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34  -- [GPT合并1] ybspatch 新增/修改项
+    				self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.hit_fix = 0.5  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_shot_b682.override.wpn_fps_upg_a_explosive.stats.concealment = -4  -- [GPT合并1] ybspatch 新增/修改项
 					--]
 
 				end)
@@ -18076,10 +18276,10 @@ end
 					}	
 
 					--保留修改部分--[
-					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.exp_func = "quad"
-    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34
-    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.hit_fix = 0.5
-					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.stats.concealment = -4
+					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.exp_func = "quad"  -- [GPT合并1] ybspatch 新增/修改项
+    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.min_exp_dmg = 34  -- [GPT合并1] ybspatch 新增/修改项
+    				self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.hit_fix = 0.5  -- [GPT合并1] ybspatch 新增/修改项
+					self.wpn_fps_sho_coach.override.wpn_fps_upg_a_explosive.stats.concealment = -4  -- [GPT合并1] ybspatch 新增/修改项
 					--]
 
 				end)
@@ -18325,6 +18525,105 @@ end
 					table.insert(self.wpn_fps_rpg7.uses_parts, "wpn_fps_upg_green_grin_legend")
 					self.wpn_fps_rpg7_npc.uses_parts = deep_clone(self.wpn_fps_rpg7.uses_parts)	
 				end)
+				
+			--FLARE GUN
+
+				Hooks:PostHook(WeaponFactoryTweakData, "create_ammunition", "resmod_flun", function(self) --hooked to "create_ammunition" as the ammo overrides for it are done there
+					--[ [
+					self.parts.wpn_fps_upg_a_flun_flare.supported = true
+					self.parts.wpn_fps_upg_a_flun_shell.supported = true
+					self.parts.wpn_fps_upg_a_flun_shell.stats = {
+						value = 9,
+						damage = 150,
+						spread = -35,
+						total_ammo_mod = 118
+					}
+					self.parts.wpn_fps_upg_a_flun_shell.custom_stats = {
+						weapon_unit = "units/pd2_dlc_unk/weapons/wpn_fps_spe_flun/wpn_fps_sho_flun",
+						gl_buck = true,
+						ammo_pickup_max_mul = 1.93,
+						ammo_pickup_max_mul = 1.93,
+						ene_hs_mult_add = -0.35,
+						rays = 8
+					}
+					self.wpn_fps_spe_flun.override = self.wpn_fps_spe_flun.override or {}
+					self.wpn_fps_spe_flun.override.wpn_fps_upg_a_piercing = {
+						parent = "lower_body",
+						a_obj = "a_shell",
+						unit = "units/pd2_dlc_unk/weapons/wpn_fps_spe_flun_pts/ammos/wpn_fps_upg_a_flun_shot",
+						bullet_objects = {
+							amount = 1,
+							prefix = "g_bullet_"
+						},
+						sound_switch = { suppressed = "regular_b" },
+						stats = {
+							value = 9,
+							damage = 60,
+							spread = -30,
+							recoil = -10,
+							total_ammo_mod = -70
+						},
+						custom_stats = {
+							weapon_unit = "units/pd2_dlc_unk/weapons/wpn_fps_spe_flun/wpn_fps_sho_flun",
+							gl_buck = true,
+							ap_desc = "bm_ap_armor_weapon_sc_desc",
+							trail_effect = "_dmc/effects/nato_trail",
+							object_damage_mult_override = 0.375,
+							ammo_pickup_max_mul = 1.5,
+							ammo_pickup_max_mul = 1.5,
+							ene_hs_mult_add = -0.35,
+							hs_mult = 2.5,
+							hs_mult_desc = true,
+							falloff_start_mult = 1,
+							falloff_end_mult = 1.15,
+							damage_min_mult = 4,
+							armor_piercing_add = 1,
+							rays = 12
+						}
+					}
+					self.wpn_fps_spe_flun.override.wpn_fps_upg_a_slug = {
+						parent = "lower_body",
+						a_obj = "a_shell",
+						unit = "units/pd2_dlc_unk/weapons/wpn_fps_spe_flun_pts/ammos/wpn_fps_upg_a_flun_shot",
+						bullet_objects = {
+							amount = 1,
+							prefix = "g_bullet_"
+						},
+						sound_switch = { suppressed = "regular_b" },
+						stats = {
+							value = 10,
+							concealment = -1,
+							total_ammo_mod = -70,
+							damage = 150,
+							recoil = -30,
+							spread = -20,
+							spread_multi = {1, 1},
+							suppression = -1,
+							moving_spread = 0
+						},
+						custom_stats = {
+							weapon_unit = "units/pd2_dlc_unk/weapons/wpn_fps_spe_flun/wpn_fps_sho_flun",
+							muzzleflash = "effects/payday2/particles/weapons/762_auto_fps",
+							gl_buck = true,
+							rays = 1,
+							hip_mult = 2,
+							armor_piercing_add = 1,
+							ene_hs_mult_add = -0.35,
+							ammo_pickup_max_mul = 0.9,
+							ammo_pickup_min_mul = 0.9,
+							can_shoot_through_enemy_unlim = true,
+							can_shoot_through_enemy = true,
+							can_shoot_through_shield = true,
+							can_shoot_through_wall = true,
+							ap_desc = "bm_ap_weapon_sc_desc",
+							falloff_start_mult = 1.1,
+							falloff_end_mult = 1.4,
+							ads_speed_mult = 1.025
+						},
+						desc_id = "bm_wp_upg_a_slug_desc"
+					}
+					--]]
+				end)				
 
 	--[[     BOWS     ]]
 
@@ -18336,8 +18635,8 @@ end
 				self.parts.wpn_fps_upg_a_bow_explosion.has_description = true
 				self.parts.wpn_fps_upg_a_bow_explosion.desc_id = "bm_w_bow_exp_desc"
 				self.parts.wpn_fps_upg_a_bow_explosion.supported = true
-				self.parts.wpn_fps_upg_a_bow_explosion.exp_func = "no_falloff"  --保留修改，原无此项
-				self.parts.wpn_fps_upg_a_bow_explosion.hit_fix = true  --
+				self.parts.wpn_fps_upg_a_bow_explosion.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+				self.parts.wpn_fps_upg_a_bow_explosion.hit_fix = true  -- [GPT合并1] ybspatch 新增/修改项  --
 				self.parts.wpn_fps_upg_a_bow_explosion.stats = {damage = 60, total_ammo_mod = -204, spread = -6}
 				self.parts.wpn_fps_upg_a_bow_explosion.custom_stats = {
 					alt_desc = "bm_bow_exp_sc_desc",
@@ -18366,8 +18665,8 @@ end
 				self.parts.wpn_fps_bow_long_m_explosive.pcs = {}
 				self.parts.wpn_fps_bow_long_m_explosive.supported = true
 				self.parts.wpn_fps_bow_long_m_explosive.has_description = true
-				self.parts.wpn_fps_bow_long_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
-				self.parts.wpn_fps_bow_long_m_explosive.hit_fix = true  --保留修改，原无此项
+				self.parts.wpn_fps_bow_long_m_explosive.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+				self.parts.wpn_fps_bow_long_m_explosive.hit_fix = true  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
 				self.parts.wpn_fps_bow_long_m_explosive.desc_id = "bm_w_bow_exp_desc"
 				self.parts.wpn_fps_bow_long_m_explosive.stats = {damage = 60, total_ammo_mod = -164, spread = -6}
 				self.parts.wpn_fps_bow_long_m_explosive.custom_stats = {
@@ -18477,8 +18776,8 @@ end
 					self.parts.wpn_fps_bow_frankish_m_explosive.supported = true
 					self.parts.wpn_fps_bow_frankish_m_explosive.has_description = true
 					self.parts.wpn_fps_bow_frankish_m_explosive.desc_id = "bm_w_xbow_exp_desc"
-					self.parts.wpn_fps_bow_frankish_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
-					self.parts.wpn_fps_bow_frankish_m_explosive.hit_fix = true  --保留修改，原无此项
+					self.parts.wpn_fps_bow_frankish_m_explosive.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+					self.parts.wpn_fps_bow_frankish_m_explosive.hit_fix = true  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
 					self.parts.wpn_fps_bow_frankish_m_explosive.stats = {damage = 60, total_ammo_mod = -204, spread = -12}
 					self.parts.wpn_fps_bow_frankish_m_explosive.custom_stats = {
 						hip_mult = 3,
@@ -18510,8 +18809,8 @@ end
 					self.parts.wpn_fps_bow_arblast_m_explosive.supported = true
 					self.parts.wpn_fps_bow_arblast_m_explosive.has_description = true
 					self.parts.wpn_fps_bow_arblast_m_explosive.desc_id = "bm_w_xbow_exp_desc"
-					self.parts.wpn_fps_bow_arblast_m_explosive.exp_func = "no_falloff"  --保留修改，原无此项
-					self.parts.wpn_fps_bow_arblast_m_explosive.hit_fix = 0.468  --保留修改，原无此项
+					self.parts.wpn_fps_bow_arblast_m_explosive.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+					self.parts.wpn_fps_bow_arblast_m_explosive.hit_fix = 0.468  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
 					self.parts.wpn_fps_bow_arblast_m_explosive.stats = {damage = 60, total_ammo_mod = -164, spread = -12}
 					self.parts.wpn_fps_bow_arblast_m_explosive.custom_stats = {
 						hip_mult = 3,
@@ -18586,8 +18885,8 @@ end
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.has_description = true
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.desc_id = "bm_w_bow_exp_desc"
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.supported = true
-					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.exp_func = "no_falloff"  --保留修改，原无此项
-					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.hit_fix = 0.67  --保留修改，原无此项
+					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.hit_fix = 0.67  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
 					self.parts.wpn_fps_bow_ecp_m_arrows_explosive.stats = {
 						damage = 30, --保留修改，原45
 						total_ammo_mod = -204, 
@@ -18682,6 +18981,55 @@ end
 				end)
 
 		--SECONDARIES
+		
+			--PNUE-DART X-2
+				Hooks:PostHook(WeaponFactoryTweakData, "_init_dart", "resmod_dart", function(self)
+					self.parts.wpn_fps_upg_a_dart_poison.supported = true
+
+					self.parts.wpn_fps_upg_a_dart_daze.supported = true
+					self.parts.wpn_fps_upg_a_dart_daze.keep_damage = true
+					self.parts.wpn_fps_upg_a_dart_daze.stats = {
+						value = 1,
+						damage = -120
+					}
+					self.parts.wpn_fps_upg_a_dart_daze.custom_stats = {
+						launcher_grenade = "dart_daze"
+					}
+
+					self.parts.wpn_fps_upg_a_dart_revive.supported = true
+					self.parts.wpn_fps_upg_a_dart_revive.keep_damage = true
+					self.parts.wpn_fps_upg_a_dart_revive.stats = {
+						value = 1,
+						damage = -120,
+						total_ammo_mod = -266
+					}
+					self.parts.wpn_fps_upg_a_dart_revive.custom_stats = {
+						launcher_grenade = "dart_revive",
+						ammo_pickup_max_mul = 0.2,
+						ammo_pickup_min_mul = 0.1
+					}
+
+					self.parts.wpn_fps_spe_dart_magazine_high_pressure.supported = true
+					self.parts.wpn_fps_spe_dart_magazine_high_pressure.stats = {
+						value = 3,
+						recoil = -4,
+						spread = -5
+					}
+					self.parts.wpn_fps_spe_dart_magazine_high_pressure.custom_stats = {
+						hip_mult = 2,
+						launch_speed_mul = 1.25
+					}
+
+					self.parts.wpn_fps_spe_dart_magazine_high_capacity.supported = true
+					self.parts.wpn_fps_spe_dart_magazine_high_capacity.stats = {
+						value = 3,
+						concealment = -1
+					}
+					self.parts.wpn_fps_spe_dart_magazine_high_capacity.custom_stats = {
+						launch_speed_mul = 0.75,
+						charge_speed_mul = 0.5
+					}
+				end)		
 
 			--CB1-50
 				Hooks:PostHook(WeaponFactoryTweakData, "_init_hunter", "resmod_hunter", function(self)
@@ -18751,8 +19099,8 @@ end
 					self.parts.wpn_fps_upg_a_crossbow_explosion.supported = true
 					self.parts.wpn_fps_upg_a_crossbow_explosion.has_description = true
 					self.parts.wpn_fps_upg_a_crossbow_explosion.desc_id = "bm_w_xbow_exp_desc"
-					self.parts.wpn_fps_upg_a_crossbow_explosion.exp_func = "no_falloff"  --保留修改，原无此项
-					self.parts.wpn_fps_upg_a_crossbow_explosion.hit_fix = true  --
+					self.parts.wpn_fps_upg_a_crossbow_explosion.exp_func = "no_falloff"  -- [GPT合并1] ybspatch 新增/修改项  --保留修改，原无此项
+					self.parts.wpn_fps_upg_a_crossbow_explosion.hit_fix = true  -- [GPT合并1] ybspatch 新增/修改项  --
 					self.parts.wpn_fps_upg_a_crossbow_explosion.stats = {damage = 60, total_ammo_mod = -144, spread = -12}
 					self.parts.wpn_fps_upg_a_crossbow_explosion.custom_stats = {
 						hip_mult = 3,
@@ -25787,7 +26135,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				self.parts.wpn_fps_upg_ks23_barrel_short.supported = true
 				self.parts.wpn_fps_upg_ks23_barrel_short.stats = deep_clone(barrels.short_b3_stats)
 				self.parts.wpn_fps_upg_ks23_barrel_short.custom_stats = deep_clone(barrels.short_b3_stats)
-				self.parts.wpn_fps_upg_ks23_barrel_short.custom_stats.rof_mult = 1.25 --此处添加，原无此项
+				self.parts.wpn_fps_upg_ks23_barrel_short.custom_stats.rof_mult = 1.25  -- [GPT合并1] ybspatch 新增/修改项  --此处添加，原无此项
 		
 				self.parts.wpn_fps_upg_ks23_stock_pistolgrip.supported = true	
 				self.parts.wpn_fps_upg_ks23_stock_pistolgrip.stats = deep_clone(stocks.remove_fixed_stats)
@@ -27663,58 +28011,58 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 
 		if self.parts.wpn_fps_pis_m9butcool_body_std then --此处添加 SAMURAI EDGE
 		
-			self.parts.wpn_fps_pis_m9butcool_fm_single.stats = nil
-			self.parts.wpn_fps_pis_m9butcool_fm_single.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_fm_single.stats = nil  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_fm_single.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--BARRELS
-			self.parts.wpn_fps_pis_m9butcool_b_flush.supported = true --FLUSH BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_flush.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --FLUSH BARREL
 			self.parts.wpn_fps_pis_m9butcool_b_flush.stats = {
 				spread = -1,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_b_flush.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_b_flush.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_b_thr.supported = true --THREADED BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_thr.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --THREADED BARREL
 			self.parts.wpn_fps_pis_m9butcool_b_thr.stats = {
 				recoil = 2,
 				spread = -1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_b_thr.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_b_thr.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_b_orig.supported = true --BLUED BARREL
+			self.parts.wpn_fps_pis_m9butcool_b_orig.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BLUED BARREL
 			self.parts.wpn_fps_pis_m9butcool_b_orig.stats = {
 				recoil = -2,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_b_orig.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_b_orig.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--MUZZLES
-			self.parts.wpn_fps_pis_m9butcool_ns_v1.supported = true --BURTON MUZZLE V1
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BURTON MUZZLE V1
 			self.parts.wpn_fps_pis_m9butcool_ns_v1.stats = {
 				spread = 1,
 				recoil = 2,
 				concealment = -2,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_ns_v1.a_obj = "a_ns_burton"
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.a_obj = "a_ns_burton"  -- [GPT合并1] ybspatch 新增/修改项
 			--self.parts.wpn_fps_pis_m9butcool_ns_v1.parent = "barrel"
-			self.parts.wpn_fps_pis_m9butcool_ns_v1.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ns_v1.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_ns_v2.supported = true --BURTON MUZZLE V2
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BURTON MUZZLE V2
 			self.parts.wpn_fps_pis_m9butcool_ns_v2.stats = {
 				spread = -1,
 				recoil = 6,
 				concealment = -2,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_ns_v2.a_obj = "a_ns_burton"
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.a_obj = "a_ns_burton"  -- [GPT合并1] ybspatch 新增/修改项
 			--self.parts.wpn_fps_pis_m9butcool_ns_v2.parent = "barrel"
-			self.parts.wpn_fps_pis_m9butcool_ns_v2.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ns_v2.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_ns_aw01.supported = true --AW01 EXTENDED BARREL
+			self.parts.wpn_fps_pis_m9butcool_ns_aw01.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --AW01 EXTENDED BARREL
 			self.parts.wpn_fps_pis_m9butcool_ns_aw01.stats = {
 				spread = 2,
 				concealment = -2,
@@ -27726,18 +28074,18 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				muzzleflash = "effects/payday2/particles/weapons/9mm_auto_silence_fps"
 			}
 
-			self.parts.wpn_fps_pis_m9butcool_ns_octa.supported = true --AW01 SUPPRESSOR
-			self.parts.wpn_fps_pis_m9butcool_ns_octa.stats = deep_clone(muzzle_device.supp_c_stats)
-			self.parts.wpn_fps_pis_m9butcool_ns_octa.custom_stats = deep_clone(muzzle_device.muzzle_c_custom_stats)
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --AW01 SUPPRESSOR
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.stats = deep_clone(muzzle_device.supp_c_stats)  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.custom_stats = deep_clone(muzzle_device.muzzle_c_custom_stats)  -- [GPT合并1] ybspatch 新增/修改项
 
 			--EXTRA
-			self.parts.wpn_fps_pis_m9butcool_ex_rail.supported = true --EXTRA RAIL
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --EXTRA RAIL
 			self.parts.wpn_fps_pis_m9butcool_ex_rail.stats = {
 				recoil = 2,
 				concealment = -1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_ex_rail.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ex_rail.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 			self.parts.wpn_fps_pis_m9butcool_ex_rail.forbids = {
 				"wpn_fps_pis_m9butcool_ns_aw01",
 				"wpn_fps_pis_m9butcool_body_a1",
@@ -27745,22 +28093,22 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			}
 
 			--FRAMES
-			self.parts.wpn_fps_pis_m9butcool_body_a1.supported = true --A1 FRAME
+			self.parts.wpn_fps_pis_m9butcool_body_a1.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --A1 FRAME
 			self.parts.wpn_fps_pis_m9butcool_body_a1.stats = {
 				recoil = -2,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_body_a1.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_body_a1.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 			self.parts.wpn_fps_pis_m9butcool_body_a1.forbids = { "wpn_fps_pis_m9butcool_fl_aw01" }
 
-			self.parts.wpn_fps_pis_m9butcool_body_custom.supported = true --CUSTOM FRAME
+			self.parts.wpn_fps_pis_m9butcool_body_custom.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --CUSTOM FRAME
 			self.parts.wpn_fps_pis_m9butcool_body_custom.stats = {
 				recoil = 2,
 				concealment = -1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_body_custom.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_body_custom.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 			self.parts.wpn_fps_pis_m9butcool_body_custom.forbids = { 
 				"wpn_fps_upg_fl_pis_tlr1",
 				"wpn_fps_upg_fl_pis_crimson",
@@ -27770,87 +28118,87 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			}
 
 			--GRIPS
-			self.parts.wpn_fps_pis_m9butcool_g_burton.supported = true --BURTON GRIP V1
+			self.parts.wpn_fps_pis_m9butcool_g_burton.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BURTON GRIP V1
 			self.parts.wpn_fps_pis_m9butcool_g_burton.stats = {
 				recoil = 2,
 				concealment = -1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_g_burton.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_g_burton.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.supported = true --BURTON GRIP V2
+			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BURTON GRIP V2
 			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.stats = {
 				spread = -2,
 				recoil = 2,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_g_burton_v2.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_g_orig.supported = true --PROTOTYPE GRIP
+			self.parts.wpn_fps_pis_m9butcool_g_orig.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --PROTOTYPE GRIP
 			self.parts.wpn_fps_pis_m9butcool_g_orig.stats = {
 				recoil = -2,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_g_orig.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_g_orig.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--HAMMER
-			self.parts.wpn_fps_pis_m9butcool_hmr_elite.supported = true --ELITE HAMMER
+			self.parts.wpn_fps_pis_m9butcool_hmr_elite.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --ELITE HAMMER
 			self.parts.wpn_fps_pis_m9butcool_hmr_elite.stats = {
 				spread = -1,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_hmr_elite.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_hmr_elite.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--MAGAZINE
-			self.parts.wpn_fps_pis_m9butcool_m_ext.supported = true --EXTENDED MAG
+			self.parts.wpn_fps_pis_m9butcool_m_ext.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --EXTENDED MAG
 			self.parts.wpn_fps_pis_m9butcool_m_ext.stats = {
 				extra_ammo = 5,
 				concealment = -1,
 				reload = -4,
 				value = 8
 			}
-			self.parts.wpn_fps_pis_m9butcool_m_ext.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_m_ext.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--SLIDES
-			self.parts.wpn_fps_pis_m9butcool_sl_blued.supported = true --BLUED SLIDE
+			self.parts.wpn_fps_pis_m9butcool_sl_blued.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BLUED SLIDE
 			self.parts.wpn_fps_pis_m9butcool_sl_blued.stats = {
 				recoil = 2,
 				concealment = -1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_sl_blued.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_sl_blued.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
-			self.parts.wpn_fps_pis_m9butcool_sl_orig.supported = true --PROTOTYPE SLIDE
+			self.parts.wpn_fps_pis_m9butcool_sl_orig.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --PROTOTYPE SLIDE
 			self.parts.wpn_fps_pis_m9butcool_sl_orig.stats = {
 				spread = -1,
 				concealment = 1,
 				value = 0
 			}
-			self.parts.wpn_fps_pis_m9butcool_sl_orig.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_sl_orig.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--SIGHT
-			self.parts.wpn_fps_pis_m9butcool_ro_raised.supported = true --RAILED SIGHT
-			self.parts.wpn_fps_pis_m9butcool_ro_raised.stats = nil
-			self.parts.wpn_fps_pis_m9butcool_ro_raised.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --RAILED SIGHT
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.stats = nil  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_ro_raised.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--GADGETS
-			self.parts.wpn_fps_pis_m9butcool_fl_aw01.supported = true --AW01 FLASHLIGHT
-			self.parts.wpn_fps_pis_m9butcool_fl_aw01.stats = nil
-			self.parts.wpn_fps_pis_m9butcool_fl_aw01.custom_stats = nil
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --AW01 FLASHLIGHT
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.stats = nil  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_fl_aw01.custom_stats = nil  -- [GPT合并1] ybspatch 新增/修改项
 
 			--CUSTOM
-			self.parts.wpn_fps_pis_m9butcool_fm_burst.supported = true --BURST FIREMODE
-			self.parts.wpn_fps_pis_m9butcool_fm_burst.stats = deep_clone(self.parts.wpn_fps_upg_i_93r.stats)
-			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats = deep_clone(self.parts.wpn_fps_upg_i_93r.custom_stats)
-			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.burst_fire.lock = true
-			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.info_lock_burst = true
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --BURST FIREMODE
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.stats = deep_clone(self.parts.wpn_fps_upg_i_93r.stats)  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats = deep_clone(self.parts.wpn_fps_upg_i_93r.custom_stats)  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.burst_fire.lock = true  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_fm_burst.custom_stats.info_lock_burst = true  -- [GPT合并1] ybspatch 新增/修改项
 
 			--CONVERSION KITS
-			self.parts.wpn_fps_pis_m9butcool_ck_40sw.supported = true --.40 S&W CONVERSION KIT
-			self.parts.wpn_fps_pis_m9butcool_ck_40sw.keep_damage = true
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --.40 S&W CONVERSION KIT
+			self.parts.wpn_fps_pis_m9butcool_ck_40sw.keep_damage = true  -- [GPT合并1] ybspatch 新增/修改项
 			self.parts.wpn_fps_pis_m9butcool_ck_40sw.stats = {
 				extra_ammo = -3,
 				damage = 6,
@@ -27867,8 +28215,8 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 				rof_mult = 0.76558960
 			}
 
-			self.parts.wpn_fps_pis_m9butcool_ck_aw01.supported = true --AW01 CONVERSION KIT
-			self.parts.wpn_fps_pis_m9butcool_ck_aw01.keep_damage = true
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --AW01 CONVERSION KIT
+			self.parts.wpn_fps_pis_m9butcool_ck_aw01.keep_damage = true  -- [GPT合并1] ybspatch 新增/修改项
 			self.parts.wpn_fps_pis_m9butcool_ck_aw01.stats = {
 				extra_ammo = -6,
 				damage = 21,
@@ -33364,7 +33712,7 @@ Hooks:PostHook( WeaponFactoryTweakData, "create_bonuses", "SC_mods", function(se
 			-- 	value = 0
 			-- }
 
-			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.supported = true --给LVAR的镜子一点倍率
+			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --给LVAR的镜子一点倍率
 			self.parts.wpn_fps_ass_m4_usasoc_optic_vortex.stats = {
 				zoom = 8,
 				value = 6,
@@ -46885,6 +47233,11 @@ exclude = {
 	"wpn_fps_ass_osipr_m_gl_poison",
 	"wpn_fps_upg_a_underbarrel_hornet",
 	"wpn_fps_upg_a_grenade_launcher_hornet",
+	"wpn_fps_upg_a_dart_poison",
+	"wpn_fps_upg_a_dart_daze",
+	"wpn_fps_upg_a_dart_revive",
+	"wpn_fps_upg_a_flun_flare",
+	"wpn_fps_upg_a_flun_shell"	
 }
 
 local no_vfgs = restoration and restoration.Options:GetValue("OTHER/GOTTAGETAGRIP")

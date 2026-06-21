@@ -1755,6 +1755,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- ["bm_m203_weapon_sc_desc_pc"] = "按下 $BTN_BIPOD 切换到榴弹发射器。",
         -- ["bm_m203_weapon_sc_desc"] = "按住 $BTN_BIPOD 切换到榴弹发射器。",
 
+		["bm_welrod_sc_desc"] = "Compact and disguised to look like a bike pump, this covert weapon can silently take out isolated targets. Comes #{skill_color}#integrally suppressed.##",
+
         --Medical Bullets
         -- Bronco.44 Medic bullet
         ["dr_wei_MR"] = "治疗弹",
@@ -1788,6 +1790,9 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- PPK (Gruber)
         ["bm_ppk_sc_desc"] = "更大，更危险的袖珍武器替代品，经典武器，经典用法。",
         ["bm_x_ppk_sc_desc"] = "如果你想比特工看起来更像个绅士就用它。",
+		--Makarov (Strix)
+		["bm_pmm_sc_desc"] = "This Soviet-era pistol continues to see combat around the world to this day. Its small size makes it easily concealable, but it still packs a punch when things get loud.",
+		["bm_x_pmm_sc_desc"] = "",			
         -- M13
         ["bm_legacy_sc_desc"] = "西德人的设计最终被Bernetti否决，但在一场战斗中，它仍能发挥出自己的力量。",
         ["bm_x_legacy_sc_desc"] = "两支被历史遗忘的手枪，将使你所及之屋留遍子弹。",
@@ -2130,7 +2135,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- CUSTOM 60 DAMAGE ARs
             --OSIPR
             ["bm_w_ar2"] = "装甲核心标准脉冲来复枪",
-            ["bm_w_ar2_desc"] = "联合帝国科技的造物。\n在七小时的那场战役以后，它同时为不屈的自由意志与象征着极大压迫的装甲核心发声。\n它将会在这史无前例的战场上产生串联共振反应。",
+            ["bm_w_ar2_desc"] = "联合帝国科技的造物。\n在七小时的那场战役以后，它同时为不屈的自由意志与象征着极大压迫的装甲核心发声。\n它将会让这史无前例的战场上产生串联共振反应。",
         -- SCAR-L
         --["bm_w_scarl"] = "Eagle步枪",
         -- Valmet Rk.62
@@ -3484,6 +3489,10 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_menu_btn_sell"] = "售出武器 ($price)",
         ["bm_menu_btn_buy_selected_weapon"] = "购买武器 ($price)",
 
+		["menu_persecond_suffix_short"] = "/s",
+		["menu_milliseconds_suffix_short"] = "ms", --milliseconds
+		["menu_meters_suffix_short"] = "m", --meters			
+
         -- New menu stats--
         ["bm_menu_damage_shake"] = "抖动百分比",
         ["bm_menu_deflection"] = "血量减伤分数",
@@ -3492,6 +3501,20 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         --["bm_menu_magazine"] = "Capacity",
         ["bm_menu_standing_range"] = "衰减始距",
         ["bm_menu_moving_range"] = "衰减末距",
+
+		--Throwables
+		["bm_menu_damage_blast"] = "Damage (Blast)",
+		["bm_menu_range_blast"] = "Range (Blast)",
+		["bm_menu_time_blast"] = "Duration (Blast)",
+		["bm_menu_damage_impact"] = "Damage (Impact)",
+		["bm_menu_range_impact"] = "Range (Impact)",
+		["bm_menu_damage_pool"] = "Damage (Pool)",
+		["bm_menu_range_pool"] = "Range (Pool)",
+		["bm_menu_time_pool"] = "Duration (Pool)",
+		["bm_menu_damage_dot"] = "Damage (DOT)",
+		["bm_menu_range_dot"] = "Range (DOT)",
+		["bm_menu_time_dot"] = "Duration (DOT)",
+		["bm_menu_cooldown_reduction"] = "Pickup Reduction",		
         ["bm_menu_break_in"] = "破甲无敌帧",
         
         -- Special Armor Effect

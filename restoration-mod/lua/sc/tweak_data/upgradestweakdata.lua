@@ -123,7 +123,8 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResLevelTableInit", function(self, tw
 					"road",
 					"legacy",
 					"x_legacy",
-					"fmg9"
+					"fmg9",
+					"flun"
 				}
 			},
 		l18 = {
@@ -176,7 +177,8 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResLevelTableInit", function(self, tw
 					"cs",
 					"brick",
 					"ostry",
-					"r700"
+					"r700",
+					"laser_watch"
 				}
 			},
 		l24 = {
@@ -240,7 +242,12 @@ Hooks:PostHook(UpgradesTweakData, "init", "ResLevelTableInit", function(self, tw
 					"shuno",
 					"holt",
 					"x_holt",
-					"x_korth"
+					"x_korth",
+					"welrod",
+					"pmm",
+					"x_pmm",
+					"speen",
+					"dart"					
 				}
 			},
 		l32 = {
@@ -687,6 +694,42 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		1.25
 	}
 	
+	-- Extra Cable ties from bots
+	self.values.team.crew_ai_cable_ties = {
+		{
+			2,
+			3,
+			4
+		}
+	}
+	
+	-- Cortex Bomb for Bots 
+	self.values.team.crew_ai_flashbang = {
+		{
+			360,
+			240,
+			120
+		}
+	}
+	
+	-- Counter Strike for Bots
+	self.values.team.crew_ai_counter_strike = {
+		{
+			360,
+			240,
+			120
+		}
+	}
+	
+	-- Shockproof for Bots
+	self.values.team.crew_ai_counter_tase = {
+		{
+			180,
+			120,
+			60
+		}
+	}		
+	
 	--Equipment--
 	--FAKS: Intended to offer on-demand burst healing that can save people from going down.
 	self.values.first_aid_kit.heal_amount = 15 --Heals 150 health on use.
@@ -699,7 +742,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	--ECMs: They're ECMs
 	self.ecm_jammer_base_battery_life = 10
 	self.ecm_jammer_base_low_battery_life = 4
-	self.ecm_jammer_base_range = 2500 --不要再动它了
+	self.ecm_jammer_base_range = 2500  -- [GPT合并1] 此项值原为2400  --不要再动它了
 	self.ecm_feedback_min_duration = 10
 	self.ecm_feedback_max_duration = 10
 	self.ecm_feedback_interval = 1.2
@@ -708,6 +751,11 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	--Sentry Guns
 	self.sentry_gun_base_armor = 15
 	self.sentry_gun_base_ammo = 140
+	self.sentry_gun_ammo_cost = {
+		0.4,
+		0.35,
+		0.3
+	}	
 
 	--"Baked In" upgrades
 	self.values.cable_tie.interact_speed_multiplier = {0.25}
@@ -830,8 +878,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						0.5
 					}
 				--Ace
-					self.morale_boost_speed_bonus_for_myself = 1.2  --此处修改，为了方便调整专精后给自己的加成
-					self.morale_boost_reload_speed_bonus_for_myself = 1.2  --
+					self.morale_boost_speed_bonus_for_myself = 1.2  -- [GPT合并1] ybspatch 新增/修改项  --此处修改，为了方便调整专精后给自己的加成
+					self.morale_boost_reload_speed_bonus_for_myself = 1.2  -- [GPT合并1] ybspatch 新增/修改项  --
 					self.values.player.long_dis_revive = {0.5, 0.5}
 					self.values.cooldown.long_dis_revive = {
 						{1, 90}
@@ -1005,8 +1053,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			--Body Expertise aka Spray N' Pray --人体解构 此处修改，不跟进更新
 				self.values.player.ap_bullets = {0.5}
 				self.values.smg.ap_bullets = {1.0}
-				self.automatic_kills_to_damage_reset_t = 5 --delay to reset time (seconds)  --此处修改，原2
-				self.automatic_kills_to_damage_lost = 1 --when timeout the damage lost
+				self.automatic_kills_to_damage_reset_t = 5  -- [GPT合并1] 此项值原为1.2  --delay to reset time (seconds)  --此处修改，原2
+				self.automatic_kills_to_damage_lost = 1  -- [GPT合并1] ybspatch 新增/修改项  --when timeout the damage lost
 				self.values.smg.automatic_kills_to_damage = {
 					{
 						6, --stack limit
@@ -1033,8 +1081,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				}
 
 				--Metroline全头加回
-				self.automatic_kills_to_head_shot_reset_t = 3  --delay to reset time (seconds)
-				self.automatic_kills_to_head_shot_damage_lost = 0.05  --这个表示10% --when timeout the damage lost
+				self.automatic_kills_to_head_shot_reset_t = 3  -- [GPT合并1] ybspatch 新增/修改项  --delay to reset time (seconds)
+				self.automatic_kills_to_head_shot_damage_lost = 0.05  -- [GPT合并1] ybspatch 新增/修改项  --这个表示10% --when timeout the damage lost
 				self.values.smg.automatic_kills_to_head_shot = {
 					{
 						0.7,  --最高
@@ -1042,8 +1090,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						0.05  --每击杀一名敌人+
 					}
 				}
-				self.automatic_fire_to_head_shot_reset_t = 3  --delay to reset time (seconds)
-				self.automatic_fire_to_head_shot_damage_lost = 0.1  --这个表示10% --when timeout the damage lost
+				self.automatic_fire_to_head_shot_reset_t = 3  -- [GPT合并1] ybspatch 新增/修改项  --delay to reset time (seconds)
+				self.automatic_fire_to_head_shot_damage_lost = 0.1  -- [GPT合并1] ybspatch 新增/修改项  --这个表示10% --when timeout the damage lost
 				self.values.smg.automatic_fire_to_head_shot = {
 					{
 						0.8,  --最高
@@ -1055,8 +1103,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				if MetroLine_BodyExpert_Convert then
 					self.values.player.ap_bullets = {0.5}
 					self.values.smg.ap_bullets = {1.0}
-					self.automatic_kills_to_damage_reset_t = 3  --delay to reset time (seconds)
-					self.automatic_kills_to_damage_lost = 1  --这个是层数 --when timeout the damage lost
+					self.automatic_kills_to_damage_reset_t = 3  -- [GPT合并1] ybspatch 新增/修改项  --delay to reset time (seconds)
+					self.automatic_kills_to_damage_lost = 1  -- [GPT合并1] ybspatch 新增/修改项  --这个是层数 --when timeout the damage lost
 					self.values.smg.automatic_kills_to_damage = {
 						{
 							6,  --stack limit
@@ -1548,7 +1596,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 						range_increment = 800
 					}
 				}
-				self.headshot_graze_proc_cd = 0.3  --此处修改，原0.5
+				self.headshot_graze_proc_cd = 0.3  -- [GPT合并1] 此项值原为0.5  --此处修改，原0.5
 				self.values.player.headshot_no_falloff = {true}
 				self.headshot_no_falloff_cd = 0.0
 				
@@ -1618,7 +1666,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 				self.values.player.max_marked_inc_dmg_distance = {dst = 3000, dmg_mult = 1.45}	 --此处添加
 				--Ace
 				self.values.player.marked_enemy_extra_damage = {true}
-				self.values.player.marked_enemy_damage_mul = 1.4  --此处修改，原1.35
+				self.values.player.marked_enemy_damage_mul = 1.4  -- [GPT合并1] 此项值原为1.35  --此处修改，原1.35
 
 				self.skill_descs.ecm_2x = {
 					skill_value_b1 = tostring(self.values.player.marked_inc_dmg_distance[1][2] % 1 * 100).."%", -- +damage if player position > distance
@@ -2379,7 +2427,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		--]]
 	}
 	self.temp_health_decay = 0.5
-	self.temp_health_max = 24.5  --此处修改，原24
+	self.temp_health_max = 24.5  -- [GPT合并1] 此项值原为24  --此处修改，原24
 	self.values.player.revive_temp_health = { 12 }
 	self.values.player.temp_health_speed = { 1.2 }
 	self.values.player.temp_health_deflection = { 0.1 }
@@ -2426,7 +2474,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		1.25
 	}
 	--infiltrator stuff  --渗透者
-	self.infiltrator_dr_range = 1500  --此处修改，原1200
+	self.infiltrator_dr_range = 1500  -- [GPT合并1] 此项值原为1200  --此处修改，原1200
 	self.values.player.melee_stacking_heal = {true}
 	self.values.temporary.melee_life_leech = {
 		{0.08, 08}
@@ -2611,7 +2659,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		true,
 		0 --Ammo sharing cooldown, not in use
 	}}
-	self.loose_ammo_give_team_ratio = 0.35 --% of ammo given to team. --此处修改，原0.15
+	self.loose_ammo_give_team_ratio = 0.35  -- [GPT合并1] 此项值原为0.15  --% of ammo given to team. --此处修改，原0.15
 
 	--Sociopath more like SocioBAD  --反社会
 	self.values.player.killshot_regen_armor_bonus = {2}
@@ -2629,10 +2677,10 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 	self.values.player.melee_kill_stamina = {
 		0.35  --此处修改，原0.2
 	}
-	self.killshot_close_panic_range = 1800 --此处修改
-	self.on_killshot_cooldown = 6
-	self.on_killshot_cooldown_reduction = 1 --此处修改
-	self.on_killshot_cooldown_reduction_melee = 2  --此处修改，原1.5
+	self.killshot_close_panic_range = 1800  -- [GPT合并1] 此项值原为1200  --此处修改
+	self.on_killshot_cooldown = 6  -- [GPT合并1] 此项值原为5
+	self.on_killshot_cooldown_reduction = 1  -- [GPT合并1] 此项值原为0.5  --此处修改
+	self.on_killshot_cooldown_reduction_melee = 2  -- [GPT合并1] 此项值原为1.5  --此处修改，原1.5
 	
 	--hecu-- --之前给啥比喝醋的小礼物，请放心，我们不会利用这种代码整蛊任何其他玩家甚至危害他人安全。这段代码也理应被废弃。
 	--[[local get_steam_id = Steam:userid()
@@ -2641,8 +2689,8 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 			0.02,
 			0.01 --Copycat, unused
 		}
-		self.on_killshot_cooldown_reduction = 0.5
-		self.killshot_close_panic_range = 1200
+		self.on_killshot_cooldown_reduction = 0.5  -- [GPT合并1] ybspatch 新增/修改项
+		self.killshot_close_panic_range = 1200  -- [GPT合并1] ybspatch 新增/修改项
 	end]]
 
 
@@ -3124,7 +3172,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_2 = tostring(self.dodge_to_hot_data.total_ticks * self.dodge_to_hot_data.tick_time) -- Duration of 1 stack --想不到恢复制作组居然犯了这样的算术错误！ 原本这个值使用的运算是除运算。
 	}
 	if schinese then
-		self.specialization_descs[4][9].perk_value_1 = tostring(self.values.player.heal_over_time[1] * 12) --浪人的奶量相对更高一点...
+		self.specialization_descs[4][9].perk_value_1 = tostring(self.values.player.heal_over_time[1] * 12)  -- [GPT合并1] ybspatch 新增/修改项  --浪人的奶量相对更高一点...
 	end
 		
 	
@@ -3331,7 +3379,7 @@ Hooks:PostHook(UpgradesTweakData, "_init_pd2_values", "ResSkillsInit", function(
 		perk_value_2 = tostring(self.values.survive_one_hit_armor[1] * 10) -- Armor regen after lethal shot survive
 	}
 	if schinese then
-		self.specialization_descs[12][7].perk_value_3 = "0.9" --修改基本时间单位...
+		self.specialization_descs[12][7].perk_value_3 = "0.9"  -- [GPT合并1] ybspatch 新增/修改项  --修改基本时间单位...
 	end
 	
 	--(S)Ex-President
@@ -6241,7 +6289,7 @@ end)
 Hooks:PostHook(UpgradesTweakData, "init", "ResOtherModSkills", function(self)
 
 	--MERCENARY DECK  --佣兵
-		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.5
+		self.values.player.kmerc_generic_bonus_per_max_armor_rate = 0.5  -- [GPT合并1] 此项值原为0.8
 		self.values.player.kmerc_swap_speed_per_max_armor = { 0.02 }
 		self.values.player.kmerc_reload_speed_per_max_armor = { 0.01 }
 

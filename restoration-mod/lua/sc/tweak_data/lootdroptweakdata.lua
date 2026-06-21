@@ -27,30 +27,30 @@ function LootDropTweakData:init(tweak_data)
     --此处添加
       --这是一件鹰姐的物品
     self.global_values.daring = {}
-    self.global_values.daring.name_id = "loot_daring"
-    self.global_values.daring.desc_id = "loot_daring_desc"
-    self.global_values.daring.color = Color('009900')
-    self.global_values.daring.dlc = false
-    self.global_values.daring.chance = 0.84
-    self.global_values.daring.value_multiplier = tweak_data:get_value("money_manager", "global_value_multipliers", "normal")
-    self.global_values.daring.durability_multiplier = 1
-    self.global_values.daring.drops = false
-    self.global_values.daring.track = false
-    self.global_values.daring.sort_number = 30
-    self.global_values.daring.category = "daring"
+    self.global_values.daring.name_id = "loot_daring"  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.desc_id = "loot_daring_desc"  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.color = Color('009900')  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.dlc = false  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.chance = 0.84  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.value_multiplier = tweak_data:get_value("money_manager", "global_value_multipliers", "normal")  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.durability_multiplier = 1  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.drops = false  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.track = false  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.sort_number = 30  -- [GPT合并1] ybspatch 新增/修改项
+    self.global_values.daring.category = "daring"  -- [GPT合并1] ybspatch 新增/修改项
       --这是sbkfc的物品
       --[[self.global_values.sbkfc = {}
-      self.global_values.sbkfc.name_id = "loot_sbkfc"
-      self.global_values.sbkfc.desc_id = "loot_sbkfc_desc"
-      self.global_values.sbkfc.color = Color('8B4513')
-      self.global_values.sbkfc.dlc = false
-      self.global_values.sbkfc.chance = 0.84
-      self.global_values.sbkfc.value_multiplier = tweak_data:get_value("money_manager", "global_value_multipliers", "normal")
-      self.global_values.sbkfc.durability_multiplier = 1
-      self.global_values.sbkfc.drops = false
-      self.global_values.sbkfc.track = false
-      self.global_values.sbkfc.sort_number = 30
-      self.global_values.sbkfc.category = "sbkfc"--]]
+      self.global_values.sbkfc.name_id = "loot_sbkfc"  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.desc_id = "loot_sbkfc_desc"  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.color = Color('8B4513')  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.dlc = false  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.chance = 0.84  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.value_multiplier = tweak_data:get_value("money_manager", "global_value_multipliers", "normal")  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.durability_multiplier = 1  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.drops = false  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.track = false  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.sort_number = 30  -- [GPT合并1] ybspatch 新增/修改项
+      self.global_values.sbkfc.category = "sbkfc"  -- [GPT合并1] ybspatch 新增/修改项  --]]
     --到此结束
 
         self.global_values.sc_wcc = {}

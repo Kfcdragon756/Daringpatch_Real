@@ -642,7 +642,7 @@ function CharacterTweakData:_init_medic(presets)
 	
 	self.medic_summers = deep_clone(self.medic)
 	--Base health
-	self.medic_summers.HEALTH_INIT = 60 * 1.2 --已改动
+	self.medic_summers.HEALTH_INIT = 60 * 1.2  -- [GPT合并1] 此项值原为60  --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.medic_summers.player_health_scaling_mul = 1.25		
 	self.medic_summers.headshot_dmg_mul = 1.5
@@ -3193,7 +3193,7 @@ function CharacterTweakData:_init_phalanx_vip(presets)
 	self.phalanx_vip.damage.immune_to_knockback = true
 	self.phalanx_vip.immune_to_knock_down = true
 	--Base health
-	self.phalanx_vip.HEALTH_INIT = 65 * 1.25 --已改动
+	self.phalanx_vip.HEALTH_INIT = 65 * 1.25  -- [GPT合并1] 此项值原为65  --已改动
 	--Gains extra health per player, totaling to 1.3k~ at a full party of 4
 	self.phalanx_vip.player_health_scaling_mul = 1.25			
 	self.phalanx_vip.headshot_dmg_mul = 2.0
@@ -3309,7 +3309,7 @@ function CharacterTweakData:_init_spring(presets)
 	self.spring.no_damage_mission = true
 	self.spring.immune_to_knock_down = true
 	--Base health
-	self.spring.HEALTH_INIT = 500 *1.25 --已改动
+	self.spring.HEALTH_INIT = 500 *1.25  -- [GPT合并1] 此项值原为500  --已改动
 	--Gains extra health per player, totaling to 10k~ at a full party of 4
 	self.spring.player_health_scaling_mul = 1.25
 	self.spring.damage_resistance = presets.damage_resistance.none
@@ -3396,7 +3396,7 @@ function CharacterTweakData:_init_summers(presets)
 	self.summers.melee_weapon_dmg_multiplier = 1
 	self.summers.detection = presets.detection.normal
 	--Base health
-	self.summers.HEALTH_INIT = 72 * 1.05 --已改动
+	self.summers.HEALTH_INIT = 72 * 1.05  -- [GPT合并1] 此项值原为72  --已改动
 	--Gains extra health per player, totaling to 1.4k~ at a full party of 4
 	self.summers.player_health_scaling_mul = 1.25		
 	self.summers.flammable = false
@@ -3631,7 +3631,7 @@ function CharacterTweakData:_init_taser(presets)
 	table.insert(self._enemy_list, "taser")
 	
 	self.taser_summers = deep_clone(self.taser)
-	self.taser_summers.HEALTH_INIT = 60 * 1.2 --已改动
+	self.taser_summers.HEALTH_INIT = 60 * 1.2  -- [GPT合并1] 此项值原为60  --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.taser_summers.player_health_scaling_mul = 1.25	
 	self.taser_summers.headshot_dmg_mul = 1.5
@@ -3810,7 +3810,7 @@ function CharacterTweakData:_init_boom(presets)
 	self.boom_summers.speech_prefix_count = 1
 	self.boom_summers.custom_voicework = nil
 	self.boom_summers.use_radio = "dsp_radio_russian"
-	self.boom_summers.HEALTH_INIT = 60 * 1.2 --已改动
+	self.boom_summers.HEALTH_INIT = 60 * 1.2  -- [GPT合并1] 此项值原为60  --已改动
 	--Gains extra health per player, totaling to 1.2k~ at a full party of 4
 	self.boom_summers.player_health_scaling_mul = 1.25	
 	self.boom_summers.headshot_dmg_mul = 1.5
@@ -16437,7 +16437,8 @@ function CharacterTweakData:_presets(tweak_data)
 		combat = {},
 		recon = {},
 		guard = {},
-		ntl = {}
+		ntl = {},
+		dazed = {}
 	}
 	presets.detection.normal.idle.dis_max = 10000
 	presets.detection.normal.idle.angle_max = 120
@@ -16457,6 +16458,10 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.detection.normal.ntl.dis_max = 4000
 	presets.detection.normal.ntl.angle_max = 60
 	presets.detection.normal.ntl.delay = {0.2, 2}
+	presets.detection.normal.dazed.dis_max = 2000
+	presets.detection.normal.dazed.angle_max = 60
+	presets.detection.normal.dazed.delay = {1, 6}
+	presets.detection.normal.dazed.use_uncover_range = true
 	presets.detection.normal_undercover = {
 		idle = {},
 		combat = {},
@@ -16505,6 +16510,7 @@ function CharacterTweakData:_presets(tweak_data)
 	presets.detection.guard.guard.angle_max = 120
 	presets.detection.guard.guard.delay = {0, 0}
 	presets.detection.guard.ntl = presets.detection.normal.ntl
+	presets.detection.guard.dazed = presets.detection.normal.dazed
 	presets.detection.sniper = {
 		idle = {},
 		combat = {},
