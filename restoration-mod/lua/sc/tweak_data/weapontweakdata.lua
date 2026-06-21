@@ -20571,6 +20571,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 				self.vp70.sounds.enter_steelsight = "pistol_steel_sight_enter"
 				self.vp70.sounds.leave_steelsight = "pistol_steel_sight_exit"
 				self.vp70.timers = deep_clone(self.ppk.timers)
+				self.vp70.ADAPTIVE_BURST_SIZE = nil 
+				self.vp70.BURST_FIRE = nil 
+				self.vp70.BURST_FIRE_RATE_MULTIPLIER = nil
 			end
 
 			if self.kurisumasu then
@@ -27098,6 +27101,9 @@ Hooks:PostHook( WeaponTweakData, "init", "SC_weapons", function(self)
 			self.m9butcool.fire_mode_data.fire_rate = 0.0882352  -- [GPT合并1] ybspatch 新增/修改项
 			self.m9butcool.kick = self.stat_info.kick_tables.even_recoil  -- [GPT合并1] ybspatch 新增/修改项
 			self.m9butcool.sounds.fire = "beretta_fire"  -- [GPT合并1] ybspatch 新增/修改项
+			self.m9butcool.ADAPTIVE_BURST_SIZE = nil 
+			self.m9butcool.BURST_FIRE = nil 
+			self.m9butcool.BURST_FIRE_RATE_MULTIPLIER = nil
 			self.m9butcool.kick_pattern = {
 				{0, self.stat_info.kick_tables.moderate_kick},
 				{4, self.stat_info.kick_tables.right_kick},
