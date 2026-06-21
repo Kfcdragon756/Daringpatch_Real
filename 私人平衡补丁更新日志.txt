@@ -11,6 +11,7 @@ v13
 · 为原版后添加的武器"电击警棍"添加最基本的支持，可能需要修改数值以更加平衡。
 · 为AR-2步枪重新撰写描述文本。
 · 为全体重型霰弹枪添加穿甲描述文本。
+· 删除之前V12.3.4.3更新时的matchmaking key。
 
 [v12]
 --修复类--
@@ -590,4 +591,4 @@ restoration-mod/assets/effects/particles/weapons/hd2offensive/*  --用于HD2飞�
 ——“脑洞大开”专精中，“不受距离衰减影响”的效果对在衰减始距外无法穿盾的狙击枪不生效。
 
 给我们自己备注的注意事项：
-我们在补丁中添加了位于restoration-mod\lua\sc\network\base的matchmaking key，不作为更新内容，但需注意持续跟进
+我们在补丁中添加了位于restoration-mod\lua\sc\network\base的matchmaking key，不作为更新内容，但需注意持续跟进（已删除）
