@@ -440,7 +440,8 @@ function A:physical_sequence(sequence,seen)
    if physical then break end
   end
  end
- seen[sequence]=nil
+ -- Keep visited nodes for this entire reachability query. Shared appearance
+ -- branches need one scan; false results remain uncached between queries.
  -- Only cache positives: a recursive edge may temporarily conceal a physical leaf.
  if physical then sequence._authority_physical=true end
  return physical
