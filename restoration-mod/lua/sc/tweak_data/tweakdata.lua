@@ -2,17 +2,6 @@ if not tweak_data then
 	return 
 end
 
---[[
-tweak_data.armor_break_got_time = {
-	0,
-	0.22,
-	0.23,
-	0.24,
-	0.25,
-	0.26,
-	0.27
-}]]
-
 tweak_data.accessibility_colors.screenflash.hit_flash.default = Color(255, 255, 250, 180) / 255
 tweak_data.hud.revive_colors_resmod = {
 	restoration.Options:GetValue("HUD/Colors/DownsZero"),
@@ -21,6 +10,10 @@ tweak_data.hud.revive_colors_resmod = {
 	restoration.Options:GetValue("HUD/Colors/DownsThreePlus"),
 	restoration.Options:GetValue("HUD/Colors/DownsThreePlus")
 }
+
+-- Additional contour colours for Infiltrator's callouts.
+tweak_data.contour.character.callouts_dangerous_color = Vector3(0.6, 0.2, 0.3)
+tweak_data.contour.character.callouts_more_dangerous_color = Vector3(1, 0.1, 0.15)
 
 tweak_data.ammo = {}
 tweak_data.ammo.ricochet = {}
@@ -67,18 +60,30 @@ tweak_data.scene_poses.weapon.bessy = {
 tweak_data.pistol = {
 	swap_bonus = 3.2,
 	ads_move_speed_mult = 0.8,
-	moving_spread_mult = 0.5,
-	hipfire_spread_mult = 0.75
+	ads_moving_spread_mult = 2,
+	ads_moving_recoil = 1.1,
+	hipfire_spread_mult = 0.5
 }
+	tweak_data.pistol_special = deep_clone(tweak_data.pistol)
 	tweak_data.pistol_pdw = {
 		ads_move_speed_mult = 0.7 / tweak_data.pistol.ads_move_speed_mult
 	}
 	tweak_data.handcannon = {
-		swap_bonus = 2.7 / tweak_data.pistol.swap_bonus,
-		ads_move_speed_mult = 0.7 / tweak_data.pistol.ads_move_speed_mult,
-		moving_spread_mult = 1 / tweak_data.pistol.moving_spread_mult,
-		hipfire_spread_mult = 1 / tweak_data.pistol.hipfire_spread_mult
+		swap_bonus = 2.1 / tweak_data.pistol.swap_bonus,
+		ads_moving_recoil = 1.2 / tweak_data.pistol.ads_moving_recoil,
+		ads_move_speed_mult = 0.6 / tweak_data.pistol.ads_move_speed_mult,
+		ads_moving_spread_mult = 4 / tweak_data.pistol.ads_moving_spread_mult,
+		hipfire_spread_mult = 1.25 / tweak_data.pistol.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 1.75
 	}
+		tweak_data.handcannon_special = deep_clone(tweak_data.handcannon)
+		tweak_data.yeehaw = {
+			ads_move_speed_mult = 0.8 / (tweak_data.pistol.ads_move_speed_mult * tweak_data.handcannon.ads_move_speed_mult),
+			hipfire_spread_mult = 0.5 / (tweak_data.pistol.hipfire_spread_mult * tweak_data.handcannon.hipfire_spread_mult)
+		}
+		tweak_data.samurai = {
+			hipfire_spread_mult = 0.1 / (tweak_data.pistol.hipfire_spread_mult * tweak_data.handcannon.hipfire_spread_mult)
+		}
 
 tweak_data.bow = {
 	swap_bonus = 1,
@@ -91,7 +96,7 @@ tweak_data.crossbow = {
 	shake_mul = 0
 }
 	tweak_data.crossbow_pistol = {
-		ads_move_speed_mult = 1.6,
+		ads_move_speed_mult = 0.8 / tweak_data.crossbow.ads_move_speed_mult,
 		swap_bonus = 3.2
 	}
 
@@ -99,60 +104,77 @@ tweak_data.grenade_launcher = {
 	ads_move_speed_mult = 0.5,
 }
 	tweak_data.gl_pistol = {
-		ads_move_speed_mult = 1.6,
-		swap_bonus = 3.2
+		ads_moving_spread_mult = 1.35,
+		ads_moving_recoil = 1.2,
+		ads_move_speed_mult = 0.8 / tweak_data.grenade_launcher.ads_move_speed_mult,
+		swap_bonus = 2.1
 	}
 	tweak_data.rocket_launcher = {
-		ads_move_speed_mult = 0.4, --lowered to 0.2
+		ads_move_speed_mult = 0.25 / tweak_data.grenade_launcher.ads_move_speed_mult,
 		shake_mul = 0
 	}
 
 tweak_data.shotgun = {
 	ads_move_speed_mult = 0.5,
-	ads_moving_spread_mult = 1.15,
+	ads_moving_spread_mult = 1.1,
 	shake_mul = 2
 }
 	tweak_data.shotgun_auto = {
-		hipfire_spread_mult = 0.25,
+		hipfire_spread_mult = 0.4,
 	}
 	tweak_data.shotgun_light = {
 		hipfire_spread_mult = 1.3,
-		--ads_multishot_spread_mult = 4,
-		moving_spread_mult = 1.5
+		hipfire_moving_spread_mult = 1.5
 	}
 		tweak_data.shotgun_light_semi = {
-			hipfire_spread_mult = 0.61538,
-			moving_spread_mult = 0.66667
+			hipfire_spread_mult = 0.8 / tweak_data.shotgun_light.hipfire_spread_mult,
+			hipfire_moving_spread_mult = 1 / tweak_data.shotgun_light.hipfire_moving_spread_mult
 		}
+			tweak_data.shotgun_light_pistol = {
+				ads_moving_recoil = 1.2,
+				ads_moving_spread_mult = 1.2 / tweak_data.shotgun.ads_moving_spread_mult,
+				ads_move_speed_mult = 0.6 / tweak_data.shotgun.ads_move_speed_mult,
+				swap_bonus = 2.1,
+				hipfire_moving_spread_mult = 1.6 / (tweak_data.shotgun_light.hipfire_spread_mult * tweak_data.shotgun_light_semi.hipfire_spread_mult),
+				hipfire_spread_mult = 1.5 / (tweak_data.shotgun_light.hipfire_spread_mult * tweak_data.shotgun_light_semi.hipfire_spread_mult)
+			}
 	tweak_data.shotgun_heavy = {
-		hipfire_spread_mult = 0.55,
-		--ads_multishot_spread_mult = 0.9
+		hipfire_spread_mult = 0.65,
 	}
+			tweak_data.shotgun_heavy_pistol = {
+				ads_moving_recoil = 1.2,
+				ads_moving_spread_mult = 1.2 / tweak_data.shotgun.ads_moving_spread_mult,
+				ads_move_speed_mult = 0.6 / tweak_data.shotgun.ads_move_speed_mult,
+				swap_bonus = 2.1,
+				hipfire_spread_mult = 1.1 / tweak_data.shotgun_heavy.hipfire_spread_mult
+			}
 	tweak_data.shotgun_break = {
-		hipfire_spread_mult = 1.15,
-		--ads_multishot_spread_mult = 1
+		hipfire_spread_mult = 1.35,
 	}
+		tweak_data.shotgun_break_pistol = {
+			ads_moving_recoil = 1.2,
+			ads_moving_spread_mult = 1.2 / tweak_data.shotgun.ads_moving_spread_mult,
+			ads_move_speed_mult = 0.6 / tweak_data.shotgun.ads_move_speed_mult,
+			swap_bonus = 2.1,
+			hipfire_spread_mult = 1.5 / tweak_data.shotgun_break.hipfire_spread_mult
+		}
 		tweak_data.shotgun_smasher = {
 			shake_mul = 3
 		}
-	tweak_data.shotgun_pistol = {
-		ads_move_speed_mult = 1.6,
-		swap_bonus = 3.2
-	}
 	tweak_data.flamethrower = {
-		ads_move_speed_mult = 1,
+		ads_move_speed_mult = 0.5 / tweak_data.shotgun.ads_move_speed_mult,
 		shake_mul = 0
 	}
 		tweak_data.flamethrower_lmg = {
-			ads_move_speed_mult = 0.7,
+			ads_move_speed_mult = 0.35 / (tweak_data.shotgun.ads_move_speed_mult * tweak_data.flamethrower.ads_move_speed_mult),
 			shake_mul = 0
 		}
 
 tweak_data.smg = {
 	swap_bonus = 1.6,
 	ads_move_speed_mult = 0.7,
-	moving_spread_mult = 0.6,
-	hipfire_spread_mult = 0.9
+	hipfire_spread_mult = 0.6,
+	hipfire_moving_spread_mult = 0.7,
 }
 	tweak_data.pdw = {
 		ads_move_speed_mult = 0.5 / tweak_data.smg.ads_move_speed_mult
@@ -161,117 +183,191 @@ tweak_data.smg = {
 		ads_moving_recoil = 1.15,
 		swap_bonus = 1 / tweak_data.smg.swap_bonus,
 		ads_move_speed_mult = 0.35 / tweak_data.smg.ads_move_speed_mult,
-		moving_spread_mult = 5 / tweak_data.smg.moving_spread_mult,
-		ads_moving_spread_mult = 2,
-		hipfire_spread_mult = 3 / tweak_data.smg.hipfire_spread_mult,
+		ads_moving_spread_mult = 12,
+		hipfire_spread_mult = 4.5 / tweak_data.smg.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 4.5 / tweak_data.smg.hipfire_spread_mult,
 		shake_mul = 1.4
 	}
 		tweak_data.lmg_moving = {
 			ads_moving_recoil = 1 / tweak_data.lmg.ads_moving_recoil,
 			shake_mul = 1 / tweak_data.lmg.shake_mul,
-			hipfire_spread_mult = 2 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult)
+			hipfire_spread_mult = 3 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult)
 		}
 		tweak_data.finn_the_lmg = {
 			ads_moving_recoil = 1 / tweak_data.lmg.ads_moving_recoil,
-			moving_spread_mult = 1 / (tweak_data.smg.moving_spread_mult * tweak_data.lmg.moving_spread_mult),
-			hipfire_spread_mult = 1.5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult),
+			ads_moving_spread_mult = 8 / tweak_data.lmg.ads_moving_spread_mult,
+			hipfire_spread_mult = 1.75 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult),
+			hipfire_moving_spread_mult = 1.75 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult),
 			shake_mul = 1 / tweak_data.lmg.shake_mul
 		}
 		tweak_data.mmg = {
-			moving_spread_mult = 6 / (tweak_data.smg.moving_spread_mult * tweak_data.lmg.moving_spread_mult),
-			ads_moving_spread_mult = 3 / tweak_data.lmg.ads_moving_spread_mult,
-			hipfire_spread_mult = 5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult)
+			ads_moving_spread_mult = 16 / tweak_data.lmg.ads_moving_spread_mult,
+			hipfire_spread_mult = 5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult),
+			hipfire_moving_spread_mult = 5 / (tweak_data.smg.hipfire_moving_spread_mult * tweak_data.lmg.hipfire_moving_spread_mult)
 		}
+			tweak_data.mmg_moving = {
+				ads_moving_recoil = 1 / tweak_data.lmg.ads_moving_recoil,
+				shake_mul = 1 / tweak_data.lmg.shake_mul,
+				hipfire_spread_mult = 4 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult * tweak_data.mmg.hipfire_spread_mult)
+			}
 			tweak_data.rambo = {
-				hipfire_spread_mult = 1.75 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult * tweak_data.mmg.hipfire_spread_mult)
+				hipfire_spread_mult = 2.5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult * tweak_data.mmg.hipfire_spread_mult)
 			}
 			tweak_data.wolf_brigade = {
 				ads_moving_recoil = 1 / tweak_data.lmg.ads_moving_recoil,
-				moving_spread_mult = 1.2 / (tweak_data.smg.moving_spread_mult * tweak_data.lmg.moving_spread_mult * tweak_data.mmg.moving_spread_mult),
-				hipfire_spread_mult = 1.5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult * tweak_data.mmg.hipfire_spread_mult),
+				hipfire_spread_mult = 2 / (tweak_data.smg.hipfire_spread_mult * tweak_data.lmg.hipfire_spread_mult * tweak_data.mmg.hipfire_spread_mult),
+				hipfire_moving_spread_mult = 4 / (tweak_data.smg.hipfire_moving_spread_mult * tweak_data.lmg.hipfire_moving_spread_mult * tweak_data.mmg.hipfire_moving_spread_mult),
 				shake_mul = 1 / tweak_data.lmg.shake_mul,
 			}
 	tweak_data.minigun = {
-		swap_bonus = 0.83334,
-		ads_move_speed_mult = 0.5, --lowered to 0.35
-		moving_spread_mult = 8.3333,
-		hipfire_spread_mult = 3 / tweak_data.smg.hipfire_spread_mult,
+		swap_bonus = 0.95 / tweak_data.smg.swap_bonus,
+		ads_move_speed_mult = 0.35 / tweak_data.smg.ads_move_speed_mult,
+		hipfire_spread_mult = 3.5 / tweak_data.smg.hipfire_spread_mult,
 	}
 		tweak_data.sasha = {
-			hipfire_spread_mult = 1.75 / (tweak_data.smg.hipfire_spread_mult * tweak_data.minigun.hipfire_spread_mult),
+			hipfire_spread_mult = 1.5 / (tweak_data.smg.hipfire_spread_mult * tweak_data.minigun.hipfire_spread_mult),
 		}
 	tweak_data.bige = {
 		swap_bonus = 1 / tweak_data.smg.swap_bonus,
-		moving_spread_mult = 1 / tweak_data.smg.moving_spread_mult,
-		hipfire_spread_mult = 1.2 / tweak_data.smg.hipfire_spread_mult,
+		ads_move_speed_mult = 0.3 / tweak_data.smg.ads_move_speed_mult,
+		hipfire_spread_mult = 1.25 / tweak_data.smg.hipfire_spread_mult,
 		shake_mul = 2
 	}
 
 tweak_data.snp = {
-	swap_bonus = 1,
-	ads_move_speed_mult = 0.45,
-	ads_stationary_spread_mult = 0.1,
-	hipfire_spread_mult = 2, --此处修改
+	swap_bonus = 0.95,
+	hipfire_spread_mult = 2,
 	hipfire_moving_spread_mult = 1.5,
-	shake_mul = 1.1
+	ads_move_speed_mult = 0.4,
+	shake_mul = 1,
+	min_spread_mult = 2
 }
+	tweak_data.snp_hip = {
+		min_spread_mult = 1.5 / tweak_data.snp.min_spread_mult,
+		hipfire_spread_mult = 2 / tweak_data.snp.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 1.25 / tweak_data.snp.hipfire_moving_spread_mult
+	}
 	tweak_data.semi_snp = {
-		hipfire_spread_mult = 3, --此处修改
-		ads_moving_recoil = 1.1,
-		hipfire_moving_spread_mult = 1.5,
-		ads_moving_spread_mult = 1.05,
+		min_spread_mult = 3.5 / tweak_data.snp.min_spread_mult,
+		hipfire_spread_mult = 3,
+		hipfire_moving_spread_mult = 2 / tweak_data.snp.hipfire_moving_spread_mult,
+		ads_moving_recoil = 1.5,
+		ads_moving_spread_mult = 14,
 		ads_move_speed_mult = 0.3 / tweak_data.snp.ads_move_speed_mult,
-		shake_mul = 1.1
+		shake_mul = 1.1 / tweak_data.snp.shake_mul
 	}
-		tweak_data.s7 = {
-			hipfire_spread_mult = 0.05,
-			hipfire_moving_spread_mult = 0.05,
-			ads_moving_spread_mult = 0.05
-		}
+	tweak_data.piss = {
+		hipfire_spread_mult = 0,
+		hipfire_moving_spread_mult = 0,
+		ads_move_speed_mult = 0.27 / tweak_data.snp.ads_move_speed_mult,
+		shake_mul = 0,
+		min_spread_mult = 0,
+		spread_mult = 0
+	}
 	tweak_data.amr = {
-		hipfire_spread_mult = 2,
-		ads_move_speed_mult = 0.5,
-		shake_mul = 1.1
+		ads_move_speed_mult = 0.3 / tweak_data.snp.ads_move_speed_mult,
+		hipfire_spread_mult = 3.5 / tweak_data.snp.ads_move_speed_mult,
+		shake_mul = 1.1,
+		min_spread_mult = 3 / tweak_data.snp.min_spread_mult,
 	}
+		tweak_data.gauss = {
+			min_spread_mult = 1.5 / (tweak_data.amr.min_spread_mult * tweak_data.snp.min_spread_mult),
+			hipfire_spread_mult = 0.5 / (tweak_data.amr.hipfire_spread_mult * tweak_data.snp.hipfire_spread_mult)
+		}
+		tweak_data.semi_amr = {
+			min_spread_mult = 4.5 / (tweak_data.amr.min_spread_mult * tweak_data.snp.min_spread_mult),
+			hipfire_spread_mult = 10 / (tweak_data.amr.hipfire_spread_mult * tweak_data.snp.hipfire_spread_mult),
+			hipfire_moving_spread_mult = 2.5 / tweak_data.snp.hipfire_moving_spread_mult,
+			ads_moving_recoil = 2,
+			ads_moving_spread_mult = 14,
+			ads_move_speed_mult = 0.2 / (tweak_data.amr.ads_move_speed_mult * tweak_data.snp.ads_move_speed_mult),
+			shake_mul = 1.2 / (tweak_data.amr.shake_mul * tweak_data.snp.shake_mul)
+		}
+			tweak_data.s7 = {
+				min_spread_mult = 0.025 / (tweak_data.semi_amr.min_spread_mult * tweak_data.snp.min_spread_mult),
+				hipfire_spread_mult = 0.025 / (tweak_data.semi_amr.hipfire_spread_mult * tweak_data.snp.hipfire_spread_mult),
+				hipfire_moving_spread_mult = 0.025 / (tweak_data.semi_amr.hipfire_moving_spread_mult * tweak_data.snp.hipfire_moving_spread_mult),
+				ads_moving_spread_mult = 0.025 / tweak_data.semi_amr.ads_moving_spread_mult
+			}
 
 tweak_data.assault_rifle = {
-	swap_bonus = 1,
-	ads_moving_recoil = 1.05,
-	ads_stationary_spread_mult = 0.9,
-	ads_move_speed_mult = 0.45,
-	hipfire_spread_mult = 1.15,
-	shake_mul = 1.05
+	swap_bonus = 0.95,
+	ads_moving_recoil = 1.15,
+	ads_moving_spread_mult = 8,
+	ads_move_speed_mult = 0.4,
+	hipfire_spread_mult = 3,
+	hipfire_moving_spread_mult = 2.5,
+	shake_mul = 1.1,
+	min_spread_mult = 2
 }
+	tweak_data.assault_rifle_special = deep_clone(tweak_data.assault_rifle)
 	tweak_data.crb = {
-		ads_moving_recoil = 1 / tweak_data.assault_rifle.ads_moving_recoil,
-		hipfire_spread_mult = 1 / tweak_data.assault_rifle.hipfire_spread_mult,
-		swap_bonus = 1.1 / tweak_data.assault_rifle.swap_bonus,
-		ads_move_speed_mult = 0.5 / tweak_data.assault_rifle.ads_move_speed_mult,
+		swap_bonus = 1.05 / tweak_data.assault_rifle.swap_bonus,
+		min_spread_mult = 1.5 / tweak_data.assault_rifle.min_spread_mult,
+		hipfire_spread_mult = 2.5 / tweak_data.assault_rifle.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 2 / tweak_data.assault_rifle.hipfire_moving_spread_mult,
+		ads_moving_recoil = 1.1 / tweak_data.assault_rifle.ads_moving_recoil,
+		ads_moving_spread_mult = 6 / tweak_data.assault_rifle.ads_moving_spread_mult,
+		ads_move_speed_mult = 0.45 / tweak_data.assault_rifle.ads_move_speed_mult,
 	}
 	tweak_data.dmr_l = {
-		hipfire_spread_mult = 2 / tweak_data.assault_rifle.hipfire_spread_mult,
-		ads_stationary_spread_mult = 0.5,
-		moving_spread_mult = 1.2,
-		shake_mul = 1.05
+		ads_moving_recoil = 1.2 / tweak_data.assault_rifle.ads_moving_recoil,
+		min_spread_mult = 2.5 / tweak_data.assault_rifle.min_spread_mult,
+		hipfire_spread_mult = 3.5 / tweak_data.assault_rifle.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 3 / tweak_data.assault_rifle.hipfire_moving_spread_mult,
+		ads_moving_spread_mult = 10 / tweak_data.assault_rifle.ads_moving_spread_mult,
+		shake_mul = 1.1
 	}
 	tweak_data.dmr_h = {
-		hipfire_spread_mult = 2.5 / tweak_data.assault_rifle.hipfire_spread_mult,
-		moving_spread_mult = 1.5,
-		ads_stationary_spread_mult = 0.25,
+		ads_moving_recoil = 1.25 / tweak_data.assault_rifle.ads_moving_recoil,
+		min_spread_mult = 3 / tweak_data.assault_rifle.min_spread_mult,
+		hipfire_spread_mult = 4 / tweak_data.assault_rifle.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 3.5 / tweak_data.assault_rifle.hipfire_moving_spread_mult,
+		ads_moving_spread_mult = 12 / tweak_data.assault_rifle.ads_moving_spread_mult,
 		shake_mul = 1.1
 	}
 
 tweak_data.akimbo = {
 	swap_bonus = 1,
-	ads_move_speed_mult = 0.75,
-	ads_moving_spread_mult = 2,
-	hipfire_spread_mult = 2,
-	moving_spread_mult = 2
+	ads_move_speed_mult = 0.9,
+	hipfire_spread_mult = 1.75,
+	hipfire_moving_spread_mult = 1.75
 }
+	tweak_data.akb_smg = {
+		ads_move_speed_mult = 0.9 / tweak_data.akimbo.ads_move_speed_mult,
+		hipfire_spread_mult = 2 / tweak_data.akimbo.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 2 / tweak_data.akimbo.hipfire_moving_spread_mult
+	}
+	tweak_data.akb_shot = {
+		ads_move_speed_mult = 0.8 / tweak_data.akimbo.ads_move_speed_mult,
+		hipfire_spread_mult = 2 / tweak_data.akimbo.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 2 / tweak_data.akimbo.hipfire_moving_spread_mult
+	}
+	tweak_data.akb_rifle = {
+		ads_move_speed_mult = 0.7 / tweak_data.akimbo.ads_move_speed_mult,
+		hipfire_spread_mult = 2 / tweak_data.akimbo.hipfire_spread_mult,
+		hipfire_moving_spread_mult = 2 / tweak_data.akimbo.hipfire_moving_spread_mult
+	}
 
 tweak_data.cs_spread = {
+	min_spread_mult = 0.025,
 	hipfire_spread_mult = 0.1,
 	hipfire_moving_spread_mult = 50
+}
+
+tweak_data.sweet_liberty = {
+	ads_moving_recoil = 1.1,
+	ads_moving_spread_mult = 4,
+	ads_move_speed_mult = 0.8
+}
+tweak_data.sweet_liberty_las = {
+	min_spread_mult = 0.25, 
+	hipfire_spread_mult = 0.01
+}
+tweak_data.sweet_liberty_gl = {
+	ads_moving_recoil = 1.1,
+	ads_moving_spread_mult = 4,
+	ads_move_speed_mult = 0.8
 }
 
 tweak_data.no_shake = {
@@ -289,53 +385,82 @@ tweak_data.concealment_cap = 32
 tweak_data.projectiles.launcher_rocket.damage = 120
 tweak_data.projectiles.launcher_rocket.player_damage = 60
 tweak_data.projectiles.launcher_rocket.range = 500
-tweak_data.projectiles.launcher_rocket.curve_pow = 1
+tweak_data.projectiles.launcher_rocket.curve_pow = 0.75
 tweak_data.projectiles.launcher_rocket.turret_instakill = true
 
 --M202--
 tweak_data.projectiles.rocket_ray_frag.damage = 90
 tweak_data.projectiles.rocket_ray_frag.player_damage = 45
 tweak_data.projectiles.rocket_ray_frag.range = 500
-tweak_data.projectiles.rocket_ray_frag.curve_pow = 2
+tweak_data.projectiles.rocket_ray_frag.curve_pow = 0.75
 tweak_data.projectiles.rocket_ray_frag.turret_instakill = true
 tweak_data.projectiles.rocket_ray_frag.incendiary = true
 tweak_data.projectiles.rocket_ray_frag.dot_data_name = "proj_ray_frag"
 
 --Grenade launcher stuff--
 local frag_40mm = {
-	'launcher_frag','launcher_frag_china','launcher_frag_m32','launcher_m203','underbarrel_m203_groza','launcher_frag_slap'
+	'launcher_frag','launcher_m203','underbarrel_m203_groza','launcher_frag_slap'
 }
 for i, proj_id in ipairs(frag_40mm) do
 	tweak_data.projectiles[proj_id].damage = 72
 	tweak_data.projectiles[proj_id].player_damage = 36
-	tweak_data.projectiles[proj_id].curve_pow = 1.5
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
+	tweak_data.projectiles[proj_id].range = 500
+end
+frag_40mm = {
+	'launcher_frag_china','launcher_frag_m32'
+}
+for i, proj_id in ipairs(frag_40mm) do
+	tweak_data.projectiles[proj_id].damage = 60
+	tweak_data.projectiles[proj_id].player_damage = 30
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
 	tweak_data.projectiles[proj_id].range = 500
 end
 
 local incendiary_40mm = {
-	'launcher_incendiary','launcher_incendiary_china','launcher_incendiary_m32','launcher_incendiary_slap'
+	'launcher_incendiary','launcher_incendiary_slap'
 }
 for i, proj_id in ipairs(incendiary_40mm) do
 	tweak_data.projectiles[proj_id].damage = 6
 	tweak_data.projectiles[proj_id].player_damage = 3
-	tweak_data.projectiles[proj_id].curve_pow = 1.5
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
 	tweak_data.projectiles[proj_id].range = 500
 	tweak_data.projectiles[proj_id].burn_duration = 5
 	tweak_data.projectiles[proj_id].dot_data_name = "proj_launcher_incendiary"
 end
+incendiary_40mm = {
+	'launcher_incendiary_china','launcher_incendiary_m32'
+}
+for i, proj_id in ipairs(incendiary_40mm) do
+	tweak_data.projectiles[proj_id].damage = 4.5
+	tweak_data.projectiles[proj_id].player_damage = 2.25
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
+	tweak_data.projectiles[proj_id].range = 500
+	tweak_data.projectiles[proj_id].burn_duration = 5
+	tweak_data.projectiles[proj_id].dot_data_name = "proj_launcher_incendiary_spam"
+end
 
 local electric_40mm = {
-	'launcher_electric','launcher_electric_china','launcher_electric_m32','underbarrel_electric','underbarrel_electric_groza','launcher_electric_slap'
+	'launcher_electric','underbarrel_electric','underbarrel_electric_groza','launcher_electric_slap'
 }
 for i, proj_id in ipairs(electric_40mm) do
-	tweak_data.projectiles[proj_id].damage = 40
-	tweak_data.projectiles[proj_id].player_damage = 20
-	tweak_data.projectiles[proj_id].curve_pow = 1.5
+	tweak_data.projectiles[proj_id].damage = 36
+	tweak_data.projectiles[proj_id].player_damage = 18
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
+	tweak_data.projectiles[proj_id].range = 500
+end
+electric_40mm = {
+	'launcher_electric_china','launcher_electric_m32'
+}
+for i, proj_id in ipairs(electric_40mm) do
+	tweak_data.projectiles[proj_id].damage = 30
+	tweak_data.projectiles[proj_id].player_damage = 15
+	tweak_data.projectiles[proj_id].curve_pow = 0.75
 	tweak_data.projectiles[proj_id].range = 500
 end
 
 local poison_40mm = {
-	'launcher_poison_gre_m79','launcher_poison_china','launcher_poison_m32','launcher_poison_contraband','launcher_poison_groza','launcher_poison_slap'
+	'launcher_poison_gre_m79','launcher_poison_contraband','launcher_poison_groza','launcher_poison_slap'
 }
 for i, proj_id in ipairs(poison_40mm) do
 	tweak_data.projectiles[proj_id].damage = 0
@@ -344,26 +469,43 @@ for i, proj_id in ipairs(poison_40mm) do
 	tweak_data.projectiles[proj_id].range = 0
 	--tweak_data.projectiles[proj_id].manticore = true
 	tweak_data.projectiles[proj_id].poison_gas_range = 600
-	tweak_data.projectiles[proj_id].poison_gas_duration = 8
+	tweak_data.projectiles[proj_id].poison_gas_duration = 6
 	tweak_data.projectiles[proj_id].poison_gas_fade_time = 0.1
 	tweak_data.projectiles[proj_id].poison_gas_tick_time = 0.3
 	tweak_data.projectiles[proj_id].poison_gas_dot_data_name = "proj_launcher_cloud"
 end
+poison_40mm = {
+	'launcher_poison_china','launcher_poison_m32'
+}
+for i, proj_id in ipairs(poison_40mm) do
+	tweak_data.projectiles[proj_id].damage = 0
+	tweak_data.projectiles[proj_id].player_damage = 0
+	tweak_data.projectiles[proj_id].curve_pow = 0
+	tweak_data.projectiles[proj_id].range = 0
+	--tweak_data.projectiles[proj_id].manticore = true
+	tweak_data.projectiles[proj_id].poison_gas_range = 600
+	tweak_data.projectiles[proj_id].poison_gas_duration = 5
+	tweak_data.projectiles[proj_id].poison_gas_fade_time = 0.1
+	tweak_data.projectiles[proj_id].poison_gas_tick_time = 0.3
+	tweak_data.projectiles[proj_id].poison_gas_dot_data_name = "proj_launcher_cloud_spam"
+end
 
 --Arbiter--
-tweak_data.projectiles.launcher_frag_arbiter.damage = 60
-tweak_data.projectiles.launcher_frag_arbiter.player_damage = 30
+tweak_data.projectiles.launcher_frag_arbiter.damage = 36
+tweak_data.projectiles.launcher_frag_arbiter.player_damage = 18
 tweak_data.projectiles.launcher_frag_arbiter.range = 300
 tweak_data.projectiles.launcher_frag_arbiter.curve_pow = 0.75
 tweak_data.projectiles.launcher_frag_arbiter.init_timer = nil
 tweak_data.projectiles.launcher_frag_arbiter.effect_name = "effects/payday2/particles/explosions/shapecharger_explosion"
-tweak_data.projectiles.launcher_incendiary_arbiter.damage = 4
-tweak_data.projectiles.launcher_incendiary_arbiter.player_damage = 2
+tweak_data.projectiles.launcher_incendiary_arbiter.damage = 2.4
+tweak_data.projectiles.launcher_incendiary_arbiter.player_damage = 1.2
+tweak_data.projectiles.launcher_incendiary_arbiter.range = 300
 tweak_data.projectiles.launcher_incendiary_arbiter.burn_duration = 5
 tweak_data.projectiles.launcher_incendiary_arbiter.init_timer = nil
 tweak_data.projectiles.launcher_incendiary_arbiter.dot_data_name = "proj_launcher_incendiary_arbiter"
-tweak_data.projectiles.launcher_electric_arbiter.damage = 30
-tweak_data.projectiles.launcher_electric_arbiter.player_damage = 15
+tweak_data.projectiles.launcher_incendiary_arbiter.effect_name = "effects/payday2/particles/explosions/shapecharger_explosion"
+tweak_data.projectiles.launcher_electric_arbiter.damage = 18
+tweak_data.projectiles.launcher_electric_arbiter.player_damage = 9
 tweak_data.projectiles.launcher_electric_arbiter.range = 300
 tweak_data.projectiles.launcher_electric_arbiter.curve_pow = 0.75
 tweak_data.projectiles.launcher_electric_arbiter.init_timer = nil
@@ -373,17 +515,17 @@ tweak_data.projectiles.launcher_poison_arbiter.curve_pow = 0
 tweak_data.projectiles.launcher_poison_arbiter.range = 0
 --tweak_data.projectiles.launcher_poison_arbiter.manticore = true
 tweak_data.projectiles.launcher_poison_arbiter.poison_gas_range = 600
-tweak_data.projectiles.launcher_poison_arbiter.poison_gas_duration = 6
+tweak_data.projectiles.launcher_poison_arbiter.poison_gas_duration = 3
 tweak_data.projectiles.launcher_poison_arbiter.poison_gas_fade_time = 0.1
 tweak_data.projectiles.launcher_poison_arbiter.poison_gas_tick_time = 0.3
 tweak_data.projectiles.launcher_poison_arbiter.poison_gas_dot_data_name = "proj_launcher_arbiter_cloud"
 
 --SABR Grenade Launcher.
 tweak_data.projectiles.launcher_frag_osipr = {
-	damage = 60,
+	damage = 36,
 	launch_speed = 2500,
 	curve_pow = 0.75,
-	player_damage = 30,
+	player_damage = 18,
 	range = 300,
 	init_timer = nil,
 	mass_look_up_modifier = 0,
@@ -392,25 +534,26 @@ tweak_data.projectiles.launcher_frag_osipr = {
 	effect_name = "effects/payday2/particles/explosions/shapecharger_explosion"
 }
 tweak_data.projectiles.launcher_incendiary_osipr = {
-	damage = 4,
+	damage = 2.4,
 	launch_speed = 2500,
 	curve_pow = 0.75,
-	player_damage = 2,
+	player_damage = 1.2,
 	dot_data_name = "proj_launcher_incendiary_arbiter",
-	range = 350,
+	range = 300,
 	init_timer = nil,
 	mass_look_up_modifier = 0,
 	sound_event = "gl_explode",
 	sound_event_impact_duration = 0.25,
 	name_id = "bm_launcher_incendiary",
 	burn_duration = 5,
-	burn_tick_period = 0.5
+	burn_tick_period = 0.5,
+	effect_name = "effects/payday2/particles/explosions/shapecharger_explosion"
 }
 tweak_data.projectiles.launcher_electric_osipr = {
-	damage = 30,
+	damage = 18,
 	launch_speed = 2500,
 	curve_pow = 0.75,
-	player_damage = 15,
+	player_damage = 9,
 	range = 300,
 	init_timer = nil,
 	mass_look_up_modifier = 0,
@@ -429,24 +572,24 @@ tweak_data.projectiles.launcher_poison_osipr = {
 	range = 0,
 	--manticore = true,
 	poison_gas_range = 600,
-	poison_gas_duration = 6,
+	poison_gas_duration = 3,
 	poison_gas_fade_time = 0.1,
 	poison_gas_tick_time = 0.3,
 	poison_gas_dot_data_name = "proj_launcher_arbiter_cloud"
 }
 
 --3GL
-tweak_data.projectiles.launcher_frag_ms3gl.damage = 36
-tweak_data.projectiles.launcher_frag_ms3gl.player_damage = 18
-tweak_data.projectiles.launcher_frag_ms3gl.curve_pow = 1
+tweak_data.projectiles.launcher_frag_ms3gl.damage = 40
+tweak_data.projectiles.launcher_frag_ms3gl.player_damage = 20
+tweak_data.projectiles.launcher_frag_ms3gl.curve_pow = 0.75
 tweak_data.projectiles.launcher_frag_ms3gl.range = 500
-tweak_data.projectiles.launcher_incendiary_ms3gl.damage = 2
-tweak_data.projectiles.launcher_incendiary_ms3gl.player_damage = 1
+tweak_data.projectiles.launcher_incendiary_ms3gl.damage = 3
+tweak_data.projectiles.launcher_incendiary_ms3gl.player_damage = 1.5
 tweak_data.projectiles.launcher_incendiary_ms3gl.burn_duration = 5
 tweak_data.projectiles.launcher_incendiary_ms3gl.dot_data_name = "proj_launcher_incendiary_3gl"
-tweak_data.projectiles.launcher_electric_ms3gl.damage = 18
-tweak_data.projectiles.launcher_electric_ms3gl.player_damage = 6
-tweak_data.projectiles.launcher_electric_ms3gl.curve_pow = 1
+tweak_data.projectiles.launcher_electric_ms3gl.damage = 20
+tweak_data.projectiles.launcher_electric_ms3gl.player_damage = 10
+tweak_data.projectiles.launcher_electric_ms3gl.curve_pow = 0.75
 tweak_data.projectiles.launcher_electric_ms3gl.range = 500
 tweak_data.projectiles.launcher_poison.damage = 0
 tweak_data.projectiles.launcher_poison.player_damage = 0
@@ -472,68 +615,91 @@ tweak_data.projectiles.launcher_poison_ms3gl_conversion.poison_gas_fade_time = 0
 tweak_data.projectiles.launcher_poison_ms3gl_conversion.poison_gas_tick_time = 0.3
 tweak_data.projectiles.launcher_poison_ms3gl_conversion.poison_gas_dot_data_name = "proj_launcher_3gl_cloud"
 
+--Incendiary Nades, idea to make em a mollie--
+tweak_data.projectiles.flun_flare.is_explosive = true
+tweak_data.projectiles.flun_flare.range = 500
+tweak_data.projectiles.flun_flare.curve_pow = 0.75
+tweak_data.projectiles.flun_flare.damage = 6.0
+tweak_data.projectiles.flun_flare.player_damage = 3.0
+tweak_data.projectiles.flun_flare.dot_data_name = "proj_flun_flare"
+
 --Plainsrider--
 tweak_data.projectiles.west_arrow.damage = 24
-tweak_data.projectiles.west_arrow_exp.damage = 48
+tweak_data.projectiles.west_arrow_exp.damage = 24
 tweak_data.projectiles.bow_poison_arrow.damage = 18
 
 --Hunter crossbow--
 tweak_data.projectiles.crossbow_arrow.damage = 24
-tweak_data.projectiles.crossbow_arrow_exp.damage = 36
+tweak_data.projectiles.crossbow_arrow_exp.damage = 24
 tweak_data.projectiles.crossbow_poison_arrow.damage = 18
+
+--Dart Gun
+tweak_data.projectiles.dart_poison.damage = 24
+tweak_data.projectiles.dart_daze.damage = 6.0
+tweak_data.projectiles.dart_revive.damage = 0
 
 --Arblast Heavy Crossbow--
 tweak_data.projectiles.arblast_arrow.damage = 36
-tweak_data.projectiles.arblast_arrow_exp.damage = 60
+tweak_data.projectiles.arblast_arrow_exp.damage = 36
 tweak_data.projectiles.arblast_poison_arrow.damage = 24
 
 --Franken fish--
 tweak_data.projectiles.frankish_arrow.damage = 24
-tweak_data.projectiles.frankish_arrow_exp.damage = 48
+tweak_data.projectiles.frankish_arrow_exp.damage = 24
 tweak_data.projectiles.frankish_poison_arrow.damage = 18
 
 --BOWMEN, FORM UP--
 tweak_data.projectiles.long_arrow.damage = 36
-tweak_data.projectiles.long_arrow_exp.damage = 60
+tweak_data.projectiles.long_arrow_exp.damage = 36
 tweak_data.projectiles.long_poison_arrow.damage = 24
 
 --le happy merchant--
 tweak_data.projectiles.ecp_arrow.damage = 18
-tweak_data.projectiles.ecp_arrow_exp.damage = 36
+tweak_data.projectiles.ecp_arrow_exp.damage = 18
+tweak_data.projectiles.ecp_arrow_exp.direct_damage_percent = 0
 tweak_data.projectiles.ecp_arrow_poison.damage = 12
+
+--HEAVY LIKE A BRINKS TRUCK
+tweak_data.projectiles.laser_watch.damage = 12
+tweak_data.projectiles.laser_watch.range = 169
 
 --The not longbow--
 tweak_data.projectiles.elastic_arrow.damage = 36
-tweak_data.projectiles.elastic_arrow_exp.damage = 60
+tweak_data.projectiles.elastic_arrow_exp.damage = 36
 tweak_data.projectiles.elastic_arrow_poison.damage = 24
 
 --GRENADE OUT--
-tweak_data.projectiles.frag.damage = 80
-tweak_data.projectiles.frag.player_damage = 40
+tweak_data.projectiles.frag.is_explosive = true
+tweak_data.projectiles.frag.damage = 90
+tweak_data.projectiles.frag.player_damage = 45
 tweak_data.projectiles.frag.curve_pow = 0.5
 tweak_data.projectiles.frag.range = 550
 
 --Dynamite--
-tweak_data.projectiles.dynamite.damage = 80
-tweak_data.projectiles.dynamite.player_damage = 40
+tweak_data.projectiles.dynamite.is_explosive = true
+tweak_data.projectiles.dynamite.damage = 90
+tweak_data.projectiles.dynamite.player_damage = 45
 tweak_data.projectiles.dynamite.curve_pow = 0.5
 tweak_data.projectiles.dynamite.range = 500
 
 --Community Frag--
+tweak_data.projectiles.frag_com.is_explosive = true
 tweak_data.projectiles.frag_com.damage = 90
-tweak_data.projectiles.frag_com.player_damage = 40
+tweak_data.projectiles.frag_com.player_damage = 45
 tweak_data.projectiles.frag_com.curve_pow = 0.5
 tweak_data.projectiles.frag_com.range = 500
 
 --The other community frag--
+tweak_data.projectiles.dada_com.is_explosive = true
 tweak_data.projectiles.dada_com.damage = 70
-tweak_data.projectiles.dada_com.player_damage = 40
+tweak_data.projectiles.dada_com.player_damage = 45
 tweak_data.projectiles.dada_com.curve_pow = 0.5
 tweak_data.projectiles.dada_com.range = 600
 
 --SEEEEEEMTEEEEEEEEEEX
-tweak_data.projectiles.sticky_grenade.damage = 80
-tweak_data.projectiles.sticky_grenade.player_damage = 40
+tweak_data.projectiles.sticky_grenade.is_explosive = true
+tweak_data.projectiles.sticky_grenade.damage = 90
+tweak_data.projectiles.sticky_grenade.player_damage = 45
 tweak_data.projectiles.sticky_grenade.curve_pow = 0.5
 tweak_data.projectiles.sticky_grenade.range = 500
 tweak_data.projectiles.sticky_grenade.in_air_timer = 3
@@ -561,48 +727,56 @@ tweak_data.projectiles.sticky_grenade.warning_data = {
 }
 
 --Molliest of tovs--
+tweak_data.projectiles.molotov.is_explosive = true
 tweak_data.projectiles.molotov.range = 300
 tweak_data.projectiles.molotov.damage = 3.0
-tweak_data.projectiles.molotov.player_damage = 3.0
+tweak_data.projectiles.molotov.player_damage = 1.5
 tweak_data.projectiles.molotov.burn_duration = 10
 tweak_data.projectiles.molotov.dot_data_name = "proj_molotov"
+tweak_data.projectiles.molotov.fire_env_name = "molotov_fire" --Just for grabbing info for the UI; does not set the fire_env that's used (That's handled by the throwable's base)
 
 --Incendiary Nades, idea to make em a mollie--
+tweak_data.projectiles.fir_com.is_explosive = true
 tweak_data.projectiles.fir_com.range = 450
-tweak_data.projectiles.fir_com.damage = 3.0
-tweak_data.projectiles.fir_com.player_damage = 3.0
+tweak_data.projectiles.fir_com.damage = 12.0
+tweak_data.projectiles.fir_com.player_damage = 6.0
 tweak_data.projectiles.fir_com.burn_duration = 12
 tweak_data.projectiles.fir_com.dot_data_name = "proj_fire_com"
-
---Throwing Card--
-tweak_data.projectiles.wpn_prj_ace.damage = 24
-tweak_data.projectiles.wpn_prj_ace.adjust_z = 0
+tweak_data.projectiles.fir_com.fire_env_name = "incendiary_burst_fire" --Just for grabbing info for the UI
 
 --Shuriken
-tweak_data.projectiles.wpn_prj_four.damage = 20
-tweak_data.projectiles.wpn_prj_four.adjust_z = 0
+tweak_data.projectiles.wpn_prj_four.damage = 12
+tweak_data.projectiles.wpn_prj_four.magnetism = 0.15
+
+--Throwing Card--
+tweak_data.projectiles.wpn_prj_ace.damage = 18
+tweak_data.projectiles.wpn_prj_ace.magnetism = 0.15
 
 --Throwing Knife--
 tweak_data.projectiles.wpn_prj_target.damage = 24
-tweak_data.projectiles.wpn_prj_target.adjust_z = 0
-
---Javelin--
-tweak_data.projectiles.wpn_prj_jav.damage = 36
-tweak_data.projectiles.wpn_prj_jav.adjust_z = 0
+tweak_data.projectiles.wpn_prj_target.magnetism = 0.15 * 5
 
 --Throwing axe--
 tweak_data.projectiles.wpn_prj_hur.damage = 36
-tweak_data.projectiles.wpn_prj_hur.adjust_z = 0
+tweak_data.projectiles.wpn_prj_hur.magnetism = 0.15 * 5
+
+--Javelin--
+tweak_data.projectiles.wpn_prj_jav.damage = 54
+tweak_data.projectiles.wpn_prj_jav.magnetism = 0.15
 
 --Balled Snow--
 if tweak_data.projectiles.xmas_snowball then
+	tweak_data.projectiles.xmas_snowball.is_explosive = true
 	tweak_data.projectiles.xmas_snowball.damage = 18
 	tweak_data.projectiles.xmas_snowball.player_dmg_mul = 0
 	tweak_data.projectiles.xmas_snowball.camera_shake_max_mul = 0
 	tweak_data.projectiles.xmas_snowball.feedback_range = -100
-	tweak_data.projectiles.xmas_snowball.curve_pow = 0.05
+	tweak_data.projectiles.xmas_snowball.curve_pow = 0.5
 	tweak_data.projectiles.xmas_snowball.range = 100
 	tweak_data.projectiles.xmas_snowball.adjust_z = 0
+	tweak_data.projectiles.xmas_snowball.direct_damage_percent = 0.5
+	tweak_data.projectiles.xmas_snowball.object_damage_mult = 2
+	tweak_data.projectiles.xmas_snowball.explosion_object_damage_mult = 3
 end
 
 --ZAPper grenade
@@ -610,8 +784,11 @@ tweak_data.projectiles.wpn_gre_electric.damage = 40
 tweak_data.projectiles.wpn_gre_electric.player_damage = 1
 tweak_data.projectiles.wpn_gre_electric.curve_pow = 0.5
 tweak_data.projectiles.wpn_gre_electric.range = 800
+tweak_data.projectiles.wpn_gre_electric.is_explosive = true
 
 --Viper Gas
+tweak_data.projectiles.poison_gas_grenade.is_smoke = true
+tweak_data.projectiles.poison_gas_grenade.stationary_detonation = true
 tweak_data.projectiles.poison_gas_grenade.damage = 0
 tweak_data.projectiles.poison_gas_grenade.player_damage = 0
 tweak_data.projectiles.poison_gas_grenade.curve_pow = 0
@@ -623,6 +800,16 @@ tweak_data.projectiles.poison_gas_grenade.poison_gas_duration = 12
 tweak_data.projectiles.poison_gas_grenade.poison_gas_fade_time = 0.1
 tweak_data.projectiles.poison_gas_grenade.poison_gas_tick_time = 0.3
 tweak_data.projectiles.poison_gas_grenade.poison_gas_dot_data_name = "proj_gas_grenade_cloud"
+
+tweak_data.hud_icons.poison_gas_grenade = {
+	texture = "guis/dlcs/pxp1/textures/pd2/hud_poison_gas_grenade",
+	texture_rect = {
+		64,
+		0,
+		128,
+		128
+	}
+}
 --[[
 tweak_data.dot_types.poison = {
 	damage_class = "PoisonBulletBase",
@@ -657,6 +844,7 @@ tweak_data.fire.effects.money_endless = {
 }
 
 --Stun nades--
+tweak_data.projectiles.concussion.is_explosive = true
 tweak_data.projectiles.concussion.damage = 0
 tweak_data.projectiles.concussion.curve_pow = 0.8
 tweak_data.projectiles.concussion.range = 1000
@@ -674,6 +862,7 @@ tweak_data.interaction.gen_int_saw_upgrade.timer = 3
 
 local difficulty = Global.game_settings and Global.game_settings.difficulty or "normal"
 local difficulty_index = tweak_data:difficulty_to_index(difficulty)
+local pro_job = Global.game_settings and Global.game_settings.one_down 
 if difficulty_index == 8 then
 	tweak_data.interaction.corpse_alarm_pager.timer = 15
 elseif difficulty_index == 7 then
@@ -689,12 +878,14 @@ tweak_data.narrative.jobs.chill_combat.contract_visuals.preview_image = {
 }	
 
 --Smoke Grenades--
+tweak_data.projectiles.smoke_screen_grenade.is_explosive = true
+tweak_data.projectiles.smoke_screen_grenade.stationary_detonation = true
 tweak_data.projectiles.smoke_screen_grenade.damage = 0
 tweak_data.projectiles.smoke_screen_grenade.curve_pow = 1
 tweak_data.projectiles.smoke_screen_grenade.range = 1500
 tweak_data.projectiles.smoke_screen_grenade.name_id = "bm_smoke_screen_grenade"
 tweak_data.projectiles.smoke_screen_grenade.duration = 12
-tweak_data.projectiles.smoke_screen_grenade.dodge_chance = 0.1
+tweak_data.projectiles.smoke_screen_grenade.dodge_chance = 0.2 -- Repurposed for minimum dodge points in smoke.
 tweak_data.projectiles.smoke_screen_grenade.init_timer = 0
 tweak_data.projectiles.smoke_screen_grenade.accuracy_roll_chance = 0.75
 tweak_data.projectiles.smoke_screen_grenade.accuracy_fail_spread = {5, 10}
@@ -728,6 +919,44 @@ tweak_data.projectiles.child_grenade = {
 	range = 500,
 	launch_speed = 100
 }
+
+
+tweak_data.projectiles.gas_grenade = {
+	radius = 300,
+	radius_blurzone_multiplier = 1.3,
+	damage_tick_period = 0.2,
+	damage_per_tick = 0.6,
+	--no_stamina_damage_mul = 2, -- Unused value. In HEAT tear gas deal more dmg if you have no stamina
+	stamina_per_tick = 2.5,
+	duration = 7.5
+}
+
+-- Reduce dmg interval for tear gas grenades
+if difficulty_index <= 2 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period = 0.5
+	elseif difficulty_index == 3 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.45
+	elseif difficulty_index == 4 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.4
+	elseif difficulty_index == 5 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.35
+	elseif difficulty_index == 6 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.3
+	elseif difficulty_index == 7 then
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.3	
+	else
+		tweak_data.projectiles.gas_grenade.damage_tick_period  = 0.25
+end
+
+-- Different trail color for DS difficulty (due tear gas is red on DS)
+if difficulty_index == 8 then
+	tweak_data.blackmarket.projectiles.gas_grenade.trail_effect_id = "effects/payday2/particles/weapons/tear_gas_trail_red"
+end
+	
+-- Reduced grace slightly for tear gas when playing on Pro Job
+if pro_job then
+	tweak_data.projectiles.gas_grenade.damage_tick_period = tweak_data.projectiles.gas_grenade.damage_tick_period  - 0.05
+end
 
 if difficulty_index <= 4 then --Enemy grenades deal reduced damage on lower difficulties.
 	tweak_data.projectiles.bravo_frag.damage = 9.0
@@ -768,9 +997,20 @@ for i, proj_id in ipairs(velocity) do
 end
 tweak_data.projectiles.rocket_frag.launch_speed = 30000 * velocity_mult
 
-local ve_fall_mult = 1.15  --普通
-local ve_poison_fall_mult = 1.05  --毒
-local ve_exp_fall_mult = 0.8  --爆炸
+
+local ve_fall_mult = 1.15
+local ve_poison_fall_mult = 1.05
+local ve_exp_fall_mult = 0.8
+velocity_mult = 1
+velocity = {
+	'flun_flare',
+}
+for i, proj_id in ipairs(velocity) do
+	tweak_data.projectiles[proj_id].launch_speed = 130 * velocity_mult
+	tweak_data.projectiles[proj_id].adjust_z = tweak_data.projectiles[proj_id].launch_speed / 100 * velocity_mult
+	tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
+end
+
 velocity_mult = 0.8
 velocity = {
 	'west_arrow',
@@ -832,6 +1072,24 @@ end
 	end
 
 velocity = {
+	'dart_poison',
+	'dart_daze'
+}
+for i, proj_id in ipairs(velocity) do
+	tweak_data.projectiles[proj_id].launch_speed = 5000 * velocity_mult
+	tweak_data.projectiles[proj_id].adjust_z = tweak_data.projectiles[proj_id].launch_speed / 100 * velocity_mult
+	tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
+end
+	velocity = {
+		'dart_revive'
+	}
+	for i, proj_id in ipairs(velocity) do
+		tweak_data.projectiles[proj_id].launch_speed = 5000 * velocity_mult * 0.5
+		tweak_data.projectiles[proj_id].adjust_z = tweak_data.projectiles[proj_id].launch_speed / 100 * velocity_mult
+		tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
+	end
+
+velocity = {
 	'elastic_arrow',
 	'ecp_arrow'
 }
@@ -885,7 +1143,7 @@ velocity = {
 }
 for i, proj_id in ipairs(velocity) do
 	if tweak_data.projectiles[proj_id] then
-		tweak_data.projectiles[proj_id].launch_speed = 1500
+		tweak_data.projectiles[proj_id].launch_speed = 1200
 		tweak_data.projectiles[proj_id].adjust_z = 50
 		tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
 	end
@@ -895,9 +1153,9 @@ velocity = {
 }
 for i, proj_id in ipairs(velocity) do
 	if tweak_data.projectiles[proj_id] then
-		tweak_data.projectiles[proj_id].launch_speed = 2500
+		tweak_data.projectiles[proj_id].launch_speed = 1000
 		tweak_data.projectiles[proj_id].adjust_z = 50
-		tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
+		tweak_data.projectiles[proj_id].mass_look_up_modifier = 2
 	end
 end
 velocity = {
@@ -905,9 +1163,9 @@ velocity = {
 }
 for i, proj_id in ipairs(velocity) do
 	if tweak_data.projectiles[proj_id] then
-		tweak_data.projectiles[proj_id].launch_speed = 1800
+		tweak_data.projectiles[proj_id].launch_speed = 900
 		tweak_data.projectiles[proj_id].adjust_z = 50
-		tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
+		tweak_data.projectiles[proj_id].mass_look_up_modifier = 2
 	end
 end
 velocity = {
@@ -915,7 +1173,7 @@ velocity = {
 }
 for i, proj_id in ipairs(velocity) do
 	if tweak_data.projectiles[proj_id] then
-		tweak_data.projectiles[proj_id].launch_speed = 2500
+		tweak_data.projectiles[proj_id].launch_speed = 2000
 		tweak_data.projectiles[proj_id].adjust_z = 50
 		tweak_data.projectiles[proj_id].mass_look_up_modifier = 0
 	end
@@ -938,6 +1196,17 @@ tweak_data.projectiles.hatman_molotov.damage = 6.0
 tweak_data.projectiles.hatman_molotov.player_damage = 6.0
 tweak_data.projectiles.hatman_molotov.env_effect = "hatman_molotov_fire"
 
+tweak_data.weapon_suppression = {}
+-- The "default" damage assumed for suppression building. Weapons doing lower damage than this build suppression slower.
+-- Weapons with higher damage do the opposite.
+tweak_data.weapon_suppression.damage_line = 4.0
+-- The exponent for calculating the suppression of a weapon where applicable. See RaycastWeaponBase:fire for how it's used.
+tweak_data.weapon_suppression.exponent = 0.9
+-- The maximum amount of the suppression multiplier that can be from the weapon's damage.
+-- Assuming the current (at the time of writing) 5% suppression chance per shot on Muscle, this means that a super high damage
+-- weapon can theoretically only reach at most 40% suppresssion chance per shot.
+tweak_data.weapon_suppression.max_suppr_mult = 8
+
 --But why--
 tweak_data.team_ai.stop_action.delay = 0.8
 tweak_data.team_ai.stop_action.distance = 9999999999999999999999999999999999
@@ -949,8 +1218,16 @@ tweak_data.medic.cooldown = 0
 tweak_data.medic.radius = 900
 tweak_data.medic.lpf_radius = 800
 
+-- LPF related tweak data
+
+tweak_data.medic.overheal_decay_percent = 0.1 --- When not being actively overhealed, how much of the overheal should be lost. Percent of the total max possible overheal.
+tweak_data.medic.overheal_decay_t = 1 --- In seconds, how often the unit should lose overheal_decay_percent amount of overheal.
+tweak_data.medic.overheal_decay_delay_t = 5 --- In seconds, the amount of time since last being near an LPF before the unit starts losing overheal.
+
 --ASU damage bonus (Titan HRT)
 tweak_data.asu_buff_radius = 800
+tweak_data.asu_buff_decay_delay = 10 --- In seconds, the amount of time before the ASU damage bonus decays from a unit without the ASU unit being nearby to refresh it.
+
 if difficulty_index <= 6 then
 	tweak_data.asu_damage_buff = 10
 elseif difficulty_index == 7 then
@@ -958,6 +1235,34 @@ elseif difficulty_index == 7 then
 else
 	tweak_data.asu_damage_buff = 20
 end	
+
+-- Stealth-related tweaks
+
+--- When a guard is intimidated during stealth, every X seconds, they'll do a check-in with control.
+--- This simply means that every X seconds, every intimidated guard will increase the suspicion meter by a given amount.   
+--- @class StealthIntimidationCheckin
+--- @field time number[] Defines how many seconds should there been between check-ins based on player count, with the index representing the current amount of players.
+--- @field penalty number A number between 0 and 1 that increases the suspicion meter by this much during a check-in. Do note that this is in relation to what you visually see -- in code, the "maximum" isn't 1 / 100% for the suspicion meter, but you can treat this number as if it was (it'll get adjusted to to the suspicion meter maximum).
+--- @field limit number A number between 0 and 1 that defines a point past which check-ins cannot increase the suspicion meter. Same as with the `penalty` field -- treat this as if it *actually* meant a percentage of the suspicion meter, so 0.5 will *always* mean 50% of the suspicion meter, regardless of difficulty.
+
+--- @type StealthIntimidationCheckin
+tweak_data.stealth_intimidiated_checkin = {}
+tweak_data.stealth_intimidiated_checkin.time = {80, 70, 60, 50}
+tweak_data.stealth_intimidiated_checkin.limit = 0.99
+
+if difficulty_index <= 4 then
+	-- This gameplay mechanic is turned off for difficulties below Overkill.
+	tweak_data.stealth_intimidiated_checkin.penalty = 0
+	tweak_data.stealth_intimidiated_checkin.limit = 0
+elseif difficulty_index == 5 then
+	tweak_data.stealth_intimidiated_checkin.penalty = 0.016
+elseif difficulty_index == 6 then
+	tweak_data.stealth_intimidiated_checkin.penalty = 0.025
+elseif difficulty_index == 7 then
+	tweak_data.stealth_intimidiated_checkin.penalty = 0.0375
+else
+	tweak_data.stealth_intimidiated_checkin.penalty = 0.05
+end
 
 tweak_data.achievement.complete_heist_achievements.pain_train.num_players = nil
 tweak_data.achievement.complete_heist_achievements.anticimex.num_players = nil
@@ -1368,7 +1673,7 @@ if BeardLib then
 				"player_non_special_melee_multiplier_1", --This bonus doesn't actually do anything, but it is what's displayed in menus.
 				"player_melee_damage_multiplier_1"
 			},
-			cost = 0,
+			cost = 300,
 			icon_xy = {1, 0},
 			name_id = "menu_deckall_2",
 			desc_id = "menu_deckall_2_desc_sc"
@@ -1378,11 +1683,12 @@ if BeardLib then
 				"passive_player_xp_multiplier_1",
 				"player_passive_suspicion_bonus",
 				"player_passive_armor_movement_penalty_multiplier",
+				"weapon_passive_reload_speed_multiplier",
 				"weapon_passive_damage_multiplier_2",
 				"player_non_special_melee_multiplier_2",
 				"player_melee_damage_multiplier_2"			
 			},
-			cost = 0,
+			cost = 600,
 			icon_xy = {3, 0},
 			name_id = "menu_deckall_4",
 			desc_id = "menu_deckall_4_desc_sc"
@@ -1390,11 +1696,12 @@ if BeardLib then
 		local deck6 = {
 			upgrades = {
 				"armor_kit",
+				"weapon_passive_pick_up_multiplier",
 				"weapon_passive_damage_multiplier_3",
 				"player_non_special_melee_multiplier_3",
 				"player_melee_damage_multiplier_3"			
 			},
-			cost = 0,
+			cost = 1600,
 			icon_xy = {5, 0},
 			name_id = "menu_deckall_6",
 			desc_id = "menu_deckall_6_desc_sc"
@@ -1406,7 +1713,7 @@ if BeardLib then
 				"player_non_special_melee_multiplier_4",
 				"player_melee_damage_multiplier_4"
 			},
-			cost = 0,
+			cost = 3200,
 			icon_xy = {7, 0},
 			name_id = "menu_deckall_8",
 			desc_id = "menu_deckall_8_desc_sc"
@@ -1667,128 +1974,332 @@ local twf = tweak_data.weapon.factory
 local twb = tweak_data.blackmarket
 --Shitty way getting this to load late/after soosh's CunnyArchive weapon skin mod; if there's a better way, do tell
 --BRATTY CODE NEEDS CORRECTION 😭💢
-if twb.weapon_skins.mg42_cnuy_hina then --Version 0.5.0
-	twb.weapon_skins.mg42_cnuy_hina.default_blueprint = {
-		"wpn_fps_lmg_mg42_b_mg42",
-		"wpn_fps_lmg_mg42_n42",
-		"wpn_fps_lmg_mg42_reciever",
-		"wpn_fps_lmg_mg42_hina_cnuy"
-	}
-	twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_reciever = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_receiver_hinature)
-	for k, used_part_id in ipairs(twf.wpn_fps_lmg_mg42.uses_parts) do
-		if twf.parts[used_part_id] and twf.parts[used_part_id].type then
-			if twf.parts[used_part_id].type == "barrel" then
-				twb.weapon_skins.mg42_cnuy_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_b_hinature)
-			elseif twf.parts[used_part_id].type == "barrel_ext" and not twf.parts[used_part_id].sub_type then
-				twb.weapon_skins.mg42_cnuy_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_n42)
+
+DelayedCalls:Add("bestgirlhinature", 1, function() --unchangable load orders be damned, have a 1 second delay instead, you fickle fuck
+	if twb.weapon_skins.tecci_cnuy_ibuki then --Version 0.7.0
+		twb.weapon_skins.mg42_cnuy_hina.default_blueprint = {
+			"wpn_fps_lmg_mg42_b_mg42",
+			"wpn_fps_lmg_mg42_n42",
+			"wpn_fps_lmg_mg42_reciever",
+			"wpn_fps_lmg_mg42_hina_cnuy"
+		}
+		twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_reciever = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_receiver_hinature)
+		for k, used_part_id in ipairs(twf.wpn_fps_lmg_mg42.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "barrel" then
+					twb.weapon_skins.mg42_cnuy_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_b_hinature)
+				elseif twf.parts[used_part_id].type == "barrel_ext" and not twf.parts[used_part_id].sub_type then
+					twb.weapon_skins.mg42_cnuy_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_cnuy_hina.parts.wpn_fps_lmg_mg42_n42)
+				end
+			end
+		end
+
+		twb.weapon_skins.m4_cnuy_azusa.default_blueprint = {
+			"wpn_fps_m4_uupg_b_medium_vanilla",
+			"wpn_fps_upg_m4_g_standard_vanilla",
+			"wpn_fps_upg_ass_ns_battle",
+			"wpn_fps_upg_ass_m4_upper_reciever_core",
+			"wpn_fps_m4_uupg_m_std_vanilla",
+			"wpn_fps_m4_lower_reciever",
+			"wpn_fps_m4_uupg_draghandle",
+			"wpn_fps_upg_m4_s_pts",
+			"wpn_fps_amcar_bolt_standard",
+			"wpn_fps_m4_uupg_o_flipup",
+			"wpn_fps_m4_uupg_fg_lr300",
+			"wpn_fps_ass_m4_azusa_cnuy"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.m4_cnuy_azusa.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_cnuy_azusa.parts.wpn_fps_upg_ass_m4_fg_vanitas_azusa)
+				end
+			end
+		end
+
+		twb.weapon_skins.c96_cnuy_satsuki.default_blueprint = {
+			"wpn_fps_pis_c96_b_standard",
+			"wpn_fps_pis_c96_body_standard",
+			"wpn_fps_pis_c96_m_standard",
+			"wpn_fps_pis_c96_g_standard",
+			"wpn_fps_pis_c96_cnuy_satsuki"
+		}
+		twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_body_standard = deep_clone(twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_body_mkultra)
+		twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_g_standard = deep_clone(twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_g_mkultra)
+
+		twb.weapon_skins.m4_cnuy_saori.default_blueprint = {
+			"wpn_fps_upg_m4_g_mgrip",
+			"wpn_fps_m4_lower_reciever",
+			"wpn_fps_m4_uupg_upper_radian",
+			"wpn_fps_m4_uupg_b_short",
+			"wpn_fps_m4_uupg_fg_lr300",
+			"wpn_fps_upg_m4_m_l5",
+			"wpn_fps_upg_m4_s_pts",
+			"wpn_fps_m4_uupg_draghandle",
+			"wpn_fps_upg_o_aimpoint",
+			"wpn_fps_amcar_bolt_standard",
+			"wpn_fps_upg_ns_ass_smg_firepig",
+			"wpn_fps_ass_m4_cnuy_saori"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.m4_cnuy_saori.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_cnuy_saori.parts.wpn_fps_upg_ass_m4_fg_vanitas)
+				end
+			end
+		end
+
+		twb.weapon_skins.shepheard_cnuy_yuuka.default_blueprint = {
+			"wpn_fps_smg_shepheard_b_standard",
+			"wpn_fps_smg_shepheard_bolt_standard",
+			"wpn_fps_smg_shepheard_s_standard",
+			"wpn_fps_smg_shepheard_dh_standard",
+			"wpn_fps_smg_shepheard_mag_standard",
+			"wpn_fps_smg_shepheard_g_standard",
+			"wpn_fps_smg_shepheard_o_standard",
+			"wpn_fps_smg_shepheard_body",
+			"wpn_fps_smg_shepheard_ns_standard",
+			"wpn_fps_smg_shepheard_cnuy_yuuka"
+		}
+		twb.weapon_skins.shepheard_cnuy_yuuka.parts["wpn_fps_smg_shepheard_body_long"] = deep_clone(twb.weapon_skins.shepheard_cnuy_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.shepheard_cnuy_yuuka.parts[used_part_id] = deep_clone(twb.weapon_skins.shepheard_cnuy_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+				end
+			end
+		end
+		twb.weapon_skins.x_shepheard_cnuy_yuuka.default_blueprint = {
+			"wpn_fps_smg_shepheard_b_standard",
+			"wpn_fps_smg_shepheard_bolt_standard",
+			"wpn_fps_smg_shepheard_s_no_vanilla",
+			"wpn_fps_smg_shepheard_dh_standard",
+			"wpn_fps_smg_shepheard_mag_standard",
+			"wpn_fps_smg_shepheard_g_standard",
+			"wpn_fps_smg_shepheard_o_standard",
+			"wpn_fps_smg_shepheard_body",
+			"wpn_fps_smg_shepheard_ns_standard",
+			"wpn_fps_smg_shepheard_cnuy_yuuka"
+		}
+		twb.weapon_skins.x_shepheard_cnuy_yuuka.parts["wpn_fps_smg_shepheard_body_long"] = deep_clone(twb.weapon_skins.shepheard_cnuy_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.x_shepheard_cnuy_yuuka.parts[used_part_id] = deep_clone(twb.weapon_skins.x_shepheard_cnuy_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+				end
+			end
+		end
+
+		twb.weapon_skins.benelli_cnuy_hoshino.default_blueprint = {
+			"wpn_fps_sho_ben_body_standard",
+			"wpn_fps_sho_ben_b_standard",
+			"wpn_fps_sho_ben_fg_standard",
+			"wpn_fps_sho_ben_s_collapsable",
+			"wpn_fps_sho_ben_cnuy_hoshino"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_sho_ben.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "barrel" then
+					twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_b_ojisan)
+				elseif twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_fg_ojisan)
+				elseif twf.parts[used_part_id].type == "stock" then
+					twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_s_ojisan)
+				end
+			end
+		end
+
+		twb.weapon_skins.tecci_cnuy_ibuki.default_blueprint = {
+			"wpn_fps_ass_tecci_b_standard",
+			"wpn_fps_ass_tecci_dh_standard",
+			"wpn_fps_ass_tecci_fg_standard",
+			"wpn_fps_ass_tecci_g_standard",
+			"wpn_fps_ass_tecci_lower_reciever",
+			"wpn_fps_ass_tecci_m_drum",
+			"wpn_fps_ass_tecci_ns_standard",
+			"wpn_fps_ass_tecci_o_standard",
+			"wpn_fps_ass_tecci_s_standard",
+			"wpn_fps_ass_tecci_upper_reciever",
+			"wpn_fps_ass_tecci_vg_standard",
+			"wpn_fps_ass_tecci_cnuy_ibuki"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_tecci.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_fg_standard)
+				elseif twf.parts[used_part_id].type == "grip" then
+					twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_g_standard)
+				elseif twf.parts[used_part_id].type == "vertical_grip" then
+					twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_vg_standard)
+				elseif twf.parts[used_part_id].type == "magazine" then
+					twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_m_pudding)
+				elseif twf.parts[used_part_id].type == "stock" and used_part_id ~= "wpn_fps_snp_tti_s_vltor" then
+					twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_snp_tti_s_vltor)
+				end
 			end
 		end
 	end
 
-	twb.weapon_skins.m4_cnuy_azusa.default_blueprint = {
-		"wpn_fps_m4_uupg_b_medium_vanilla",
-		"wpn_fps_upg_m4_g_standard_vanilla",
-		"wpn_fps_upg_ass_ns_battle",
-		"wpn_fps_upg_ass_m4_upper_reciever_core",
-		"wpn_fps_m4_uupg_m_std_vanilla",
-		"wpn_fps_m4_lower_reciever",
-		"wpn_fps_m4_uupg_draghandle",
-		"wpn_fps_upg_m4_s_pts",
-		"wpn_fps_amcar_bolt_standard",
-		"wpn_fps_m4_uupg_o_flipup",
-		"wpn_fps_m4_uupg_fg_lr300",
-		"wpn_fps_ass_m4_azusa_cnuy"
-	}
-	for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
-		if twf.parts[used_part_id] and twf.parts[used_part_id].type then
-			if twf.parts[used_part_id].type == "foregrip" then
-				twb.weapon_skins.m4_cnuy_azusa.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_cnuy_azusa.parts.wpn_fps_upg_ass_m4_fg_vanitas_azusa)
+	if twb.weapon_skins.mg42_schale_hina then --Version 0.7.1
+		twb.weapon_skins.mg42_schale_hina.default_blueprint = {
+			"wpn_fps_lmg_mg42_b_mg42",
+			"wpn_fps_lmg_mg42_n42",
+			"wpn_fps_lmg_mg42_reciever",
+			"wpn_fps_lmg_mg42_hina_cnuy"
+		}
+		twb.weapon_skins.mg42_schale_hina.parts.wpn_fps_lmg_mg42_reciever = deep_clone(twb.weapon_skins.mg42_schale_hina.parts.wpn_fps_lmg_mg42_receiver_hinature)
+		for k, used_part_id in ipairs(twf.wpn_fps_lmg_mg42.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "barrel" then
+					twb.weapon_skins.mg42_schale_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_schale_hina.parts.wpn_fps_lmg_mg42_b_hinature)
+				elseif twf.parts[used_part_id].type == "barrel_ext" and not twf.parts[used_part_id].sub_type then
+					twb.weapon_skins.mg42_schale_hina.parts[used_part_id] = deep_clone(twb.weapon_skins.mg42_schale_hina.parts.wpn_fps_lmg_mg42_n42)
+				end
+			end
+		end
+
+		twb.weapon_skins.m4_schale_azusa.default_blueprint = {
+			"wpn_fps_m4_uupg_b_medium_vanilla",
+			"wpn_fps_upg_m4_g_standard_vanilla",
+			"wpn_fps_upg_ass_ns_battle",
+			"wpn_fps_upg_ass_m4_upper_reciever_core",
+			"wpn_fps_m4_uupg_m_std_vanilla",
+			"wpn_fps_m4_lower_reciever",
+			"wpn_fps_m4_uupg_draghandle",
+			"wpn_fps_upg_m4_s_pts",
+			"wpn_fps_amcar_bolt_standard",
+			"wpn_fps_m4_uupg_o_flipup",
+			"wpn_fps_m4_uupg_fg_lr300",
+			"wpn_fps_ass_m4_azusa_cnuy"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.m4_schale_azusa.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_schale_azusa.parts.wpn_fps_upg_ass_m4_fg_vanitas_azusa)
+				end
+			end
+		end
+
+		twb.weapon_skins.c96_schale_satsuki.default_blueprint = {
+			"wpn_fps_pis_c96_b_standard",
+			"wpn_fps_pis_c96_body_standard",
+			"wpn_fps_pis_c96_m_standard",
+			"wpn_fps_pis_c96_g_standard",
+			"wpn_fps_pis_c96_cnuy_satsuki"
+		}
+		twb.weapon_skins.c96_schale_satsuki.parts.wpn_fps_pis_c96_body_standard = deep_clone(twb.weapon_skins.c96_schale_satsuki.parts.wpn_fps_pis_c96_body_mkultra)
+		twb.weapon_skins.c96_schale_satsuki.parts.wpn_fps_pis_c96_g_standard = deep_clone(twb.weapon_skins.c96_schale_satsuki.parts.wpn_fps_pis_c96_g_mkultra)
+
+		twb.weapon_skins.m4_schale_saori.default_blueprint = {
+			"wpn_fps_upg_m4_g_mgrip",
+			"wpn_fps_m4_lower_reciever",
+			"wpn_fps_m4_uupg_upper_radian",
+			"wpn_fps_m4_uupg_b_short",
+			"wpn_fps_m4_uupg_fg_lr300",
+			"wpn_fps_upg_m4_m_l5",
+			"wpn_fps_upg_m4_s_pts",
+			"wpn_fps_m4_uupg_draghandle",
+			"wpn_fps_upg_o_aimpoint",
+			"wpn_fps_amcar_bolt_standard",
+			"wpn_fps_upg_ns_ass_smg_firepig",
+			"wpn_fps_ass_m4_cnuy_saori"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.m4_schale_saori.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_schale_saori.parts.wpn_fps_upg_ass_m4_fg_vanitas)
+				end
+			end
+		end
+
+		twb.weapon_skins.shepheard_schale_yuuka.default_blueprint = {
+			"wpn_fps_smg_shepheard_b_standard",
+			"wpn_fps_smg_shepheard_bolt_standard",
+			"wpn_fps_smg_shepheard_s_standard",
+			"wpn_fps_smg_shepheard_dh_standard",
+			"wpn_fps_smg_shepheard_mag_standard",
+			"wpn_fps_smg_shepheard_g_standard",
+			"wpn_fps_smg_shepheard_o_standard",
+			"wpn_fps_smg_shepheard_body",
+			"wpn_fps_smg_shepheard_ns_standard",
+			"wpn_fps_smg_shepheard_cnuy_yuuka"
+		}
+		twb.weapon_skins.shepheard_schale_yuuka.parts["wpn_fps_smg_shepheard_body_long"] = deep_clone(twb.weapon_skins.shepheard_schale_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.shepheard_schale_yuuka.parts[used_part_id] = deep_clone(twb.weapon_skins.shepheard_schale_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+				end
+			end
+		end
+
+		twb.weapon_skins.x_shepheard_schale_yuuka.default_blueprint = {
+			"wpn_fps_smg_shepheard_b_standard",
+			"wpn_fps_smg_shepheard_bolt_standard",
+			"wpn_fps_smg_shepheard_s_no_vanilla",
+			"wpn_fps_smg_shepheard_dh_standard",
+			"wpn_fps_smg_shepheard_mag_standard",
+			"wpn_fps_smg_shepheard_g_standard",
+			"wpn_fps_smg_shepheard_o_standard",
+			"wpn_fps_smg_shepheard_body",
+			"wpn_fps_smg_shepheard_ns_standard",
+			"wpn_fps_smg_shepheard_cnuy_yuuka"
+		}
+		twb.weapon_skins.x_shepheard_schale_yuuka.parts["wpn_fps_smg_shepheard_body_long"] = deep_clone(twb.weapon_skins.shepheard_schale_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.x_shepheard_schale_yuuka.parts[used_part_id] = deep_clone(twb.weapon_skins.x_shepheard_schale_yuuka.parts.wpn_fps_smg_shepheard_body_100kg)
+				end
+			end
+		end
+
+		twb.weapon_skins.benelli_schale_hoshino.default_blueprint = {
+			"wpn_fps_sho_ben_body_standard",
+			"wpn_fps_sho_ben_b_standard",
+			"wpn_fps_sho_ben_fg_standard",
+			"wpn_fps_sho_ben_s_collapsable",
+			"wpn_fps_sho_ben_cnuy_hoshino"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_sho_ben.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "barrel" then
+					twb.weapon_skins.benelli_schale_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_schale_hoshino.parts.wpn_fps_sho_ben_b_ojisan)
+				elseif twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.benelli_schale_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_schale_hoshino.parts.wpn_fps_sho_ben_fg_ojisan)
+				elseif twf.parts[used_part_id].type == "stock" then
+					twb.weapon_skins.benelli_schale_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_schale_hoshino.parts.wpn_fps_sho_ben_s_ojisan)
+				end
+			end
+		end
+
+		twb.weapon_skins.tecci_schale_ibuki.default_blueprint = {
+			"wpn_fps_ass_tecci_b_standard",
+			"wpn_fps_ass_tecci_dh_standard",
+			"wpn_fps_ass_tecci_fg_standard",
+			"wpn_fps_ass_tecci_g_standard",
+			"wpn_fps_ass_tecci_lower_reciever",
+			"wpn_fps_ass_tecci_m_drum",
+			"wpn_fps_ass_tecci_ns_standard",
+			"wpn_fps_ass_tecci_o_standard",
+			"wpn_fps_ass_tecci_s_standard",
+			"wpn_fps_ass_tecci_upper_reciever",
+			"wpn_fps_ass_tecci_vg_standard",
+			"wpn_fps_ass_tecci_cnuy_ibuki"
+		}
+		for k, used_part_id in ipairs(twf.wpn_fps_ass_tecci.uses_parts) do
+			if twf.parts[used_part_id] and twf.parts[used_part_id].type then
+				if twf.parts[used_part_id].type == "foregrip" then
+					twb.weapon_skins.tecci_schale_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_schale_ibuki.parts.wpn_fps_ass_tecci_fg_standard)
+				elseif twf.parts[used_part_id].type == "grip" then
+					twb.weapon_skins.tecci_schale_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_schale_ibuki.parts.wpn_fps_ass_tecci_g_standard)
+				elseif twf.parts[used_part_id].type == "vertical_grip" then
+					twb.weapon_skins.tecci_schale_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_schale_ibuki.parts.wpn_fps_ass_tecci_vg_standard)
+				elseif twf.parts[used_part_id].type == "magazine" then
+					twb.weapon_skins.tecci_schale_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_schale_ibuki.parts.wpn_fps_ass_tecci_m_pudding)
+				elseif twf.parts[used_part_id].type == "stock" and used_part_id ~= "wpn_fps_snp_tti_s_vltor" then
+					twb.weapon_skins.tecci_schale_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_schale_ibuki.parts.wpn_fps_snp_tti_s_vltor)
+				end
 			end
 		end
 	end
-
-	twb.weapon_skins.c96_cnuy_satsuki.default_blueprint = {
-		"wpn_fps_pis_c96_b_standard",
-		"wpn_fps_pis_c96_body_standard",
-		"wpn_fps_pis_c96_m_standard",
-		"wpn_fps_pis_c96_g_standard",
-		"wpn_fps_pis_c96_cnuy_satsuki"
-	}
-	twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_body_standard = deep_clone(twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_body_mkultra)
-	twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_g_standard = deep_clone(twb.weapon_skins.c96_cnuy_satsuki.parts.wpn_fps_pis_c96_g_mkultra)
-
-	twb.weapon_skins.m4_cnuy_saori.default_blueprint = {
-		"wpn_fps_upg_m4_g_mgrip",
-		"wpn_fps_m4_lower_reciever",
-		"wpn_fps_m4_uupg_upper_radian",
-		"wpn_fps_m4_uupg_b_short",
-		"wpn_fps_m4_uupg_fg_lr300",
-		"wpn_fps_upg_m4_m_l5",
-		"wpn_fps_upg_m4_s_pts",
-		"wpn_fps_m4_uupg_draghandle",
-		"wpn_fps_upg_o_aimpoint",
-		"wpn_fps_amcar_bolt_standard",
-		"wpn_fps_upg_ns_ass_smg_firepig",
-		"wpn_fps_ass_m4_cnuy_saori"
-	}
-	for k, used_part_id in ipairs(twf.wpn_fps_ass_m4.uses_parts) do
-		if twf.parts[used_part_id] and twf.parts[used_part_id].type then
-			if twf.parts[used_part_id].type == "foregrip" then
-				twb.weapon_skins.m4_cnuy_saori.parts[used_part_id] = deep_clone(twb.weapon_skins.m4_cnuy_saori.parts.wpn_fps_upg_ass_m4_fg_vanitas)
-			end
-		end
-	end
-end
-
-if twb.weapon_skins.benelli_cnuy_hoshino then --Version 0.6.0
-	twb.weapon_skins.benelli_cnuy_hoshino.default_blueprint = {
-		"wpn_fps_sho_ben_body_standard",
-		"wpn_fps_sho_ben_b_standard",
-		"wpn_fps_sho_ben_fg_standard",
-		"wpn_fps_sho_ben_s_collapsable",
-		"wpn_fps_sho_ben_cnuy_hoshino"
-	}
-	for k, used_part_id in ipairs(twf.wpn_fps_sho_ben.uses_parts) do
-		if twf.parts[used_part_id] and twf.parts[used_part_id].type then
-			if twf.parts[used_part_id].type == "barrel" then
-				twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_b_ojisan)
-			elseif twf.parts[used_part_id].type == "foregrip" then
-				twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_fg_ojisan)
-			elseif twf.parts[used_part_id].type == "stock" then
-				twb.weapon_skins.benelli_cnuy_hoshino.parts[used_part_id] = deep_clone(twb.weapon_skins.benelli_cnuy_hoshino.parts.wpn_fps_sho_ben_s_ojisan)
-			end
-		end
-	end
-end
-
-if twb.weapon_skins.tecci_cnuy_ibuki then --Version 0.7.0
-	twb.weapon_skins.tecci_cnuy_ibuki.default_blueprint = {
-		"wpn_fps_ass_tecci_b_standard",
-		"wpn_fps_ass_tecci_dh_standard",
-		"wpn_fps_ass_tecci_fg_standard",
-		"wpn_fps_ass_tecci_g_standard",
-		"wpn_fps_ass_tecci_lower_reciever",
-		"wpn_fps_ass_tecci_m_drum",
-		"wpn_fps_ass_tecci_ns_standard",
-		"wpn_fps_ass_tecci_o_standard",
-		"wpn_fps_ass_tecci_s_standard",
-		"wpn_fps_ass_tecci_upper_reciever",
-		"wpn_fps_ass_tecci_vg_standard",
-		"wpn_fps_ass_tecci_cnuy_ibuki"
-	}
-	for k, used_part_id in ipairs(twf.wpn_fps_ass_tecci.uses_parts) do
-		if twf.parts[used_part_id] and twf.parts[used_part_id].type then
-			if twf.parts[used_part_id].type == "foregrip" then
-				twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_fg_standard)
-			elseif twf.parts[used_part_id].type == "grip" then
-				twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_g_standard)
-			elseif twf.parts[used_part_id].type == "vertical_grip" then
-				twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_vg_standard)
-			elseif twf.parts[used_part_id].type == "magazine" then
-				twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_ass_tecci_m_pudding)
-			elseif twf.parts[used_part_id].type == "stock" and used_part_id ~= "wpn_fps_snp_tti_s_vltor" then
-				twb.weapon_skins.tecci_cnuy_ibuki.parts[used_part_id] = deep_clone(twb.weapon_skins.tecci_cnuy_ibuki.parts.wpn_fps_snp_tti_s_vltor)
-			end
-		end
-	end
-end
+end)

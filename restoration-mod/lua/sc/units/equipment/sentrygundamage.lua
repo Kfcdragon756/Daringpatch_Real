@@ -288,8 +288,11 @@ function SentryGunDamage:damage_bullet(attack_data)
 	local object_damage_mul = weap_base and weap_base.get_object_damage_mult and weap_base:get_object_damage_mult() or 1
 	damage = damage * object_damage_mul
 
+	-- Separated the two damage boosts from marking.
+	-- Could have just swapped their order, but honestly, there's no reason why one should depend on the other anyway.
 	if self._marked_dmg_mul then
 		damage = damage * self._marked_dmg_mul
+	end
 
 		if self._marked_dmg_dist_mul then
 			local dst = mvector3.distance(attack_data.origin, self._unit:movement():m_head_pos())
@@ -311,7 +314,6 @@ function SentryGunDamage:damage_bullet(attack_data)
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
 				actual_mult = max_dmg_mul
 				damage = damage * actual_mult
-			end
 		end
 	end
 
@@ -442,8 +444,11 @@ function SentryGunDamage:damage_fire(attack_data)
 
 	local damage = attack_data.damage
 
+	-- Separated the two damage boosts from marking.
+	-- Could have just swapped their order, but honestly, there's no reason why one should depend on the other anyway.
 	if self._marked_dmg_mul then
 		damage = damage * self._marked_dmg_mul
+	end
 
 		if self._marked_dmg_dist_mul and alive(attacker_unit) then
 			local dst = mvector3.distance(attacker_unit:position(), self._unit:movement():m_head_pos())
@@ -465,7 +470,6 @@ function SentryGunDamage:damage_fire(attack_data)
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
 				actual_mult = max_dmg_mul
 				damage = damage * actual_mult
-			end
 		end
 	end
 
@@ -593,8 +597,11 @@ function SentryGunDamage:damage_explosion(attack_data)
 
 	local damage = attack_data.damage
 
+	-- Separated the two damage boosts from marking.
+	-- Could have just swapped their order, but honestly, there's no reason why one should depend on the other anyway.
 	if self._marked_dmg_mul then
 		damage = damage * self._marked_dmg_mul
+	end
 
 		if self._marked_dmg_dist_mul and alive(attacker_unit) then
 			local dst = mvector3.distance(attacker_unit:position(), self._unit:movement():m_head_pos())
@@ -616,7 +623,6 @@ function SentryGunDamage:damage_explosion(attack_data)
 			elseif dst > max_dst then  --如果 实际距离 大于 最大距离
 				actual_mult = max_dmg_mul
 				damage = damage * actual_mult
-			end
 		end
 	end
 

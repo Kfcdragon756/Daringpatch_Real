@@ -22,7 +22,7 @@ table.insert(WeaponDescription._stats_shown, {
 })
 
 
-local per_pellet = true--restoration and restoration.Options:GetValue("OTHER/WeaponHandling/PerPelletShotguns") 
+local per_pellet = true
 
 --Add support for .reload_speed_multiplier
 function WeaponDescription._get_base_stats(name)
@@ -137,15 +137,21 @@ function WeaponDescription._get_skill_stats(name, category, slot, base_stats, mo
 	for _, stat in ipairs(WeaponDescription._stats_shown) do
 		if weapon_tweak.stats[stat.stat_name or stat.name] or stat.name == "totalammo" or stat.name == "fire_rate" then
 			if stat.name == "magazine" then
+				local skill_in_effect = nil
 				skill_stats[stat.name].value = (managers.player:upgrade_value(name, "clip_ammo_increase", 1) - 1) * (weapon_tweak.CLIP_AMMO_MAX + (mods_stats[stat.name].value or 0))
+				
 				if not weapon_tweak.upgrade_blocks or not weapon_tweak.upgrade_blocks.weapon or not table.contains(weapon_tweak.upgrade_blocks.weapon, "clip_ammo_increase") then
 					skill_stats[stat.name].value = skill_stats[stat.name].value + (managers.player:upgrade_value("weapon", "clip_ammo_increase", 1) - 1) * (weapon_tweak.CLIP_AMMO_MAX + (mods_stats[stat.name].value or 0))
 				end
-			   
-				if not weapon_tweak.upgrade_blocks or not weapon_tweak.upgrade_blocks[weapon_tweak.category] or not table.contains(weapon_tweak.upgrade_blocks[weapon_tweak.category], "clip_ammo_increase") then
-					skill_stats[stat.name].value = skill_stats[stat.name].value + (managers.player:upgrade_value(weapon_tweak.category, "clip_ammo_increase", 1) - 1) * (weapon_tweak.CLIP_AMMO_MAX + (mods_stats[stat.name].value or 0))
+				
+				for _, category in ipairs(weapon_tweak.categories) do
+					if not weapon_tweak.upgrade_blocks or not weapon_tweak.upgrade_blocks[category] or (weapon_tweak.upgrade_blocks[category] and not table.contains(weapon_tweak.upgrade_blocks[category], "clip_ammo_increase")) then
+						skill_in_effect = skill_in_effect or managers.player:has_category_upgrade(category, "clip_ammo_increase")
+						skill_stats[stat.name].value = skill_stats[stat.name].value + (managers.player:upgrade_value(category, "clip_ammo_increase", 1) - 1) * (weapon_tweak.CLIP_AMMO_MAX + (mods_stats[stat.name].value or 0))
+					end
 				end
-				skill_stats[stat.name].skill_in_effect = managers.player:has_category_upgrade(name, "clip_ammo_increase") or managers.player:has_category_upgrade("weapon", "clip_ammo_increase")
+
+				skill_stats[stat.name].skill_in_effect = skill_in_effect or managers.player:has_category_upgrade(name, "clip_ammo_increase") or managers.player:has_category_upgrade("weapon", "clip_ammo_increase")
 			elseif stat.name == "totalammo" then
 			elseif stat.name == "reload" then
 				local skill_in_effect = false
@@ -157,8 +163,12 @@ function WeaponDescription._get_skill_stats(name, category, slot, base_stats, mo
 					end
 				end	
 				local is_pro = Global.game_settings and Global.game_settings.one_down
-				if not is_pro then
+				if managers.player:has_category_upgrade("weapon", "passive_reload_speed_multiplier") and not is_pro then
 					mult = mult / managers.player:upgrade_value("weapon", "passive_reload_speed_multiplier", 1)
+					skill_in_effect = true
+				end
+				if managers.player:has_category_upgrade("player", "reload_speed_multiplier") then
+					mult = mult / managers.player:upgrade_value("player", "reload_speed_multiplier", 1)
 					skill_in_effect = true
 				end
 				mult = 1 / managers.blackmarket:_convert_add_to_mul(mult)
@@ -231,6 +241,7 @@ end
 
 function WeaponDescription._get_mods_stats(name, base_stats, equipped_mods, bonus_stats)
 	local mods_stats = {}
+	local has_starwars = false
 	local modifier_stats = tweak_data.weapon[name].stats_modifiers
 	for _, stat in pairs(WeaponDescription._stats_shown) do
 		mods_stats[stat.name] = {}
@@ -286,6 +297,11 @@ function WeaponDescription._get_mods_stats(name, base_stats, equipped_mods, bonu
 							end
 						else
 							mods_stats[stat.name].index = mods_stats[stat.name].index + (part_data.stats[stat.name] or 0)
+						end
+					end
+					if part_data.custom_stats then
+						if part_data.custom_stats.starwars then
+							has_starwars = true
 						end
 					end
 				end
@@ -350,15 +366,20 @@ function WeaponDescription._get_mods_stats(name, base_stats, equipped_mods, bonu
 			end
 		end
 	end
-	return mods_stats
+	return mods_stats, has_starwars
 end
 
-function WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_stats, mods_stats, equipped_mods)
+function WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_stats, mods_stats, equipped_mods, category, slot)
 	local tweak_stats = tweak_data.weapon.stats
 	local tweak_factory = tweak_data.weapon.factory.parts
 	local modifier_stats = tweak_data.weapon[weapon_name].stats_modifiers
 	local factory_id = managers.weapon_factory:get_factory_id_by_weapon_id(weapon_name)
 	local default_blueprint = managers.weapon_factory:get_default_blueprint_by_factory_id(factory_id)
+	local blueprint = managers.blackmarket:get_weapon_blueprint(category, slot)
+	local weapon = {
+		factory_id = factory_id,
+		blueprint = blueprint
+	}
 	local part_data = nil
 	local mod_stats = {
 		chosen = {},
@@ -422,6 +443,184 @@ function WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_sta
 				elseif stat.name == "fire_rate" then
 					if part_data.custom_stats and part_data.custom_stats.fire_rate_multiplier then
 						mod[stat.name] = base_stats[stat.name].value * (part_data.custom_stats.fire_rate_multiplier - 1)
+					end
+					if part_data.custom_stats and part_data.custom_stats.rof_mult then
+						mod[stat.name] = base_stats[stat.name].value * (part_data.custom_stats.rof_mult - 1)
+					end
+				elseif stat.name == "standing_range" then
+					if part_data.custom_stats and part_data.custom_stats.falloff_start_mult then
+						--fuck this math AAAAAAAA
+						--Legitimately smashed numbers together until the final value panned out
+						--so forgive me if the local var names aren't exactly reflective of what they're actually doing
+						--Also still acts fucky for launchers with Hornet rounds - fix later? maybe?
+						--Kinda already has the big indicator of a launcher having falloff stats so eeeeehhhh
+						--DMC
+						local base_mult = base_stats[stat.name].value * (part_data.custom_stats.falloff_start_mult - 1)
+						local effective_mult = ((base_stats[stat.name].value + WeaponDescription._get_mods_range(weapon, weapon_name, base_stats, mods_stats, false)) / base_stats[stat.name].value)
+						local scaled_mult = base_mult * effective_mult
+						local final_mult = scaled_mult / part_data.custom_stats.falloff_start_mult
+						mod[stat.name] = final_mult
+					end
+				elseif stat.name == "moving_range" then
+					if part_data.custom_stats and part_data.custom_stats.falloff_end_mult then
+						--copy pasta
+						local base_mult = base_stats[stat.name].value * (part_data.custom_stats.falloff_end_mult - 1)
+						local effective_mult = ((base_stats[stat.name].value + WeaponDescription._get_mods_range(weapon, weapon_name, base_stats, mods_stats, true)) / base_stats[stat.name].value)
+						local scaled_mult = base_mult * effective_mult
+						local final_mult = scaled_mult / part_data.custom_stats.falloff_end_mult
+						mod[stat.name] = final_mult
+					end
+				elseif stat.name == "ads_speed" then
+					if part_data.custom_stats and part_data.custom_stats.ads_speed_mult then
+						--ditto
+						local base_mult = base_stats[stat.name].value * (part_data.custom_stats.ads_speed_mult - 1)
+						local effective_mult = ((base_stats[stat.name].value + WeaponDescription._get_mods_ads_speed(weapon, weapon_name, base_stats)) / base_stats[stat.name].value)
+						local scaled_mult = base_mult * effective_mult
+						local final_mult = scaled_mult / part_data.custom_stats.ads_speed_mult
+						mod[stat.name] = final_mult
+					end
+				elseif stat.name == "damage" then
+					--modified copy pasta from the "else" clause
+					--putting the universal damage mult in the "else" clause outputs the wrong numbers
+					--Axed what didn't seem needed; might be more to remove but it works as it is
+					--The damage stat in the "equipped" column would only show the base damage increase an attachment provided; 
+					--Passive damage sourced from skils (i.e. the damage increase given by a leveled perk deck) didn't apply in the UI
+					--i.e. a an autoshotgun has a base damage of 120
+					--A leveled perk deck grants a 2x multiplier to damage bringing this up to 240
+					--using Flechette rounds shows in the "selected" column that it lowers damage by -120, expected
+					--Keep in mind that this is the damage loss after damage is multiplied by a leveled perk deck, the base damage loss of flechettes is actually -60
+					--on equip, the "equipped" column only displays the base damage loss of -60, with no consideration of the perk deck's damage mult
+					--So you're presented with the damage entry in the stat chart implying you've gone from 240 damage down to 120 by subtracting only 60 which *at face value* is wrong
+					--This fixes that
+					local chosen_index = part_data.stats[stat.name] or 0
+
+					if tweak_stats[stat.name] then
+						wanted_index = curr_stats[stat.name].index + chosen_index
+						index = math.clamp(wanted_index, 1, #tweak_stats[stat.name])
+						mod[stat.name] = stat.index and index or tweak_stats[stat.name][index] * tweak_data.gui.stats_present_multiplier
+
+						if wanted_index ~= index then
+							if stat.index then
+								index = wanted_index
+								mod[stat.name] = index
+							elseif index ~= curr_stats[stat.name].index then
+								local diff_value = tweak_stats[stat.name][index] - tweak_stats[stat.name][curr_stats[stat.name].index]
+								local diff_index = index - curr_stats[stat.name].index
+								local diff_ratio = diff_value / diff_index
+								diff_index = wanted_index - index
+								diff_value = diff_index * diff_ratio
+								mod[stat.name] = mod[stat.name] + diff_value * tweak_data.gui.stats_present_multiplier
+							end
+						end
+
+						if modifier_stats and modifier_stats[stat.name] then
+							local mod_stat = modifier_stats[stat.name]
+
+							mod[stat.name] = mod[stat.name] * mod_stat
+						end
+
+						--Start of added calculations
+						local weapon_tweak = tweak_data.weapon[weapon_name]
+						local multiplier = managers.blackmarket:damage_multiplier(weapon_name, weapon_tweak.categories, nil, nil, nil, blueprint)
+						--End
+
+						mod[stat.name] = (mod[stat.name] - curr_stats[stat.name].value) * multiplier
+					end
+				elseif stat.name == "damage_min" then
+					--Just port the guts of the damage min functions lmao
+					--But also mix in bits of the above "damage" stat calcs because of how damage_min needs the OG base damage values
+					--what ass this was to make
+					--like damage falloff, acts fucky for launchers with Hornet rounds
+					if part_data.stats and part_data.stats.damage then
+						local part_damage = part_data.stats.damage or 0
+						local tweak_dmg = tweak_stats.damage
+						local base_damage_index = base_stats.damage.index
+						local wanted_index = math.clamp(base_damage_index + part_damage, 1, #tweak_dmg)
+
+						local base_damage_value = base_stats.damage.value
+						local base_tweak = tweak_dmg[base_damage_index]
+						local mod_tweak = tweak_dmg[wanted_index]
+
+						local mod_damage = (base_tweak ~= 0) and (base_damage_value * (mod_tweak / base_tweak)) or 0
+
+						local weapon_tweak = tweak_data.weapon[weapon_name]
+						local rays = weapon_tweak.rays
+						local ignore_rays = (weapon_tweak.damage_falloff and weapon_tweak.damage_falloff.ignore_rays) or weapon_tweak.ignore_rays or false
+
+						local base_damage_min_mult = weapon_tweak.damage_falloff and weapon_tweak.damage_falloff.min_mult or 0.3
+						local mod_damage_min_mult = weapon_tweak.damage_falloff and weapon_tweak.damage_falloff.min_mult or 0.3
+
+						local ammo_data = managers.weapon_factory:get_ammo_data_from_weapon(weapon.factory_id, weapon.blueprint) or {}
+
+						if not ignore_rays and rays and rays > 1 then
+							base_damage_min_mult = 0.05
+							if not (ammo_data.rays and ammo_data.rays == 1) then
+								mod_damage_min_mult = 0.05
+							end
+						end
+
+						if part_data.custom_stats and part_data.custom_stats.damage_min_mult then
+							mod_damage_min_mult = mod_damage_min_mult * part_data.custom_stats.damage_min_mult
+						end
+
+						local gl_buck = nil
+						if part_data.custom_stats and part_data.custom_stats.gl_buck then
+							gl_buck = true
+						end
+
+						local mod_damage_min = mod_damage * mod_damage_min_mult
+						local base_damage_min = base_damage_value * base_damage_min_mult
+
+						if not gl_buck then
+							for i = 1, #weapon_tweak.categories do
+								local category = weapon_tweak.categories[i]
+								if category == "flamethrower" or category == "rocket_frag" or category == "grenade_launcher" or category == "bow" or category == "saw" or category == "crossbow" then
+									mod_damage_min = 0
+									base_damage_min = 0
+									break
+								end
+							end
+						end
+
+						local diff = math.round((mod_damage_min - base_damage_min) * 100) / 100
+						local weapon_tweak = tweak_data.weapon[weapon_name]
+						local multiplier = managers.blackmarket:damage_multiplier(weapon_name, weapon_tweak.categories, nil, nil, nil, blueprint)
+
+						mod[stat.name] = (diff or 0) * multiplier
+					end
+				elseif stat.name == "pickup" then
+					if part_data.custom_stats and (part_data.custom_stats.ammo_pickup_min_mul or part_data.custom_stats.ammo_pickup_max_mul) then
+						--it works?
+						--might not stack correctly if there are multiple sources from attachments
+						--but there should only ever be a single attachment in use that modifies this stat so w/e
+						--Might actually apply to the damage calcs above too but again "there should only ever be a single attachment in use that modifies [damage(min)] so w/e"
+						mod[stat.name] = WeaponDescription._get_mods_pickup(weapon, weapon_name, base_stats)
+					end
+				elseif stat.name == "swap_speed" then
+					--POOP FROM A BUTT
+					if part_data.stats and part_data.stats.concealment then
+						local part_con = part_data.stats.concealment or 0
+
+						local base_con = base_stats.concealment.index or 0
+						local modded_con = math.max(base_con + part_con, 0) + 1
+
+						modded_con = math.clamp(modded_con, 1, #tweak_data.weapon.stats.mobility)
+
+						local weapon_tweak = tweak_data.weapon[weapon_name]
+						local multiplier = 1
+
+						for _, category in ipairs(weapon_tweak.categories) do
+							if tweak_data[category] and tweak_data[category].swap_bonus then
+								multiplier = multiplier * tweak_data[category].swap_bonus
+							end
+						end
+
+						multiplier = multiplier * (weapon_tweak.swap_speed_multiplier or 1)
+						multiplier = multiplier * tweak_data.weapon.stats.mobility[modded_con]
+
+						local swap_speed = (tweak_data.weapon[weapon_name].timers.equip + tweak_data.weapon[weapon_name].timers.unequip) / multiplier
+
+						mod[stat.name] = swap_speed - (base_stats.swap_speed.value or 1)
 					end
 				else
 					local chosen_index = part_data.stats[stat.name] or 0
@@ -507,6 +706,7 @@ function WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_sta
 						mod[stat.name] = mod[stat.name] - curr_stats[stat.name].value
 					end
 				end
+
 			end
 		end
 	end
@@ -542,7 +742,11 @@ function WeaponDescription._get_mods_swap_speed(name, base_stats, mods_stats)
 
 	multiplier = multiplier * (weapon_tweak.swap_speed_multiplier or 1)
 	
-	multiplier = multiplier * tweak_data.weapon.stats.mobility[math.max(base_stats.concealment.value + mods_stats.concealment.value, 0) + 1]
+	local mobility_index = math.max(base_stats.concealment.value + mods_stats.concealment.value, 0) + 1
+	mobility_index = math.clamp(mobility_index, 1, #tweak_data.weapon.stats.mobility)
+
+	multiplier = multiplier * tweak_data.weapon.stats.mobility[mobility_index]
+
 	local mod_swap_speed = (tweak_data.weapon[name].timers.equip + tweak_data.weapon[name].timers.unequip) / multiplier - base_stats.swap_speed.value
 
 	return mod_swap_speed
@@ -567,7 +771,11 @@ function WeaponDescription._get_skill_swap_speed(name, base_stats, mods_stats, s
 
 	multiplier = multiplier * (weapon_tweak.swap_speed_multiplier or 1)
 
-	local multiplier = multiplier * tweak_data.weapon.stats.mobility[math.max(base_stats.concealment.value + mods_stats.concealment.value + skill_stats.concealment.value, 0) + 1]
+
+	local mobility_index = math.max(base_stats.concealment.value + mods_stats.concealment.value + skill_stats.concealment.value, 0) + 1
+	mobility_index = math.clamp(mobility_index, 1, #tweak_data.weapon.stats.mobility)
+
+	multiplier = multiplier * tweak_data.weapon.stats.mobility[mobility_index]
 	local skill_swap_speed = (tweak_data.weapon[name].timers.equip + tweak_data.weapon[name].timers.unequip) / multiplier - base_stats.swap_speed.value - mods_stats.swap_speed.value
 	
 	if skill_swap_speed >= 0 then
@@ -740,6 +948,7 @@ end
 
 function WeaponDescription._get_skill_pickup(weapon, name, base_stats, mods_stats)
 	local pickup_multiplier = managers.player:upgrade_value("player", "fully_loaded_pick_up_multiplier", 1)
+	local min_pickup_multiplier = managers.player:upgrade_value("player", "minimum_pick_up_multiplier", 1)
 
 	local is_pro = Global.game_settings and Global.game_settings.one_down
 	local is_solo = (Global.game_settings and Global.game_settings.single_player and 2) or 1
@@ -752,9 +961,17 @@ function WeaponDescription._get_skill_pickup(weapon, name, base_stats, mods_stat
 		pickup_multiplier = pickup_multiplier + managers.player:upgrade_value(category, "pick_up_multiplier", 1) - 1
 	end
 
-	if pickup_multiplier > 1 then
+	if managers.player:has_category_upgrade("player", "armor_pickup_mul") then
+		pickup_multiplier = pickup_multiplier * managers.player:body_armor_value("skill_ammo_mul", nil, 1)
+	end
+
+	if managers.player:has_category_upgrade("player", "tony_pick_up_multiplier") then
+		pickup_multiplier = pickup_multiplier * managers.player:upgrade_value("player", "tony_pick_up_multiplier", 1)
+	end
+
+	if pickup_multiplier then
 		local ammo_data = managers.weapon_factory:get_ammo_data_from_weapon(weapon.factory_id, weapon.blueprint) or {}
-		local min_pickup = weapon_tweak.AMMO_PICKUP[1] * (ammo_data.ammo_pickup_min_mul or 1) * pickup_multiplier
+		local min_pickup = weapon_tweak.AMMO_PICKUP[1] * (ammo_data.ammo_pickup_min_mul or 1) * pickup_multiplier * min_pickup_multiplier
 		local max_pickup = weapon_tweak.AMMO_PICKUP[2] * (ammo_data.ammo_pickup_max_mul or 1) * pickup_multiplier
 		local custom_data = managers.weapon_factory:get_custom_stats_from_weapon(weapon.factory_id, weapon.blueprint) or {}
 		for part_id, stats in pairs(custom_data) do
@@ -767,11 +984,13 @@ function WeaponDescription._get_skill_pickup(weapon, name, base_stats, mods_stat
 		end
 		local is_controller = ((managers.menu:get_controller():get_default_controller_id() ~= "keyboard" and not _G.IS_VR) and 1.15) or 1
 		local average_pickup = (min_pickup + max_pickup) * 0.5 * is_controller
-		return true, average_pickup - mods_stats.pickup.value - base_stats.pickup.value
+		local skill_in_effect = average_pickup ~= (mods_stats.pickup.value + base_stats.pickup.value)
+		return skill_in_effect, average_pickup - mods_stats.pickup.value - base_stats.pickup.value
 	else
 		return false, 0
 	end
 end
+
 
 function WeaponDescription._get_base_damage_min(weapon, name, base_stats)
 	local weapon_tweak = tweak_data.weapon[name]
@@ -826,11 +1045,14 @@ function WeaponDescription._get_mods_damage_min(weapon, name, base_stats, mods_s
 
 	local custom_data = managers.weapon_factory:get_custom_stats_from_weapon(weapon.factory_id, weapon.blueprint) or {}
 	for part_id, stats in pairs(custom_data) do
+		if stats.gl_buck then
+			gl_buck = true
+		end
 		if stats.damage_min_mult then
 			damage_min_mult = damage_min_mult * stats.damage_min_mult
 		end
 		if stats.bullet_class and stats.bullet_class == "InstantExplosiveBulletBase" then
-			damage_min_mult = 1
+			--damage_min_mult = 1
 		end
 		if stats.dont_ignore_rays and stats.dont_ignore_rays == true then
 			ignore_rays = false
@@ -895,9 +1117,6 @@ function WeaponDescription._get_skill_damage_min(weapon, name, base_stats, mods_
 		if stats.damage_min_mult then
 			damage_min_mult = damage_min_mult * stats.damage_min_mult
 		end
-		if stats.bullet_class and stats.bullet_class == "InstantExplosiveBulletBase" then
-			damage_min_mult = 1
-		end
 		if stats.dont_ignore_rays then
 			ignore_rays = false
 		end
@@ -950,6 +1169,76 @@ function WeaponDescription._get_skill_ads_speed(weapon, name, base_stats, mods_s
 	end
 end
 
+
+function WeaponDescription.get_weapon_ammo_info(weapon_id, extra_ammo, total_ammo_mod)
+	local weapon_tweak_data = tweak_data.weapon[weapon_id]
+	local ammo_max_multiplier = managers.player:upgrade_value("player", "extra_ammo_multiplier", 1)
+	local primary_category = weapon_tweak_data.categories[1]
+	local category_skill_in_effect = false
+	local category_multiplier = 1
+
+	for _, category in ipairs(weapon_tweak_data.categories) do
+		if managers.player:has_category_upgrade(category, "extra_ammo_multiplier") then
+			category_multiplier = category_multiplier + managers.player:upgrade_value(category, "extra_ammo_multiplier", 1) - 1
+			category_skill_in_effect = true
+		end
+	end
+
+	ammo_max_multiplier = ammo_max_multiplier * category_multiplier
+
+	if managers.player:has_category_upgrade("player", "add_armor_stat_skill_ammo_mul") then
+		ammo_max_multiplier = ammo_max_multiplier * managers.player:body_armor_value("skill_ammo_mul", nil, 1)
+	end
+
+	if managers.player:has_category_upgrade("player", "tony_extra_ammo_multiplier") then
+		ammo_max_multiplier = ammo_max_multiplier * managers.player:upgrade_value("player", "tony_extra_ammo_multiplier", 1)
+	end
+
+	local function get_ammo_max_per_clip(weapon_id)
+		local function upgrade_blocked(category, upgrade)
+			if not weapon_tweak_data.upgrade_blocks then
+				return false
+			end
+
+			if not weapon_tweak_data.upgrade_blocks[category] then
+				return false
+			end
+
+			return table.contains(weapon_tweak_data.upgrade_blocks[category], upgrade)
+		end
+
+		local clip_base = weapon_tweak_data.CLIP_AMMO_MAX
+		local clip_mod = extra_ammo and tweak_data.weapon.stats.extra_ammo[extra_ammo] or 0
+		local clip_skill = managers.player:upgrade_value(weapon_id, "clip_ammo_increase")
+
+		if not upgrade_blocked("weapon", "clip_ammo_increase") then
+			clip_skill = clip_skill + managers.player:upgrade_value("weapon", "clip_ammo_increase", 0)
+		end
+
+		for _, category in ipairs(weapon_tweak_data.categories) do
+			if not upgrade_blocked(category, "clip_ammo_increase") then
+				clip_skill = clip_skill + managers.player:upgrade_value(category, "clip_ammo_increase", 0)
+			end
+		end
+
+		return clip_base + clip_mod + clip_skill
+	end
+
+	local ammo_max_per_clip = get_ammo_max_per_clip(weapon_id)
+	local ammo_max = tweak_data.weapon[weapon_id].AMMO_MAX
+	local ammo_from_mods = ammo_max * (total_ammo_mod and tweak_data.weapon.stats.total_ammo_mod[total_ammo_mod] or 0)
+	ammo_max = (ammo_max + ammo_from_mods + managers.player:upgrade_value(weapon_id, "clip_amount_increase") * ammo_max_per_clip) * ammo_max_multiplier
+	ammo_max_per_clip = math.min(ammo_max_per_clip, ammo_max)
+	local ammo_data = {
+		base = tweak_data.weapon[weapon_id].AMMO_MAX,
+		mod = ammo_from_mods + managers.player:upgrade_value(weapon_id, "clip_amount_increase") * ammo_max_per_clip
+	}
+	ammo_data.skill = (ammo_data.base + ammo_data.mod) * ammo_max_multiplier - ammo_data.base - ammo_data.mod
+	ammo_data.skill_in_effect = managers.player:has_category_upgrade("player", "extra_ammo_multiplier") or category_skill_in_effect or managers.player:has_category_upgrade("player", "add_armor_stat_skill_ammo_mul") or managers.player:has_category_upgrade("player", "tony_extra_ammo_multiplier")
+
+	return ammo_max_per_clip, ammo_max, ammo_data
+end
+
 function WeaponDescription._get_stats(name, category, slot, blueprint)
 	local equipped_mods = nil
 	local silencer = false
@@ -977,13 +1266,17 @@ function WeaponDescription._get_stats(name, category, slot, blueprint)
 	end
 
 	local base_stats = WeaponDescription._get_base_stats(name)
-	local mods_stats = WeaponDescription._get_mods_stats(name, base_stats, equipped_mods, bonus_stats)
+	local mods_stats, has_starwars = WeaponDescription._get_mods_stats(name, base_stats, equipped_mods, bonus_stats)
 	local skill_stats = WeaponDescription._get_skill_stats(name, category, slot, base_stats, mods_stats, silencer, single_mod, auto_mod, blueprint)
 	local clip_ammo, max_ammo, ammo_data = WeaponDescription.get_weapon_ammo_info(name, tweak_data.weapon[name].stats.extra_ammo, base_stats.totalammo.index + mods_stats.totalammo.index)
 	base_stats.totalammo.value = ammo_data.base
 	mods_stats.totalammo.value = ammo_data.mod
 	skill_stats.totalammo.value = ammo_data.skill
 	skill_stats.totalammo.skill_in_effect = ammo_data.skill_in_effect
+	if has_starwars then
+		skill_stats.magazine.skill_in_effect = nil
+		skill_stats.magazine.value = 0
+	end
 	local my_clip = base_stats.magazine.value + mods_stats.magazine.value + skill_stats.magazine.value
 
 	if max_ammo < my_clip then
@@ -1032,25 +1325,40 @@ function WeaponDescription._get_stats(name, category, slot, blueprint)
 	return base_stats, mods_stats, skill_stats
 end
 
---Identical to vanilla function, but including it somehow fixes incorrect reload speeds showing up on the attachment selection screen for weapons with reload_speed_multiplier.
---[[
 function WeaponDescription.get_stats_for_mod(mod_name, weapon_name, category, slot)
 	local equipped_mods = nil
 	local blueprint = managers.blackmarket:get_weapon_blueprint(category, slot)
-
 	if blueprint then
 		equipped_mods = deep_clone(blueprint)
 		local factory_id = managers.weapon_factory:get_factory_id_by_weapon_id(weapon_name)
 		local default_blueprint = managers.weapon_factory:get_default_blueprint_by_factory_id(factory_id)
-
 		for _, default_part in ipairs(default_blueprint) do
 			table.delete(equipped_mods, default_part)
 		end
 	end
-
 	local base_stats = WeaponDescription._get_base_stats(weapon_name)
 	local mods_stats = WeaponDescription._get_mods_stats(weapon_name, base_stats, equipped_mods)
+	
+	local factory_id = managers.weapon_factory:get_factory_id_by_weapon_id(weapon_name)
+	local weapon = {
+		factory_id = factory_id,
+		blueprint = blueprint
+	}
+	
+	base_stats.swap_speed.value = WeaponDescription._get_base_swap_speed(weapon_name, base_stats)
+	mods_stats.swap_speed.value = WeaponDescription._get_mods_swap_speed(weapon_name, base_stats, mods_stats)
 
-	return WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_stats, mods_stats, equipped_mods)
+	base_stats.standing_range.value = WeaponDescription._get_base_range(weapon, weapon_name, base_stats, false)
+	mods_stats.standing_range.value = WeaponDescription._get_mods_range(weapon, weapon_name, base_stats, mods_stats, false)
+
+	base_stats.moving_range.value = WeaponDescription._get_base_range(weapon, weapon_name, base_stats, true)
+	mods_stats.moving_range.value = WeaponDescription._get_mods_range(weapon, weapon_name, base_stats, mods_stats, true)
+
+	base_stats.pickup.value = WeaponDescription._get_base_pickup(weapon, weapon_name)
+	mods_stats.pickup.value = WeaponDescription._get_mods_pickup(weapon, weapon_name, base_stats)
+
+	base_stats.ads_speed.value = WeaponDescription._get_base_ads_speed(weapon, weapon_name, base_stats)
+	mods_stats.ads_speed.value = WeaponDescription._get_mods_ads_speed(weapon, weapon_name, base_stats)
+	
+	return WeaponDescription._get_weapon_mod_stats(mod_name, weapon_name, base_stats, mods_stats, equipped_mods, category, slot)
 end
---]]

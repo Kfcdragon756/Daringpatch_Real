@@ -158,7 +158,7 @@ end
 
 function PlayerTweakData:_set_singleplayer()
 	if not restoration.Options:GetValue("OTHER/DisableSoloBoons") then
-		self.max_nr_following_hostages = 4
+		self.max_nr_following_hostages = 8
 	end
 end
 
@@ -221,6 +221,7 @@ function PlayerTweakData:init()
 	self.damage.automatic_assault_ai_trade_time = 240
 	self.damage.automatic_assault_ai_trade_time_max = 300
 	self.fall_health_damage = 3
+	self.max_carry_weight = 0.7
 	self.fall_damage_alert_size = 250
 	self.SUSPICION_OFFSET_LERP = 0.75
 	self.long_dis_interaction = {
@@ -265,7 +266,7 @@ function PlayerTweakData:init()
 			0
 		}
 	}
-	self.max_nr_following_hostages = 1
+	self.max_nr_following_hostages = 4
 	self.TRANSITION_DURATION = 0.2
 	self.stances = {
 		default = {
@@ -371,9 +372,9 @@ function PlayerTweakData:init()
 	}
 	self.movement_state.standard.gravity = 982 --used in the calculation in playerstandard for applying correct damping, does not actually change gravity
 	self.movement_state.standard.terminal_velocity = 7000 --used in the calculation in playerstandard for proper falling, change as you will it
-	self.movement_state.standard.movement.speed.STANDARD_MAX = 350
-	self.movement_state.standard.movement.speed.RUNNING_MAX_TIRED = 425
-	self.movement_state.standard.movement.speed.RUNNING_MAX = 575
+	self.movement_state.standard.movement.speed.STANDARD_MAX = 300
+	self.movement_state.standard.movement.speed.RUNNING_MAX_TIRED = self.movement_state.standard.movement.speed.STANDARD_MAX * 1.20
+	self.movement_state.standard.movement.speed.RUNNING_MAX = self.movement_state.standard.movement.speed.STANDARD_MAX * 1.65
 	self.movement_state.standard.movement.speed.CROUCHING_MAX = 225
 	self.movement_state.standard.movement.speed.STEELSIGHT_MAX = 185 --Isn't used anymore since ADS speed is now a speed mult applied to w/e state you're in now
 	self.movement_state.standard.movement.speed.INAIR_MAX = 185
@@ -393,16 +394,16 @@ function PlayerTweakData:init()
 	self.movement_state.stamina = {}
 
 	if is_vr then
-		self.movement_state.stamina.STAMINA_INIT = 55
+		self.movement_state.stamina.STAMINA_INIT = 40
 	else
-		self.movement_state.stamina.STAMINA_INIT = 55
+		self.movement_state.stamina.STAMINA_INIT = 40
 	end
 
 	self.movement_state.stamina.STAMINA_REGEN_RATE = 4
 	self.movement_state.stamina.STAMINA_DRAIN_RATE = 2
 	self.movement_state.stamina.STAMINA_DRAIN_RATE_WARP = 3
 	self.movement_state.stamina.REGENERATE_TIME = 1
-	self.movement_state.stamina.MIN_STAMINA_THRESHOLD = 5
+	self.movement_state.stamina.MIN_STAMINA_THRESHOLD = self.movement_state.stamina.STAMINA_INIT / 10
 	self.movement_state.stamina.JUMP_STAMINA_DRAIN = 4 --Unused for vanilla movement mechanics
 	self.movement_state.stamina.SPRINT_JUMP_STAMINA_DRAIN = 0
 	
@@ -425,8 +426,8 @@ local pivot_head_rotation
 
 local default_new_stances = PlayerTweakData._init_new_stances
 function PlayerTweakData:_init_new_stances()
-	default_new_stances(self)
 	self:_init_bessy()
+	default_new_stances(self)
 	--Ak5
 	pivot_shoulder_translation = Vector3(10.6877, 15.6166, -2.8033)
 	pivot_shoulder_rotation = Rotation(0.106298, -0.085067, 0.62852)
@@ -760,6 +761,16 @@ function PlayerTweakData:_init_g3()
 	self.stances.g3.steelsight.shoulders.translation = pivot_head_translation - pivot_shoulder_translation:rotate_with(pivot_shoulder_rotation:inverse()):rotate_with(pivot_head_rotation)
 	self.stances.g3.steelsight.shoulders.rotation = pivot_head_rotation * pivot_shoulder_rotation:inverse()
 end
+local default_init_welrod = PlayerTweakData._init_welrod
+function PlayerTweakData:_init_welrod()
+	default_init_welrod(self)	
+	pivot_shoulder_translation = Vector3(8.44539, 46.3056, -4.95)
+	pivot_shoulder_rotation = Rotation(0.100026, -0.68821, 0.629665)
+	pivot_head_translation = Vector3(-0.02, 37.62, 0.1)
+	pivot_head_rotation = Rotation(0, 0, 0)
+	self.stances.welrod.steelsight.shoulders.translation = pivot_head_translation - pivot_shoulder_translation:rotate_with(pivot_shoulder_rotation:inverse()):rotate_with(pivot_head_rotation)
+	self.stances.welrod.steelsight.shoulders.rotation = pivot_head_rotation * pivot_shoulder_rotation:inverse()
+end
 
 
 
@@ -818,8 +829,7 @@ if SystemFS:exists("assets/mod_overrides/Patchett Proper Hold Reload Animations"
 	end )
 end
 
-local static_aim = restoration.Options:GetValue("OTHER/WeaponHandling/StaticAim")
-local vm_move = restoration.Options:GetValue("OTHER/WeaponHandling/ViewmodelMovement") or 2
+local vm_move = restoration.Options:GetValue("WEAPONS/WEAPONANIMS/ViewmodelMovement") or 2
 Hooks:PostHook(PlayerTweakData, "_init_new_stances", "resmodviwemodeldrag", function(self)
 	for wep_id, i in pairs(self.stances) do
 		if self.stances[ wep_id ] then
@@ -833,15 +843,7 @@ Hooks:PostHook(PlayerTweakData, "_init_new_stances", "resmodviwemodeldrag", func
 					end
 				end
 			end
-			if static_aim then
-				if self.stances[ wep_id ].steelsight then
-					self.stances[ wep_id ].steelsight.shakers.breathing.amplitude = 0
-					self.stances[ wep_id ].steelsight.vel_overshot.yaw_neg = 0
-					self.stances[ wep_id ].steelsight.vel_overshot.yaw_pos = 0
-					self.stances[ wep_id ].steelsight.vel_overshot.pitch_neg = 0
-					self.stances[ wep_id ].steelsight.vel_overshot.pitch_pos = 0
-				end
-			end
+
 		end
 	end
 end)

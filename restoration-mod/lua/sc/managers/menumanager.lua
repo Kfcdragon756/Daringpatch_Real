@@ -610,15 +610,19 @@ end
 Global.Daring_heal_attch_check = Global.Daring_heal_attch_check or ''
 Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", function(sender, id, data)
 	local function ResMod_get_PeerUnit_by_PeerID(peer_id)
-		local peer = managers.network:session():peer(peer_id)
+		local session = managers.network and managers.network:session()
+		local peer = session and session:peer(peer_id)
 		if peer then
 			return peer:unit()
 		end
 	end
 
+    if id ~= "Resmod_Daring_heal_num" and id ~= "Resmod_Daring_is_pro_fixed_sync" and id ~= "sync_hd2offensive_red_trail" and id ~= "sync_hd2offensive_hud" and id ~= "sync_hd2offensive_throw" and id ~= "HaoJing_Played" then return end
     local table_get_from_data = {}
-    if data then
-        table_get_from_data = json.decode(data)
+    if id ~= "HaoJing_Played" then
+        local ok, decoded = pcall(json.decode, data or "")
+        if not ok or type(decoded) ~= "table" then return end
+        table_get_from_data = decoded
     end
 	-- 应该是检测配件确认治疗枪的存在的
     if id == "Resmod_Daring_heal_num" then
@@ -631,7 +635,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		if Network:is_server() then
 			return
 		elseif Network:is_client() then
-			if table_get_from_data and table_get_from_data.session then
+			if sender == 1 and table_get_from_data and table_get_from_data.session then
 				if table_get_from_data.session == 'host' then
 					local is_pro = Global.game_settings and Global.game_settings.one_down
 					local match = 'wait'
@@ -656,8 +660,8 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		end
 	-- HD2战备光束的同步
 	elseif id == "sync_hd2offensive_red_trail" then
-		if not table_get_from_data then
-			managers.mission._fading_debug_output:script().log("Crashed:hd2_red_trail", Color.red)
+		if type(table_get_from_data.x) ~= "number" or type(table_get_from_data.y) ~= "number" or type(table_get_from_data.z) ~= "number" then
+			log("Crashed:hd2_red_trail", Color.red)
 			return
 		end
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
@@ -667,12 +671,12 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		elseif HD2OffensiveRedTrail_res then
 			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
 		else
-			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!", Color.red)
+			log("HD2OffensiveRedTrail not found!", Color.red)
 		end
 	  -- hud部分
 	elseif id == "sync_hd2offensive_hud" then
-		if not table_get_from_data then
-			managers.mission._fading_debug_output:script().log("Crashed:sync_hd2offensive_hud", Color.red)
+		if type(table_get_from_data.x) ~= "number" or type(table_get_from_data.y) ~= "number" or type(table_get_from_data.z) ~= "number" then
+			log("Crashed:sync_hd2offensive_hud", Color.red)
 			return
 		end
 		table_get_from_data.position = Vector3(table_get_from_data.x, table_get_from_data.y, table_get_from_data.z)
@@ -682,12 +686,12 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		elseif HD2OffensiveHUD_res then
 			HD2OffensiveHUD_res:new(table_get_from_data)
 		else
-			managers.mission._fading_debug_output:script().log("HD2OffensiveHUD not found!", Color.red)
+			log("HD2OffensiveHUD not found!", Color.red)
 		end
 	  -- 新版HD2战备mod有所修改
-	elseif message == "sync_hd2offensive_throw" then
-		if not table_get_from_data then
-			managers.mission._fading_debug_output:script().log("Crashed:hd2_red_trail_2", Color.red)
+	elseif id == "sync_hd2offensive_throw" then
+		if type(table_get_from_data.x) ~= "number" or type(table_get_from_data.y) ~= "number" or type(table_get_from_data.z) ~= "number" then
+			log("Crashed:hd2_red_trail_2", Color.red)
 			return
 		end
 
@@ -698,14 +702,14 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 		elseif HD2OffensiveRedTrail_res then
 			HD2OffensiveRedTrail_res:spawn(table_get_from_data)
 		else
-			managers.mission._fading_debug_output:script().log("HD2OffensiveRedTrail not found!2", Color.red)
+			log("HD2OffensiveRedTrail not found!2", Color.red)
 		end
 		if HD2OffensiveHUD then
 			--HD2OffensiveHUD:new(table_get_from_data)  --我又做了一次
 		elseif HD2OffensiveHUD_res then
 			HD2OffensiveHUD_res:new(table_get_from_data)
 		else
-			managers.mission._fading_debug_output:script().log("HD2OffensiveHUD not found!2", Color.red)
+			log("HD2OffensiveHUD not found!2", Color.red)
 		end
 	-- 同步播放近战反击产生的昊京音效
 	elseif id == "HaoJing_Played" then
@@ -719,6 +723,7 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 			end
 			if ogg_path then
 				local unit_play = ResMod_get_PeerUnit_by_PeerID(sender)
+				if not alive(unit_play) or not blt.xaudio or not XAudio then return end
 				blt.xaudio.setup()
 				local source =  XAudio.UnitSource:new(unit_play, XAudio.Buffer:new(ogg_path))
 				source:set_volume(Volume_Sync)
@@ -727,139 +732,3 @@ Hooks:Add("NetworkReceivedData", "NetworkReceivedData_Daring_sc_heal_player", fu
 	end
 end)
 
--- 接下来的内容是为了修改第三方天赋“解放者”的运作方式以做适配
-if not BeardLib or not BeardLib.Utils or not BeardLib.Utils:FindMod("Liberator Perk Deck") then
-	return
-end
-
--- 获取mod路径
-local file_path
-local root_path_result = BeardLib.Frameworks.Base._directory  --通过Beardlib获取mods路径
-if root_path_result then
-	file_path = root_path_result .. "/Liberator Perk Deck/scripts/playeractiontachi.lua"  --获取解放者天赋的路径
-end
-if not file_path then
-	return
-end
-
--- 要追加的内容
-local new_content = "\n\n"..[[
-if SC and ChinStringFixes then
-    PlayerAction.Tachi = {
-        Priority = 1,
-        Function = function()
-            local pm = managers.player
-            
-            local base_upgrade_data = pm:upgrade_value("player","tachi_base")
-            local timer = TimerManager:game()
-            local player = pm:local_player()
-            if not alive(player) then 
-                return
-            end
-            local dmg_ext = player:character_damage()
-            local start_t = timer:time()
-            local regen_interval = base_upgrade_data.regen_interval
-            local hot_amount = pm:upgrade_value("player","tachi_hot_amount",0)
-            local hot_duration = pm:upgrade_value("player","tachi_hot_duration",0)
-            local end_time = start_t + hot_duration
-            local has_dmg_resist = pm:has_category_upgrade("player","tachi_hot_cancelled_damage_resistance_consolation")
-            local dmg_resist = pm:upgrade_value("player","tachi_hot_cancelled_damage_resistance_consolation",0)
-
-            local function update_ability_radial()
-                local time_left = end_time - timer:time()
-
-                managers.hud:activate_teammate_ability_radial(HUDManager.PLAYER_PANEL, time_left, hot_duration)
-            end
-            
-            local has_taken_health_damage = false
-            local regen_first_hit_health = false
-            local hit_regen = 0
-            local cached_player_health = dmg_ext:get_real_health()
-            local function cb_on_damage()
-                if not has_taken_health_damage then
-                    local current_hp = dmg_ext:get_real_health()
-                    if current_hp < cached_player_health then
-                        has_taken_health_damage = true
-                        hit_regen = cached_player_health - current_hp
-                    else
-                        cached_player_health = current_hp
-                    end
-                end
-            end
-            dmg_ext._listener_holder:add(
-                "liberator_tachi_on_damage",
-                {
-                    "on_damage"
-                },
-                cb_on_damage
-            )
-            
-            local next_heal_t = start_t
-            
-            update_ability_radial()
-            while alive(player) and timer:time() < end_time do 
-            
-                local t = timer:time()
-                if t >= next_heal_t then 
-                    next_heal_t = next_heal_t + regen_interval
-                    if not has_taken_health_damage then
-                        dmg_ext:restore_health(hot_amount,true,false)
-                    elseif not regen_first_hit_health then
-                        dmg_ext:restore_health(hit_regen,true,false)
-                        regen_first_hit_health = true
-                    elseif has_dmg_resist then
-                        pm:set_property("tachi_damage_resistance",dmg_resist)
-                    end
-                end
-                coroutine.yield()
-            end
-            
-            
-            managers.hud:set_teammate_ability_radial(HUDManager.PLAYER_PANEL, {current=0,total=1})
-            dmg_ext._listener_holder:remove("liberator_tachi_on_damage")
-            pm:remove_property("tachi_damage_resistance")
-        end
-    }
-end
-]]
-
--- 检测文件是否存在
-local function file_exists(path)
-    local file = io.open(path, "r")
-    if file then
-        file:close()
-        return true
-    end
-    return false
-end
-
--- 如果文件不存在，则直接跳过
-if not file_exists(file_path) then
-    --log("Mod file not found: " .. file_path)
-    return
-end
-
--- 读取文件内容
-local file = io.open(file_path, "r")
-if not file then
-    --log("Failed to open file for reading: " .. file_path)
-    return
-end
-
-local original_content = file:read("*a") -- 读取整个文件内容
-file:close()
-
--- 检查文件尾部是否已有要添加的内容
-if original_content:sub(-#new_content) == new_content then
-    --log("check exist, no repeating")
-else
-    -- 追加内容到文件末尾
-    file = io.open(file_path, "a")
-    if not file then
-        --log("Failed to open file for writing: " .. file_path)
-        return
-    end
-    file:write(new_content)
-    file:close()
-    --log("suc added")
-end

@@ -325,18 +325,45 @@ function ExplosionManager:_damage_characters(detect_results, params, variant, da
 	return results
 end
 
-function ExplosionManager:give_local_player_dmg(pos, range, damage)
+function ExplosionManager:give_local_player_dmg(pos, range, damage, user_unit, curve_pow, ignore_los)
 	local player = managers.player:player_unit()
-	local los = managers.environment_controller:test_line_of_sight(pos + Vector3(0, 0, 150), 200, range / 3, range) or 0
+	local los = (ignore_los and true) or managers.environment_controller:test_line_of_sight_explosion(pos, range) or false
 
-	if player and los > 0 then
+	if player and los then
 		player:character_damage():damage_explosion({
-			attacker_unit = player,
+			attacker_unit = user_unit,
 			variant = "explosion",
 			position = pos,
 			range = range,
-			damage = damage
+			damage = damage,
+			curve_pow = curve_pow
 		})
+	end
+end
+
+--for the snowball
+function ExplosionManager:_damage_bodies(detect_results, params)
+	local user_unit = params.user
+	local hit_pos = params.hit_pos
+	local damage = params.damage
+	local obj_damage_mult = params.obj_damage_mult or 1 --hi there
+	local range = params.range
+	local curve_pow = params.curve_pow
+
+	for _, bodies in pairs(detect_results.bodies_hit) do
+		for _, hit_body in ipairs(bodies) do
+			local apply_dmg = alive(hit_body) and hit_body:extension() and hit_body:extension().damage
+
+			if apply_dmg then
+				local dir = hit_body:center_of_mass()
+				local len = mvector3.direction(dir, hit_pos, dir)
+				local prop_damage = damage * math.pow(math.clamp(1 - len / range, 0, 1), curve_pow)
+				prop_damage = prop_damage * obj_damage_mult --just dropping in
+				prop_damage = math.max(prop_damage, math.min(damage, 1))
+
+				self:_apply_body_damage(true, hit_body, user_unit, dir, prop_damage)
+			end
+		end
 	end
 end
 

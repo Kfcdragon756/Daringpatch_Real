@@ -13,6 +13,7 @@ local mvec3_rot = mvector3.rotate_with
 local mvec3_rand_orth = mvector3.random_orthogonal
 local mvec3_lerp = mvector3.lerp
 local mvec3_copy = mvector3.copy
+local mvec3_step = mvector3.step
 local mrot_axis_angle = mrotation.set_axis_angle
 local math_min = math.min
 local math_lerp = math.lerp
@@ -290,6 +291,32 @@ function CopActionShoot:init(action_desc, common_data)
 	return true
 end
 
+-- Inventory removal can precede the final attention/exit callbacks.
+-- Clear custom focus while the old weapon references are still available.
+function CopActionShoot:_restoration_clear_sniper_focus()
+	if self._use_sniper_focus then
+		self:set_sniper_focus_sound(0)
+	end
+	self._use_sniper_focus = nil
+	self._sniper_focus_start_t = nil
+	self:disable_sniper_laser()
+end
+
+local restoration_inventory_event_original = CopActionShoot.on_inventory_event
+function CopActionShoot:on_inventory_event(event)
+	local weapon_event = event ~= "shield_equip" and event ~= "shield_unequip"
+	if weapon_event and not alive(self._ext_inventory:equipped_unit()) then
+		self:_restoration_clear_sniper_focus()
+	end
+	local result = restoration_inventory_event_original(self, event)
+	if weapon_event and not self._weapon_unit then
+		-- Keep the empty updater as a function. Calling it returns nil and
+		-- exposes the armed class updater again through __index.
+		self.update = self._upd_empty
+	end
+	return result
+end
+
 function CopActionShoot:on_exit()
 	if self._is_server then
 		if not self._exiting_to_reload then
@@ -305,22 +332,17 @@ function CopActionShoot:on_exit()
 		self[self._ik_preset.stop](self)
 	end
 
-	if self._autofiring then
+	if self._autofiring and alive(self._weapon_unit) and self._weapon_base then
 		self._weapon_base:stop_autofire()
 		self._ext_movement:play_redirect("up_idle")
 	end
 
-	if self._shooting_player and alive(self._attention.unit) then
+	if self._shooting_player and self._attention and alive(self._attention.unit) then
 		self._attention.unit:movement():on_targetted_for_attack(false, self._common_data.unit)
 
-		if self._use_sniper_focus then
-			self:set_sniper_focus_sound(0)
-		end
 	end
 
-	if self._w_usage_tweak.use_laser then
-		self:disable_sniper_laser()
-	end
+	self:_restoration_clear_sniper_focus()
 end
 
 function CopActionShoot:on_attention(attention, old_attention)
@@ -341,6 +363,19 @@ function CopActionShoot:on_attention(attention, old_attention)
 	self._throw_molotov = nil
 	self._uncloak = nil
 	self._charge_taser = nil
+
+	-- Native on_inventory_event clears these fields when the weapon goes away.
+	-- Attention still has to be cleared during victory/deletion in that state.
+	if not self._w_usage_tweak or not self._weapon_base or not alive(self._weapon_unit) then
+		self:_restoration_clear_sniper_focus()
+		if self._ik_preset then
+			self[self._ik_preset.stop](self)
+		end
+		self._aim_transition = nil
+		self._get_target_pos = nil
+		self._attention = attention
+		return
+	end
 
 	if attention then
 		local t = TimerManager:game():time()
@@ -546,13 +581,25 @@ end
 function CopActionShoot:disable_sniper_laser()
 	if self._is_server then
 		if self._active_laser then
-			self._weapon_base:set_laser_enabled(false)
-			self._ext_brain._logic_data.internal_data.weapon_laser_on = nil
-			managers.enemy:_create_unit_gfx_lod_data(self._unit)
+			if alive(self._weapon_unit) and self._weapon_base then
+				self._weapon_base:set_laser_enabled(false)
+			end
+			local logic_data = self._ext_brain and self._ext_brain._logic_data
+			if logic_data and logic_data.internal_data then
+				logic_data.internal_data.weapon_laser_on = nil
+			end
+			if alive(self._unit) and not self._ext_movement._pre_destroyed then
+				managers.enemy:_create_unit_gfx_lod_data(self._unit)
+			end
 			self._active_laser = nil
 		end
-	elseif self._ext_brain._weapon_laser_on then
-		self._ext_brain:disable_weapon_laser()
+	elseif self._ext_brain and self._ext_brain._weapon_laser_on then
+		if alive(self._unit) then
+			self._ext_brain:disable_weapon_laser()
+		else
+			self._ext_brain._weapon_laser_on = nil
+			self._ext_brain._add_laser_t = nil
+		end
 	end
 end
 
@@ -577,57 +624,57 @@ function CopActionShoot:set_sniper_focus_sound(sound_progress)
 		local total_progression = p_dmg_ext._downed_progression or 0
 
 		if sound_progress >= total_progression then
+			local set_sound = math_min(100, sound_progress)
+			managers.music:set_volume_multiplier("downed", 1 - (set_sound / 100), 0)
 			if p_dmg_ext._tinnitus_data == nil or sound_progress >= p_dmg_ext._tinnitus_data.intensity then
-				local set_sound = math_min(100, sound_progress)
-
 				SoundDevice:set_rtpc("downed_state_progression", set_sound)
-				
-				managers.music:set_volume_multiplier("downed", 1 - (set_sound / 100), 0)
 			end
 		end
 	end
 end
 
 function CopActionShoot:throw_grenade(shoot_from_pos, target_vec, target_pos, grenade_type, distance)
-	if grenade_type == "frag" or grenade_type == "bravo_frag" or grenade_type == "cluster_fuck" or grenade_type == "molotov" or grenade_type == "hatman_molotov" then
+	if grenade_type ~= "gas_grenade" then
 		mvec3_set_l(target_vec, distance / 1300)
 		if ProjectileBase.throw_projectile_npc(grenade_type, shoot_from_pos, target_vec, self._unit) then
 			return true
 		end
-	elseif grenade_type == "tear_gas" then
-		local attention_m_pos = nil
+	elseif grenade_type == "gas_grenade" then
+		--Borrowed code from BossLogicAttack. Should throw tear gas at player's feet more precisely and faster than method above
+		local throwable_tweak = tweak_data.projectiles.gas_grenade
 
-		if self._attention.handler then
-			attention_m_pos = self._attention.handler:get_ground_m_pos()
-		elseif self._attention.unit then
-			if self._attention.unit:movement() and self._attention.unit:movement().m_pos then
-				attention_m_pos = self._attention.unit:movement():m_pos()
-			end
+		local throw_from = shoot_from_pos
+
+		local throw_to = target_pos
+		local slotmask = managers.slot:get_mask("bullet_blank_impact_targets")
+		mvec3_set(temp_vec2, throw_to)
+		mvec3_set_z(temp_vec2, temp_vec2.z - 200)
+		local ray = self._unit:raycast("ray", throw_to, temp_vec2, "slot_mask", slotmask)
+		if not ray then
+			return
 		end
+		throw_to = ray.hit_position
 
-		if not attention_m_pos then
+		local compensation = throwable_tweak.adjust_z ~= 0 and (((distance - 400) / 10) ^ 2) / ((throwable_tweak.launch_speed or 250) / 10) or 0
+		mvec3_set_z(throw_to, throw_to.z + compensation)
+		mvec3_step(temp_vec2, throw_from, throw_to, 400)
+		if self._unit:raycast("ray", throw_from, temp_vec2, "sphere_cast_radius", 15, "slot_mask", slotmask, "report") then
 			return
 		end
 
-		local detonate_pos = nil
-		local ray_to = mvec3_copy(attention_m_pos)
-
-		mvec3_set_z(ray_to, ray_to.z - 1000)
-
-		local ground_ray = self._unit:raycast("ray", attention_m_pos, ray_to, "slot_mask", managers.slot:get_mask("world_geometry", "statics"))
-
-		if ground_ray then
-			detonate_pos = mvec3_copy(ground_ray.hit_position)
-			mvec3_set_z(detonate_pos, detonate_pos.z + 3)
-
-			managers.groupai:state():detonate_cs_grenade(detonate_pos, mvec3_copy(self._shoot_from_pos), 7.5)
-
+		local throw_dir = temp_vec2
+		mvec3_dir(throw_dir, throw_from, throw_to)
+		if ProjectileBase.throw_projectile_npc(grenade_type, throw_from, throw_dir, self._unit) then
 			return true
-		end
+		end		
 	end
 end
 
 function CopActionShoot:update(t)
+	-- A removal callback and an already-scheduled update may cross in one frame.
+	if not self._w_usage_tweak or not self._weapon_base or not alive(self._weapon_unit) then
+		return
+	end
 	local vis_state = self._ext_base:lod_stage() or 4
 
 	if not self._autofiring and vis_state ~= 1 then
@@ -749,7 +796,11 @@ function CopActionShoot:update(t)
 					local gas_roll = math_random() <= roll_chance
 
 					if gas_roll then
-						if self:throw_grenade(nil, nil, nil, "tear_gas") then
+						local weapon_unit = self._unit:inventory():equipped_unit()
+						local fire_object = weapon_unit:base():fire_object() or weapon_unit:orientation_object()
+						local throw_from_weapon = fire_object:position()
+						if self:throw_grenade(throw_from_weapon, mvec3_copy(target_vec), mvec3_copy(target_pos), "gas_grenade", target_dis) then
+							self._ext_movement:play_redirect("recoil_single")
 							if is_normal_grenadier then
 								self._unit:sound():say("use_gas", true, nil, true)
 							end
@@ -783,7 +834,9 @@ function CopActionShoot:update(t)
 						local gas_roll = math_random() <= self._common_data.char_tweak.chance_use_gas or 0.3
 
 						if gas_roll then
-							if self:throw_grenade(nil, nil, nil, "tear_gas") then
+							if self:throw_grenade(mvec3_copy(shoot_from_pos) + projectile_throw_pos_offset, mvec3_copy(target_vec), mvec3_copy(target_pos), "gas_grenade", target_dis) then
+								self._ext_movement:play_redirect("throw_grenade")
+								managers.network:session():send_to_peers_synched("play_distance_interact_redirect", self._unit, "throw_grenade")
 								self._unit:sound():say("i03", true, nil, true)
 							end
 						end
@@ -1342,11 +1395,6 @@ function CopActionShoot:_chk_start_melee()
 
 	if self._weap_tweak.usage == "mini" then
 		redir_name = "melee_bayonet" --bash with the front of the minigun's barrel like in first person
-	elseif self._tank_animations then
-		if melee_weapon == "fists_dozer" or melee_weapon == "fists" then
-			redir_name = "melee" --use tank_melee unique punching animation as originally intended
-			tank_melee = true
-		end
 	end
 
 	local melee_res = self._ext_movement:play_redirect(redir_name)
@@ -1574,6 +1622,11 @@ function CopActionShoot:anim_clbk_melee_strike()
 					local t = Application:time()
 
 					dmg_multiplier = dmg_multiplier * managers.player:upgrade_value("player", "melee_damage_multiplier", 1)
+
+					if managers.player:has_category_upgrade("player", "melee_" .. tostring(melee_tweak.stats.weapon_type) .. "_damage_multiplier") then
+						local type_multiplier = managers.player:upgrade_value("player", "melee_" .. tostring(melee_tweak.stats.weapon_type) .. "_damage_multiplier", 1)
+						dmg_multiplier = dmg_multiplier * type_multiplier
+					end
 
 					if managers.player:has_category_upgrade("melee", "stacking_hit_damage_multiplier") then
 						player_state._state_data.stacking_dmg_mul = player_state._state_data.stacking_dmg_mul or {}

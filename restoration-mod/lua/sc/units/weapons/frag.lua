@@ -1,5 +1,5 @@
 function FragGrenade:_setup_from_tweak_data()
-	local grenade_entry = self._tweak_projectile_entry or "frag"
+	local grenade_entry = self._projectile_entry or self._tweak_projectile_entry or "frag"
 	local tweak_entry = tweak_data.projectiles[grenade_entry]
 	self._init_timer = tweak_entry.init_timer or 2.5
 	self._mass_look_up_modifier = tweak_entry.mass_look_up_modifier
@@ -64,7 +64,7 @@ function FragGrenade:_detonate(tag, unit, body, other_unit, other_body, position
 		weapon_unit = self._weapon_unit
 	})
 
-	if self._unit:id() ~= -1 then
+	if self._unit:id() ~= -1 and managers.network:session() then
 		managers.network:session():send_to_peers_synched("sync_unit_event_id_16", self._unit, "base", GrenadeBase.EVENT_IDS.detonate)
 	end
 

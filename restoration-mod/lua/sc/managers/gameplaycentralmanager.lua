@@ -27,7 +27,7 @@ function GamePlayCentralManager:do_shotgun_push(unit, hit_pos, dir, distance, at
 end
 
 function GamePlayCentralManager:_do_shotgun_push(unit, hit_pos, dir, distance, attacker)
-	if tweak_data.disable_shotgun_push then
+	if tweak_data.disable_shotgun_push or (managers.groupai and managers.groupai:state():whisper_mode()) then
 		return
 	end
 
@@ -39,18 +39,20 @@ function GamePlayCentralManager:_do_shotgun_push(unit, hit_pos, dir, distance, a
 	end
 
 	local scale = math.clamp(1 - distance / self:get_shotgun_push_range(attacker), 0.5, 1)
-	local rot_time = 0.5 --+ math.rand(2)
+	--local rot_time = 0.5 --+ math.rand(2)
+	local rot_time = 0.4 + math.rand(0.4)
 	local asm = unit:anim_state_machine()
 
 	if asm and asm:get_global("tank") == 1 then
 		scale = scale * 0.3
-		rot_time = rot_time * 0.2
+		rot_time = rot_time * 0.5 --0.2
 	end
 
 	local push_vec = tmp_vec1
 
 	mvector3.set_static(push_vec, dir.x, dir.y, dir.z + 0.5)
-	mvec3_mul(push_vec, 600 * scale)
+	--mvec3_mul(push_vec, 600 * scale)
+	mvec3_mul(push_vec, 300 * scale)
 
 	local unit_pos = tmp_vec2
 
@@ -112,8 +114,8 @@ function GamePlayCentralManager:set_flashlights_on(flashlights_on)
 	end
 end
 
--- This need for PJ outlines changes (for 6th sense skill)
-Hooks:OverrideFunction(GamePlayCentralManager, "auto_highlight_enemy", function(self, unit, use_player_upgrades)
+-- The added 'context' field allows for changing the contour based on the context the highlighting was applied.
+Hooks:OverrideFunction(GamePlayCentralManager, "auto_highlight_enemy", function(self, unit, use_player_upgrades, context)
 	self._auto_highlighted_enemies = self._auto_highlighted_enemies or {}
 
 	if self._auto_highlighted_enemies[unit:key()] and Application:time() < self._auto_highlighted_enemies[unit:key()] then
@@ -127,24 +129,23 @@ Hooks:OverrideFunction(GamePlayCentralManager, "auto_highlight_enemy", function(
 	end
 
 	local time_multiplier = 1
-	local contour_type = "mark_enemy_sixth_sense" -- default outline for 6th sense
+	local contour_type = "mark_enemy"
 
 	if unit:base() and unit:base().is_security_camera then
 		contour_type = "mark_unit"
 		time_multiplier = managers.player:upgrade_value("player", "mark_enemy_time_multiplier", 1)
-    elseif use_player_upgrades then
-        contour_type = managers.player:get_contour_for_marked_enemy(unit:base().get_type and unit:base():get_type()) or contour_type
-        -- Different check because `get_contour_for_marked_enemy` will return wrong outline otherwise
-        if managers.player:has_category_upgrade("player", "marked_enemy_extra_damage") then
-            contour_type = "mark_enemy_damage_bonus"
-        end
+	elseif use_player_upgrades then
+		contour_type = managers.player:get_contour_for_marked_enemy(unit:base().get_type and unit:base():get_type()) or contour_type
+		time_multiplier = managers.player:upgrade_value("player", "mark_enemy_time_multiplier", 1)
+	end
 
-        if managers.player:has_category_upgrade("player", "marked_inc_dmg_distance") then
-            contour_type = "mark_enemy_damage_bonus_distance"
-        end
-        
-        time_multiplier = managers.player:upgrade_value("player", "mark_enemy_time_multiplier", 1)
-    end
+	-- Infiltrator's extra marking time.
+	time_multiplier = time_multiplier + managers.player:upgrade_value("player", "infiltrator_extra_mark_time", 0)
+
+	-- Trip mines, Sixth Sense Basic, and ADS (if applicable) "upgrade" the default mark_enemy contour to be visible through walls even during a Pro Job.
+	if (context == "trip_mine" or context == "sixth_sense" or context == "steelsight") and contour_type == "mark_enemy" then
+		contour_type = "mark_enemy_through_walls"
+	end
 
 	if alive(unit) then
 		if unit:contour() then

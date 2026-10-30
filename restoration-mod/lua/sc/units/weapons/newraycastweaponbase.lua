@@ -31,8 +31,9 @@ Hooks:PostHook(NewRaycastWeaponBase, "init", "ResExtraSkills", function(self)
 		self._use_armor_piercing = true
 	end
 
-	self._skill_global_ap = (managers.player:has_category_upgrade("player", "ap_bullets") and managers.player:upgrade_value("player", "ap_bullets", 1)) or nil
+	self._move_decay = 0.2
 
+	self._skill_global_ap = (managers.player:has_category_upgrade("player", "ap_bullets") and managers.player:upgrade_value("player", "ap_bullets", 1)) or nil
 	for _, category in ipairs(self:categories()) do
 		if managers.player:has_category_upgrade(category, "automatic_kills_to_damage") then
 			self._automatic_kills_to_damage_max_stacks = managers.player:upgrade_value(category, "automatic_kills_to_damage")[1]
@@ -158,6 +159,7 @@ else
 		end
 
 		self._reload_objects = {}
+		self._next_fire_allowed = self._unit:timer():time()
 	end
 	
 	function NewRaycastWeaponBase:reload_expire_t(is_not_empty)
@@ -252,14 +254,9 @@ NewRaycastWeaponBase.IDSTRING_SINGLE = Idstring("single")
 NewRaycastWeaponBase.IDSTRING_AUTO = Idstring("auto")
 
 --Multipliers for overall spread.
-function NewRaycastWeaponBase:conditional_accuracy_multiplier(current_state)
+function NewRaycastWeaponBase:conditional_accuracy_multiplier(current_state, is_moving)
 	local mul = 1
 	local multi_ray = self._rays and self._rays > 1
-
-	--Multi-pellet spread increase.
-	if multi_ray then
-		mul = mul * tweak_data.weapon.stat_info.shotgun_spread_increase or 1
-	end
 
 	local pm = managers.player
 
@@ -269,38 +266,50 @@ function NewRaycastWeaponBase:conditional_accuracy_multiplier(current_state)
 		return mul
 	end
 
-	local is_moving = current_state._moving or current_state:in_air()
-	local full_steelsight = current_state:full_steelsight()
+	--local is_moving = current_state._moving or current_state:in_air()
+	local full_steelsight = current_state:is_full_steelsight()
+	local is_tacstance = self:second_sight_spread_mult()
 
 	if full_steelsight then
+		if self:weapon_tweak_data().always_hipfire or self.AKIMBO then
+			mul = mul * ((tweak_data.weapon.stat_info.hipfire_only_spread_increase or 1) * ( (multi_ray and 0.133) or 1))
+		end
+
+		if self:second_sight_spread_mult() then
+			mul = mul * (self:second_sight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3.33)) or 1) )
+		end
+
 		if multi_ray then
 			mul = mul * tweak_data.weapon.stat_info.shotgun_spread_increase_ads or 1
 			
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local multishot_spread = tweak_data[category] and tweak_data[category].ads_multishot_spread_mult or 1
 				mul = mul * multishot_spread
 			end
 		end
-		
-		if self:weapon_tweak_data().always_hipfire or self.AKIMBO then
-			mul = mul * ((tweak_data.weapon.stat_info.hipfire_only_spread_increase or 1) * ((self.AKIMBO and 0.8) or 1))
-		end
-
-		if self:second_sight_spread_mult() then
-			mul = mul * (self:second_sight_spread_mult() / ((multi_ray and (tweak_data.weapon.stat_info.shotgun_spread_increase * 3.5)) or 1) )
-		end
 
 		if not is_moving then
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local stationary_spread = tweak_data[category] and tweak_data[category].ads_stationary_spread_mult or 1
 				mul = mul * stationary_spread
 			end
+			if not is_tacstance then
+				for _, category in ipairs(self:categories()) do
+					mul = mul * pm:upgrade_value(category, "stationary_steelsight_accuracy_inc", 1)
+				end
+			end
 		end
 
-		for _, category in ipairs(self:categories()) do
-			mul = mul * pm:upgrade_value(category, "steelsight_accuracy_inc", 1)
+		if not is_tacstance then
+			for _, category in ipairs(self:categories()) do
+				mul = mul * pm:upgrade_value(category, "steelsight_accuracy_inc", 1)
+			end
 		end
 	else
+		--Multi-pellet spread increase.
+		if multi_ray then
+			mul = mul * tweak_data.weapon.stat_info.shotgun_spread_increase or 1
+		end
 		for _, category in ipairs(self:categories()) do
 			mul = mul * pm:upgrade_value(category, "hip_fire_spread_multiplier", 1)
 		end
@@ -337,6 +346,20 @@ function NewRaycastWeaponBase:second_sight_spread_mult()
 	return false
 end
 
+function NewRaycastWeaponBase:second_sight_hip_spread_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_hip_spread then
+			return self._pointshoot_hip_spread
+		end
+	end
+
+	return false
+end
+
 function NewRaycastWeaponBase:second_sight_strafe()
 	local second_sight = self:get_active_second_sight()
 
@@ -351,6 +374,146 @@ function NewRaycastWeaponBase:second_sight_strafe()
 	return false
 end
 
+function NewRaycastWeaponBase:second_sight_falloff_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_falloff then
+			return self._pointshoot_falloff
+		end
+	end
+
+	return false
+end
+function NewRaycastWeaponBase:second_sight_falloff_start_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_falloff_start then
+			return self._pointshoot_falloff_start
+		end
+	end
+
+	return false
+end
+function NewRaycastWeaponBase:second_sight_falloff_end_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_falloff_end then
+			return self._pointshoot_falloff_end
+		end
+	end
+
+	return false
+end
+
+function NewRaycastWeaponBase:second_sight_damage_min_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_damage_min then
+			return self._pointshoot_damage_min
+		end
+	end
+
+	return false
+end
+
+function NewRaycastWeaponBase:second_sight_rof_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_rof then
+			return self._pointshoot_rof
+		end
+	end
+
+	return false
+end
+
+function NewRaycastWeaponBase:second_sight_recoil_mult()
+	local second_sight = self:get_active_second_sight()
+
+	if second_sight then
+		local part_stats = tweak_data.weapon.factory.parts[second_sight.part_id].custom_stats
+
+		if part_stats and part_stats.pointshoot_recoil then
+			return self._pointshoot_recoil
+		end
+	end
+
+	return false
+end
+
+function NewRaycastWeaponBase:_refresh_second_sight_extra_list()
+	local second_sight_extras = managers.weapon_factory:get_parts_from_weapon_by_type_or_perk("second_sight_extra", self._factory_id, self._blueprint)
+
+	table.sort(second_sight_extras, function (a, b)
+		return b < a
+	end)
+
+	self._second_sight_extras = {}
+
+	for _, part_id in ipairs(second_sight_extras) do
+		table.insert(self._second_sight_extras, {
+			part_id = part_id,
+			unit = self._parts and self._parts[part_id] and self._parts[part_id].unit
+		})
+	end
+end
+
+Hooks:PostHook(NewRaycastWeaponBase, "_refresh_second_sight_list", "resmod_second_sight_extra_list", function(self)
+	self:_refresh_second_sight_extra_list()
+end)
+
+Hooks:PostHook(NewRaycastWeaponBase, "set_second_sight_on", "resmod_second_sight_extra_on", function(self, second_sight_on, ignore_enable, second_sights, current_state)
+	local second_sight_extra = nil
+	for i, data in ipairs(self._second_sight_extras) do
+		second_sight_extra = data
+
+		if second_sight_extra and alive(second_sight_extra.unit) then
+			second_sight_extra.unit:base():set_state(self._second_sight_on == i, self._sound_fire, current_state)
+		end
+	end
+end)
+
+--[[
+local _orig_fire_rate_multiplier = NewRaycastWeaponBase.fire_rate_multiplier
+function NewRaycastWeaponBase:fire_rate_multiplier(...)
+	local result = _orig_fire_rate_multiplier(self, ...)
+
+	local second_sight_rof_mult = self.second_sight_rof_mult and self:second_sight_rof_mult()
+	if second_sight_rof_mult then
+		result = result * second_sight_rof_mult
+	end
+
+	return result
+end
+
+local _orig_recoil_multiplier = NewRaycastWeaponBase.recoil_multiplier
+function NewRaycastWeaponBase:recoil_multiplier(...)
+	local result = _orig_recoil_multiplier(self, ...)
+
+	local second_sight_recoil_mult = self.second_sight_recoil_mult and self:second_sight_recoil_mult()
+	if second_sight_recoil_mult then
+		result = result * second_sight_recoil_mult
+	end
+
+	return result
+end
+--]]
+
 --Multiplier for movement penalty to spread.
 function NewRaycastWeaponBase:moving_spread_penalty_reduction()
 	local spread_multiplier = 1
@@ -363,7 +526,15 @@ end
 --Simpler spread function. Determines area bullets can hit then converts that to the max degrees by which the rays can fire.
 function NewRaycastWeaponBase:_get_spread(user_unit)
 	local current_state = user_unit:movement()._current_state
-	
+	local is_steelsight = current_state and current_state:is_full_steelsight()
+	local is_hipfire = current_state and not current_state:is_full_steelsight()
+	local is_tacstance = self:second_sight_spread_mult()
+	local t = self._unit:timer():time()
+	local last_move_t = current_state and current_state._last_move_t or -10
+	local is_moving = self._move_decay and last_move_t and (last_move_t + self._move_decay) > t or false --(current_state._moving or current_state:in_air())
+	local is_bipod = current_state and current_state:_is_using_bipod()
+	local is_ads_hipfire = is_steelsight and (self:weapon_tweak_data().always_hipfire or is_tacstance)
+
 	if not current_state then
 		return 0, 0
 	end
@@ -373,28 +544,28 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		managers.blackmarket:accuracy_index_addend(self._name_id, self:categories(), self._silencer, current_state, self:fire_mode(), self._blueprint) * tweak_data.weapon.stat_info.spread_per_accuracy, 0.05)
 	
 	--Moving penalty to spread, based on stability stat- added to total area.
-	if current_state._moving or current_state:in_air() then
+	if not is_bipod and is_moving then
 		--Get spread area from stability stat.
 		local moving_spread = math.max(self._spread_moving + managers.blackmarket:stability_index_addend(self:categories(), self._silencer) * tweak_data.weapon.stat_info.spread_per_stability, 0)
 		local moving_spread_mult = 1
-		for _, category in ipairs(self:categories()) do
+		for _, category in ipairs(self._tweak_categories) do
 			local ms_mult = tweak_data[category] and tweak_data[category].moving_spread_mult or 1
 			moving_spread_mult = moving_spread_mult * ms_mult
 		end
 		moving_spread = moving_spread * moving_spread_mult
-		if current_state:full_steelsight() and not self:weapon_tweak_data().always_hipfire and not self:second_sight_spread_mult() then
+		if is_steelsight and not is_ads_hipfire then
 			local ads_moving_spread_mult = 1
 			if self._ads_moving_mult then
 				ads_moving_spread_mult = ads_moving_spread_mult * self._ads_moving_mult
 			end
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local adsms_mult = tweak_data[category] and tweak_data[category].ads_moving_spread_mult or 1
 				ads_moving_spread_mult = ads_moving_spread_mult * adsms_mult
 			end
 			moving_spread = moving_spread * ads_moving_spread_mult
 		else
 			local hipfire_moving_spread_mult = 1
-			for _, category in ipairs(self:categories()) do
+			for _, category in ipairs(self._tweak_categories) do
 				local hms_mult = tweak_data[category] and tweak_data[category].hipfire_moving_spread_mult or 1
 				hipfire_moving_spread_mult = hipfire_moving_spread_mult * hms_mult
 			end
@@ -405,27 +576,32 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		spread_area = spread_area + moving_spread
 	end
 
-	if current_state:_is_using_bipod() then
+	if is_bipod then
 		spread_area = spread_area / 2
 	end
 
 	--Apply skill and stance multipliers to overall spread area.
-	local multiplier = tweak_data.weapon.stat_info.stance_spread_mults[current_state:get_movement_state()] * self:conditional_accuracy_multiplier(current_state)
+	local multiplier = tweak_data.weapon.stat_info.stance_spread_mults[current_state:get_movement_state()] * self:conditional_accuracy_multiplier(current_state, is_moving)
 
-	if not current_state:full_steelsight() or (current_state:full_steelsight() and ( self:weapon_tweak_data().always_hipfire or self:second_sight_spread_mult() ) ) then
-		local hipfire_spread_mult = 1
-		for _, category in ipairs(self:categories()) do
+	if is_ads_hipfire or not is_steelsight then
+		local hipfire_spread_mult = (is_ads_hipfire and not is_tacstance and 0.7) or 1
+		for _, category in ipairs(self._tweak_categories) do
 			local hip_mult = tweak_data[category] and tweak_data[category].hipfire_spread_mult or 1
 			hipfire_spread_mult = hipfire_spread_mult * hip_mult
 		end
 		if self._hipfire_mult then
 			hipfire_spread_mult = hipfire_spread_mult * self._hipfire_mult
 		end
+		local second_sight_hip_spread_mult = self.second_sight_hip_spread_mult and self:second_sight_hip_spread_mult()
+		if second_sight_hip_spread_mult then
+			hipfire_spread_mult = hipfire_spread_mult * second_sight_hip_spread_mult
+		end
 		multiplier = multiplier * hipfire_spread_mult
+
 	end
 
 	if self:in_burst_mode() then
-		if self._burst_fire_ads_spread_multiplier and current_state:full_steelsight() then
+		if self._burst_fire_ads_spread_multiplier and is_steelsight then
 			multiplier = multiplier * self._burst_fire_ads_spread_multiplier
 		else
 			multiplier = multiplier * (self._burst_fire_spread_multiplier or 1)
@@ -435,9 +611,9 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 	if self._alt_fire_active and self._alt_fire_data then
 		multiplier = multiplier * (self._alt_fire_data.spread_mul or 1)
 	end
-	
+
 	local spread_multiplier = 1
-	for _, category in ipairs(self:categories()) do
+	for _, category in ipairs(self._tweak_categories) do
 		local spread_mult = tweak_data[category] and tweak_data[category].spread_mult or 1
 		spread_multiplier = spread_multiplier * spread_mult
 	end
@@ -454,6 +630,13 @@ function NewRaycastWeaponBase:_get_spread(user_unit)
 		spread_y = spread_y * self._spread_multiplier[2]
 	end
 
+	local min_spread = is_hipfire and 1 or 0
+	for _, category in ipairs(self._tweak_categories) do
+		local min_spread_mult = tweak_data[category] and tweak_data[category].min_spread_mult or 1
+		min_spread = min_spread * min_spread_mult
+	end
+	spread_x = math.max(min_spread, spread_x)
+	spread_y = math.max(min_spread, spread_y)
 
 	return spread_x, spread_y
 end
@@ -491,13 +674,17 @@ end
 
 function NewRaycastWeaponBase:stop_shooting(...)
 	stop_shooting_original(self, ...)
+
 	self._shooting = nil
 	self._shots_fired = 0
+	if not self._fire_rate_init_reset_t then
+		self._shots_fired_init = 0
+	end
 	if self._fire_rate_init_progress then
 		self._fire_rate_init_progress = nil
-		self._fire_rate_init_cancel = true
 		self._next_fire_allowed = self._next_fire_allowed + self._fire_rate_init_delay
 	end
+
 	if self._name_id == "m134" or self._name_id == "shuno" or self:weapon_tweak_data().spin_up_t then
 		self._vulcan_firing = nil
 		self:_stop_spin()
@@ -515,6 +702,10 @@ function NewRaycastWeaponBase:_fire_sound(...)
 end
 
 function NewRaycastWeaponBase:trigger_held(...)
+	local t = self._unit:timer():time()
+	if self._fire_rate_init_reset_t and self._fire_rate_init_reset_t < t then
+		self._shots_fired_init = 0
+	end
 	if self._name_id == "m134" or self._name_id == "shuno" or self:weapon_tweak_data().spin_up_t then
 		self:update_spin()
 		local fired
@@ -566,23 +757,38 @@ function NewRaycastWeaponBase:recoil_multiplier(...)
 	local user_unit = self._setup and self._setup.user_unit
 	local current_state = alive(user_unit) and user_unit:movement() and user_unit:movement()._current_state
 	if current_state then
-		local is_moving = current_state._moving or current_state:in_air()
-		local full_steelsight = current_state:full_steelsight()
+		local t = self._unit:timer():time()
+		local last_move_t = current_state and current_state._last_move_t or -10
+		local is_moving = self._move_decay and last_move_t and (last_move_t + self._move_decay) > t or false --(current_state._moving or current_state:in_air())
+		local full_steelsight = current_state:is_full_steelsight()
 		if full_steelsight then
 			local weapon_stats = tweak_data.weapon.stats
 			local base_zoom = weapon_stats.zoom and weapon_stats.zoom[1]
 			local current_zoom = self:zoom()
-			local percent_reduction = self:weapon_tweak_data().zoom_recoil_reduction or 0.05
+			local percent_reduction = self:weapon_tweak_data().zoom_recoil_reduction or 0.1
 			local zoom_mult = base_zoom and current_zoom and (1 + (((base_zoom / current_zoom) - 1) * percent_reduction))
 			if zoom_mult then
 				mult = mult / zoom_mult
 			end
 			if is_moving then
-				for _, category in ipairs(self:categories()) do
+				for _, category in ipairs(self._tweak_categories) do
 					local ads_moving_recoil = tweak_data[category] and tweak_data[category].ads_moving_recoil or 1
 					mult = mult * ads_moving_recoil
 				end
 			end
+		end
+	end
+
+	if self._fire_rate_init_count and self:fire_mode() ~= "single" and not self:in_burst_mode() then
+		if (self._fire_rate_init_count > self._shots_fired) then
+			mult = mult * self._fire_rate_init_recoil_mult
+		end
+	end
+
+	if self.second_sight_recoil_mult then
+		local second_sight_recoil_mult = self:second_sight_recoil_mult()
+		if second_sight_recoil_mult then
+			mult = mult * second_sight_recoil_mult
 		end
 	end
 
@@ -642,7 +848,7 @@ function NewRaycastWeaponBase:_start_spin()
 end
 
 function NewRaycastWeaponBase:_stop_spin()
-	if self._spinning and not self._in_steelsight then
+	if self._spinning and not self._in_steelsight and (not self:in_burst_mode() or self:in_burst_mode() and (self._burst_rounds_remaining and self._burst_rounds_remaining < 1)) then
 		local t = self._unit:timer():time()
 		local spin_up_t = (self:weapon_tweak_data().spin_up_t or NewRaycastWeaponBase._SPIN_UP_T) * self._spin_up_mult
 		local spin_down_t = (self:weapon_tweak_data().spin_down_t or NewRaycastWeaponBase._SPIN_DOWN_T) * self._spin_up_mult
@@ -800,6 +1006,14 @@ function NewRaycastWeaponBase:old_update_stats_values(disallow_replenish, ammo_d
 			if stats.volley_rays then
 				self._volley_rays = stats.volley_rays
 			end
+
+			if stats.launch_speed_mul then
+				self._launch_speed_mul = stats.launch_speed_mul
+			end
+
+			if stats.charge_speed_mul then
+				self._charge_speed_mul = stats.charge_speed_mul
+			end
 		end
 	end
 
@@ -904,6 +1118,8 @@ function NewRaycastWeaponBase:old_update_stats_values(disallow_replenish, ammo_d
 		stats.zoom = math.min(stats.zoom + managers.player:upgrade_value(primary_category, "zoom_increase", 0), #stats_tweak_data.zoom)
 	end
 
+	self._part_stats_uncapped = {}
+
 	for stat, _ in pairs(stats) do
 		if stats[stat] < 1 or stats[stat] > #stats_tweak_data[stat] then
 			Application:error("[NewRaycastWeaponBase] Base weapon stat is out of bound!", "stat: " .. stat, "index: " .. stats[stat], "max_index: " .. #stats_tweak_data[stat], "This stat will be clamped!")
@@ -911,6 +1127,7 @@ function NewRaycastWeaponBase:old_update_stats_values(disallow_replenish, ammo_d
 
 		if parts_stats[stat] then
 			stats[stat] = stats[stat] + parts_stats[stat]
+			self._part_stats_uncapped[stat] = (self._part_stats_uncapped[stat] or 0) + parts_stats[stat]
 		end
 
 		if bonus_stats[stat] then
@@ -979,7 +1196,25 @@ end
 function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data)
 	self:old_update_stats_values(disallow_replenish, ammo_data)
 
-	self._fire_rate_multiplier = managers.blackmarket:fire_rate_multiplier(self._name_id, self:categories(), self._silencer, nil, current_state, self._blueprint)
+	self._fire_rate_multiplier = self:is_npc() and 1 or managers.blackmarket:fire_rate_multiplier(self._name_id, self:categories(), self._silencer, nil, current_state, self._blueprint)
+	--Use stability stat to get the moving accuracy penalty.
+	--Moved this from "RaycastWeaponBase:setup" as it lead to funky lingering stats in intances of mid-heist loadout changes
+	if not self:is_npc() then
+		if self._current_stats_indices and self._current_stats_indices.recoil then
+			self._spread_moving = tweak_data.weapon.stats.spread_moving[self._current_stats_indices.recoil] or 0
+		else --Fallback method for getting stability moving accuracy penalty, in case the indices somehow don't get set.
+			log("Using fallback")
+			local moving_spread_index = 0
+			local recoil_table = tweak_data.weapon.stats.recoil
+			for i = 0, 100, 1 do
+				if recoil_table[i] == self._recoil then
+					moving_spread_index = i
+					break
+				end
+			end
+			self._spread_moving = tweak_data.weapon.stats.spread_moving[moving_spread_index] or 0
+		end
+	end
 
 	local recoil_values = self:weapon_tweak_data().recoil_values
 	self._recoil_speed = recoil_values and recoil_values[1] or { 90, 60 }
@@ -1000,6 +1235,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 	self._can_shoot_through_enemy_unlim = self._can_shoot_through_enemy_unlim or self:weapon_tweak_data().can_shoot_through_enemy_unlim or false --No limit enemy piercing
 	self._can_shoot_through_titan_shield = self._can_shoot_through_titan_shield or self:weapon_tweak_data().can_shoot_through_titan_shield or false --implementing Heavy AP
 	self._shield_pierce_damage_mult = self:weapon_tweak_data().shield_pierce_damage_mult or 0.5
+	self._ammo_ratio = self:weapon_tweak_data().ammo_ratio or 1
+	self._kick_pattern = self._kick_pattern or self:weapon_tweak_data().kick_pattern
+	self._min_shots_reset = self:weapon_tweak_data().min_shots_reset or 0
 
 	self._warsaw = self:weapon_tweak_data().warsaw
 	self._nato = self:weapon_tweak_data().nato
@@ -1019,7 +1257,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 		self._single_fire_range_multiplier = self:weapon_tweak_data().SINGLE_FIRE_RANGE_MULTIPLIER
 		self._rof_mult_semi = self._rof_mult_semi or self:weapon_tweak_data().SINGLE_FIRE_FIRERATE_MULTIPLIER
 		
-		self._has_burst_fire = self._has_burst_fire or self:weapon_tweak_data().BURST_FIRE and self:weapon_tweak_data().BURST_FIRE ~= false
+		self._has_burst_fire = self._has_burst_fire or type(self:weapon_tweak_data().BURST_FIRE) == "table" and self:weapon_tweak_data().BURST_FIRE ~= false
 		self._adaptive_burst_size = self._adaptive_burst_size or self:weapon_tweak_data().ADAPTIVE_BURST_SIZE ~= false --deprecated AFAIK; will look into cleaning this up later
 		local BURST_DATA = self._has_burst_fire and type(self:weapon_tweak_data().BURST_FIRE) == "table" and self:weapon_tweak_data().BURST_FIRE
 		if BURST_DATA then
@@ -1032,7 +1270,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			self._burst_fire_range_multiplier = self._burst_fire_range_multiplier or BURST_DATA.range_mult
 			self._burst_ads_toggle = self._burst_ads_toggle or BURST_DATA.ads_toggle --toggle to burst while aiming
 			self._burst_hipfire_toggle = self._burst_hipfire_toggle or BURST_DATA.hipfire_toggle --toggle to burstfire while hipfiring
-			self._burst_fire_no_ads = BURST_DATA.no_ads or self._burst_fire_no_ads
+			self._burst_fire_no_ads = self._burst_fire_no_ads or BURST_DATA.no_ads
 			self._block_toggle = self._block_toggle or BURST_DATA.block_toggle--blocks toggling between semi-auto and full-auto; does not stop toggling off burst
 			self._burst_toggle_to_semi = self._burst_toggle_to_semi or BURST_DATA.toggle_to_semi --forces toggling to semi-auto from burst; only applicable if the base firemode is full-auto
 			self._burst_toggle_to_auto = self._burst_toggle_to_auto or BURST_DATA.toggle_to_auto --forces toggling to full-auto from burst; only applicable if the base firemode is semi-auto
@@ -1047,7 +1285,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 		--LEAVE THESE OUTSIDE OF THE 'BURST_DATA' if statement
 		if self._burst_fire_rate_multiplier then
-			self._burst_fire_rate_multiplier = self._burst_fire_rate_multiplier * 1.05 --to help with frame rounding
+			self._burst_fire_rate_multiplier = self._burst_fire_rate_multiplier * 1.05 --to help with frame rounding as to err on the side of "too early" over "too late"
 		end
 		if self._lock_burst and not self._locked_fire_mode then
 			self:_set_burst_mode(true, true)
@@ -1057,23 +1295,33 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 		self._single_fire_ap_add = self:weapon_tweak_data().SINGLE_FIRE_AP_ADD or 0
 	
+		self._object_damage_mult = self._object_damage_mult or self:weapon_tweak_data().object_damage_mult or 1
+		self._object_damage_mult_exp = self._object_damage_mult or self:weapon_tweak_data().object_damage_mult or 1
+		self._object_damage_mult_single_ray = self._object_damage_mult_single_ray or self:weapon_tweak_data().object_damage_mult_single_ray or 1
+		self._object_damage_mult_volley = self._object_damage_mult_volley or self:weapon_tweak_data().object_damage_mult_volley or 1
 		self._fire_rate_init_count = self._fire_rate_init_count or self:weapon_tweak_data().fire_rate_init_count or nil
 		self._fire_rate_init_count_mag = self._fire_rate_init_count_mag or self:weapon_tweak_data().fire_rate_init_count_mag or nil
 		self._fire_rate_init_mult = self._fire_rate_init_mult or self:weapon_tweak_data().fire_rate_init_mult and self:weapon_tweak_data().fire_rate_init_mult * 1.01 or 1
 		self._fire_rate_init_delay = self._fire_rate_init_delay or self:weapon_tweak_data().fire_rate_init_delay or self._burst_delay or 0
+		self._fire_rate_init_reset = self._fire_rate_init_reset or self:weapon_tweak_data().fire_rate_init_reset or 0
+		self._fire_rate_init_reset_t = self._fire_rate_init_reset ~= 0 and 0
+		self._fire_rate_init_recoil_mult = self._fire_rate_init_recoil_mult or self:weapon_tweak_data().fire_rate_init_recoil_mult or 1
 		self._fire_rate_init_ramp_up = self._fire_rate_init_ramp_up or self:weapon_tweak_data().fire_rate_init_ramp_up or nil
 		self._fire_rate_init_ramp_up_add = 0
 
 		self._tactical_reload = self._tactical_reload or self:weapon_tweak_data().tactical_reload
+
+		self._tweak_categories = self._tweak_categories or self:weapon_tweak_data().categories --exclusively for the use of category based movement, spread and recoil modifiers set in "tweakdata.lua"; zero plans of expanding this to change weapon categories for skill purposes so don't fucking ask
 	else	
 		self._has_burst_fire = false
 		self._can_shoot_through_titan_shield = false --to prevent npc abuse
 	end	
 	
-	self._hs_mult = self._hs_mult or self:weapon_tweak_data().hs_mult or 1
-	self._ene_hs_mult = self._ene_hs_mult or self:weapon_tweak_data().ene_hs_mult or 1
+	self._hs_mult = self:is_npc() and 1 or self._hs_mult or self:weapon_tweak_data().hs_mult or 1
+	self._ene_hs_mult = self:is_npc() and 1 or self._ene_hs_mult or self:weapon_tweak_data().ene_hs_mult or 1
 
 	self._shots_fired = 0
+	self._shots_fired_init = 0
 	self._shots_fired_mag = 0
 
 	local primary_category = self:weapon_tweak_data().categories and self:weapon_tweak_data().categories[1]
@@ -1110,6 +1358,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 		self._use_vapor_trail = self:weapon_tweak_data().use_vapor_trail
 		self._use_sniper_trail = self:weapon_tweak_data().use_sniper_trail
+		self._is_beam = self:weapon_tweak_data().is_beam
 
 		self._use_silenced_muzzleflash = nil
 
@@ -1118,7 +1367,14 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 		self._pointshoot_ads = 1
 		self._pointshoot_spread = 1
+		self._pointshoot_hip_spread = 1
 		self._pointshoot_strafe = 0
+		self._pointshoot_rof = 1
+		self._pointshoot_recoil = 1
+		self._pointshoot_falloff = 1
+		self._pointshoot_falloff_start = 1
+		self._pointshoot_falloff_end = 1
+		self._pointshoot_damage_min = 1
 
 		self._keep_ammo = self:weapon_tweak_data().keep_ammo
 
@@ -1127,6 +1383,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			self._descope_on_fire_ignore_setting = self:weapon_tweak_data().descope_on_fire_ignore_setting
 			self._descope_on_dmg = self:weapon_tweak_data().descope_on_dmg
 			self._srm = self:weapon_tweak_data().recoil_values and self:weapon_tweak_data().recoil_values.srm
+			self._sam = self:weapon_tweak_data().recoil_values and self:weapon_tweak_data().recoil_values.sam
 			self._rms = self:weapon_tweak_data().rms
 			self._sms = self:weapon_tweak_data().sms
 			self._smt = self._sms and self:weapon_tweak_data().fire_mode_data and ((self:weapon_tweak_data().fire_mode_data.fire_rate * 5) * (self:weapon_tweak_data().smt_mult or 1))
@@ -1176,11 +1433,15 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 				self:weapon_tweak_data().CAN_TOGGLE_FIREMODE = stats.can_toggle_firemode
 			end
 
+			if stats.kick_pattern then
+				self._kick_pattern = stats.kick_pattern
+			end
+			
 			--BURST STUFF HERE
 			if stats.burst_fire then
 				local burst_data = stats.burst_fire
 				self._has_burst_fire = true
-				self._burst_size = burst_data.count or self._burst_size
+				self._burst_size = burst_data.count or self._burst_size or 3
 				self._burst_delay_alt_calc = burst_data.rof_mult_alt or self._burst_delay_alt_calc
 				self._burst_fire_rate_multiplier = burst_data.rof_mult or self._burst_fire_rate_multiplier
 				if burst_data.desired_burst_rof then
@@ -1192,10 +1453,11 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 				self._burst_fire_spread_multiplier = burst_data.spread_mult or self._burst_fire_spread_multiplier
 				self._burst_fire_ads_spread_multiplier = burst_data.ads_spread_mult or self._burst_fire_ads_spread_multiplier
 				self._burst_fire_range_multiplier = burst_data.range_mult or self._burst_fire_range_multiplier
-				self._burst_fire_no_ads = burst_data.no_ads or self._burst_fire_no_ads
+				self._burst_fire_no_ads = (burst_data.no_ads ~= nil and burst_data.no_ads) or self._burst_fire_no_ads
 				self._burst_no_anim = burst_data.no_anim or self._burst_no_anim --only play anims for the last shot in a burst
-				self._burst_delay = burst_data.delay or self._burst_delay
+				self._burst_delay = burst_data.delay or self._burst_delay or 0.25
 				self._auto_burst = (burst_data.auto_burst ~= nil and burst_data.auto_burst) or self._auto_burst
+				self._slamfire  = (burst_data.slamfire ~= nil and burst_data.slamfire) or self._slamfire
 				self._block_toggle = (burst_data.block_toggle ~= nil and burst_data.block_toggle) or self._block_toggle --blocks toggling between semi-auto and full-auto; does not stop toggling off burst
 				self._lock_burst = (burst_data.lock ~= nil and burst_data.lock) or self._lock_burst --blocks toggling off burst altogether
 				self._burst_toggle_to_semi = burst_data.toggle_to_semi or self._burst_toggle_to_semi --forces toggling to semi-auto from burst; only applicable if the base firemode is full-auto
@@ -1205,12 +1467,18 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			if stats.block_burst then
 				self._block_burst = true
 			end
+			
+			if stats.tweak_categories then
+				self._tweak_categories = stats.tweak_categories
+			end
 
 			if stats.init_rof then	
 				self._fire_rate_init_count = stats.init_rof.count or self._fire_rate_init_count
 				self._fire_rate_init_count_mag = stats.init_rof.count_mag or self._fire_rate_init_count_mag
 				self._fire_rate_init_mult = stats.init_rof.rof_mult or self._fire_rate_init_mult
 				self._fire_rate_init_delay = stats.init_rof.delay or self._fire_rate_init_delay
+				self._fire_rate_init_reset = stats.init_rof.reset or self._fire_rate_init_reset
+				self._fire_rate_init_recoil_mult = stats.init_rof.recoil_mult or self._fire_rate_init_recoil_mult
 			end
 	
 			if stats.reload_not_empty_speed_multiplier then
@@ -1219,8 +1487,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 			if stats.adj_timers then
 				if self:weapon_tweak_data().timers then
-					self:weapon_tweak_data().timers.reload_empty = stats.adj_timers.reload_empty or self:weapon_tweak_data().timers.reload_empty
-					self:weapon_tweak_data().timers.reload_not_empty = stats.adj_timers.reload_not_empty or self:weapon_tweak_data().timers.reload_not_empty
+					--self:weapon_tweak_data().timers.reload_empty = stats.adj_timers.reload_empty or self:weapon_tweak_data().timers.reload_empty
+					--self:weapon_tweak_data().timers.reload_not_empty = stats.adj_timers.reload_not_empty or self:weapon_tweak_data().timers.reload_not_empty
+					self._alt_reload_not_empty = stats.adj_timers.reload_not_empty
 					self._alt_reload_exit_empty = stats.adj_timers.reload_exit_empty
 					self._alt_reload_exit_not_empty = stats.adj_timers.reload_exit_not_empty
 				end
@@ -1269,10 +1538,38 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			if stats.pointshoot_spread then
 				self._pointshoot_spread = (self._pointshoot_spread or 1) * stats.pointshoot_spread
 			end
+			if stats.pointshoot_hip_spread then
+				self._pointshoot_hip_spread = (self._pointshoot_hip_spread or 1) * stats.pointshoot_hip_spread
+			end
 			if stats.pointshoot_strafe then
 				self._pointshoot_strafe = math.min( (self._pointshoot_strafe or 0) + stats.pointshoot_strafe, 1 )
 			end
+			if stats.pointshoot_rof then
+				self._pointshoot_rof = (self._pointshoot_rof or 1) * stats.pointshoot_rof
+			end
+			if stats.pointshoot_recoil then
+				self._pointshoot_recoil = (self._pointshoot_recoil or 1) * stats.pointshoot_recoil
+			end
+			if stats.pointshoot_falloff then
+				self._pointshoot_falloff = (self._pointshoot_falloff or 1) * stats.pointshoot_falloff
+			end
+			if stats.pointshoot_falloff_start then
+				self._pointshoot_falloff_start = (self._pointshoot_falloff_start or 1) * stats.pointshoot_falloff_start
+			end
+			if stats.pointshoot_falloff_end then
+				self._pointshoot_falloff_end = (self._pointshoot_falloff_end or 1) * stats.pointshoot_falloff_end
+			end
+			if stats.pointshoot_damage_min then
+				self._pointshoot_damage_min = (self._pointshoot_damage_min or 1) * stats.pointshoot_damage_min
+			end
 
+			if stats.object_damage_mult_override then		
+				self._object_damage_mult = stats.object_damage_mult_override
+				self._object_damage_mult_single_ray = stats.object_damage_mult_override
+			end
+			if stats.object_damage_mult_exp_override then		
+				self._object_damage_mult_exp = stats.object_damage_mult_exp_override
+			end
 			if stats.descope_on_fire then		
 				self._descope_on_fire = stats.descope_on_fire
 			end
@@ -1333,6 +1630,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 					self._starwars = deep_clone(stats.starwars)
 				end
 			end
+			if stats.battery_mag then
+				self._starwars = deep_clone(stats.battery_mag)
+			end
 			if stats.use_silenced_muzzleflash then
 				self._use_silenced_muzzleflash = true
 			end
@@ -1350,6 +1650,9 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 			end
 			if stats.muzzleflash then
 				self._muzzle_effect_pls = stats.muzzleflash
+			end
+			if stats.shell_ejection then
+				self._shell_ejection_pls = stats.shell_ejection
 			end
 			if stats.trail_effect then
 				self._trail_effect_pls = stats.trail_effect
@@ -1475,6 +1778,7 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 
 	if self._use_silenced_muzzleflash then
 		self._muzzle_effect = Idstring(self:weapon_tweak_data().muzzleflash_silenced or "effects/payday2/particles/weapons/9mm_auto_silence_fps")
+		self._muzzle_effect_table.effect = self._muzzle_effect
 	end
 
 	if self._cbfd_to_add_this_check_elsewhere then
@@ -1493,6 +1797,10 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 		if underbarrel_part.unit:base():is_on() then
 			--self._muzzle_effect_table.effect = Idstring("effects/payday2/particles/weapons/9mm_auto_silence_fps")
 		end
+	end
+
+	if self._shell_ejection_pls and self._shell_ejection_effect_table then
+		self._shell_ejection_effect_table.effect = Idstring(self._shell_ejection_pls)
 	end
 
 	local ignore_tracer = nil
@@ -1565,13 +1873,22 @@ function NewRaycastWeaponBase:_update_stats_values(disallow_replenish, ammo_data
 	end
 end
 
+function NewRaycastWeaponBase:_check_reticle_obj()
+	self._reticle_obj = nil
+	--Kill reticle obj
+end
+
 function NewRaycastWeaponBase:armor_piercing_chance()
 	local final_ap = 0
 	local skill_ap = self._skill_global_ap or 0
+	local skill_ap_min = self._skill_global_ap_min or 0
 	local is_single = self._single_fire_ap_add and self:fire_mode() == "single" and not self:in_burst_mode()
 	for _, category in ipairs(self:categories()) do
 		if managers.player:has_category_upgrade(category, "ap_bullets") then
-			skill_ap = skill_ap + managers.player:upgrade_value(category, "ap_bullets", 1)
+			skill_ap = skill_ap + managers.player:upgrade_value(category, "ap_bullets", 0)
+		end
+		if managers.player:has_category_upgrade(category, "ap_bullets_min") then
+			skill_ap_min = skill_ap_min + managers.player:upgrade_value(category, "ap_bullets_min", 0)
 		end
 	end
 	skill_ap = skill_ap + ((is_single and self._single_fire_ap_add) or 0)
@@ -1580,10 +1897,10 @@ function NewRaycastWeaponBase:armor_piercing_chance()
 		local volley_fire_mode = fire_mode_data and fire_mode_data.volley
 		local volley_ap = volley_fire_mode and volley_fire_mode.armor_piercing_chance or 0
 		final_ap = math.min(volley_ap + skill_ap, 1)
-		return final_ap or 0
+		return math.max(skill_ap_min, final_ap) or 0
 	else
 		final_ap = math.min((self._armor_piercing_chance or 0) + skill_ap, 1)
-		return final_ap or 0
+		return math.max(skill_ap_min, final_ap) or 0
 	end
 end
 
@@ -1592,7 +1909,11 @@ function NewRaycastWeaponBase:should_reload_immediately()
 end
 
 function NewRaycastWeaponBase:tweak_data_anim_play(anim, speed_multiplier, set_offset, set_offset2)
-	if self._starwars and not self._starwars.can_reload then return end
+	if anim ~= "deploy" and anim ~= "undeploy" and self._starwars and (not self._starwars.can_reload and not self._starwars.allow_anims) then return end
+
+	if anim == "reload_slap" then
+		speed_multiplier = self._current_reload_speed_multiplier or self:reload_speed_multiplier()
+	end
 
 	local active_burst = self:in_burst_mode() and self._burst_rounds_remaining and self._burst_rounds_remaining > 0
 	local no_burst_anims = active_burst and self._burst_no_anim
@@ -1609,22 +1930,27 @@ function NewRaycastWeaponBase:tweak_data_anim_play(anim, speed_multiplier, set_o
 	end
 
 	self._active_animation_effects[anim] = {}
+
 	local data = tweak_data.weapon.factory[self._factory_id]
 
 	if data.animations and data.animations[unit_anim] then
-		local anim_name = data.animations[unit_anim]
+		local animation_data = data.animations[unit_anim]
+		local anim_name = type(animation_data) == "table" and animation_data.anim or animation_data
 		local ids_anim_name = Idstring(anim_name)
 		local length = self._unit:anim_length(ids_anim_name)
+
 		speed_multiplier = speed_multiplier or 1
-
 		self._unit:anim_stop(ids_anim_name)
-		self._unit:anim_play_to(ids_anim_name, length, speed_multiplier)
 
-		local offset = self:_get_anim_start_offset(anim_name) or set_offset2
+		local offset = self:_get_anim_start_offset(animation_data) or set_offset2
 
 		if offset then
 			self._unit:anim_set_time(ids_anim_name, offset)
 		end
+
+		length = self:_get_anim_legth_modifier(animation_data, length)
+
+		self._unit:anim_play_to(ids_anim_name, length, speed_multiplier)
 	end
 
 	if data.animation_effects and data.animation_effects[unit_anim] then
@@ -1641,19 +1967,24 @@ function NewRaycastWeaponBase:tweak_data_anim_play(anim, speed_multiplier, set_o
 
 	for part_id, data in pairs(self._parts) do
 		if data.unit and data.animations and data.animations[unit_anim] then
-			local anim_name = data.animations[unit_anim]
+			local animation_data = data.animations[unit_anim]
+			local anim_name = type(animation_data) == "table" and animation_data.anim or animation_data
 			local ids_anim_name = Idstring(anim_name)
 			local length = data.unit:anim_length(ids_anim_name)
+
 			speed_multiplier = speed_multiplier or 1
 
 			data.unit:anim_stop(ids_anim_name)
-			data.unit:anim_play_to(ids_anim_name, length, speed_multiplier)
 
-			local offset = self:_get_anim_start_offset(anim_name) or set_offset
+			local offset = self:_get_anim_start_offset(animation_data) or set_offset
 
 			if offset then
 				data.unit:anim_set_time(ids_anim_name, offset)
 			end
+
+			length = self:_get_anim_legth_modifier(animation_data, length)
+
+			data.unit:anim_play_to(ids_anim_name, length, speed_multiplier)
 		end
 
 		if data.unit and data.animation_effects and data.animation_effects[unit_anim] then
@@ -1677,9 +2008,8 @@ end
 
 
 function NewRaycastWeaponBase:tweak_data_anim_offset(anim, offset, second_gun)
-	if self._starwars and not self._starwars.can_reload then
-		return
-	end
+	if self._starwars and (not self._starwars.can_reload and not self._starwars.allow_anims) then return end
+	
 	local unit_anim = anim
 	local data = tweak_data.weapon.factory[self._factory_id]
 	if second_gun and alive(self._second_gun) then
@@ -1692,7 +2022,9 @@ function NewRaycastWeaponBase:tweak_data_anim_offset(anim, offset, second_gun)
 			if data.animations and data.animations[unit_anim] then
 				local anim_name = data.animations[unit_anim]
 				local ids_anim_name = Idstring(anim_name)
-				data.unit:anim_set_time(ids_anim_name, offset)
+				if data.unit then
+					data.unit:anim_set_time(ids_anim_name, offset)
+				end
 			end
 		end
 	else
@@ -1706,11 +2038,53 @@ function NewRaycastWeaponBase:tweak_data_anim_offset(anim, offset, second_gun)
 			if data.animations and data.animations[unit_anim] then
 				local anim_name = data.animations[unit_anim]
 				local ids_anim_name = Idstring(anim_name)
-				data.unit:anim_set_time(ids_anim_name, offset)
+				if data.unit then
+					data.unit:anim_set_time(ids_anim_name, offset)
+				end
 			end
 		end
 	end
 	return true
+end
+
+function NewRaycastWeaponBase:replenish()
+	local ammo_max_multiplier = managers.player:upgrade_value("player", "extra_ammo_multiplier", 1)
+
+	for _, category in ipairs(self:categories()) do
+		ammo_max_multiplier = ammo_max_multiplier * managers.player:upgrade_value(category, "extra_ammo_multiplier", 1)
+	end
+
+	if managers.player:has_category_upgrade("player", "tony_extra_ammo_multiplier") then
+		ammo_max_multiplier = ammo_max_multiplier * managers.player:upgrade_value("player", "tony_extra_ammo_multiplier", 1)
+	end
+
+	ammo_max_multiplier = ammo_max_multiplier + ammo_max_multiplier * (self._total_ammo_mod or 0)
+
+	if managers.player:has_category_upgrade("player", "add_armor_stat_skill_ammo_mul") then
+		ammo_max_multiplier = ammo_max_multiplier * managers.player:body_armor_value("skill_ammo_mul", nil, 1)
+	end
+
+	ammo_max_multiplier = managers.modifiers:modify_value("WeaponBase:GetMaxAmmoMultiplier", ammo_max_multiplier)
+	local ammo_max_per_clip = self:calculate_ammo_max_per_clip()
+	local ammo_max = math.round((tweak_data.weapon[self._name_id].AMMO_MAX + managers.player:upgrade_value(self._name_id, "clip_amount_increase") * ammo_max_per_clip) * ammo_max_multiplier)
+	ammo_max_per_clip = math.min(ammo_max_per_clip, ammo_max)
+
+	self:set_ammo_max_per_clip(ammo_max_per_clip)
+	self:set_ammo_max(ammo_max)
+	self:set_ammo_total(ammo_max)
+	self:set_ammo_remaining_in_clip(ammo_max_per_clip)
+
+	self._ammo_pickup = tweak_data.weapon[self._name_id].AMMO_PICKUP
+
+	if self._assembly_complete then
+		for _, gadget in ipairs(self:get_all_override_weapon_gadgets()) do
+			if gadget and gadget.replenish then
+				gadget:replenish()
+			end
+		end
+	end
+
+	self:update_damage()
 end
 
 function NewRaycastWeaponBase:precalculate_ammo_pickup()
@@ -1720,6 +2094,7 @@ function NewRaycastWeaponBase:precalculate_ammo_pickup()
 
 		--Pickup multiplier from skills.
 		local pickup_multiplier = managers.player:upgrade_value("player", "fully_loaded_pick_up_multiplier", 1)	
+		local min_pickup_multiplier = managers.player:upgrade_value("player", "minimum_pick_up_multiplier", 1)	
 		local is_solo = (Global.game_settings and Global.game_settings.single_player and 2) or 1
 		if not is_pro then
 			pickup_multiplier = pickup_multiplier * ( ((managers.player:upgrade_value("player", "passive_pick_up_multiplier", 1) - 1) * is_solo) + 1 )
@@ -1729,6 +2104,19 @@ function NewRaycastWeaponBase:precalculate_ammo_pickup()
 			pickup_multiplier = pickup_multiplier + managers.player:upgrade_value(category, "pick_up_multiplier", 1) - 1
 		end
 
+		if managers.player:has_category_upgrade("player", "armor_pickup_mul") then
+			pickup_multiplier = pickup_multiplier * managers.player:body_armor_value("skill_ammo_mul", nil, 1)
+		end
+
+		if managers.player:has_category_upgrade("player", "tony_pick_up_multiplier") then
+			pickup_multiplier = pickup_multiplier * managers.player:upgrade_value("player", "tony_pick_up_multiplier", 1)
+		end
+
+		if managers.player:has_team_category_upgrade("player", "biker_ammo_pickup_boost") then
+			local cohesion_stacks = managers.player:get_cohesion_stacks_as_treated() or 0
+			pickup_multiplier = pickup_multiplier * (1 + managers.player:team_upgrade_value("player", "biker_ammo_pickup_boost", 0) * cohesion_stacks)
+		end
+
 		--Sharpeyed Team AI bonus, since now Enduring is a base thing
 		--Moved to RaycastWeaponBase:add_ammo; precalculate_ammo_pickup is first called on spawn *before* the crew bonus becomes active and renders it useless unless you leave custody or do something else to call this function after crew AI is active
 		--pickup_multiplier = pickup_multiplier + managers.player:crew_ability_upgrade_value("crew_scavenge", 1) - 1
@@ -1736,7 +2124,7 @@ function NewRaycastWeaponBase:precalculate_ammo_pickup()
 		pickup_multiplier = pickup_multiplier * ((self._is_controller and 1.15) or 1)
 
 		--Apply multiplier from skills and ammo.
-		self._ammo_pickup[1] = self._ammo_pickup[1] * pickup_multiplier * ((self._ammo_data and self._ammo_data.ammo_pickup_min_mul) or 1)
+		self._ammo_pickup[1] = self._ammo_pickup[1] * pickup_multiplier * min_pickup_multiplier * ((self._ammo_data and self._ammo_data.ammo_pickup_min_mul) or 1)
 		self._ammo_pickup[2] = self._ammo_pickup[2] * pickup_multiplier * ((self._ammo_data and self._ammo_data.ammo_pickup_max_mul) or 1)
 	end
 end
@@ -1745,8 +2133,14 @@ end
 function NewRaycastWeaponBase:fire_rate_multiplier( ignore_anims )
 	local multiplier = self._fire_rate_multiplier or 1
 	multiplier = multiplier * (self:weapon_tweak_data().fire_rate_multiplier or 1)
-	if managers.player:has_activate_temporary_upgrade("temporary", "headshot_fire_rate_mult") then
-		multiplier = multiplier * managers.player:temporary_upgrade_value("temporary", "headshot_fire_rate_mult", 1)
+	local has_sharpshooter = managers.player:has_activate_temporary_upgrade("temporary", "headshot_fire_rate_mult") 
+	if self:is_category("assault_rifle", "snp") and has_sharpshooter then
+		local temp_mult = managers.player:temporary_upgrade_value("temporary", "headshot_fire_rate_mult", 1)
+		if self:fire_mode() ~= "single" then
+			local auto_mult = tweak_data.upgrades.sharpshooter_auto_mult
+			temp_mult = ((temp_mult - 1) * auto_mult) + 1
+		end
+		multiplier = multiplier * temp_mult
 	end 
 	if ignore_anims then
 		return multiplier / (self._rof_mult or 1)
@@ -1768,9 +2162,8 @@ function NewRaycastWeaponBase:fire_rate_multiplier( ignore_anims )
 			local moremath = fire_rate / no_burst_mult
 			local delay = self._burst_delay - moremath
 			local current_state_name = managers.player:current_state()
-			local og_next_fire = current_state_name and current_state_name == "tased" and self._next_fire_allowed
+			local og_next_fire = (current_state_name and current_state_name == "tased" or self._spinning) and self._next_fire_allowed
 			self._macno = nil
-			self._fire_rate_init_cancel = nil
 			if not self._burst_delay_alt_calc then
 				self._next_fire_allowed = og_next_fire or (math.max(self._next_fire_allowed - ((bypass_firerate and moremath) or 0), self._unit:timer():time() + delay))
 				self._ignore__next_fire_allowed = true
@@ -1781,14 +2174,14 @@ function NewRaycastWeaponBase:fire_rate_multiplier( ignore_anims )
 
 	local init_mult = self._fire_rate_init_mult
 	if self._fire_rate_init_count and self:fire_mode() ~= "single" and not self:in_burst_mode() then
-		if (self._fire_rate_init_count > self._shots_fired) then
+		if (self._fire_rate_init_count > self._shots_fired_init) then
 			self._fire_rate_init_progress = true
 			if self._fire_rate_init_ramp_up then
-				local init_ramp_up_add = (1 - self._fire_rate_init_mult ) / self._fire_rate_init_count  * self._shots_fired + init_mult
+				local init_ramp_up_add = (1 - self._fire_rate_init_mult ) / self._fire_rate_init_count  * self._shots_fired_init + init_mult
 				init_mult =  init_ramp_up_add
 			end
 			multiplier = multiplier * init_mult
-		elseif (self._fire_rate_init_count < self._shots_fired) then
+		elseif (self._fire_rate_init_count < self._shots_fired_init) then
 			self._fire_rate_init_progress = nil
 		end
 	end
@@ -1801,8 +2194,13 @@ function NewRaycastWeaponBase:fire_rate_multiplier( ignore_anims )
 		multiplier = multiplier * self._alt_rof_mult
 	end
 
-	if (self:can_toggle_firemode() or self._rof_mult_semi) and self:fire_mode() == "single" and not self:in_burst_mode() then
+	if not self._locked_fire_mode and ((self:can_toggle_firemode() and not has_sharpshooter) or self._rof_mult_semi) and self:fire_mode() == "single" and not self:in_burst_mode() then
 		multiplier = multiplier * (self._rof_mult_semi or 0.8)
+	end
+	
+	local second_sight_rof_mult = self.second_sight_rof_mult and self:second_sight_rof_mult()
+	if second_sight_rof_mult then
+		multiplier = multiplier * second_sight_rof_mult
 	end
 
 	return multiplier
@@ -1814,8 +2212,14 @@ function NewRaycastWeaponBase:fire(...)
 	if self._fire_mode == ids_burst and self._bullets_fired > 1 and not self:weapon_tweak_data().sounds.fire_single then
 		self:_fire_sound()
 	end
+	
+	local t = self._unit:timer():time()
+	if self._fire_rate_init_reset_t then
+		self._fire_rate_init_reset_t = t + self._fire_rate_init_reset
+	end
+	self._shots_fired_init = self._shots_fired_init + 1
 
-	self._shots_fired = self._shots_fired + 1 --increases in half increments due some double call bug for this function (Should really figure this out)
+	self._shots_fired = self._shots_fired + 1
 
 	if not self._starwars then
 		self._shots_fired_mag = self._shots_fired_mag + 1
@@ -1901,8 +2305,17 @@ end
 function NewRaycastWeaponBase:in_burst_mode()
 	if self._fire_mode == NewRaycastWeaponBase.IDSTRING_SINGLE and self._in_burst_mode and not self:gadget_overrides_weapon_functions() then
 		managers.hud:set_teammate_weapon_firemode_burst(self:selection_index())
+		--[[
+		if not self._afr_memory then
+			self._afr_memory = self._afr_is_single
+		end
+		self._afr_is_single = false
+		--]]
 		return true --self._fire_mode == NewRaycastWeaponBase.IDSTRING_SINGLE and self._in_burst_mode and not self:gadget_overrides_weapon_functions()
 	else
+		--[[
+		self._afr_is_single = self._afr_memory or nil
+		--]]
 		return false --self._fire_mode == NewRaycastWeaponBase.IDSTRING_SINGLE and self._in_burst_mode and not self:gadget_overrides_weapon_functions()
 	end
 end
@@ -1948,6 +2361,7 @@ function NewRaycastWeaponBase:reload_speed_multiplier()
 	if not is_pro then
 		multiplier = multiplier * managers.player:upgrade_value("weapon", "passive_reload_speed_multiplier", 1)
 	end
+	multiplier = multiplier * managers.player:upgrade_value("player", "reload_speed_multiplier", 1)
 	multiplier = multiplier * managers.player:upgrade_value(self._name_id, "reload_speed_multiplier", 1)
 
 	if self:get_ammo_remaining_in_clip() ~= 0 then
@@ -1971,7 +2385,8 @@ function NewRaycastWeaponBase:reload_speed_multiplier()
 	if managers.player:has_activate_temporary_upgrade("temporary", "reload_weapon_faster") then
 		multiplier = multiplier * managers.player:temporary_upgrade_value("temporary", "reload_weapon_faster", 1)
 	end
-	if managers.player:has_activate_temporary_upgrade("temporary", "single_shot_fast_reload") then
+	if managers.player:has_activate_temporary_upgrade("temporary", "single_shot_fast_reload") and 
+		self:is_category(unpack(managers.player:upgrade_value("temporary", "single_shot_fast_reload").allowed_categories)) then
 		multiplier = multiplier * managers.player:temporary_upgrade_value("temporary", "single_shot_fast_reload", 1)
 	end
 	multiplier = multiplier * managers.player:get_property("shock_and_awe_reload_multiplier", 1)
@@ -1980,6 +2395,13 @@ function NewRaycastWeaponBase:reload_speed_multiplier()
 
 	multiplier = multiplier * self:reload_speed_stat()
 	multiplier = managers.modifiers:modify_value("WeaponBase:GetReloadSpeedMultiplier", multiplier)
+
+	if managers.player:has_team_category_upgrade("player", "biker_crew_reload_bonus") then
+		local potency_amount = managers.player:get_cohesion_stacks_as_treated()
+		local bonus = managers.player:team_upgrade_value("player", "biker_crew_reload_bonus", 0) + managers.player:team_upgrade_value("player", "biker_additional_move_reload_bonus", 0)
+
+		multiplier = multiplier * (1 + bonus * potency_amount)
+	end
 
 	--MERCENARY DECK
 	if managers.player:has_category_upgrade("player","kmerc_reload_speed_per_max_armor") then
@@ -2003,31 +2425,52 @@ end
 function NewRaycastWeaponBase:enter_steelsight_speed_multiplier( mult_only )
 	local multiplier = 1
 	local ads_time = self:weapon_tweak_data().ads_speed or 0.200
+	local base_transition_dur = tweak_data.player.TRANSITION_DURATION
 
 	if not mult_only then
-		multiplier = multiplier / ( ads_time / tweak_data.player.TRANSITION_DURATION)
+		multiplier = multiplier / ( ads_time / base_transition_dur)
 		multiplier = multiplier / self._ads_speed_mult / self:second_sight_steelsight_mult()
 	end
 
+	if not mult_only and managers.player:has_activate_temporary_upgrade("temporary", "single_shot_fast_reload") and 
+		self:is_category(unpack(managers.player:upgrade_value("temporary", "single_shot_fast_reload").allowed_categories)) then
+		multiplier = multiplier /  (1 + 1 - managers.player:upgrade_value("temporary", "single_shot_fast_reload", 1).ads_mult)
+	end
 	
 	for _, category in ipairs(self:categories()) do
 		multiplier = multiplier / (1 + 1 - managers.player:upgrade_value(category, "enter_steelsight_speed_multiplier", 1))
 	end
 	
 	multiplier = multiplier / ( 1 + 1 - managers.player:upgrade_value("weapon", "enter_steelsight_speed_multiplier", 1))
+
+	local fatty = managers.player and managers.player._fat_fuck
+	if fatty and not mult_only then
+		local current_ads_time = base_transition_dur / multiplier
+		local penalty_cap = 0.6
+		if current_ads_time < penalty_cap then
+			ads_time = math.min(ads_time * 2, penalty_cap)
+		end
+		multiplier = base_transition_dur / ads_time
+	end
 	
 	return multiplier
 end
 
 function NewRaycastWeaponBase:calculate_ammo_max_per_clip()
 	local ammo = tweak_data.weapon[self._name_id].CLIP_AMMO_MAX + (self._extra_ammo or 0)
-	ammo = ammo * managers.player:upgrade_value(self._name_id, "clip_ammo_increase", 1)
-	if not self:upgrade_blocked("weapon", "clip_ammo_increase") then
-		ammo = ammo * managers.player:upgrade_value("weapon", "clip_ammo_increase", 1)
+	local ammo_mult = 1
+	if not self._starwars then
+		ammo_mult = ammo_mult * managers.player:upgrade_value(self._name_id, "clip_ammo_increase", 1)
+		if not self:upgrade_blocked("weapon", "clip_ammo_increase") then
+			ammo_mult = ammo_mult + ((managers.player:upgrade_value("weapon", "clip_ammo_increase", 1) - 1))
+		end
+		for _, category in ipairs(tweak_data.weapon[self._name_id].categories) do
+			if not self:upgrade_blocked(category, "clip_ammo_increase") then
+				ammo_mult = ammo_mult + ((managers.player:upgrade_value(category, "clip_ammo_increase", 1) - 1))
+			end
+		end
 	end
-	if not self:upgrade_blocked(tweak_data.weapon[self._name_id].category, "clip_ammo_increase") then
-		ammo = ammo * managers.player:upgrade_value(tweak_data.weapon[self._name_id].category, "clip_ammo_increase", 1)
-	end
+	ammo = ammo * ammo_mult
 	ammo = math.round(ammo)
 	return ammo
 end
@@ -2100,7 +2543,7 @@ function NewRaycastWeaponBase:_fire_raycast(user_unit, from_pos, direction, dmg_
 end
 
 
-function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot_only)
+function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot_only, ignore_ammo, lerp_mult)
 	local is_rapidfire = self._burst_fire_range_multiplier and self:in_burst_mode()
 	local is_fullauto = self._auto_fire_range_multiplier and not self:is_single_shot()
 	local is_single = self:is_single_shot() and not self:in_burst_mode()
@@ -2122,11 +2565,11 @@ function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot
 	local check_col_ray_head = col_ray and col_ray.unit and col_ray.unit:character_damage() and col_ray.unit:character_damage()._ids_head_body_name and col_ray.body and col_ray.body:name() and col_ray.body:name() == col_ray.unit:character_damage()._ids_head_body_name or head_hitboxes[col_ray.body:name():key()]
 	--Initialize base info.
 
-	local has_mindblown_ace = managers.player:has_category_upgrade("player", "headshot_no_falloff") and self:is_single_shot() and self:is_category("assault_rifle", "snp") and check_col_ray_head and (managers.player._last_no_falloff_headshot_t or 0) < self._unit:timer():time()
-	if (self._chf and check_col_ray_head) or --[[not self:in_burst_mode() and not is_rapidfire and]] (self._ammo_data and (self._ammo_data.bullet_class == "InstantExplosiveBulletBase")) or has_mindblown_ace then
-		if has_mindblown_ace then
-			managers.player._last_no_falloff_headshot_t = self._unit:timer():time() + (tweak_data.upgrades.headshot_no_falloff_cd or 0)
-		end
+	local has_mindblown_ace = managers.player:has_category_upgrade("player", "headshot_no_falloff") and self:is_single_shot() and self:is_category("assault_rifle", "snp") and check_col_ray_head --and (managers.player._last_no_falloff_headshot_t or 0) < self._unit:timer():time()
+	if (self._chf and check_col_ray_head) or --[[not self:in_burst_mode() and not is_rapidfire and]] (not ignore_ammo and self._ammo_data and (self._ammo_data.bullet_class == "InstantExplosiveBulletBase")) or has_mindblown_ace or self:weapon_tweak_data().no_falloff then
+		--if has_mindblown_ace then
+			--managers.player._last_no_falloff_headshot_t = self._unit:timer():time() + (tweak_data.upgrades.headshot_no_falloff_cd or 0)
+		--end
 		return damage
 	end
 
@@ -2135,7 +2578,7 @@ function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot
 	local damage_falloff = self:weapon_tweak_data().damage_falloff
 	local falloff_start = damage_falloff and damage_falloff.start_dist or 3000
 	local falloff_end = damage_falloff and damage_falloff.end_dist or 6000
-	
+
 	--[[
 	log("falloff_start : " .. tostring( falloff_start /100 ))
 	log("falloff_end : " .. tostring( falloff_end /100 ))
@@ -2183,11 +2626,30 @@ function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot
 	falloff_start = falloff_start * self._damage_near_mul
 	falloff_end = falloff_end * self._damage_far_mul
 
+	local second_sight_falloff_mult = self.second_sight_falloff_mult and self:second_sight_falloff_mult()
+	if second_sight_falloff_mult then
+		falloff_start = falloff_start * second_sight_falloff_mult
+		falloff_end = falloff_end * second_sight_falloff_end_mult
+	else
+		local second_sight_falloff_start_mult = self.second_sight_falloff_start_mult and self:second_sight_falloff_start_mult()
+		local second_sight_falloff_end_mult = self.second_sight_falloff_end_mult and self:second_sight_falloff_end_mult()
+		if second_sight_falloff_start_mult then
+			falloff_start = falloff_start * second_sight_falloff_start_mult
+		end
+		if second_sight_falloff_end_mult then
+			falloff_end = falloff_end * second_sight_falloff_end_mult
+		end
+	end
+
 	if dot_only then
 		falloff_start = falloff_start * self._duration_falloff_start_mult
 		falloff_end = falloff_end * self._duration_falloff_end_mult
 	end
 	
+	if lerp_mult then
+		falloff_end = math.lerp(falloff_start, falloff_end, math.max(lerp_mult, 0))
+	end
+
 	--Cache falloff values for usage in hitmarkers.
 	self.near_falloff_distance = falloff_start
 	self.far_falloff_distance = falloff_end
@@ -2203,7 +2665,15 @@ function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot
 		end
 	end
 
-	minimum_damage = ( minimum_damage * (self._damage_min_mult or 1)) / managers.player:temporary_upgrade_value("temporary", "overkill_damage_multiplier", 1)
+	local damage_min_mult = self._damage_min_mult
+
+	local second_sight_damage_min_mult = self.second_sight_damage_min_mult and self:second_sight_damage_min_mult()
+	if second_sight_damage_min_mult then
+		damage_min_mult = damage_min_mult * second_sight_damage_min_mult
+	end
+
+
+	minimum_damage = ( minimum_damage * (damage_min_mult or 1)) / managers.player:temporary_upgrade_value("temporary", "overkill_damage_multiplier", 1)
 	
 	--[[
 	log("DAMAGE: " .. tostring( damage * 10 ))
@@ -2211,7 +2681,7 @@ function NewRaycastWeaponBase:get_damage_falloff(damage, col_ray, user_unit, dot
 	log("HIT AT: " .. tostring( distance / 100 ) .. " METERS")
 	log("DAMAGE DONE: " .. tostring( (math.max((1 - math.min(1, math.max(0, distance - falloff_start) / (falloff_end - falloff_start))) * damage, minimum_damage * damage)) * 10 ) .. "\n\n")
 	--]]
-	
+
 	--Compute final damage.
 	return math.lerp(damage, minimum_damage * damage, math.min(1, math.max(0, distance - falloff_start) / (falloff_end - falloff_start)))
 end
@@ -2248,7 +2718,7 @@ function NewRaycastWeaponBase:exit_run_speed_multiplier()
 
 	--multiplier = multiplier / ( (self:weapon_tweak_data().sprintout_time or 0.300) / (self:weapon_tweak_data().sprintout_anim_time or 0.350) )
 	multiplier = multiplier / ( (ads_speed / self:enter_steelsight_speed_multiplier(true)) * 1 / sprintout_anim_time )
-	return multiplier
+	return math.max( 0.01, multiplier)
 end
 
 
@@ -2290,20 +2760,19 @@ function NewRaycastWeaponBase:set_scope_range_distance(distance)
 
 			local digital_gui = part and part.unit:digital_gui()
 
-			is_visible = (part.steelsight_visible == nil or part.steelsight_visible == steelsight_swap_state) or nil
+			is_visible = (part and (part.steelsight_visible == nil or part.steelsight_visible == steelsight_swap_state)) or nil
 
 			if digital_gui and digital_gui.number_set then
 				part.unit:digital_gui():number_set(distance and math.round(distance) or false, false)
-				if distance then
-					if (distance * 100) < falloff_start then
-						part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.green or scope_colors.red )
-					elseif (distance * 100) > falloff_start and (distance * 100) < falloff_end then
-						part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.greenmid or scope_colors.redmid )
-					elseif (distance * 100) > falloff_end then
-						part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.greenlow or scope_colors.redlow )
-					end
-				else
+				local dist = distance and distance * 100
+				if not dist then
 					part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.greenno or scope_colors.redno )
+				elseif dist < falloff_start then
+					part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.green or scope_colors.red )
+				elseif dist < falloff_end then
+					part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.greenlow or scope_colors.redlow )
+				else
+					part.unit:digital_gui()._title_text:set_color( not is_visible and scope_colors.off or green_display and scope_colors.greenmid or scope_colors.redmid )
 				end
 			end
 
@@ -2311,16 +2780,15 @@ function NewRaycastWeaponBase:set_scope_range_distance(distance)
 
 			if digital_gui_upper and digital_gui_upper.number_set then
 				part.unit:digital_gui_upper():number_set(distance and math.round(distance) or false, false)
-				if distance then
-					if (distance * 100) < falloff_start then
-						part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.green )
-					elseif (distance * 100) > falloff_start and (distance * 100) < falloff_end then
-						part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.greenmid )
-					elseif (distance * 100) > falloff_end then
-						part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.greenlow )
-					end
-				else
+				local dist = distance and distance * 100
+				if not dist then
 					part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.greenno )
+				elseif dist < falloff_start then
+					part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.green )
+				elseif dist < falloff_end then
+					part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.greenlow )
+				else
+					part.unit:digital_gui_upper()._title_text:set_color( not is_visible and scope_colors.off or scope_colors.greenmid )
 				end
 			end
 		end
@@ -2446,7 +2914,6 @@ function NewRaycastWeaponBase:can_shoot_through_enemy()
 
 	return can_shoot_through_enemy or self._can_shoot_through_enemy
 end
-
 
 -- 10th Anniversary Mutator Ammo
 function NewRaycastWeaponBase:ammo_type_buff_add(ammo_id, ammo_buff_data)
@@ -2592,32 +3059,37 @@ function NewRaycastWeaponBase:_set_parts_visible(visible)
 	self:_chk_charm_upd_state()
 end
 
-if OWLFBullpupWeaponBase then
-	function OWLFBullpupWeaponBase:clbk_assembly_complete(...)
-		OWLFBullpupWeaponBase.super.clbk_assembly_complete(self, ...)
-		if table.contains(self._blueprint, "wpn_fps_upg_owlfbullpup_mag_drum") then
-			self:weapon_tweak_data().animations.reload_name_id = "owlfbullpup_drum"
-		else
-			self:weapon_tweak_data().animations.reload_name_id = "owlfbullpup"
-		--[[
-			self:weapon_tweak_data().timers.reload_empty = 4.8
-			self:weapon_tweak_data().timers.reload_not_empty = 3.0
-		--]]
-		end
-	end
-end
+-- Adds context to the highlighting to support marking enemies through walls in Pro Job.
 
 
-if SKSWeaponBase then
-	function SKSWeaponBase:clbk_assembly_complete(...)
-		SKSWeaponBase.super.clbk_assembly_complete(self, ...)
-		if table.contains(self._blueprint, "wpn_fps_upg_sks_mag_detach10") or table.contains(self._blueprint, "wpn_fps_upg_sks_mag_detach20") then
-			self:weapon_tweak_data().animations.reload_name_id = "sks_mag"
+local g3_niphen = restoration.Options:GetValue("WEAPONS/WEAPONANIMS/g3_niphen")
+
+Hooks:PostHook(NewRaycastWeaponBase, "weapon_tweak_data", "res_weapon_tweak_data", function(self)
+	local wtd = NewRaycastWeaponBase.super.weapon_tweak_data(self)
+
+	if not self._parts then
+		return wtd
+	end
+
+	if self._name_id == "ar23" and self._parts then
+		local is_carbine = self._parts.wpn_fps_ck_ar23a
+		local has_drum = self._parts.wpn_fps_ass_ar23_m_drum
+		wtd.animations.reload_name_id = "ar23" .. ((is_carbine and "a") or "") .. ((has_drum and "_drum") or "")
+	end
+
+	if not g3_niphen and BeardLib.Utils:FindMod("JustAnotherG3 Reload") and self._name_id == "g3" then
+		if self._parts.wpn_fps_ass_g3_b_sniper then 
+			wtd.animations.reload_name_id = "g3_psg"
+		elseif self._parts.wpn_fps_ass_g3_b_long or self._parts.wpn_fps_ass_g3_b_short then
+			wtd.animations.reload_name_id = "g3_long"
 		else
-			self:weapon_tweak_data().animations.reload_name_id = "sks"
+			wtd.animations.reload_name_id = "g3"
 		end
 	end
-end
+
+	return wtd
+end)
+
 
 
 local Daring_Target_Enable = restoration.Options:GetValue("OTHER/DaringTagetingChange")
@@ -2630,6 +3102,7 @@ function NewRaycastWeaponBase:check_highlight_unit(unit)
 		return
 	end
 
+	if not alive(unit) then return end
 	if unit:in_slot(8) and alive(unit:parent()) then
 		unit = unit:parent() or unit
 	end
@@ -2650,8 +3123,10 @@ function NewRaycastWeaponBase:check_highlight_unit(unit)
 	local unit_name_id = unit_base._tweak_table
 	local is_enemy_in_cool_state = managers.enemy and managers.enemy:is_enemy(unit) and not managers.groupai:state():enemy_weapons_hot()
 	local is_ignore_enemy = nil
-	local Holding_LightAR = managers.player and managers.player:equipped_weapon_unit():base():is_category("light_ar")
-	local Holding_HeavyAR = managers.player and managers.player:equipped_weapon_unit():base():is_category("heavy_ar")
+	local equipped_unit = managers.player and managers.player:equipped_weapon_unit()
+	local equipped_base = alive(equipped_unit) and equipped_unit:base()
+	local Holding_LightAR = equipped_base and equipped_base:is_category("light_ar")
+	local Holding_HeavyAR = equipped_base and equipped_base:is_category("heavy_ar")
 
 
 	--log("Daring_Target_Enable is "..Daring_Target_Enable)
@@ -2701,7 +3176,7 @@ function NewRaycastWeaponBase:check_highlight_unit(unit)
 	end
 
 
-	managers.game_play_central:auto_highlight_enemy(unit, true)
+	managers.game_play_central:auto_highlight_enemy(unit, true, "steelsight")
 end
 
 function NewRaycastWeaponBase:get_automatic_kills_to_head_shot_stacks()

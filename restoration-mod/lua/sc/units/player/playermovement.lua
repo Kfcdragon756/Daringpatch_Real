@@ -1,4 +1,4 @@
-local infiltrator_distance = tweak_data.upgrades.infiltrator_dr_range * tweak_data.upgrades.infiltrator_dr_range
+local sicario_distance = tweak_data.upgrades.sicario_dr_range * tweak_data.upgrades.sicario_dr_range
 local init_original = PlayerMovement.init
 function PlayerMovement:init(...)
 	init_original(self, ...)
@@ -20,7 +20,7 @@ function PlayerMovement:on_SPOOCed(enemy_unit, flying_strike)
 		return "countered"
 	end
 
-	if self._unit:character_damage()._god_mode or self._unit:character_damage():get_mission_blocker("invulnerable") then
+	if self._unit:character_damage()._god_mode or self._unit:character_damage():get_mission_blocker("invulnerable") --[[or (self._current_state._last_dash_iframes or 0) >= managers.player:player_timer():time()]] then
 		return
 	end
 
@@ -79,7 +79,7 @@ function PlayerMovement:_upd_underdog_skill(t)
 
 				break
 			end
-			if dis_sq < infiltrator_distance then
+			if dis_sq < sicario_distance then
 				nr_close_guys = nr_close_guys + 1
 			end
 		end
@@ -188,6 +188,64 @@ end
 function PlayerMovement:activate_regeneration()
 	self._regenerate_timer = ((tweak_data.player.movement_state.stamina.REGENERATE_TIME or 5) + self._stamina_regen_add ) * managers.player:upgrade_value("player", "stamina_regen_timer_multiplier", 1)
 end
+
+local armor_init = tweak_data.player.damage.ARMOR_INIT
+function PlayerMovement:update_stamina(t, dt, ignore_running)
+	local dt = self._last_stamina_regen_t and t - self._last_stamina_regen_t or dt
+	self._last_stamina_regen_t = t
+
+	if not ignore_running and self._is_running then
+		local drain_rate = tweak_data.player.movement_state.stamina.STAMINA_DRAIN_RATE
+		local pm = managers.player
+		if pm and pm._fat_fuck then
+			local drain_rate_mult = 3
+			if managers.player:has_category_upgrade("player", "armor_carry_stamina_drain_reduction") then
+				local max_armor = armor_init + managers.player:body_armor_value("armor") + managers.player:body_armor_skill_addend()
+				local mul = managers.player:upgrade_value("player", "armor_carry_stamina_drain_reduction", 1)
+				drain_rate_mult = drain_rate_mult / (mul ^ math.floor(max_armor))
+				drain_rate_mult = math.max(drain_rate_mult, 1)
+			end
+			drain_rate = drain_rate * drain_rate_mult
+		end
+		self:subtract_stamina(dt * drain_rate)
+	elseif self._regenerate_timer then
+		self._regenerate_timer = self._regenerate_timer - dt
+
+		if self._regenerate_timer < 0 then
+			self:add_stamina(dt * tweak_data.player.movement_state.stamina.STAMINA_REGEN_RATE)
+
+			if self:_max_stamina() <= self._stamina then
+				self._regenerate_timer = nil
+			end
+		end
+	elseif self._stamina < self:_max_stamina() then
+		self:_restart_stamina_regen_timer()
+	end
+
+	if _G.IS_VR then
+		managers.hud:set_stamina({
+			current = self._stamina,
+			total = self:_max_stamina()
+		})
+	end
+end
+
+function PlayerMovement:add_stamina(value)
+	local multiplier = 1
+
+	-- Duck and Cover
+	multiplier = multiplier * managers.player:upgrade_value("player", "stamina_regen_multiplier", 1)
+
+	-- Biker
+	if managers.player:has_team_category_upgrade("player", "biker_stamina_regen_bonus") then
+		local cohesion_steps = managers.player:get_cohesion_stacks_as_treated()
+		multiplier = multiplier * (1 + managers.player:team_upgrade_value("player", "biker_stamina_regen_bonus", 0) * cohesion_steps)
+    end
+
+	self:_change_stamina(math.abs(value) * multiplier)
+end
+
+
 
 
 --此处添加，用于修改春哥吼给自己加buff调用的函数

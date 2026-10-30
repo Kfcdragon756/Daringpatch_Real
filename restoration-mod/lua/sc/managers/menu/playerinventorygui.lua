@@ -1792,7 +1792,7 @@ function PlayerInventoryGui:_get_melee_weapon_stats(name)
 				max_value = base_max,
 				value = (base_min + base_max) / 2
 			}
-			local dmg_mul = managers.player:upgrade_value("player", "melee_" .. tostring(tweak_data.blackmarket.melee_weapons[name].stats.weapon_type) .. "_damage_multiplier", 1) - 1
+			local dmg_mul = managers.player:upgrade_value("player", "melee_" .. tostring(tweak_data.blackmarket.melee_weapons[name].stats.weapon_type) .. "_damage_effect_multiplier", 1) - 1
 			local gst_skill = managers.player:upgrade_value("player", "melee_knockdown_mul", 1) - 1
 			local skill_mul = (1 + dmg_mul) * (1 + gst_skill) - 1
 			local skill_min = skill_mul
@@ -2662,8 +2662,10 @@ function PlayerInventoryGui:_update_info_throwable(name)
 	local text_string = ""
 
 	if projectile_data then
-		local is_perk_throwable = tweak_data.blackmarket.projectiles[throwable_id].base_cooldown and not tweak_data.blackmarket.projectiles[throwable_id].base_cooldown_no_perk
-		local amount = is_perk_throwable and 1 or math.round(tweak_data.blackmarket.projectiles[throwable_id].max_amount *  managers.player:upgrade_value("player", "throwables_multiplier", 1))
+		local is_cooldown = projectile_data.base_cooldown
+		local is_perk_throwable = is_cooldown and not projectile_data.base_cooldown_no_perk
+		local throwables_multiplier = (not is_cooldown and managers.player:upgrade_value("player", "throwables_multiplier", 1)) or 1
+		local amount = is_perk_throwable and 1 or math.round(projectile_data.max_amount * throwables_multiplier)
 		local has_short_desc = managers.localization:exists(projectile_data.desc_id .. "_short")
 
 		local equipped_armor_upgrade = managers.player:body_armor_value("throwable_add", upgrade_level, 0)
@@ -2680,9 +2682,19 @@ function PlayerInventoryGui:_update_info_throwable(name)
 		end
 		amount = amount + Metro_add_amount
 		text_string = text_string .. managers.localization:text(projectile_data.name_id) .. " (x" .. tostring(amount) .. ")" .. "\n\n"
-
+		local proj_tweak = tweak_data.projectiles[throwable_id]
+		local proj_b_tweak = tweak_data.blackmarket.projectiles[throwable_id]
+		local pickup_low = proj_b_tweak and proj_b_tweak.base_pickup_chance and proj_b_tweak.base_pickup_chance[1] or 0.01
+		local pickup_high = proj_b_tweak and proj_b_tweak.base_pickup_chance and proj_b_tweak.base_pickup_chance[2] or 0.02
+		local skill_pickup_chance = managers.player:upgrade_value("player", "regain_throwable_from_ammo", 1)
 		if self:_should_show_description() then
-			text_string = text_string .. managers.localization:text((has_short_desc and projectile_data.desc_id .. "_short") or projectile_data.desc_id) .. "\n"
+			text_string = text_string .. managers.localization:text((has_short_desc and projectile_data.desc_id .. "_short") or projectile_data.desc_id, {
+				damage = ((proj_tweak and proj_tweak.damage) or 0) * 10,
+				pickup_1 = math.floor(1 / (pickup_high * skill_pickup_chance)),
+				pickup_2 = math.floor(1 / (pickup_low * skill_pickup_chance)),
+				regen = ((proj_b_tweak and proj_b_tweak.base_cooldown) or 0) .. managers.localization:text("menu_seconds_suffix_short"),
+				regen_t = -((proj_b_tweak and proj_b_tweak.pickup_cooldown_t) or 0) .. managers.localization:text("menu_seconds_suffix_short")
+			}) .. "\n"
 		end
 	end
 
@@ -2738,27 +2750,32 @@ function PlayerInventoryGui:_update_info_deployable(name, slot)
 		local amount_2 = nil
 		local has_short_desc = managers.localization:exists(deployable_data.desc_id .. "_short")
 		local deployable_uses = nil
+		local deployable_secondary_info = nil
+		local pickup_low = 0.01
+		local pickup_high = 0.01
+		local skill_pickup_chance = 1 -- Currently fixed at 1, might or might not see more use if we decide to make a skill that increases it.
 
 		if deployable_id == "doctor_bag" then
 			deployable_uses = tweak_data.upgrades.doctor_bag_base + (managers.player:equiptment_upgrade_value(deployable_id, "amount_increase") or 0)
 		elseif deployable_id == "ammo_bag" then
-			deployable_uses = tweak_data.upgrades.ammo_bag_base + (managers.player:equiptment_upgrade_value(deployable_id, "ammo_increase") or 0)
+			deployable_uses = (tweak_data.upgrades.ammo_bag_base + (managers.player:equiptment_upgrade_value(deployable_id, "ammo_increase") or 0)) * 100 .. "%"
 		elseif deployable_id == "trip_mine" then
 			amount_2 = (equipment_data.quantity[2] or 1) + (managers.player:equiptment_upgrade_value("shape_charge", "quantity") or 0)
+			pickup_low = equipment_data.pickup_low or pickup_low
+			pickup_high = equipment_data.pickup_high or pickup_high
 		elseif deployable_id == "ecm_jammer" then
 			local mult_1 = managers.player:has_category_upgrade(deployable_id, "duration_multiplier") and managers.player:equiptment_upgrade_value(deployable_id, "duration_multiplier") or 1
 			local mult_2 = managers.player:has_category_upgrade(deployable_id, "duration_multiplier_2") and managers.player:equiptment_upgrade_value(deployable_id, "duration_multiplier_2") or 1
 			deployable_uses = tweak_data.upgrades.ecm_jammer_base_battery_life * mult_1 * mult_2
 		elseif deployable_id == "sentry_gun_silent" then
 			deployable_id = "sentry_gun"
+		elseif deployable_id == "grenade_crate" then
+			deployable_uses = tweak_data.upgrades.ordnance_bag_grenades
+			deployable_secondary_info = tweak_data.upgrades.ordnance_bag_ammo * managers.player:upgrade_value("grenade_crate", "ammo_increase", 1) * 100 .. "%"
 		end
 
 		if deployable_id == "sentry_gun" then
-			local ammo_cost = { --SentryGunBase isn't loaded outside of gameplay so I gotta dupe the cost table here, maybe I'll move it to tweak_data
-				0.4,
-				0.35,
-				0.3
-			}
+			local ammo_cost = tweak_data.upgrades.sentry_gun_ammo_cost
 			local cost_reduction = managers.player:has_category_upgrade(deployable_id, "cost_reduction") and managers.player:equiptment_upgrade_value(deployable_id, "cost_reduction") or 1
 			deployable_uses = ammo_cost[cost_reduction] * 100 .. "%"
 		end
@@ -2778,7 +2795,10 @@ function PlayerInventoryGui:_update_info_deployable(name, slot)
 			text_string = text_string .. managers.localization:text(((has_short_desc and deployable_data.desc_id .. "_short") or deployable_data.desc_id), {
 				BTN_INTERACT = managers.localization:btn_macro("interact", true),
 				BTN_USE_ITEM = managers.localization:btn_macro("use_item", true),
-				deployable_uses = deployable_uses
+				deployable_uses = deployable_uses,
+				deployable_secondary_info = deployable_secondary_info,
+				pickup_1 = math.floor(1 / (pickup_high * skill_pickup_chance)),
+				pickup_2 = math.floor(1 / (pickup_low * skill_pickup_chance))
 			}) .. "\n"
 		end
 	end

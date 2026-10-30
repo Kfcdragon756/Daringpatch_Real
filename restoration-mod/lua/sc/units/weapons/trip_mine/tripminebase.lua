@@ -23,11 +23,11 @@ function TripMineBase:_sensor(t)
 			if managers.player:has_category_upgrade("trip_mine", "sensor_highlight") then
 				if Daring_Target_Enable then
 					if (--[[managers.groupai:state():whisper_mode() and ]]tweak_data.character[ray.unit:base()._tweak_table].silent_priority_shout or tweak_data.character[ray.unit:base()._tweak_table].priority_shout) then
-						managers.game_play_central:auto_highlight_enemy(ray.unit, true)
+						managers.game_play_central:auto_highlight_enemy(ray.unit, true, "trip_mine")
 					end
 				else
 					if (managers.groupai:state():whisper_mode() and tweak_data.character[ray.unit:base()._tweak_table].silent_priority_shout or tweak_data.character[ray.unit:base()._tweak_table].priority_shout) then
-						managers.game_play_central:auto_highlight_enemy(ray.unit, true)
+						managers.game_play_central:auto_highlight_enemy(ray.unit, true, "trip_mine")
 					end
 				end
 				self:_emit_sensor_sound_and_effect()
@@ -89,6 +89,16 @@ function TripMineBase:_check_body()
 		self._attached_data.index = 1
 	end
 end
+
+--[[
+Hooks:PostHook(TripMineBase, "_set_armed", "resmod_tripmine_set_armed", function(self, armed)
+	if armed then
+		self._unit:body("body_static"):set_enabled(true)
+	else
+		self._unit:body("body_static"):set_enabled(false)
+	end
+end)
+--]]
 
 function TripMineBase:_explode(col_ray)
 	if not managers.network:session() then

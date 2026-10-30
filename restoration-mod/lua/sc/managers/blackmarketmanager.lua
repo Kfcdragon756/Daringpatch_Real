@@ -360,7 +360,7 @@ function BlackMarketManager:get_real_mask_id(mask_id, peer_id, char)
 		return table.random(yippiekiyay)
 	end
 
-	local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSACText")
+	local easterless = restoration and restoration.Options:GetValue("OTHER/GCGPYPMMSACCrew")
 	if not easterless then
 		local i_just_drank_my_toilet_water = not peer_id and math.rand(1) or 10
 		if char and char == "wild" and i_just_drank_my_toilet_water <= 0.01 then
@@ -496,4 +496,40 @@ function BlackMarketManager:_calculate_suspicion_offset(index, lerp)
 	local susp_lerp = math.clamp(1 - (con_val - min_val) / (max_val - min_val), 0, 1)
 
 	return math.lerp(0, lerp, susp_lerp)
+end
+
+-- Only Restoration Steam-group items receive an extra ownership check.
+local restoration_crafted_mask_unlocked = BlackMarketManager.crafted_mask_unlocked
+function BlackMarketManager:crafted_mask_unlocked(slot)
+ local crafted=self._global.crafted_items.masks[slot]
+ if crafted and not managers.dlc:restoration_group_item_allowed("masks",crafted.mask_id) then
+  return false, managers.dlc:restoration_group_item_dlc("masks",crafted.mask_id)
+ end
+ return restoration_crafted_mask_unlocked(self,slot)
+end
+local restoration_buy_mask = BlackMarketManager.on_buy_mask
+function BlackMarketManager:on_buy_mask(mask_id,global_value,...)
+ if not managers.dlc:restoration_group_item_allowed("masks",mask_id) then return end
+ return restoration_buy_mask(self,mask_id,global_value,...)
+end
+local restoration_buy_inventory_mask = BlackMarketManager.on_buy_mask_to_inventory
+function BlackMarketManager:on_buy_mask_to_inventory(mask_id,global_value,...)
+ if not managers.dlc:restoration_group_item_allowed("masks",mask_id) then return end
+ return restoration_buy_inventory_mask(self,mask_id,global_value,...)
+end
+local restoration_equip_mask = BlackMarketManager.equip_mask
+function BlackMarketManager:equip_mask(slot)
+ local masks=self._global.crafted_items.masks
+ if masks and masks[slot] and not managers.dlc:restoration_group_item_allowed("masks",masks[slot].mask_id) then return end
+ return restoration_equip_mask(self,slot)
+end
+local restoration_player_style_unlocked = BlackMarketManager.player_style_unlocked
+function BlackMarketManager:player_style_unlocked(style)
+ if not managers.dlc:restoration_group_item_allowed("player_styles",style) then return false end
+ return restoration_player_style_unlocked(self,style)
+end
+local restoration_suit_variation_unlocked = BlackMarketManager.suit_variation_unlocked
+function BlackMarketManager:suit_variation_unlocked(style,variation)
+ if not managers.dlc:restoration_group_item_allowed("player_styles",style) then return false end
+ return restoration_suit_variation_unlocked(self,style,variation)
 end

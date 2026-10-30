@@ -87,8 +87,8 @@ end
 if not PackageManager:loaded("packages/scenvlevels") then
 	PackageManager:load("packages/scenvlevels")
 end
-if not PackageManager:loaded("packages/outfitassets") then
-	PackageManager:load("packages/outfitassets")
+if not PackageManager:loaded("packages/res_misc_outfits") then
+	PackageManager:load("packages/res_misc_outfits")
 end	
 
 -- Always load
