@@ -1483,6 +1483,15 @@ function GroupAIStateBase:on_criminal_suspicion_progress(u_suspect, u_observer, 
 	end
 
 	local obs_susp_data = susp_data[obs_key]
+	-- A completed call's timer must not remove a subsequent live HUD state.
+	if obs_susp_data and (status == "calling" or status == true or status == "call_interrupted") then
+		obs_susp_data.expire_t = nil
+		obs_susp_data.persistent = nil
+		if obs_susp_data.status ~= status then
+			obs_susp_data._subdued_civ = nil
+			obs_susp_data._alerted_civ = nil
+		end
+	end
 
 	if status == "called" then
 		if obs_susp_data then
@@ -1978,6 +1987,17 @@ function GroupAIStateBase:_upd_criminal_suspicion_progress(...)
 			local unit = obs_susp_data.u_observer
 			
 			if managers.enemy:is_civilian(unit) then
+				-- Retire the completed-call icon after its normal delay, but keep
+				-- showing a living civilian's current state during stealth.
+				if self._whisper_mode and obs_susp_data.status == "called" and obs_susp_data.expire_t
+					and self._t > obs_susp_data.expire_t and alive(unit)
+					and not (unit:character_damage() and unit:character_damage():dead()) then
+					local brain = unit:brain()
+					local logic_data = brain and brain._logic_data
+					local internal_data = logic_data and logic_data.internal_data
+					local status = internal_data and internal_data.calling_the_police and "calling" or true
+					self:on_criminal_suspicion_progress(nil, unit, status)
+				end
 				local waypoint = managers.hud._hud.waypoints["susp1" .. tostring(obs_key)]
 				
 				if waypoint then

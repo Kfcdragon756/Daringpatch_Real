@@ -2209,7 +2209,7 @@ end
 function NewRaycastWeaponBase:fire(...)
 	local ray_res = NewRaycastWeaponBase.super.fire(self, ...)
 
-	if self._fire_mode == ids_burst and self._bullets_fired > 1 and not self:weapon_tweak_data().sounds.fire_single then
+	if self._fire_mode == ids_burst and self._bullets_fired and self._bullets_fired > 1 and not self:weapon_tweak_data().sounds.fire_single then
 		self:_fire_sound()
 	end
 	
@@ -2217,12 +2217,13 @@ function NewRaycastWeaponBase:fire(...)
 	if self._fire_rate_init_reset_t then
 		self._fire_rate_init_reset_t = t + self._fire_rate_init_reset
 	end
-	self._shots_fired_init = self._shots_fired_init + 1
+	-- NPC/custom weapon paths may reach fire without player stat setup.
+	self._shots_fired_init = (self._shots_fired_init or 0) + 1
 
-	self._shots_fired = self._shots_fired + 1
+	self._shots_fired = (self._shots_fired or 0) + 1
 
 	if not self._starwars then
-		self._shots_fired_mag = self._shots_fired_mag + 1
+		self._shots_fired_mag = (self._shots_fired_mag or 0) + 1
 	end
 
 	if ray_res and not self.AKIMBO and self:in_burst_mode() then

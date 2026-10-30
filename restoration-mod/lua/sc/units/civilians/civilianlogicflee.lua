@@ -1,3 +1,19 @@
+-- Gunfire calming must reach the existing intimidation handler even when a
+-- fleeing civilian already has a coarse path (including while calling).
+local res_civilian_flee_on_alert = CivilianLogicFlee.on_alert
+function CivilianLogicFlee.on_alert(data, alert_data)
+	if data.internal_data.coarse_path and alert_data[1] == "bullet" then
+		local aggressor = alert_data[5]
+		local base = alive(aggressor) and aggressor:base()
+		if base and ((base.is_local_player and managers.player:has_category_upgrade("player", "civ_calming_alerts"))
+			or (base.is_husk_player and base:upgrade_value("player", "civ_calming_alerts"))) then
+			data.unit:brain():on_intimidated(1, aggressor)
+			return
+		end
+	end
+	return res_civilian_flee_on_alert(data, alert_data)
+end
+
 --Add Cop Chatter when registering hostage rescue objective
 function CivilianLogicFlee.register_rescue_SO(ignore_this, data)
 	local my_data = data.internal_data
