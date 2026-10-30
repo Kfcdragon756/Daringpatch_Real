@@ -179,7 +179,7 @@ function RaycastWeaponBase.collect_hits(from, to, setup_data, weapon_unit)
 		unit = hit.unit
 		u_key = unit:key()
 		local range = is_semi_snp and weap_base:get_damage_falloff(1, hit, managers.player:player_unit()) --这里的get_damage_falloff()方法就是造成连狙有衰减的元凶，但是怎么回事呢？倘如直接删去这个方法/把它更改为数字，又会在之后穿盾的运算中崩溃...
-			local near_falloff_distance = range and weap_base.near_falloff_distance
+			local near_falloff_distance = (range and weap_base.near_falloff_distance) or 2000
 			local distance = range and hit.distance
 		if not units_hit[u_key] then
 			units_hit[u_key] = true
