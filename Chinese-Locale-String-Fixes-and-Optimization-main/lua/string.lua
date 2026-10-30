@@ -3,7 +3,7 @@ if not schinese and not CHNMOD_PATCH then
     return
 end
 
-if restoration then
+if restoration and restoration.is_overhaul == true then
     return
 end
 
@@ -73,7 +73,7 @@ if RequiredScript and RequiredScript == "lib/managers/localizationmanager" then
             -- bm_wp_ak_upg_dh_zenitco = "战术拉机柄", --fixed
             -- desc
             bm_wp_upg_a_rip_desc = "涂有毒药的子弹，能随时间造成伤害，并有几率麻痹敌人。毒弹的效果受武器伤害衰减影响。",
-            bm_wp_upg_a_dragons_breath_desc = "发射燃烧弹药，能烧穿敌人盾牌和护甲。燃烧伤害受暴击影响。",
+            bm_wp_upg_a_dragons_breath_desc = "发射燃烧弹药，能烧穿敌人盾牌和护甲。燃烧伤害不受暴击影响。",
             bm_wp_upg_a_piercing_desc = "能延长武器的衰减始距，可有效穿透敌人护甲。",
             bm_wp_upg_a_slug_desc = "发射一枚独头弹，可以刺穿敌人护甲，盾牌，以及墙壁，且伤害不再随距离衰减。此弹药类型十分罕见。",
             bm_wp_upg_a_custom_desc = "大号弹药可以造成更强的冲击，提高伤害。",

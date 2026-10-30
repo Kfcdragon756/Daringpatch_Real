@@ -1,8 +1,8 @@
 [
     {
         "ident" : "pd2_chinese_locale_string_fixes",
-        "version" : "8.21-(V13)-5",
-        "patchnotes_url" : "https://www.modworkshop.net/mod/35568#changelog",
+        "version" : "8.24-(V14)-0",
+        "patchnotes_url" : "https://modworkshop.net/mod/35568?tab=changelog",
         "download_url" : "https://gitlab.com/LeftOwlRight/Chinese-Locale-String-Fixes-and-Optimization/-/archive/main/Chinese-Locale-String-Fixes-and-Optimization-main.zip"
     }
 ]

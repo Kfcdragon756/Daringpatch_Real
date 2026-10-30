@@ -13,7 +13,10 @@ ChinStringFixes.settings = {
             NoMA_Enable = true
         },
         Resmod = {
-            Resmod_Compat = 3
+            Resmod_Compat = 3,
+            Resmod_Updater = function()
+                CSFRestorationUpdate:Launch()
+            end
         },
         OVKNMSL = {
             OVKNMSL_Enable = true,
@@ -65,6 +68,8 @@ ChinStringFixes.order = {
     OVKNMSL_Enable = 10,
     OVKNMSL_Volume = 5
 }
+
+ChinStringFixes.Res_Path = CSFRestorationUpdate:ResolvePath()
 
 ChinStringFixes.required = {}
 

@@ -691,7 +691,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["restoration_level_data_Gambling_room"] = "9:29 PM, Twenty Four Seven Store", -- Underground Bargains
         ["restoration_level_data_finsternis"] = "5:24 PM, Germany - Schwarzwald", -- Projekt Finsternis
 
-        ["heist_greattrain_name"] = "Time Window",
+        ["heist_greattrain_name"] = "Time Window",  --dont translate
         ["heist_easystore_name"] = "全年无休",
         ["heist_sin_villa_name"] = "SCORE: Villa Vivaldi",
         ["heist_dragon_name"] = "铁拳",
@@ -1766,7 +1766,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["dr_wei_MR_saw_desc"] = "一种魔法锯片使你能够#{skill_color}#对着队友锯来为他们提供治疗##（不限距离），每次攻击可以提供#{stats_positive}#0.8-2.4##点治疗量。\n\n#{important_1}#只对玩家队友有效。##\n\n#{heat_warm_color}#所有玩家必须更新到恢复Mod私人平衡补丁(V5)才能让此配件生效##",
 
 
-        -- Gecko Pistol
+        -- Gecko Pistol  --tra
         --弃用["bm_tranq_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
         --弃用["bm_tranq_x_maxim_sc_desc"] = "世界上第一把一体化消音手枪,其易操作性与高隐蔽性正适合打出镇静弹虚弱目标。\n\n这把枪使用#{skill_color}#镇静弹##在短时间内造成#{skill_color}#持续伤害##。",
         ["bm_tranq_maxim_sc_desc"] = "The world's first commercially available #{skill_color}#integrally suppressed## semi-auto pistol, good handling and concealability tie in well with debilitating tranquilizer rounds.\n\n#{stats_positive}#Deals 60 damage over 2 seconds with tranquilizer rounds.##\n#{risk}#Duration diminishes over range.##",
@@ -1979,7 +1979,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         -- Typhoon
         ["bm_w_crysis3_typhoon"] = "CRYNET Typhoon 冲锋枪",
         ["bm_w_crysis3_typhoon_desc"] = "\"#{heat_warm_color}#至简至纯，思言万千。##\"\n\n运用#{risk}#枪管叠载##技术，这个十管冲锋枪以伤害为代价换取了惊人的速度倾泻子弹。\n\n辅助射击以进入#{skill_color}#齐射模式##一次发射#{skill_color}#10##发子弹。",
-        --Fang 45
+        --Fang 45  --tra
         ["bm_w_fang45_desc"] = "#{skill_color}#Fire rate is increased by 33% for the first 5 shots of every reload.##",
         --KSP 45
         ["bm_w_ksp45_desc_sc"] = "3-round burst submachine gun. High damage with moderate range. Burst fire spread is less efficient at long range.",

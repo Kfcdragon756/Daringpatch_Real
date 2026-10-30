@@ -12,7 +12,7 @@
 	"chinsf_res_disable" : "禁用",
 	"chinsf_res_main" : "正式版 V12.3.1",
 	"chinsf_res_dev" : "私人平衡补丁V13",
-	"chinsf_res_dev_new" : "私人平衡补丁V12",
+	"chinsf_res_dev_new" : "私人平衡补丁V14",
 
 	"CSF_ResModUpdater_title" : "啊哦！",
 
@@ -35,6 +35,7 @@
 	"CSF_WarnMeLater" : "稍后提醒",
 	"CSF_ResModUpdater_message_r1" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这很可能是因为你没有将恢复私人补丁与汉化都更新到最新版本。",
 	"CSF_ResModUpdater_message_r2" : "检测到你使用的恢复Mod汉化版本与你实际游玩的版本并不匹配。\n这可能是你没有安装配置文件或配置文件已丢失。请手动在模组选项中调整“官方中文修复优化”使用的恢复Mod汉化版本。",
+	"CSF_ResUpdater_missing" : "未找到私人补丁更新器，请重新覆盖安装完整的CN补丁。",
 	"CSF_ResModUpdater_message_come" : "检测到你没有使用最新的恢复Mod私人更新补丁哦，本汉化已不再支持官方版本，仅支持我们的补丁版本。\n如果你已经在用了，请尽快更新；\n如果你不知道这是什么，在ModWorkshop上搜索“官方中文修复与优化”进入本模组的主页了解更多信息。\n安装补丁即刻获取更加平衡、更加多样性和更加人性化的体验吧！",
 
 
@@ -123,9 +124,9 @@
 	"menu_chin_string_fixes_Resmod" : "恢复MOD",
 	"menu_chin_string_fixes_Resmod_desc" : "即Restoration Mod。它的汉化更新会优先发布在本模组上。\n当汉化更新量小的时候，为免麻烦他们，我就会把更新放到这里。",
 	"menu_chin_string_fixes_Resmod_Compat" : "模组版本号",
-	"menu_chin_string_fixes_Resmod_Compat_desc" : "在此根据你使用的恢复Mod版本号选择对应版本的汉化。",
+	"menu_chin_string_fixes_Resmod_Compat_desc" : "根据所用CN补丁版本选择汉化。V14的dev-64bit补丁会自动选择对应汉化；选择“禁用”时不自动切换。",
 	"menu_chin_string_fixes_Resmod_Updater" : "检查恢复补丁的更新",
-	"menu_chin_string_fixes_Resmod_Updater_desc" : "按下此按钮会调用一个程序检查你是否有私人平衡补丁的更新。\n如果有，会自动访问手动更新的下载页面。私人补丁V8及以上版本才可用。",
+	"menu_chin_string_fixes_Resmod_Updater_desc" : "检查同分支的私人平衡补丁更新。有新版本时打开手动下载页面，再由你覆盖安装。V14不会提供gold分支补丁的覆盖更新。",
 
 	"menu_chin_string_fixes_Resmod_WarnMe" : "重新恢复到启动游戏时会检查版本更新的状态",
 	"menu_chin_string_fixes_Resmod_WarnMe_desc" : "如果你原先在更新提醒页面点了“永远别再提醒”，\n则可以通过按下此按钮恢复更新提醒。",

@@ -10,3 +10,4 @@ Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInit_ltyrchinfi
 	loc:load_localization_file(mpath..path)
 end)
 
+

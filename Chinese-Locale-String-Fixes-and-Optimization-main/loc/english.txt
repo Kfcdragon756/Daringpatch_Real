@@ -49,7 +49,7 @@
 	"menu_chin_string_fixes_NoMA_Enable" : "Enable",
 	"menu_chin_string_fixes_NoMA_Enable_desc" : "Check to enable.",
 
-	"menu_chin_string_fixes_OVKNMSL" : "Press to Kill OVK\'s mama",
+	"menu_chin_string_fixes_OVKNMSL" : "Press to Kill OVK's mama",
 	"menu_chin_string_fixes_OVKNMSL_desc" : "",
 	"menu_chin_string_fixes_OVKNMSL_Enable" : "Receive Audio",
 	"menu_chin_string_fixes_OVKNMSL_Enable_desc" : "Check to receive audio played by other players.",
@@ -113,9 +113,9 @@
 
 	"menu_chin_string_fixes_Resmod" : "Restoration Mod",
 	"menu_chin_string_fixes_Resmod_Compat" : "Version(Branch)",
-	"menu_chin_string_fixes_Resmod_Compat_desc" : "Choose the branch of Restoration MOD.\nThis setting makes no effect when your game language is not Chinese.",
+	"menu_chin_string_fixes_Resmod_Compat_desc" : "Choose localization for the installed CN patch. The V14 dev-64bit patch selects its matching localization automatically unless disabled.",
 	"menu_chin_string_fixes_Resmod_Updater" : "Resmod Patch Updater",
-	"menu_chin_string_fixes_Resmod_Updater_desc" : "Press the button will check if you are using the newest ResMod made by myself.\nIf so, it will auto start your browser and download.Patch V8 or higher version is requested.",
+	"menu_chin_string_fixes_Resmod_Updater_desc" : "Check for newer CN patches on the same branch. A matching update opens the manual download page. V14 will not offer a gold patch as an update.",
 	"menu_chin_string_fixes_res_perk" : "Origin ResMod Perk Desc",
 	"menu_chin_string_fixes_res_perk_desc" : "Show the original texts of perk description on Restoration Mod.",
 	
@@ -125,5 +125,7 @@
 	"chinsf_dialog_ovkplussig" : "Official/Unite",
 	"chinsf_dialog_origin" : "Original PDLG",
 	"chinsf_dialog_LtyR" : "Author's Preference",
-	"menu_chin_string_fixes_perk_deck_tip_desc" : "Official: 官方中文\nUnite: 联合汉化"
+	"menu_chin_string_fixes_perk_deck_tip_desc" : "Official: 官方中文\nUnite: 联合汉化",
+	"CSF_ResUpdater_missing" : "The CN patch updater is missing. Reinstall the complete CN patch.",
+	"chinsf_res_dev_new" : "Private Balance Patch V14"
 }

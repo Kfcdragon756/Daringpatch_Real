@@ -3,11 +3,13 @@ if not schinese then
 	return
 end
 
-if not restoration then
+local is_restoration_overhaul = restoration and restoration.is_overhaul == true
+
+if not is_restoration_overhaul then
 	return
-else
-	log("ChinStringFixes : Restoration_Mod Detected.")
 end
+
+log("ChinStringFixes : Restoration Mod overhaul detected.")
 
 if ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat == 1 then
 	return
@@ -28,9 +30,10 @@ local function read_json_file(file_path)
         file:close()
 
         -- 使用 BLT 内置的 json.decode 解析 JSON 字符串
-        local data = json.decode(content)
-        if data and data.version then
-            return data.version
+        local ok, data = pcall(json.decode, content)
+        if not ok then data = nil end
+        if type(data) == "table" and data.version then
+            return tostring(data.version), data
         else
             log("Failed to parse version information.")
         end
@@ -73,6 +76,7 @@ local Using_SC_Path
 
 local loc_path = ChinStringFixes.mod_path .. "loc/schinese.txt"  --loc路径
 local content = read_txt_file(loc_path)
+ChinStringFixes.Res_Path = CSFRestorationUpdate:ResolvePath()
 local version_path = "mods/restoration-mod/update/version.json"
 if ChinStringFixes.Res_Path then
 	version_path = ChinStringFixes.Res_Path .. "update/version.json"
@@ -82,7 +86,11 @@ elseif SC and SC._path then
     Using_SC_Path = true
 end
 
-local local_version = read_json_file(version_path)  --res版本号路径
+local local_version, local_metadata = read_json_file(version_path)
+-- V14 is the dev-64bit localization; keep old gold selections for legacy installs.
+if local_metadata and local_metadata.channel == "dev-64bit" then
+    ChinStringFixes.settings.Mod_Support.Resmod.Resmod_Compat = 4
+end
 
 local current_version
 local main_version
@@ -263,8 +271,7 @@ Hooks:Add("MenuManagerOnOpenMenu", "CSF_MenuManagerOnOpenMenu_CheckResVersion", 
                         menu_options_first[4] = {
                             text = managers.localization:text('CSF_UpdateNow'),
                             callback = function()
-                                local path = ChinStringFixes.Res_Path .. "update\\updater.exe"
-                                os.execute('start "" "' .. path .. '"')
+                                CSFRestorationUpdate:Launch()
                             end
                         }
                     end

@@ -1,3 +1,5 @@
+dofile(ModPath .. "resloc/update_support.lua")
+
 if not ChinStringFixes then
     if HopLib then
         dofile(ModPath .. "menu/menu_hoplib.lua")
@@ -367,31 +369,34 @@ end
 
 -- LuaNetworking Receiver
 Hooks:Add("NetworkReceivedData", "NetworkReceivedData_CSF_OVKNMSL_PD3", function(sender, id, data)
+    if id ~= "OVKNMSL_sent_my_id" then
+        return
+    end
+    if OVKNMSL_PD3 then
+        return
+    end
     if not ChinStringFixes.settings.Enable_String or not ChinStringFixes.settings.Mod_Support.OVKNMSL.OVKNMSL_Enable then
         return
     end
+
+    local table_get_from_data = data and json.decode(data)
+    if not table_get_from_data or not table_get_from_data.value_1 then
+        return
+    end
+
     local volume = ChinStringFixes.settings.Mod_Support.OVKNMSL.OVKNMSL_Volume
     local peer_unit = CSF_get_PeerUnit_by_PeerID(sender)
-    local table_get_from_data = {}
-    if data then
-        table_get_from_data = json.decode(data)
+    local preplay_path = table_get_from_data.value_1
+    local last_character = string.sub(preplay_path, -5)
+
+    if last_character == "2.ogg" then
+        preplay_path = ChinStringFixes.mod_path .. "lua/Mod_Support/OVKNMSL/die2.ogg"
+    elseif last_character == "e.ogg" then
+        preplay_path = ChinStringFixes.mod_path .. "lua/Mod_Support/OVKNMSL/die.ogg"
     end
-    if id == "OVKNMSL_sent_my_id" then
-        if table_get_from_data and table_get_from_data.value_1 then
-            local preplay_path = table_get_from_data.value_1
-            local last_character = string.sub(preplay_path, -5)
 
-            if last_character == "2.ogg" then
-                preplay_path = ChinStringFixes.mod_path .. "lua/Mod_Support/OVKNMSL/die2.ogg"
-            elseif last_character == "e.ogg" then
-                preplay_path = ChinStringFixes.mod_path .. "lua/Mod_Support/OVKNMSL/die.ogg"
-            end
-
-            if io.file_is_readable(preplay_path) then
-                CSF_play_audio(volume, peer_unit, preplay_path)
-            end
-
-        end
+    if io.file_is_readable(preplay_path) then
+        CSF_play_audio(volume, peer_unit, preplay_path)
     end
 end)
 

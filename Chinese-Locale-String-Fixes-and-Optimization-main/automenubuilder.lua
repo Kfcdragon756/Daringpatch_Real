@@ -42,9 +42,20 @@ function AutoMenuBuilder:create_menu_from_table(menu_nodes, settings_table, iden
   end
 
   MenuCallbackHandler[identifier .. "_save"] = function (self)
+    local function serializable(tbl)
+      local data = {}
+      for k, v in pairs(tbl) do
+        if type(v) == "table" then
+          data[k] = serializable(v)
+        elseif type(v) ~= "function" then
+          data[k] = v
+        end
+      end
+      return data
+    end
     local file = io.open(SavePath .. identifier .. ".txt", "w+")
     if file then
-      file:write(json.encode(settings_table))
+      file:write(json.encode(serializable(settings_table)))
       file:close()
     end
   end
@@ -122,6 +133,17 @@ function AutoMenuBuilder:create_menu_from_table(menu_nodes, settings_table, iden
           desc = loc:exists(desc_id) and desc_id,
           callback = identifier .. "_value",
           value = v,
+          menu_id = menu_id,
+          priority = order[k]
+        })
+      elseif t == "function" then
+        local action_id = identifier .. "_action_" .. (hierarchy .. k):gsub("/", "_")
+        MenuCallbackHandler[action_id] = function() v() end
+        MenuHelper:AddButton({
+          id = hierarchy .. k,
+          title = name_id,
+          desc = loc:exists(desc_id) and desc_id,
+          callback = action_id,
           menu_id = menu_id,
           priority = order[k]
         })

@@ -2466,6 +2466,8 @@ if schinese then
 
 		self.skill_descs.scavenging = {
 			skill_value_b1 = tostring(self.values.player.increased_pickup_area[1] % 1 * 100).."%", -- Increase ammo pick up range
+			skill_value_b2 = tostring(self.values.player.scaling_pickup_area[1].area_mod % 1 * 100).."%",
+			skill_value_b3 = tostring(self.values.player.scaling_pickup_area[1].armor_steps * 10),
 			skill_value_p1 = tostring(self.values.player.double_drop[1]), -- +1 ammo box after X kills
 			skill_value_zh_p1 = number_to_chinese(self.values.player.double_drop[1]), -- +1 ammo box after X kills  数字转中文
 		}
@@ -3895,14 +3897,6 @@ self.specialization_descs[5][1] = {
 	
 	--Sociopath
 	
-if schinese then
-		self.specialization_descs[8][9] = {
-			perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- 每次的回血量
-			perk_value_2 = tostring(self.melee_to_hot_data.total_ticks*self.melee_to_hot_data.tick_time), -- 每层的持续时间
-			perk_value_3 = tostring(self.melee_to_hot_data.max_stacks), -- 总层数
-			perk_value_zh_1 = tostring(self.melee_to_hot_data.tick_time)  --每几秒触发一次
-		}
-	end
 self.specialization_descs[9][1] = {
 		--perk_value_1 = "18", -- Required range to activate DR (Same range as "Underdog" skill)
 		--perk_value_2 = tostring((1 - self.values.dmg_dampener_outnumbered_strong[1][1]) * 100).."%" -- DR when enemy is close
@@ -4311,8 +4305,9 @@ self.specialization_descs[13][1] = {
 	}
 	self.specialization_descs[18][9] = {
 		perk_value_1 = tostring(self.values.player.heal_over_time[1] * 10), -- HP regen per tick
-		perk_value_2 = tostring(self.melee_to_hot_data.total_ticks/self.melee_to_hot_data.tick_time), -- Duration of 1 stack
-		perk_value_3 = tostring(self.melee_to_hot_data.max_stacks) -- Max amount of stacks
+		perk_value_2 = tostring(self.melee_to_hot_data.total_ticks * self.melee_to_hot_data.tick_time), -- Duration of 1 stack
+		perk_value_3 = tostring(self.melee_to_hot_data.max_stacks), -- Max amount of stacks
+		perk_value_zh_1 = tostring(self.melee_to_hot_data.tick_time) -- CN interval displayed by the Sicario card
 	}
 	
 	--Stoic

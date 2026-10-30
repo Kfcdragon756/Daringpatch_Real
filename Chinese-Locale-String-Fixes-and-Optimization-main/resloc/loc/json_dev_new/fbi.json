@@ -1,8 +1,13 @@
 {
-  "ene_city_swat" : "轻型FBI精锐干员",
-  "ene_city_heavy" : "重型FBI精锐干员",
-  "ene_city_heavy_r870_sc" : "重型FBI精锐霰弹兵",
-  "ene_city_shield" : "FBI精锐盾兵",
-  "ene_sniper_3" : "精英FBI狙击手",
-  "ene_bulldozer_3" : "骷髅熊"
+  "ene_city_swat": "轻型FBI精锐干员",
+  "ene_city_heavy": "重型FBI精锐干员",
+  "ene_city_heavy_r870_sc": "重型FBI精锐霰弹兵",
+  "ene_city_shield": "FBI精锐盾兵",
+  "ene_sniper_3": "精英FBI狙击手",
+  "ene_bulldozer_3": "骷髅熊",
+  "ene_titan_sniper": "执法官神射手",
+  "ene_phalanx_1_assault": "执法官盾兵",
+  "ene_titan_rifle": "执法官重装兵",
+  "ene_titan_shotgun": "执法官重装兵",
+  "ene_titan_taser": "执法官电击兵"
 }

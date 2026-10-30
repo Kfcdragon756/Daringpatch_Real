@@ -208,9 +208,7 @@ end
 
 -- settings
 
-if SC and SC._path then
-    ChinStringFixes.Res_Path = SC._path
-end
+ChinStringFixes.Res_Path = CSFRestorationUpdate:ResolvePath()
 
 ChinStringFixes.required = {}
 
@@ -231,17 +229,7 @@ ChinStringFixes.settings = {
         Resmod = {
             Resmod_Compat = 3,
             Resmod_Updater = function()
-                if not ChinStringFixes.Res_Path then
-                    local menu_options = {}
-                    menu_options[1] = {
-                        text = CSF_Quit
-                    }
-                    local menu = QuickMenu:new(CSF_BLT_title, managers.localization:text('CSF_ResMod_missing'), menu_options)
-                    menu:Show()
-                    return
-                end
-                local path = ChinStringFixes.Res_Path .. "update\\updater.exe"
-                os.execute('start "" "' .. path .. '"')
+                CSFRestorationUpdate:Launch()
             end,
             Resmod_WarnMe = function()
                 local file_edit = io.open(SavePath .. "CSF_Display_Update_Notification.json", "r")
