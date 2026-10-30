@@ -715,7 +715,7 @@
 	<object           path="units/pd2_dlc_character_sokol/weapons/wpn_third_ass_asval_pts/wpn_third_ass_asval_g_pgrip"/>
 	<unit             path="units/pd2_dlc_character_sokol/weapons/wpn_third_ass_asval_pts/wpn_third_ass_asval_g_pgrip"/>
 	<model            path="units/pd2_dlc_character_sokol/weapons/wpn_third_ass_asval_pts/wpn_third_ass_asval_g_standard"/>
-	<!-- CN64 RC5 diagnostic fallback: use the game DB unit for wpn_npc_sg417. -->
+	<unit             path="units/pd2_dlc_chico/weapons/wpn_npc_sg417/wpn_npc_sg417"/>
 	<cooked_physics   path="units/pd2_dlc_drm/characters/ene_bulldozer_medic_classic/ene_bulldozer_medic_classic"/>
 	<material_config  path="units/pd2_dlc_drm/characters/ene_bulldozer_medic_classic/ene_bulldozer_medic_classic"/>
 	<model            path="units/pd2_dlc_drm/characters/ene_bulldozer_medic_classic/ene_bulldozer_medic_classic"/>

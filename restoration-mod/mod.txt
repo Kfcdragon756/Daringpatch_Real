@@ -87,6 +87,10 @@
         {
             "hook_id": "lib/managers/dynamicresourcemanager",
             "script_path": "lua/others/resource_diagnostics.lua"
+        },
+        {
+            "hook_id": "core/lib/managers/coresequencemanager",
+            "script_path": "lua/others/sequence_load_compat.lua"
         }
     ]
 }
