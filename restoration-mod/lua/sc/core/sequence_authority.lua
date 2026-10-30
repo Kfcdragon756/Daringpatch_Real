@@ -357,7 +357,7 @@ local function literal(value)
 end
 -- Enumerate ordinary appearance selectors without executing Lua or consuming RNG.
 -- Uninspectable selectors remain native rather than hiding physics behind a call.
-local function selector_names(value)
+local function parse_selector_names(value)
  if type(value)~='string' then return end
  local pos,depth=1,0
  local function space()local _,last=value:find('^%s*',pos);pos=(last or pos-1)+1 end
@@ -413,6 +413,18 @@ local function selector_names(value)
  end
  local names=expression();space()
  if pos>#value then return names end
+end
+-- Selector expressions come from sequence definitions. Parsing only enumerates
+-- literal possibilities; it never evaluates expressions or chooses randomness.
+local selector_names_cache={}
+local function selector_names(value)
+ if type(value)~='string' then return end
+ local names=selector_names_cache[value]
+ if names==nil then
+  names=parse_selector_names(value) or false
+  selector_names_cache[value]=names
+ end
+ return names or nil
 end
 -- Physical bodies and their sequence call chains belong to the native engine.
 local physics_ops={['function']=true,body=true,constraint=true,physic_effect=true,set_physic_effect=true,
