@@ -45904,7 +45904,7 @@ self.wpn_fps_ass_m4_usasoc.override = self.wpn_fps_ass_m4_usasoc.override or {}
 		end
 
 		--Helldivers 2 AR-23 (v5)
-		if self.parts.wpn_fps_ass_ar23_body then
+		if self.parts.wpn_fps_ass_ar23_body and not self.parts.wpn_fps_ass_ar23_receiver_std then
 			self.parts.wpn_fps_upg_ar23_o_promo.supported = true
 			self.parts.wpn_fps_upg_ar23_o_promo.stats = { value = 1 }
 			self.parts.wpn_fps_upg_ar23_o_promo.custom_stats = nil

@@ -237,6 +237,7 @@
 		<hook file="sc/units/player/playerinventory.lua" source_file="lib/units/beings/player/playerinventory" />
 		<hook file="sc/units/player/playersound.lua" source_file="lib/units/beings/player/playersound" />
 		<hook file="sc/units/player/playerstandard.lua" source_file="lib/units/beings/player/states/playerstandard" />
+		<hook file="sc/compatibility/CNOptionalMelee.lua" source_file="lib/units/beings/player/states/playerstandard" />
 		<hook file="sc/units/player/playerincapacitated.lua" source_file="lib/units/beings/player/states/playerincapacitated" />
 		<hook file="sc/units/player/playerfatal.lua" source_file="lib/units/beings/player/states/playerfatal" />
 		<hook file="sc/units/player/playermaskoff.lua" source_file="lib/units/beings/player/states/playermaskoff" />
@@ -460,6 +461,7 @@
 		<hook file="sc/managers/savefilemanager.lua" source_file="lib/managers/savefilemanager" />
 		<!--DO NOT MODIFY-->
 		<hook file="sc/managers/customsafehousemanager.lua" source_file="lib/managers/customsafehousemanager" />
+		<hook file="sc/compatibility/CNOptionalWeapons.lua" source_file="lib/tweak_data/weaponfactorytweakdata" />
 	</Hooks>
 	<!--///HD2_Red_Trail\\\-->
 	<AddFiles directory="assets">
@@ -931,4 +933,7 @@
 		<texture path="guis/textures/pd2/skilltree/info_body_expertise_kills_to_head_shot_1" />
 		<texture path="guis/textures/pd2/skilltree/info_body_expertise_kills_to_head_shot_2" />
 	</AddFiles>
+
+	<AddFiles directory="assets/cn_optional_legacy" auto_generate="true"/>
+	<Localization directory="loc/cn_optional_legacy" default="english.txt"/>
 </mod>

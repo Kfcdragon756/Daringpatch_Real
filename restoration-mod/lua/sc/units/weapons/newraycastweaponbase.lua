@@ -3073,7 +3073,7 @@ Hooks:PostHook(NewRaycastWeaponBase, "weapon_tweak_data", "res_weapon_tweak_data
 	end
 
 	if self._name_id == "ar23" and self._parts then
-		local is_carbine = self._parts.wpn_fps_ck_ar23a
+		local is_carbine = self._parts.wpn_fps_ck_ar23a or self._parts.wpn_fps_ass_ar23_ck_carbine
 		local has_drum = self._parts.wpn_fps_ass_ar23_m_drum
 		wtd.animations.reload_name_id = "ar23" .. ((is_carbine and "a") or "") .. ((has_drum and "_drum") or "")
 	end
