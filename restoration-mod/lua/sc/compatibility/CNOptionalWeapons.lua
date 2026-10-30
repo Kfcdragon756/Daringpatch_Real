@@ -6,6 +6,8 @@ local promo = {["type"]="sight",["a_obj"]="a_o",["has_description"]=true,["desc_
 
 local dummy = "units/payday2/weapons/wpn_upg_dummy/wpn_upg_dummy"
 local ar23_factory = "wpn_fps_ass_ar23"
+-- BeardLib iterates every factory entry as weapon data. Keep bookkeeping private.
+local loot_registered = setmetatable({}, {__mode = "k"})
 local kits = {
     wpn_fps_ass_ar23_ck_carbine = "wpn_fps_ass_ar23_o_carbine_ck",
     wpn_fps_ass_ar23_ck_penetrator = "wpn_fps_ass_ar23_optic_ck",
@@ -199,8 +201,8 @@ Hooks:PostHook(WeaponFactoryTweakData, "create_bonuses", "CNOptionalWeaponFactor
     end
 
     -- Give visible legacy options the same initial ownership as BeardLib's current parts.
-    if TweakDataHelper and not self._cn_optional_loot_registered then
-        self._cn_optional_loot_registered = true
+    if TweakDataHelper and not loot_registered[self] then
+        loot_registered[self] = true
         for id in pairs(aliases) do
             local part = self.parts[id]
             if part and legacy_visible[id] then
