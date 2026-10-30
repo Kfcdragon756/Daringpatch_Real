@@ -83,6 +83,10 @@
         {
             "hook_id": "lib/managers/playermanager",
             "script_path": "lua/others/liberator_compat.lua"
+        },
+        {
+            "hook_id": "lib/managers/dynamicresourcemanager",
+            "script_path": "lua/others/resource_diagnostics.lua"
         }
     ]
 }

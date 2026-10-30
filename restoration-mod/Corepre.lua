@@ -1,11 +1,17 @@
+-- Framework initialization can change the global ModPath while loading child mods.
+local restoration_root_path = ModPath
+
 --Map Replacements (WIP)
 RestorationMapFramework = RestorationMapFramework or class(MapFramework)
 
-RestorationMapFramework._directory = ModPath .. "map_replacements"
+RestorationMapFramework._directory = restoration_root_path .. "map_replacements"
 RestorationMapFramework.type_name = "restoration"
 
 RestorationMapFramework:init()
 RestorationMapFramework:InitMods()
+
+-- Restore our caller context after BeardLib loaded the framework children.
+ModPath = restoration_root_path
 
 -- Asset registration. These packages only create DB entries - no unit is handed
 -- to dyn_resource from here - so loading them this early is cheap and is what
@@ -57,7 +63,11 @@ local restoration_tweak_exempt_extensions = {
 -- added_files is global: every BeardLib mod is in there, and exempting another
 -- mod's asset would silently kill a tweak that is not ours to disable. Only take
 -- entries whose file actually lives under this mod.
-local restoration_file_prefix = (ModPath or "mods/restoration-mod/"):lower()
+local function restoration_normalize_file_path(path)
+	return tostring(path):gsub("\\", "/"):gsub("/+", "/"):lower()
+end
+local restoration_file_prefix = restoration_normalize_file_path(restoration_root_path)
+if restoration_file_prefix:sub(-1) ~= "/" then restoration_file_prefix = restoration_file_prefix .. "/" end
 
 if blt and blt.ignoretweak and Global.fm and Global.fm.added_files then
 	local exempt, foreign = 0, 0
@@ -67,7 +77,7 @@ if blt and blt.ignoretweak and Global.fm and Global.fm.added_files then
 		if bucket then
 			for _, entry in pairs(bucket) do
 				if entry.path and entry.file then
-					if tostring(entry.file):lower():find(restoration_file_prefix, 1, true) == 1 then
+					if restoration_normalize_file_path(entry.file):find(restoration_file_prefix, 1, true) == 1 then
 						-- never let a signature change here stop the mod from loading
 						local ok = pcall(blt.ignoretweak, entry.path, ext)
 						if ok then exempt = exempt + 1 end
