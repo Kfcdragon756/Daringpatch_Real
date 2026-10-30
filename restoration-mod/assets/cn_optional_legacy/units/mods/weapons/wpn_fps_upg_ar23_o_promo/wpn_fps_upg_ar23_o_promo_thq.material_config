@@ -1,0 +1,7 @@
+<materials version="3" group="weapon_victor">
+    <material render_template="generic:DIFFUSE_TEXTURE:GSMA_TEXTURE:NORMALMAP" name="mat_sights" version="2">
+        <diffuse_texture file="units/pd2_dlc_savi/weapons/wpn_fps_snp_victor_pts/victor_sights_df"/>
+        <material_texture file="units/pd2_dlc_savi/weapons/wpn_fps_snp_victor_pts/victor_sights_gsma"/>
+        <bump_normal_texture file="units/pd2_dlc_savi/weapons/wpn_fps_snp_victor_pts/victor_sights_nm"/>
+    </material>
+</materials>

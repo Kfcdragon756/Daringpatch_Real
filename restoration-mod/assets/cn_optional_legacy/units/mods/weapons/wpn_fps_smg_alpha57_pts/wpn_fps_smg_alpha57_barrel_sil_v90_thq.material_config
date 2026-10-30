@@ -1,0 +1,7 @@
+<materials version="3" group="weapon_group">
+    <material name="mtr_alpha57_barsil" render_template="generic:DIFFUSE_TEXTURE:NORMALMAP:NORMALMAP_UV1" version="2">
+        <diffuse_texture 	 file="units/mods/weapons/wpn_fps_smg_alpha57_pts/textures/alpha57_barrel_sil_df" mip="1"/>
+        <bump_normal_texture file="units/mods/weapons/wpn_fps_smg_alpha57_pts/textures/alpha57_barrel_sil_nm" mip="1"/>
+    </material>
+
+</materials>

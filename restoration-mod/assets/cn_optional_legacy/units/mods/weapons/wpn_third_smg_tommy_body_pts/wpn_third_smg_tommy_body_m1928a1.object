@@ -1,0 +1,7 @@
+<dynamic_object>
+	<diesel materials="units/mods/weapons/wpn_third_smg_tommy_pts/wpn_third_smg_tommy_body_m1928a1" orientation_object="rp_3p_tommy_body" />
+	<graphics>
+		<object name="g_3p_rec_m1928" enabled="true" />
+		<object name="g_3p_side" enabled="true" />
+	</graphics>
+</dynamic_object>

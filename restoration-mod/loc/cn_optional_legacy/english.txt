@@ -1,0 +1,34 @@
+{
+	"bm_w_ar23" : "AR-23 Liberator",
+	"bm_w_ar23_desc" : "The S.E.A.F standard assault rifle, balancing power, fire rate, and weight for a reliable weapon against the smaller targets.\n",
+
+	"bm_wp_wpn_fps_ass_ar23_optic" : "4x Combat Scope",
+	"bm_wp_penetrator_optic_desc" : "Good for medium to long range and the maximum magnification normally used for general weapons.",
+
+	"bm_wp_wpn_fps_ass_ar23_optic_3" : "1.5x Tube Red Dot",
+	"bm_wp_concussive_optic_desc" : "The standard scope for most weapons, provides a good and accurate scope picture.",
+
+	"bm_wp_wpn_fps_ass_ar23_ck_penetrator" : "AR-23P ''Penetrator'' Kit",
+	"bm_wp_ck_penetrator_desc" : "A Liberator conversion fitted with a custom scope and armor-piercing rounds, to help users take down armored targets.",
+
+	"bm_wp_wpn_fps_ass_ar23_laser" : "Laser Sight w/ Flashlight",
+	"bm_wp_laser_sight_desc" : "Although bulkier, it provides the effects of both a laser sight and a flashlight.",
+
+	"bm_wp_wpn_fps_ass_ar23_ck_concussive" : "AR-23C ''Concussive'' Kit",
+	"bm_wp_ck_concussive_desc" : "A Liberator conversion featuring concussive rounds which do less damage but stagger enemies.",
+
+	"bm_wp_wpn_fps_ass_ar23_ck_carbine" : "AR-23A ''Carbine'' Kit",
+	"bm_wp_ck_carbine_desc" : "A compact Liberator conversion designed for increased viability in close quarters. Has an increased fire rate at the cost of increased recoil.",
+
+	"bm_wp_wpn_fps_ass_ar23_o_carbine" : "Reflex Sight Mk2",
+	"bm_wp_carbine_optic_desc" : "A variation on the reflex sight.",
+
+	"bm_wp_wpn_fps_upg_ar23_o_promo" : "Iron Sight",
+	"bm_wp_promo_irons_desc" : "A basic iron sight for Helldivers who want to relive the glorious struggles of their ancestors.",
+
+	"menu_l_global_value_helldivers2_mod" : "This is a Helldivers 2 - Helldivers Mobilize item!",
+
+	"menu_l_global_value_helldivers2sv_mod" : "This is a Helldivers 2 - Steeled Veterans item!",
+
+	"menu_l_global_value_helldivers2vc_mod" : "This is a Helldivers 2 - Viper Commandos item!",
+}

@@ -1,0 +1,6 @@
+<dynamic_object>
+	<diesel materials="units/mods/weapons/wpn_third_smg_tommy_pts/wpn_third_smg_tommy_m_30cal" orientation_object="rp_3p_tommy_mag" />
+	<graphics>
+		<object name="g_3p_m_30cal" enabled="true" />
+	</graphics>
+</dynamic_object>

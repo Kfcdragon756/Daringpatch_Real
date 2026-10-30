@@ -1,0 +1,7 @@
+<dynamic_object>
+	<diesel materials="units/mods/weapons/wpn_fps_upg_ar23_o_promo/wpn_fps_upg_ar23_o_promo" orientation_object="rp_irons" />
+	<graphics>
+		<object name="g_g" enabled="true" />
+	</graphics>
+	<lights />
+</dynamic_object>

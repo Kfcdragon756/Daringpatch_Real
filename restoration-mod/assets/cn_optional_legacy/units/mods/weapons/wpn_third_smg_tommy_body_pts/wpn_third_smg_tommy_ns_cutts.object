@@ -1,0 +1,6 @@
+<dynamic_object>
+	<diesel materials="units/mods/weapons/wpn_third_smg_tommy_pts/wpn_third_smg_tommy_ns_cutts" orientation_object="rp_3p_tommy_ns" />
+	<graphics>
+		<object name="g_3p_cutts" enabled="true" />
+	</graphics>
+</dynamic_object>
