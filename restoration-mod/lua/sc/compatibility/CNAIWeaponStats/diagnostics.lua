@@ -1,4 +1,4 @@
--- Trial diagnostics use a separate append-only session file, independent of BLT's log.
+-- AI statistics diagnostics use a separate append-only session file, independent of BLT's log.
 local M = CN_AI_Weapon_Stats
 
 function M:init_diagnostics(save_path)
@@ -64,4 +64,4 @@ function M:trace_selection(gui, preview, equipped_id, selected_id, equipped, sel
 end
 
 M:init_diagnostics(SavePath)
-M:log_event("loaded", {trial = "0.4", log_path = M._diagnostic_path or "BLT log only"})
+M:log_event("loaded", {component = "Restoration CN AI Weapon Stats", log_path = M._diagnostic_path or "BLT log only"})

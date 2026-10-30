@@ -1,7 +1,7 @@
--- Local trial for Restoration CN. Loaded by BeardLib after Restoration's GUI override.
+-- CN AI weapon statistics. Loaded at the end of Restoration's blackmarket GUI hook.
 if not restoration then return end
-dofile(ModPath .. "lua/model.lua")
-dofile(ModPath .. "lua/diagnostics.lua")
+dofile(ModPath .. "lua/sc/compatibility/CNAIWeaponStats/model.lua")
+dofile(ModPath .. "lua/sc/compatibility/CNAIWeaponStats/diagnostics.lua")
 local M = CN_AI_Weapon_Stats
 
 local function number(value, digits)
@@ -276,4 +276,4 @@ function BlackMarketGui:close(...)
     self._cn_ai_panel = nil
     return close(self, ...)
 end
-if log then log("[CN AI Weapon Stats] UI compatibility loaded (local trial 0.4)") end
+if log then log("[CN AI Weapon Stats] UI compatibility loaded (Restoration CN integrated)") end

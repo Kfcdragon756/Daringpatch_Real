@@ -8682,3 +8682,6 @@ Hooks:Add("BlackMarketManagerModifyGetInventoryCategory", "BlackMarketManagerMod
 	end
 
 end)
+
+-- CN AI weapon statistics: attach after Restoration has defined its GUI methods.
+dofile(ModPath .. "lua/sc/compatibility/CNAIWeaponStats/blackmarketgui.lua")
