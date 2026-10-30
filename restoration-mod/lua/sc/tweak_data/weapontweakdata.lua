@@ -27678,6 +27678,10 @@ self.amr2.damage_type = "anti_materiel"
 				self.alpha57_prim.timers.reload_exit_empty = 0.6
 				self.alpha57_prim.timers.reload_exit_not_empty = 0.9
 
+			end
+
+			-- Optional variants are registered independently by the weapon mod.
+			if self.alpha57 then
 				self.alpha57.use_data.selection_index = 5
 				self.alpha57.categories = {
 					"smg",
@@ -27739,6 +27743,10 @@ self.amr2.damage_type = "anti_materiel"
 				self.alpha57.timers.reload_exit_empty = 0.6
 				self.alpha57.timers.reload_exit_not_empty = 0.9
 
+			end
+
+			-- Optional variants are registered independently by the weapon mod.
+			if self.x_alpha57 then
 				self.x_alpha57.categories = {
 					"akimbo",
 					"smg",
