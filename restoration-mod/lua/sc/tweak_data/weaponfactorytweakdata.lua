@@ -31608,8 +31608,8 @@ if self.parts.wpn_fps_pis_m9butcool_body_std then --此处添加 SAMURAI EDGE
 			}
 
 			self.parts.wpn_fps_pis_m9butcool_ns_octa.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --AW01 SUPPRESSOR
-			self.parts.wpn_fps_pis_m9butcool_ns_octa.stats = deep_clone(muzzle_device.supp_c_stats)  -- [GPT合并1] ybspatch 新增/修改项
-			self.parts.wpn_fps_pis_m9butcool_ns_octa.custom_stats = deep_clone(muzzle_device.muzzle_c_custom_stats)  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.stats = {suppression = 12, alert_size = -1, value = 5, spread = 2, concealment = -2}  -- [GPT合并1] ybspatch 新增/修改项
+			self.parts.wpn_fps_pis_m9butcool_ns_octa.custom_stats = {falloff_start_mult = 1.1, falloff_end_mult = 1.1}  -- [GPT合并1] ybspatch 新增/修改项
 
 			--EXTRA
 			self.parts.wpn_fps_pis_m9butcool_ex_rail.supported = true  -- [GPT合并1] ybspatch 新增/修改项  --EXTRA RAIL
