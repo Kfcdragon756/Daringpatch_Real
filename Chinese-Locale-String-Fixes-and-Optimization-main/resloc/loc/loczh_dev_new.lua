@@ -342,8 +342,8 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
 
                 ["RestorationModQueuedImpactFXTypeTitleID"] = "命中特效播放方式",
                 ["RestorationModQueuedImpactFXTypeDescID"] = "改变命中特效队列的工作方式。\n悬停在下方选项上可查看说明。",
-                    ["impactfx_type_default"] = "原版／混合",
-                    ["RestorationModQueuedImpactFXDEFAULTTitleID"] = "原版／混合－悬停查看说明",
+                    ["impactfx_type_default"] = "原版/混合",
+                    ["RestorationModQueuedImpactFXDEFAULTTitleID"] = "原版/混合－悬停查看说明",
                     ["RestorationModQueuedImpactFXDEFAULTDescID"] = "默认一次射出多颗弹丸的武器（如霰弹枪）及使用大黄蜂弹的发射器立即播放特效；其它武器排队播放。",
                     ["impactfx_type_immediate"] = "全部即时",
                     ["RestorationModQueuedImpactFXIMMEDIATETitleID"] = "即时－悬停查看说明",
@@ -1360,7 +1360,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["RestorationModother_buffsTitleID"] = "===其它===",
         ["RestorationModother_buffsDescID"] = "追踪未直接关联技能或天赋的其它效果。",
         ["RestorationModProjectileMagnetismTitleID"] = "弹丸吸附",
-        ["RestorationModProjectileMagnetismDescID"] = "开启或关闭非爆炸弹丸的吸附／追踪效果。",
+        ["RestorationModProjectileMagnetismDescID"] = "开启或关闭非爆炸弹丸的吸附/追踪效果。",
         ["RestorationModMeleeChargeFlashTitleID"] = "近战蓄力闪光",
         ["RestorationModMeleeChargeFlashDescID"] = "近战武器完全蓄力时，在屏幕上下边缘短暂闪光。",
         ["RestorationModMeleeChargeATitleID"] = "效果强度",
@@ -1373,7 +1373,7 @@ Hooks:Add("LocalizationManagerPostInit", "ResMod_english_Localization_CSF", func
         ["RestorationModMeleeChargeBDescID"] = "",
         ["RestorationModWEAPONINPUTSOptionsButtonTitleID"] = "武器操作设置",
         ["RestorationModWEAPONINPUTSOptionsButtonDescID"] = "武器输入操作的相关设置。",
-        ["RestorationModFULLYSEMIAUTOMATICTitleID"] = "半自动／连发武器自动开火",
+        ["RestorationModFULLYSEMIAUTOMATICTitleID"] = "半自动/连发武器自动开火",
         ["RestorationModFULLYSEMIAUTOMATICDescID"] = "按住开火键时，让半自动或连发武器持续射击。\n仍可通过手动连续按键获得更快的射速。",
         ["reload_type_default"] = "原版",
         ["RestorationModManualReloadsDEFAULTTitleID"] = "原版－悬停查看说明",
@@ -2137,7 +2137,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
         -- CUSTOM SMGs
         ["bm_w_geasy9_desc_grom"] = "Full-auto submachine gun. Great mobility and handling. Moderate damage, range, and rate of fire.\n\n#{skill_color}#Deals 75% of its damage through body armor.##",
-        ["bm_wp_wpn_fps_smg_geasy9_ammo_grom_desc"] = "可穿透护甲造成#{skill_color}#75%##的伤害，对非队长／首领敌人的爆头伤害额外增加#{skill_color}#25%##。",
+        ["bm_wp_wpn_fps_smg_geasy9_ammo_grom_desc"] = "可穿透护甲造成#{skill_color}#75%##的伤害，对非队长/首领敌人的爆头伤害额外增加#{skill_color}#25%##。",
 
         ["bm_w_r31_desc"] = "Full-auto submachine gun. Very slow rate of fire with high damage. Good handling and mobility",
         ["bm_wp_wpn_fps_smg_r31_b_highcal"] = "Short Barrel",
@@ -2526,8 +2526,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_awp_cs_dragon"] = "AWP | 巨龙传说",  --name?
         ["bm_awp_cs"] = "AWP狙击步枪",  --name?
         ["bm_wp_upg_bazooka"] = "巨龙传说原皮套件",
-        ["bm_wp_upg_bazooka_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。\n\n#{risk}#开火会暂时打断瞄准。##\n\n#{skill_color}#对非队长／首领敌人的爆头伤害额外增加50%。##",  -- V14: 已核对并更新
-        ["bm_bazooka_sc_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
+        ["bm_wp_upg_bazooka_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。\n\n#{risk}#开火会暂时打断瞄准。##\n\n#{skill_color}#对非队长/首领敌人的爆头伤害额外增加50%。##",  -- V14: 已核对并更新
+        ["bm_bazooka_sc_desc"] = "高风险，高回报！这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。", -- "#{risk}#射击后会暂时强制退出瞄准。##" -- CN补丁已去除该效果
         -- WA2000
         ["bm_w_wa2000"] = "Lebensauger .300狙击步枪",
         ["bm_wa2000_sc_desc"] = "这个最负盛名的枪世上只做了几百把；一把专适合顶尖杀手的狙击步枪。\n\n能够#{skill_color}#穿透敌人，护甲，薄墙壁以及衰减始距内的盾牌##。",
@@ -2617,7 +2617,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
         -- 爆头倍率
         ["bm_menu_weapon_hs_mult_1"] = "爆头非队长单位可额外造成",
-        ["bm_menu_weapon_hs_mult_2"] = "的额外爆头伤害（不适用于队长／首领）。",
+        ["bm_menu_weapon_hs_mult_2"] = "的额外爆头伤害（不适用于队长/首领）。",
         ["bm_menu_weapon_hs_mult_1_op"] = "爆头非队长单位造成的伤害降低",
         ["bm_menu_weapon_hs_mult_2_op"] = "。",
 
@@ -4239,8 +4239,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
         ["bm_wp_upg_i_avt40_desc"] = "改装内部组件以实现#{risk}#全自动射击##。\n你还以为M308就已经够难控制了。",
         ["bm_w_gauss_gun_desc"] = "诞生于禁区的狙击步枪，采用电磁加速弹丸技术，仅在禁区内使用。\n\n#{skill_color}#可以穿透多名敌人、护甲、盾牌、泰坦盾牌和薄墙。##",
         ["bm_dart_sc_desc"] = "安静而灵活的武器，可以向毫无防备的目标发射高伤害飞镖。\n\n默认配备强力#{stats_positive}#毒镖##，也可换装#{ghost_color}#镇静镖##或#{stat_maxed}#复苏刺激镖##，应对各种挑战。",
-        ["bm_w_toym16_sc_desc"] = "“室内禁止全自动。”",
-        ["bm_w_toy1911_sc_desc"] = "“室内禁止全自动。”",
+        ["bm_w_toym16_sc_desc"] = "“室内禁止全自动。”\n\n#{risk}#与玩具刀和玩具1911一起装备可以让你获得138x5的能力！##",
+        ["bm_w_toy1911_sc_desc"] = "“室内禁止全自动。”\n\n#{risk}#与玩具刀和玩具M16一起装备可以让你获得138x5的能力！##",
         ["bm_minecraft_bow_sc_desc"] = "发射箭矢的简易远程武器。\n\n按住#{skill_color}#$BTN_FIRE##拉弓，松开以射击。\n拉弓越接近完全蓄力，箭矢伤害和速度越高。\n\n按#{skill_color}#$BTN_AIM##取消拉弓。\n\n箭矢可以拾取回收。",
         ["bm_minecraft_bow_alpha_sc_desc"] = "无需蓄力，可以以手动按键的最快速度射击。\n\n箭矢可以拾取回收。",
         ["bm_w_tecci_ibuki"] = "呀！砰砰！",
@@ -5882,8 +5882,8 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Weapons_CSF", function
                     ["bm_w_fmg9"] = "平行手枪",
                     ["bm_w_mg42"] = "L-STAR充能机枪",
                     -- overwatch
-                    ["bm_wp_upg_bazooka_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
-                    ["bm_bazooka_sc_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。\n\n#{risk}#Shooting temporarily knocks you out of aiming.##",
+                    ["bm_wp_upg_bazooka_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n使用后能够#{skill_color}#穿透泰坦盾牌##。", -- "#{risk}#射击后会暂时强制退出瞄准。##" -- CN补丁已去除该效果
+                    ["bm_bazooka_sc_desc"] = "#{heat_warm_color}#一枪——一个##\n这款驰名天下的狙击步枪以其标志性的枪鸣和一击必杀的能力而闻名。\n\n能够#{skill_color}#穿透护甲，敌人，盾牌，泰坦盾牌和薄墙壁##。", -- "#{risk}#射击后会暂时强制退出瞄准。##" -- CN补丁已去除该效果
                     ["bm_w_peacemaker"] = "维和者",
                     ["bm_ap_weapon_peacemaker_sc_desc"] = "“#{heat_warm_color}#正义可不会伸张自己##”\n\n\n辅助开火可以通过快速煽动击锤以#{important_1}#更高的后坐力、更低的有效射程和无法机瞄##为代价#{skill_color}#提高射速##进行速射。\n\n能够#{skill_color}#穿透敌人，护甲，盾牌以及薄墙壁##。"
                 
@@ -6125,11 +6125,11 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_Skills_CSF", function(
         ["bm_equipment_doctor_bag_desc"] = "要使用医疗箱，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，你或你的队友都可以按住#{skill_color}#$BTN_INTERACT##使用并立即回复血量上限#{stats_positive}#20%##的#{risk}#血量##，同时使血量减伤分数增加#{skill_color}#10##，持续#{skill_color}#3##分钟；在此期间每#{skill_color}#5##秒回复血量上限#{stats_positive}#4%##的#{risk}#血量##。医疗箱可以使用#{skill_color}#$deployable_uses##次，你可以通过观察医疗箱判断剩余使用次数。\n\n医疗箱是一种便携医疗用品，通常给医务人员用于运输医疗物品。",
         ["bm_equipment_doctor_bag_desc_short"] = "要使用医疗箱，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，你或你的队友都可以按住#{skill_color}#$BTN_INTERACT##使用并立即回复血量上限#{stats_positive}#20%##的#{risk}#血量##，同时使血量减伤分数增加#{skill_color}#10##，持续#{skill_color}#3##分钟；在此期间每#{skill_color}#5##秒回复血量上限#{stats_positive}#4%##的#{risk}#血量##。医疗箱可以使用#{skill_color}#$deployable_uses##次，你可以通过观察医疗箱判断剩余使用次数。",
         -- Sentry
-        ["bm_equipment_sentry_gun_desc"] = "要使用哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。若未损坏，则靠近按住#{skill_color}#$BTN_INTERACT##会捡起哨戒机枪，这会返还它的剩余弹药并使其恢复到完好的状态。\n若掌握了“塔防机枪”技能，则在未靠近并目视机枪时按下#{skill_color}#$BTN_INTERACT##可以切换哨戒机枪使用的弹种。\n哨戒机枪可以用于#{skill_color}#恐吓平民##，使平民保持趴在地上的状态。\n\n哨戒机枪会自动瞄准和射击它的感应器检测到的目标，别问这是什么传感器。它通常用于分散敌人的注意力，避免敌人集火你和你的队友。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发／分钟",
-        ["bm_equipment_sentry_gun_desc_short"] = "要使用哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。捡起哨戒机枪会返还它的剩余弹药并使其恢复到完好的状态。\n哨戒机枪可以用于#{skill_color}#恐吓平民##。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发／分钟",
+        ["bm_equipment_sentry_gun_desc"] = "要使用哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。若未损坏，则靠近按住#{skill_color}#$BTN_INTERACT##会捡起哨戒机枪，这会返还它的剩余弹药并使其恢复到完好的状态。\n若掌握了“塔防机枪”技能，则在未靠近并目视机枪时按下#{skill_color}#$BTN_INTERACT##可以切换哨戒机枪使用的弹种。\n哨戒机枪可以用于#{skill_color}#恐吓平民##，使平民保持趴在地上的状态。\n\n哨戒机枪会自动瞄准和射击它的感应器检测到的目标，别问这是什么传感器。它通常用于分散敌人的注意力，避免敌人集火你和你的队友。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发/分钟",
+        ["bm_equipment_sentry_gun_desc_short"] = "要使用哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。捡起哨戒机枪会返还它的剩余弹药并使其恢复到完好的状态。\n哨戒机枪可以用于#{skill_color}#恐吓平民##。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发/分钟",
         -- Supp. Sentry
-        ["bm_equipment_sentry_gun_silent_desc"] = "要使用消音哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。若未损坏，则靠近按住#{skill_color}#$BTN_INTERACT##会捡起哨戒机枪，这会返还它的剩余弹药并使其恢复到完好的状态。\n若掌握了“塔防机枪”技能，则在未靠近并目视机枪时按下#{skill_color}#$BTN_INTERACT##可以切换哨戒机枪使用的弹种。\n哨戒机枪可以用于#{skill_color}#恐吓平民##，使平民保持趴在地上的状态。\n\n这个消音的哨戒机枪与普通的不同，它更多地被用于消灭敌人，而不是分散注意力。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发／分钟",
-        ["bm_equipment_sentry_gun_silent_desc_short"] = "要使用消音哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。捡起哨戒机枪会返还它的剩余弹药并使其恢复到完好的状态。\n哨戒机枪可以用于#{skill_color}#恐吓平民##。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发／分钟",
+        ["bm_equipment_sentry_gun_silent_desc"] = "要使用消音哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。若未损坏，则靠近按住#{skill_color}#$BTN_INTERACT##会捡起哨戒机枪，这会返还它的剩余弹药并使其恢复到完好的状态。\n若掌握了“塔防机枪”技能，则在未靠近并目视机枪时按下#{skill_color}#$BTN_INTERACT##可以切换哨戒机枪使用的弹种。\n哨戒机枪可以用于#{skill_color}#恐吓平民##，使平民保持趴在地上的状态。\n\n这个消音的哨戒机枪与普通的不同，它更多地被用于消灭敌人，而不是分散注意力。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发/分钟",
+        ["bm_equipment_sentry_gun_silent_desc_short"] = "要使用消音哨戒机枪，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。部署哨戒机枪将用掉你备弹上限#{skill_color}#$deployable_uses##的弹药。\n哨戒机枪在承受过多伤害后会损坏，此时你可以通过靠近对其按住#{skill_color}#$BTN_INTERACT##使其进入#{risk}#自动维修模式##并在#{skill_color}#1##分钟的修理后重新运作。捡起哨戒机枪会返还它的剩余弹药并使其恢复到完好的状态。\n哨戒机枪可以用于#{skill_color}#恐吓平民##。\n\n基础弹容量：#{skill_color}#150##发\n基础单发伤害：#{skill_color}#30##\n基础射速：#{skill_color}#320##发/分钟",
         -- Body Bags
         ["bm_equipment_bodybags_bag_desc"] = "要使用尸体袋箱，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，但是你和你的队友可以按住#{skill_color}#$BTN_INTERACT##来补充#{risk}#尸体袋##和#{risk}#绑带##。\n\n尸体袋箱只能被使用#{skill_color}#三次##，你可以通过看尸体袋箱里还剩多少个袋子来判断剩余使用次数。\n\n这个箱子携带有额外的尸体袋和绑带，用于在潜入中搬运尸体和控制平民。",
         ["bm_equipment_bodybags_bag_desc_short"] = "要使用尸体袋箱，你需要按住#{skill_color}#$BTN_USE_ITEM##将其部署下来。一旦部署完毕就无法移动，但是你和你的队友可以按住#{skill_color}#$BTN_INTERACT##来补充#{risk}#尸体袋##和#{risk}#绑带##。\n\n尸体袋箱只能被使用#{skill_color}#三次##，你可以通过看尸体袋箱里还剩多少个袋子来判断剩余使用次数。",
