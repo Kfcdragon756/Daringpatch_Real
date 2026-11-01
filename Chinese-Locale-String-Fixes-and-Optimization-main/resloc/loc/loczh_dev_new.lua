@@ -2840,41 +2840,41 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
 
         -- Deepseek
-                ["bm_melee_pattern_knife"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+                ["bm_melee_pattern_knife"] = "以快速刺击攻击；蓄力至少#{skill_color}#50%##后改为大范围挥砍。",
 
-                ["bm_melee_pattern_knife2"] = "发动横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_clean"、"melee_grip" 和 "melee_agave"
+                ["bm_melee_pattern_knife2"] = "以大范围挥砍攻击。侧移会影响攻击方向。", -- 同样适用于 "melee_clean"、"melee_grip" 和 "melee_agave"
 
-                ["bm_melee_pattern_ballistic"] = "快速刺击发动攻击，或充能至少#{skill_color}#50%##触发横扫及下劈攻击。侧移可改变攻击方向。",
+                ["bm_melee_pattern_ballistic"] = "以快速刺击攻击；蓄力至少#{skill_color}#50%##后改为大范围挥砍和下劈。侧移会影响攻击方向。",
 
-                ["bm_melee_pattern_poker"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+                ["bm_melee_pattern_poker"] = "以向下挥击攻击；蓄力至少#{skill_color}#50%##后改为攻击距离更远的刺击。",
 
-                ["bm_melee_pattern_boxcutter"] = "发动横扫攻击。", -- 同样适用于 "melee_catch" 和 "melee_road"
+                ["bm_melee_pattern_boxcutter"] = "以大范围挥砍攻击。", -- 同样适用于 "melee_catch" 和 "melee_road"
 
-                ["bm_melee_pattern_shield"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发横扫攻击。",
+                ["bm_melee_pattern_shield"] = "以向前挥击攻击；蓄力至少#{skill_color}#50%##后改为大范围挥击。",
 
-                ["bm_melee_pattern_briefcase"] = "发动前刺攻击，或充能至少#{skill_color}#50%##触发下劈攻击。", -- 修正拼写 briefcase
+                ["bm_melee_pattern_briefcase"] = "以向前挥击攻击；蓄力至少#{skill_color}#50%##后改为向下挥击。", -- 修正拼写 briefcase
 
-                ["bm_melee_pattern_blunt"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。", -- 同样适用于 "melee_brick"、"melee_happy" 和 "melee_cleaver"
-                ["bm_melee_pattern_blunt_90"] = "发动下劈攻击，或充能至少#{skill_color}#90%##触发横扫攻击。",
+                ["bm_melee_pattern_blunt"] = "以向下挥击攻击；蓄力至少#{skill_color}#50%##后改为大范围挥击。", -- 同样适用于 "melee_brick"、"melee_happy" 和 "melee_cleaver"
+                ["bm_melee_pattern_blunt_90"] = "以向下挥击攻击；蓄力至少#{skill_color}#90%##后改为大范围挥击。",
 
-                ["bm_melee_pattern_beardy"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发横扫攻击。侧移会影响充能攻击方向。",
+                ["bm_melee_pattern_beardy"] = "以向下挥击攻击；蓄力至少#{skill_color}#50%##后改为大范围挥砍。侧移会影响蓄力攻击的方向。",
 
-                ["bm_melee_pattern_axe"] = "发动下劈攻击。", -- 同样适用于 "melee_psycho" 和 "melee_pickaxe"
+                ["bm_melee_pattern_axe"] = "以向下挥击攻击。", -- 同样适用于 "melee_psycho" 和 "melee_pickaxe"
 
-                ["bm_melee_pattern_cutter"] = "发动下劈攻击，或充能至少#{skill_color}#50%##触发延伸攻击距离的刺击。",
+                ["bm_melee_pattern_cutter"] = "以向下挥击攻击；蓄力至少#{skill_color}#50%##后改为攻击距离更远的刺击。",
 
-                ["bm_melee_pattern_great"] = "发动下劈攻击，侧移触发横扫攻击，或充能至少#{skill_color}#90%##触发延伸攻击距离的刺击。侧移可改变攻击方向。",
-                ["bm_melee_pattern_great_no_stab"] = "发动下劈攻击或侧移触发横扫攻击。侧移可改变攻击方向。", -- 同样适用于 "melee_cs"
+                ["bm_melee_pattern_great"] = "以向下挥砍攻击，侧移时改为大范围挥砍；蓄力至少#{skill_color}#90%##后改为攻击距离更远的刺击。侧移会影响攻击方向。",
+                ["bm_melee_pattern_great_no_stab"] = "以向下挥砍攻击，侧移时改为大范围挥砍。侧移会影响攻击方向。", -- 同样适用于 "melee_cs"
 
-                ["bm_melee_pattern_katana"] = "发动斜劈攻击，或侧移触发横扫攻击。侧移可改变攻击方向。",
+                ["bm_melee_pattern_katana"] = "以斜劈攻击，侧移时改为大范围挥砍。侧移会影响攻击方向。",
 
-                ["bm_melee_pattern_fist"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发勾拳。侧移可改变攻击方向。",
+                ["bm_melee_pattern_fist"] = "以快速刺拳攻击；蓄力至少#{skill_color}#50%##后改为勾拳。侧移会影响攻击方向。",
 
-                ["bm_melee_pattern_boxing"] = "快速刺拳发动攻击，或充能至少#{skill_color}#50%##触发左勾拳或右上勾拳。侧移可改变攻击方向。",
+                ["bm_melee_pattern_boxing"] = "以快速刺拳攻击；蓄力至少#{skill_color}#50%##后改为左勾拳或右上勾拳。侧移会影响攻击方向。",
 
-                ["bm_melee_pattern_tiger"] = "发动右刺拳攻击，或充能至少#{skill_color}#50%##触发左上勾拳或右勾拳。侧移会影响充能攻击方向。",
+                ["bm_melee_pattern_tiger"] = "以右刺拳攻击；蓄力至少#{skill_color}#50%##后改为左上勾拳或右勾拳。侧移会影响蓄力攻击的方向。",
 
-                ["bm_melee_pattern_jab"] = "发动快速刺击。", -- 适用于仅含中心攻击判定的武器，如 "melee_pitchfork"、"melee_wing" 和 "melee_fight"
+                ["bm_melee_pattern_jab"] = "以快速刺击攻击。", -- 适用于仅含中心攻击判定的武器，如 "melee_pitchfork"、"melee_wing" 和 "melee_fight"
 
         --URSA/USMC KA-BAR
         ["bm_melee_kabar_info"] = "URSA战刀是自1942年沿用至今的耐用型格斗/多功能刀，坚不可摧。\n\n博伊刀身，锯齿刃口，实用至上。\n\n经典之作。",
@@ -2917,16 +2917,16 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_bayonet_info"] = "坚固刺刀，本应装在步枪前端捅穿敌人躯干。\n\n但这想法太合理了。你肯定会把它当普通刀子用，对吧？",
 
         --Bullseye
-        ["bm_melee_bullseye_info"] = "说实话我不知该作何评价——除非是疯子，否则没人会带这玩意儿打架吧？\n它是用来劈柴露营的，可不是抢银行的。\n\n对吧？",
+        ["bm_melee_bullseye_info"] = "说实话我不知该作何评价——除非是疯子，否则没人会带这玩意儿打架吧？\n它是用来劈柴和露营的，可不是抢银行的。\n\n对吧？",
 
         --X46
         ["bm_melee_x46_info"] = "X46采用局部锯齿博伊刀型设计，单块6英寸镀层A2钢锻造，配假刃刀尖。\n集成护手与破窗锥柄。\n多功能战地设计使其在战场与紧急情况下同样实用。",
 
         --Gunther
-        ["bm_melee_dingdong_info"] = "大锤。\n攻城槌。\n撬棍。\n三者皆是劫匪快速破门的必备工具。\n叮咚锤将这三种功能紧密整合，如团队般无间协作。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        ["bm_melee_dingdong_info"] = "大锤。\n攻城槌。\n撬棍。\n三者皆是劫匪快速破门的必备工具。\n叮咚锤将这三种功能紧密整合，如团队般无间协作。\n\n完全蓄力攻击的出手速度提升#{skill_color}#25%##，可以更快地接上下一次攻击。",
 
         --Batshit insane
-        ["bm_melee_bat_info"] = "一根纯粹的棒球棍。\n\n本为运动设计，你却要拿它干更阴险的勾当。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        ["bm_melee_bat_info"] = "一根纯粹的棒球棍。\n\n本为运动设计，你却要拿它干更阴险的勾当。\n\n完全蓄力攻击的出手速度提升#{skill_color}#25%##，可以更快地接上下一次攻击。",
 
         --Machete
         ["bm_melee_machete_info"] = "你嗜好伤人，所以才用这把肮脏旧砍刀。\n裂开的伤口、粗暴斩断的肢体、敌人凄厉的惨叫，都是你的动力源泉。\n\n堪称残忍劫匪的终极武器。",
@@ -2961,7 +2961,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_hammer_info"] = "\"木匠之悦\"是夹克最爱的锤子。这把锤子是向讨厌之人施加重击的完美工具。\n\n锤子通常用于钉钉子、装配零件、锻造金属和拆解物品——这些功能夹克都不太在乎。",
 
         --OVERKILL Boxing Gloves
-        ["bm_melee_boxing_gloves_info"] = "我没听到铃响。\n\n使用OVERKILL拳套击杀敌人可#{skill_color}#立即恢复耐力值。##",
+        ["bm_melee_boxing_gloves_info"] = "我没听到铃响。\n\n使用OVERKILL拳套击杀敌人可#{skill_color}#立即恢复耐力##。",
 
         --A stick of lies
         ["bm_melee_shillelagh_info"] = "橡木棍的真实起源难以考证。谁能确定人类第一次捡起粗棍爆头的时刻？而橡木棍的演化也并未超越本质。有人珍视黑刺李木，也有人往棍头灌熔铅。\n\n归根结底，它终究是根能敲碎头骨的沉重凶棍。",
@@ -2979,7 +2979,7 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_tenderizer_info"] = "虽设计初衷是软化坚韧肉排，但事实证明它同样擅长软化顽固条子。\n\n搭配荷兰酱风味更佳。",
 
         --Fork
-        ["bm_melee_fork_info"] = "一车保龄球与一车死亡 bulldozer 有何区别？你没法用叉妈卸下一车保龄球。\n\n建议佐以胡椒调味。",
+        ["bm_melee_fork_info"] = "一车保龄球和一车死去的推土机有什么区别？你没法用叉子卸下一车保龄球。\n\n建议佐以胡椒调味。",
 
         --Speng Bib
         ["bm_melee_spatula_info"] = "双功能近战武器——既可拍扁条子铺满街道，亦可供他人铲走残骸。\n\n这次请多备张纸巾。",
@@ -3024,19 +3024,19 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
         ["bm_melee_cqc_info"] = "毒素会在#{skill_color}#3##秒内造成#{skill_color}#120##点伤害并在#{skill_color}#4##秒内每半秒都有#{skill_color}#50%##的概率干扰敌人。\n\n含有#{stats_positive}#毒素##，在#{skill_color}#4.5##秒内造成最多#{stats_positive}#135##点毒素伤害，并有概率使敌人失去行动能力。",
 
         --Tekko-Kagi
-        ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+        ["bm_melee_tiger_info"] = "这些利爪原用于攀爬高墙树木，但当使用者暴露时便迅速转化为武器。\n\n持有该武器时，近战攻击从第二次命中起造成#{skill_color}#2倍##伤害。",
 
         --Empty Palm Kata
         ["bm_melee_fight_info"] = "形意如水，朋友。\n\n招架反击敌人攻击时对其造成#{skill_color}#240##点伤害，此伤害可通过技能和天赋提升。\n\n招架反击敌人攻击时还会击晕周围#{skill_color}#15##米内的敌人并对他们造成#{skill_color}#100##点基础伤害。",
 
         --Katana
-        ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
-        ["bm_melee_raiden_info"] = "在你手中，这绝非#{important_1}#\"正义之器\"##。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
-        ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全充能攻击速度提升#{skill_color}#50%##，允许更快衔接后续劈砍。",
-        ["bm_melee_2077tkata_info"] = "纳米加热刀锋。\n武士刀最纯粹的精髓，无附加，无改装，唯有炽热钢刃。\n\n完全充能攻击#{heat_warm_color}#点燃敌人##，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
+        ["bm_melee_katana_info"] = "新作刀是杰作，亦是新铸之刃。它未尝鲜血，未有传承，静待持刃者共谱传奇。\n\n完全蓄力攻击的出手速度提升#{skill_color}#50%##，可以更快地接上下一次斩击。",
+        ["bm_melee_raiden_info"] = "在你手中，这绝非#{important_1}#\"正义之器\"##。\n\n完全蓄力攻击的出手速度提升#{skill_color}#50%##，可以更快地接上下一次斩击。",
+        ["bm_melee_thejobissnotyours_info"] = "这甚至不是你的剑。\n\n完全蓄力攻击的出手速度提升#{skill_color}#50%##，可以更快地接上下一次斩击。",
+        ["bm_melee_2077tkata_info"] = "纳米加热刀锋。\n武士刀最纯粹的精髓，无附加，无改装，唯有炽热钢刃。\n\n完全蓄力攻击会#{heat_warm_color}#点燃敌人##，在#{skill_color}#3##秒内造成#{heat_warm_color}#120##点火焰伤害。",
 
         --Ayy L-Maul
-        ["bm_melee_alien_maul_info"] = "纪念Alienware Alpha发布的战锤。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        ["bm_melee_alien_maul_info"] = "纪念Alienware Alpha发布的战锤。\n\n完全蓄力攻击的出手速度提升#{skill_color}#25%##，可以更快地接上下一次攻击。",
 
         --Beardy
         ["bm_melee_beardy_info"] = "维京人从异教北境的黑暗森林崛起，自冰岛至伊斯坦布尔留下血腥毁灭之路。\n他们的武器正是双手持握的宽刃战斧。",
@@ -3095,14 +3095,14 @@ Hooks:Add("LocalizationManagerPostInit", "SC_Localization_CSF", function(loc)
 
         --Crook
         ["bm_melee_stick"] = "牧羊杖",
-        ["bm_melee_stick_info"] = "劫案漫长疲惫？欲显智者风范？或想砸烂警脸？牧羊杖皆可胜任。\n\n完全充能攻击速度提升#{skill_color}#25%##，允许更快衔接后续打击。",
+        ["bm_melee_stick_info"] = "劫案漫长疲惫？欲显智者风范？或想砸烂警脸？牧羊杖皆可胜任。\n\n完全蓄力攻击的出手速度提升#{skill_color}#25%##，可以更快地接上下一次攻击。",
 
         --Pounder Nailgun
         ["bm_melee_nin_info"] = "狼最爱的'重击者'钉枪。\n\n当人们问及名称，狼总会纠正为'玩笑者'（Punder），随即咆哮：\"正中靶心！\"\n\n发射射程短且瞬发的钉子，仍计为近战击杀。",
         ["bm_melee_thebestweapon_info"] = "#{stats_positive}#游戏最强武器。##",
 
         --Ballistic Knives
-        ["bm_melee_ballistic_info"] = "吉米绝非'少即是多'的信徒，故携此双生专家战刃。\n\n持械时，每次连击第二刀起伤害提升#{skill_color}#2倍##。",
+        ["bm_melee_ballistic_info"] = "吉米绝非'少即是多'的信徒，故携此双生专家战刃。\n\n持有该武器时，近战攻击从第二次命中起造成#{skill_color}#2倍##伤害。",
 
         --ALSO ZAP ZAP MOTHERFUCKER
         ["bm_melee_zeus_info"] = "这套自制电击装备看着不太稳定。不过别担心，是网上某个小孩做的，所以绝对安全！\n\n#{skill_color}#命中时触电##，使多数敌人眩晕；特殊和精英敌人需要完全蓄力才能被眩晕。\n#{important_1}#泰坦盾兵、泰坦电击兵、泰坦熊和队长免疫其眩晕效果。##",
