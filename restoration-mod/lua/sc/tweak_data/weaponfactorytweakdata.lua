@@ -15532,7 +15532,7 @@ self.wpn_fps_ass_m16_npc.adds = deep_clone(self.wpn_fps_ass_m16.adds)
 						falloff_start_mult = 0.5,
 						falloff_end_mult = 0.9375,
 						damage_min_mult = 1.33334,
-						descope_on_fire_ignore_setting = true,
+						descope_on_fire_ignore_setting = false, -- CN: keep aiming while cycling the bolt.
 						use_vapor_trail = true
 					}
 					self.parts.wpn_fps_snp_awp_conversion_dragonlore.forbids = {

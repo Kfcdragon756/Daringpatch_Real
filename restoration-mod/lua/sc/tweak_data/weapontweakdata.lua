@@ -13442,7 +13442,7 @@ self.contraband_m203.upgrade_blocks = {
 						}
 						self.mosin.stats_modifiers = nil
 						self.mosin.keep_ammo = 1
-						self.mosin.descope_on_fire = true
+						self.mosin.descope_on_fire = false -- CN: keep aiming while cycling the bolt.
 						self.mosin.panic_suppression_chance = 0.05
 						self.mosin.ignore_reload_objects = true
 						self.mosin.reload_speed_multiplier = 1.05
@@ -38966,14 +38966,15 @@ if self.x_basset then  --双持格林霰弹枪 4.1
 
 local hancan = {self.x_rage, self.x_chinchilla, self.x_model3, self.x_2006m, self.x_korth, self.new_raging_bull, self.model3, self.chinchilla, self.mateba, self.deckard, self.lapd, self.korth}
 
-local hancan_160 = {self.x_2006m, self.x_chinchilla, self.mateba, self.deckard, self.lapd, self.chinchilla}
+local hancan_160 = {"x_2006m", "x_chinchilla", "mateba", "deckard", "lapd", "chinchilla"}
 
-local hancan_180 = {self.x_korth, self.x_rage, self.x_model3, self.new_raging_bull, self.model3, self.korth}
+local hancan_180 = {"x_korth", "x_rage", "x_model3", "new_raging_bull", "model3", "korth"}
 
-for _,v in ipairs(hancan_180) do
+for _, id in ipairs(hancan_180) do
+		local v = self[id]
 		if v then
 			v.AMMO_PICKUP = {v.AMMO_PICKUP[1]*0.72, v.AMMO_PICKUP[2]*0.75}
-			v.stats.damage = 90
+			v.stats.damage = 91 -- Zero-based damage table: 90 base damage.
 			v.armor_piercing_chance = 0.75
 			v.can_shoot_through_wall = true
 		end
@@ -38983,10 +38984,11 @@ if self.duke1911 then
 		self.duke1911.stats.damage = 90  -- [GPT合并1] ybspatch 新增/修改项
 	end
 
-for _,v in ipairs(hancan_160) do
+for _, id in ipairs(hancan_160) do
+		local v = self[id]
 		if v then
 			v.AMMO_PICKUP = {v.AMMO_PICKUP[1]*0.77, v.AMMO_PICKUP[2]*0.85}
-			v.stats.damage = 120
+			v.stats.damage = 121 -- Zero-based damage table: 120 base damage.
 			v.armor_piercing_chance = 1.0
 			v.hs_mult = 0.67
 		end

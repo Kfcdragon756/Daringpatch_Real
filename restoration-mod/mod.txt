@@ -17,6 +17,10 @@
     ],
     "hooks": [
         {
+            "hook_id": "lib/managers/menu/menucomponentmanager",
+            "script_path": "lua/sc/compatibility/CNTextColors.lua"
+        },
+        {
             "hook_id": "lib/setups/setup",
             "script_path": "lua/sc/utils/restorationvoicelinesloadinghandler.lua"
         },
@@ -103,6 +107,10 @@
         {
             "hook_id": "lib/units/beings/player/playerbase",
             "script_path": "lua/sc/compatibility/CNToySkillSet.lua"
+        },
+        {
+            "hook_id": "lib/units/weapons/projectiles/projectilebase",
+            "script_path": "lua/sc/compatibility/CNHD2Offensive.lua"
         }
     ]
 }
