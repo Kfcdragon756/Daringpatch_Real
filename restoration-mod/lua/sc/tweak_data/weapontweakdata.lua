@@ -2,9 +2,9 @@ local job = Global.level_data and Global.level_data.level_id
 local is_pro = Global.game_settings and Global.game_settings.one_down
 local sounds = 1
 
-local KFC_stable_enable = restoration.Options:GetValue("OTHER/WeaponHandling/KFCdragonStablebalance")
+local KFC_stable_enable = restoration.Options:GetValue("WEAPONS/WeaponHandling/KFCdragonStablebalance")
 
-local KFC_stable_test = KFC_stable_enable and restoration.Options:GetValue("OTHER/WeaponHandling/KFCdragonStablebalance_test")
+local KFC_stable_test = KFC_stable_enable and restoration.Options:GetValue("WEAPONS/WeaponHandling/KFCdragonStablebalance_test")
 local damage_set = {
 	smg = {
 		"shepheard_crew",
