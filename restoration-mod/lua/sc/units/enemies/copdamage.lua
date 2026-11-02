@@ -2176,6 +2176,10 @@ end
 
 local old_death = CopDamage.die
 function CopDamage:die(attack_data)
+	-- 掉落概率 = 基础概率 + 玩家累计伤害 / 敌人初始血量 × 玩家权重倍率（最高100%，另受突变模式限制）
+	local bot_ammo_drop_base_chance = 0.8 -- 基础概率
+	local bot_ammo_drop_player_damage_weight = 2 -- 玩家权重倍率
+
 	local job = Global.level_data and Global.level_data.level_id
 	--Increment skirmish kill counter.
 	if managers.skirmish:is_skirmish() then
@@ -2191,9 +2195,7 @@ function CopDamage:die(attack_data)
 		if attacker_unit and alive(attacker_unit) then
 			if attacker_unit:in_slot(16) then
 				local roll = math.random() + mutator_ammo_drop_chance_bot_kill
-				local ammo_chance = 0.2 + self._player_damage_ratio --Enemy bot ammo drop chance increases based on the amount of damage dealy by a player.
-				--80% of health damage leading to kill dealt by a player == 100% chance to drop ammo.
-				--0% of health damage leading to kill dealt by a player == 20% chance to drop ammo.
+				local ammo_chance = math.min(1, bot_ammo_drop_base_chance + self._player_damage_ratio * bot_ammo_drop_player_damage_weight)
 
 				if roll >= ammo_chance then
 					self:set_pickup()
