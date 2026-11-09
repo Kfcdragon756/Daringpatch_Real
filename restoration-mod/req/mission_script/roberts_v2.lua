@@ -183,6 +183,12 @@ local patches = {
 -- Spread the observed harasser batch without replacing its units or routing.
 -- Find the incoming links at activation time instead of editing binary mission data.
 local harasser_offsets = {
+	-- Each police car's response sequence otherwise releases two officers
+	-- together. Preserve its other links and delay only the second officer.
+	[100305] = 0,
+	[100306] = 0.05,
+	[100307] = 0,
+	[100308] = 0.05,
 	-- Branch elements retain their normal/hard/overkill filters downstream.
 	[100885] = 0,
 	[103094] = 0.05,
