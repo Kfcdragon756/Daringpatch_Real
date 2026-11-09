@@ -1391,8 +1391,8 @@ end
 
 
 -- Overhaul group spawning and fix forced group spawns not actually forcing the entire group to spawn
--- Group spawning now always spawns the entire group at once but uses a cooldown that prevents any regular group spawns
--- for a number of seconds equal to the amount of spawned units
+-- Regular groups construct at most one unit per frame and retain their full-group cooldown.
+-- Script-forced groups remain synchronous because mission elements may depend on them.
 local force_spawn_group_original = GroupAIStateBesiege.force_spawn_group
 function GroupAIStateBesiege:force_spawn_group(...)
 	self._force_next_group_spawn = true
@@ -1402,9 +1402,12 @@ end
 
 Hooks:OverrideFunction(GroupAIStateBesiege, "_perform_group_spawning", function (self, spawn_task, force, use_last)
 	-- Prevent regular group spawning if cooldown is active unless it's a forced spawn
-	if self._next_group_spawn_t and self._next_group_spawn_t > self._t and not force and not self._force_next_group_spawn then
+	if self._next_group_spawn_t and self._next_group_spawn_t > self._t and not force and not self._force_next_group_spawn and not spawn_task._cn_paced_spawning then
 		return
 	end
+
+	local paced = not force and not self._force_next_group_spawn
+	local frame_t = TimerManager:game():time()
 
 	local produce_data = {
 		name = true,
@@ -1422,6 +1425,13 @@ Hooks:OverrideFunction(GroupAIStateBesiege, "_perform_group_spawning", function 
 				hopeless = false
 
 				if sp_data.delay_t < self._t then
+					if paced then
+						if self._cn_last_unit_spawn_t == frame_t then
+							return
+						end
+						self._cn_last_unit_spawn_t = frame_t
+						spawn_task._cn_paced_spawning = true
+					end
 					local units = category.unit_types[current_unit_type]
 					produce_data.name = units[math.random(#units)]
 					produce_data.name = managers.modifiers:modify_value("GroupAIStateBesiege:SpawningUnit", produce_data.name)
@@ -1535,6 +1545,18 @@ Hooks:OverrideFunction(GroupAIStateBesiege, "_perform_group_spawning", function 
 
 	-- Set a cooldown before new units can be spawned via regular spawn tasks
 	self._next_group_spawn_t = self._t + spawn_task.group.size * tweak_data.group_ai.spawn_cooldown_mul
+end)
+
+-- Continue only a task already admitted by the regular police scheduler. Do not
+-- start new groups here or turn its one-second scheduling interval into a frame loop.
+Hooks:PostHook(GroupAIStateBesiege, "update", "CNResumePacedGroupSpawning", function(self, t, dt)
+	if not self._is_server or not self._enemy_weapons_hot or not dt or dt <= 0 or not managers.navigation:is_data_ready() then
+		return
+	end
+	local task = self._spawning_groups and self._spawning_groups[1]
+	if task and task._cn_paced_spawning and self._cn_last_unit_spawn_t ~= TimerManager:game():time() then
+		self:_perform_group_spawning(task)
+	end
 end)
 
 -- When scripted spawns are assigned to group ai, use a generic group type instead of using their category as type
