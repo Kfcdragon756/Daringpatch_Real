@@ -94,16 +94,16 @@ local opts_beat_cops_spawngroup_1 = {
 	enabled = true,
 	on_executed = {
 		{ id = 400014, delay = 0 },
-		{ id = 400015, delay = 0 },
-		{ id = 400016, delay = 0 },
+		{ id = 400015, delay = 0.05 },
+		{ id = 400016, delay = 0.10 },
 	},
 }
 local opts_beat_cops_spawngroup_2 = {
 	enabled = true,
 	on_executed = {
-		{ id = 400017, delay = 0 },
-		{ id = 400018, delay = 0 },
-		{ id = 400019, delay = 0 },
+		{ id = 400017, delay = 0.15 },
+		{ id = 400018, delay = 0.20 },
+		{ id = 400019, delay = 0.25 },
 	},
 }
 
