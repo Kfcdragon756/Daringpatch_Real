@@ -47,7 +47,7 @@ local soldier_3 = {
 	},
 }
 
-return {
+local patches = {
     -- Add early reinforce around the bank
 	[100109] = {
 	reinforce = {
@@ -179,3 +179,64 @@ return {
 	[104689] = sewer_spawn
 	
 }
+
+-- Spread the observed harasser batch without replacing its units or routing.
+-- Find the incoming links at activation time instead of editing binary mission data.
+local harasser_offsets = {
+	-- Branch elements retain their normal/hard/overkill filters downstream.
+	[100885] = 0,
+	[103094] = 0.05,
+	[103174] = 0.10,
+	[103190] = 0.15,
+	[103206] = 0.20,
+	[103222] = 0.25,
+	[103229] = 0.30,
+	[103245] = 0.35,
+	[103261] = 0.40,
+}
+for _, script in pairs(managers.mission:scripts()) do
+	for id, element in pairs(script:elements()) do
+		local links = element._values and element._values.on_executed or {}
+		local matches = 0
+		for _, link in ipairs(links) do
+			if harasser_offsets[link.id] then
+				matches = matches + 1
+			end
+		end
+		if matches > 1 then
+			local data = patches[id] or {}
+			data.on_executed = data.on_executed or {}
+			-- Cache only the source delays on this map's element. Re-activation
+			-- must not repeatedly add the stagger to already-patched links.
+			local baselines = element._cn_harasser_delay_base or {}
+			element._cn_harasser_delay_base = baselines
+			for _, link in ipairs(links) do
+				local offset = harasser_offsets[link.id]
+				if offset then
+					local base = baselines[link.id] or {delay = link.delay or 0, delay_rand = link.delay_rand}
+					baselines[link.id] = base
+					local pending
+					for _, item in ipairs(data.on_executed) do
+						if item.id == link.id then
+							pending = item
+							break
+						end
+					end
+					if not pending or not pending.remove then
+						if not pending then
+							pending = {id = link.id}
+							data.on_executed[#data.on_executed + 1] = pending
+						end
+						pending.delay = (pending.delay or base.delay) + offset
+						if pending.delay_rand == nil then
+							pending.delay_rand = base.delay_rand
+						end
+					end
+				end
+			end
+			patches[id] = data
+		end
+	end
+end
+
+return patches
