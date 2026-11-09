@@ -924,8 +924,8 @@ function A:native_record(u, element)
     local state = self.units[u]
     return name and state and state.native_sequences and state.native_sequences[name]
 end
-function A:native_sequence(sequence, seen)
-    if self:physical_sequence(sequence) then
+function A:native_sequence(sequence, seen, physical_checked)
+    if not physical_checked and self:physical_sequence(sequence) then
         return true
     end
     if sequence._authority_native ~= nil then
@@ -971,11 +971,13 @@ function A:native_sequence(sequence, seen)
     sequence._authority_native = native
     return native
 end
-function A:native_element(element)
+-- Reuse only the negative physical check immediately preceding this call.
+-- No result is retained across callbacks or later sequence graph changes.
+function A:native_element(element, physical_checked)
     local owner = element and element._authority_owner
     -- Body damage/endurance/trigger callbacks outside an appearance sequence
     -- retain their local context and the game's own networking behaviour.
-    return not owner or self:native_sequence(owner)
+    return not owner or self:native_sequence(owner, nil, physical_checked)
 end
 function A:appearance_once(u)
     local result = {}
@@ -1044,8 +1046,7 @@ function A:record_callback(element, original, env, ...)
         return self:run_native(element, original, env, ...)
     end
     local u = env.dest_unit
-    local unit_element = element._unit_element
-    if not alive_unit(u) or not self:managed(u, unit_element) or self:native_element(element) then
+    if self:native_element(element, true) then
         return original(element, env, ...)
     end
     if is_client() then
@@ -1305,7 +1306,7 @@ function A:install_sequences()
                     not frame
                     or not A:managed(env.dest_unit)
                     or A:physical_element(element, env)
-                    or A:native_element(element)
+                    or A:native_element(element, true)
                 then
                     return original(element, env, name, value)
                 end
@@ -1422,7 +1423,7 @@ function A:install_sequences()
                     or not env.dest_unit
                     or not A:managed(env.dest_unit)
                     or A:physical_element(element, env)
-                    or A:native_element(element)
+                    or A:native_element(element, true)
                 then
                     return native(env, ...)
                 end
@@ -1497,7 +1498,7 @@ function A:install_sequences()
                     return A:run_native(element, original, env, ...)
                 end
                 -- Native gameplay runs regardless of appearance readiness or quarantine.
-                if A:native_element(element) then
+                if A:native_element(element, true) then
                     return original(element, env, ...)
                 end
                 local state = A:state(u)
